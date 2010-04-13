@@ -1,0 +1,1 @@
+require 'adva/engine' if defined?(Rails)
