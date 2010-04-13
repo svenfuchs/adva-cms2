@@ -1,4 +1,5 @@
 Feature: Managing Sections
+  @wip
   Scenario: Creating a new page
   Given I am on the admin dashboard page
   When I follow "new section"
