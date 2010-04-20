@@ -5,7 +5,7 @@ module NavigationHelpers
       '/'
     when 'the admin dashboard page'
       # admin_site_path
-      '/admin/sites/1'
+      '/adva/admin/sites/1'
     else
       raise "Can't find mapping from \"#{page_name}\" to a path.\n" +
         "Now, go and add a mapping in #{__FILE__}"

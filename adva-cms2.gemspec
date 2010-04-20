@@ -12,10 +12,11 @@ Gem::Specification.new do |s|
   s.summary      = "[summary]"
   s.description  = "[description]"
 
-  s.files        = `git ls-files {app,lib}`.split("\n")
+  s.files        = Dir['{app,config,lib}/**/*']
   s.platform     = Gem::Platform::RUBY
   s.require_path = 'lib'
-  s.autorequire = 'adva'
   s.rubyforge_project = '[none]'
   s.required_rubygems_version = '>= 1.3.6'
+  
+  s.add_dependency 'rails', '~> 3'
 end
