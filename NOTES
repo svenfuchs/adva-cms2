@@ -1,1 +1,8 @@
 we use admin/sites/show instead of admin/sections/index for dashboard like pages because it leaves more flexibility
+
+# ISSUES
+
+- form builder
+- inherited resource controller plugin
+- minimal
+- i18n key conventions

@@ -1,12 +1,11 @@
 Feature: Managing Sections
   Scenario: Creating a new page
     Given I am on the admin dashboard page
-    # When I follow "new section"
-    # Then I should see a create section form
-    # And I fill in "title" with "brand new section"
-    # And I select "section" from "type"
-    # And I choose "single article per page"
-    # And I press "create"
+    When I follow "New section"
+    Then I should see a new adva_section form
+    And I fill in "Title" with "Brand new section"
+    And I select "Page" from "Type"
+    # And I press "Create"
     # Then I should see an update article form
     # And I fill in "body" with "the brand new section's body"
     # And I press "save"
