@@ -9,7 +9,7 @@ class HostApp
     raise ArgumentError, "'#{gem_root}' is not a directory" unless File.directory?(gem_root)
     @gem_root        = gem_root
     @name            = options[:name] || File.basename(@gem_root)
-    @root            = "/tmp/#{@name}_host_app"
+    @root            = "/tmp/host_app_#{@name}"
     @template        = options[:template] || "#{@gem_root}/test/fixtures/host_app_template.rb"
     @resource_layout = "#{@gem_root}/test/fixtures/host_app_resource_layout.rb"
 
