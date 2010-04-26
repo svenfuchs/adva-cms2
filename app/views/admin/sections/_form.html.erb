@@ -5,5 +5,5 @@
   <%= f.label :type %>
   <%= f.select :type, section_types_for_select %>
   
-  <%= f.submit 'Create' %>
+  <%= f.submit section.new_record? ? 'Create' : 'Save' %>
 <% end %>

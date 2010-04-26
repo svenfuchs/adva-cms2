@@ -5,7 +5,9 @@ module NavigationHelpers
       '/'
     when 'the admin dashboard page'
       # admin_site_path
-      '/adva/admin/sites/1'
+      '/admin/sites/1'
+    when 'the admin sections index page'
+      admin_site_sections_path(1)
     else
       raise "Can't find mapping from \"#{page_name}\" to a path.\n" +
         "Now, go and add a mapping in #{__FILE__}"

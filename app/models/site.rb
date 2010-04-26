@@ -2,7 +2,7 @@
 # single-site/multi-site mode
 # owners/resources
 
-class Adva::Site < ActiveRecord::Base
+class Site < ActiveRecord::Base
   validates_presence_of :host, :name, :title
   validates_uniqueness_of :host
   
