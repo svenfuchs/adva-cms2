@@ -1,10 +1,1 @@
-<%= form_for(section, :url => adva_admin_site_sections_path(site, section)) do |f| %>
-  <%= f.label :title %>
-  <%= f.text_field :title %>
-  
-  <%= f.label :type %>
-  <%= f.select :type, section_types_for_select %>
-  
-  <%= f.submit 'Create' %>
-
-<% end %>
+<%= render :partial => 'form', :locals => { :url => adva_admin_site_sections_path(site, section) } %>

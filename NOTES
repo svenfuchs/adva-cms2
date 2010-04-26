@@ -1,4 +1,5 @@
-we use admin/sites/show instead of admin/sections/index for dashboard like pages because it leaves more flexibility
+we use admin/sites/show instead of admin/sections/index for dashboard like 
+pages because it leaves more flexibility
 
 # ISSUES
 
@@ -6,3 +7,6 @@ we use admin/sites/show instead of admin/sections/index for dashboard like pages
 - inherited resource controller plugin
 - minimal
 - i18n key conventions
+
+- controller: responders, redirect_to/return_to/registry
+- resource abstraction/reflection vs hardcoded url_helpers

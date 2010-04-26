@@ -1,0 +1,9 @@
+<%= form_for(section, :url => url) do |f| %>
+  <%= f.label :title %>
+  <%= f.text_field :title %>
+  
+  <%= f.label :type %>
+  <%= f.select :type, section_types_for_select %>
+  
+  <%= f.submit 'Create' %>
+<% end %>
