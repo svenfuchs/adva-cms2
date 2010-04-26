@@ -34,7 +34,7 @@ Cucumber::Rails::World.use_transactional_fixtures = true
 # end
 
 Before do
-  @current_site = Adva::Site.create!(:name => 'adva-cms', :host => 'adva-cms.com', :title => "adva-cms")
+  @current_site = Site.create!(:name => 'adva-cms', :host => 'adva-cms.com', :title => "adva-cms")
 end
 
 Rails.backtrace_cleaner.remove_silencers!

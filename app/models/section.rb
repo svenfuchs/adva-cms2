@@ -1,4 +1,4 @@
-class Adva::Section < ActiveRecord::Base
+class Section < ActiveRecord::Base
   # instantiates_with_sti
 
   belongs_to :site

@@ -10,3 +10,28 @@ pages because it leaves more flexibility
 
 - controller: responders, redirect_to/return_to/registry
 - resource abstraction/reflection vs hardcoded url_helpers
+
+
+
+
+adva
+  admin
+    site
+      section
+
+adva_admin_site_sections_path
+
+adva
+  site
+  section
+  
+url_for([site, section])
+
+form_for [site, section]
+resource(:adva_admin_site_section).url_for(site, section)
+
+destroy_adva_admin_site_section(site, section)
+
+<%= udpate_adva_admin_site_section(site) do |form|
+
+
