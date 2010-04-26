@@ -5,6 +5,9 @@ HostApp.new(File.expand_path('../../..', __FILE__), :template => File.expand_pat
  run 'rake adva:cms:install'
 end
 
+# for webrat 0.7.0 / rails 3.0.0.beta3 compat
+ActionController.send(:remove_const, :AbstractRequest)
+
 require 'cucumber/rails/world'
 require 'cucumber/rails/active_record'
 
