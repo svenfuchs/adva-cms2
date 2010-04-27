@@ -1,3 +1,4 @@
+
 class Section < ActiveRecord::Base
   # instantiates_with_sti
 

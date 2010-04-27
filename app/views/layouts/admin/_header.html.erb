@@ -1,0 +1,22 @@
+ <div id="header">
+	<div class="main">
+		<%#= Breadcrumbs.new(@menu.active.breadcrumbs).render if @menu.active %>
+	</div>
+
+	<div class="right">
+	  <% if current_user %>
+			<%= t(:'adva.users.info.logged_in_as', :name => link_to_profile(@site, :name => current_user.name)) %> &middot;
+			<%= link_to t(:'adva.links.logout'), logout_path, :method => :delete %>
+		<% else %>
+	  	You're not logged in <%#= link_to t(:'adva.links.login'), :controller => 'session', :action => 'new' %>
+	  <% end %>
+	  <% if @site %>
+			 &middot;
+	    <%= link_to t(:'adva.titles.website') + ' »', "http://#{@site.host}", :id => 'go_to_website' %>
+	  <% end %>
+	  <p>
+  	  <%= t(:'adva.common.change_language')%>
+  	  <%= select_tag :lang, options_for_select(I18n.available_locales.map { |l| l.to_s}, I18n.locale.to_s ) %>
+	  </p>
+	</div>
+</div>
