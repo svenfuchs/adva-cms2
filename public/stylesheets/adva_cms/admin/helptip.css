@@ -1,0 +1,35 @@
+.hint {
+  margin-top: 6px;
+  font-size: 0.85em;
+  color: #999;
+}
+
+.large {
+  font-size: 1em;
+}
+
+.move_up {
+  margin-top: -10px;
+}
+
+.padded {
+  padding: 0px 15px 15px 15px;
+}
+
+#helptip {
+	position: absolute;
+	z-index: 3000;
+	opacity: 0.90;
+	padding: 5px;
+	width: inherit;
+  background-color: #ddd;
+}
+
+#helptip h3 { 
+	margin: 0; 
+}
+
+#helptip div { 
+	margin: 0;
+	width: 250px;
+}

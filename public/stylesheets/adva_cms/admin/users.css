@@ -1,0 +1,40 @@
+#users {
+  list-style: none;
+  padding-right: 10px;
+  overflow: hidden;
+}
+#users h4 {
+  margin-top: 0;
+}
+#users li {
+  float: left;
+  width: 302px;
+  padding-bottom: 10px;
+}
+#users li p {
+  margin: 0;
+}
+#users img.avatar {
+  float: left;
+  margin-right: 10px;
+  max-height: 50px;
+  max-width: 50px;
+}
+#sidebar #users img.avatar {
+  margin-top: 0;
+  max-height: 50px;
+  max-width: 50px;
+}
+img.avatar {
+  padding: 3px;
+  background: #fff;
+  border: 1px solid #ccc;
+  max-width: 50px;
+  max-height: 50px;
+}
+#sidebar img.avatar {
+  margin-top: 15px;
+  margin-right: 10px;
+  max-width: 100px;
+  max-height: 100px;
+}
