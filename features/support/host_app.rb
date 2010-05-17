@@ -3,21 +3,31 @@ STDOUT.sync = true
 require 'fileutils'
 
 class HostApp
-  attr_reader :gem_root, :name, :root, :template, :resource_layout
+  attr_reader :gem_root, :name, :root, :template, :resource_layout, :options
 
   def initialize(gem_root, options = {}, &block)
     raise ArgumentError, "'#{gem_root}' is not a directory" unless File.directory?(gem_root)
+
     @gem_root        = gem_root
     @name            = options[:name] || File.basename(@gem_root)
     @root            = "/tmp/host_app_#{@name}"
     @template        = options[:template] || "#{@gem_root}/test/fixtures/host_app_template.rb"
     @resource_layout = "#{@gem_root}/test/fixtures/host_app_resource_layout.rb"
+    @options         = options
 
-    regenerate
-    generate_resource_layout if File.exists?(@resource_layout)
-    require_environment
-    self.instance_exec(&block) if block_given?
-    migrate
+    if options[:regenerate]
+      regenerate
+      generate_resource_layout if File.exists?(@resource_layout)
+      require_environment
+      self.instance_exec(&block) if block_given?
+      migrate
+    else
+      require_environment
+    end
+  end
+  
+  def regenerate?
+    !options.key?(:regenerate) || !options[:regenerate]
   end
 
   def in_root(&block)

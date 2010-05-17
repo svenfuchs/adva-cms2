@@ -1,6 +1,11 @@
 we use admin/sites/show instead of admin/sections/index for dashboard like 
 pages because it leaves more flexibility
 
+we should be able to use url_for and polymorphic_url because that's the abstraction
+that is native to Rails. we will need the abstraction and should not implement one
+ourselves
+
+
 # ISSUES
 
 - form builder
@@ -25,7 +30,13 @@ adva
   site
   section
   
-url_for([site, section])
+url_for([site, section, photo])
+
+/posts/1
+/admin/posts/i
+
+url_for(:admin, post)
+
 
 form_for [site, section]
 resource(:adva_admin_site_section).url_for(site, section)
