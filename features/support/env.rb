@@ -1,7 +1,10 @@
 ENV["RAILS_ENV"] ||= "test"
 require File.expand_path('../host_app', __FILE__)
 
-HostApp.new(File.expand_path('../../..', __FILE__), :template => File.expand_path('../host_app_template.rb', __FILE__)) do
+HostApp.new(
+  File.expand_path('../../..', __FILE__), 
+  :regenerate => ENV['REGENERATE_APP'], 
+  :template => File.expand_path('../host_app_template.rb', __FILE__)) do
  run 'rake adva:cms:install'
 end
 

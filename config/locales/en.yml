@@ -4,3 +4,7 @@ en:
       page: Page
     titles:
       behaviour: Behaviour
+      
+  adva:
+    common:
+      change_language: "Change language:"
