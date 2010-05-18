@@ -15,10 +15,11 @@ Feature: Installing a Site, creating a section with an article
     When I fill in "body" with "the brand new section's body"
     When I press "save"
     Then I should see an edit article form
-    
-    # And I follow "preview"
-    # Then I should see be on the "brand new section" page
-    
-    # goes to articles/show because webrat does not know about rails 3 delete links yet
-    # When I follow "delete"
-    # Then I should be on the admin sections index page
+    When I go to the admin site sections page
+    Then I should see "Brand new section"
+    When I follow "Brand new section"
+    Then I should see an edit article form
+    When I press "Delete"    
+    Then I should be on the admin site sections page
+    And I should see "Sections"
+    And I should not see "Brand new section"

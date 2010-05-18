@@ -2,7 +2,6 @@ class Admin::SectionsController < Admin::BaseController
   respond_to :html
   
   def index
-    render :text => "da indexa"
   end
 
   def new
@@ -37,4 +36,9 @@ class Admin::SectionsController < Admin::BaseController
       @section ||= params[:id] ? site.sections.find(params[:id]) : site.sections.build(:type => 'Page')
     end
     helper_method :section
+    
+    def sections
+      @sections ||= site.sections
+    end
+    helper_method :sections
 end
