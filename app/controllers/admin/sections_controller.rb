@@ -1,6 +1,8 @@
 class Admin::SectionsController < Admin::BaseController
   respond_to :html
-  
+
+  helper_method :site, :section, :sections
+
   def index
   end
 
@@ -8,8 +10,9 @@ class Admin::SectionsController < Admin::BaseController
   end
 
   def create
-    section = params[:section][:type].constantize.create!(params[:section].merge(:site_id => site.id))
-    redirect_to [:edit, :admin, site, section, section.article]
+    self.section = params[:section][:type].constantize.create!(params[:section].merge(:site_id => site.id))
+    respond_with :edit, :admin, site, section, section.article
+    # redirect_to [:edit, :admin, site, section, section.article]
   end
 
   def edit
@@ -30,15 +33,13 @@ class Admin::SectionsController < Admin::BaseController
     def site
       @site ||= Site.find(params[:site_id])
     end
-    helper_method :site
 
     def section
       @section ||= params[:id] ? site.sections.find(params[:id]) : site.sections.build(:type => 'Page')
     end
-    helper_method :section
-    
+    attr_writer :section
+
     def sections
       @sections ||= site.sections
     end
-    helper_method :sections
 end
