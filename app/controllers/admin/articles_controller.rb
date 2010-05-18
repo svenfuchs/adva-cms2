@@ -12,11 +12,6 @@ class Admin::ArticlesController < Admin::BaseController
     redirect_to resource(:edit)
   end
 
-  def destroy
-    article.destroy
-    redirect_to :action => :index
-  end
-
   protected
   
     def resource(action = nil)
