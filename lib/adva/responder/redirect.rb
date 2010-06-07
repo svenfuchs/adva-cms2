@@ -14,7 +14,6 @@ module Adva
         when 'admin/sections#create'
           redirect_to([:edit, *resources])
         when 'admin/articles#update'
-          p resources
           redirect_to([:edit, *resources])
         end unless get? || has_errors?
       end
