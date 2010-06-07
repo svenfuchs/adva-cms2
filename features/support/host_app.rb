@@ -19,7 +19,7 @@ class HostApp
       regenerate
       generate_resource_layout if File.exists?(@resource_layout)
       require_environment
-      self.instance_exec(&block) if block_given?
+      in_root { self.instance_exec(&block) } if block_given?
       migrate
     else
       require_environment
@@ -58,6 +58,7 @@ class HostApp
 
   def require_environment
     in_root do
+      # $: << File.expand_path('../../..', __FILE__)
       require "#{root}/config/environment"
     end
   end

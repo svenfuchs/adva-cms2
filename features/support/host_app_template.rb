@@ -3,10 +3,10 @@
 gem_root = ENV['GEM_ROOT']
 
 gem 'adva-cms2', :path => gem_root, :require => 'adva/cms'
-gem 'cucumber'
-gem 'cucumber-rails'
-gem 'webrat', '0.7.0'
-gem 'thor'
-# gem 'launchy'
-gem 'ruby-debug'
-gem 'resource_awareness'
+# gem 'cucumber'
+# gem 'cucumber-rails'
+# gem 'webrat', '0.7.0'
+# gem 'thor'
+# # gem 'launchy'
+# gem 'ruby-debug'
+# gem 'resource_awareness'

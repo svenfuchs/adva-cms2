@@ -1,12 +1,21 @@
 module Adva
   class Cms < ::Rails::Engine
+    rake_tasks do
+      load 'tasks/adva/cms/install.rake'
+    end
+
     initializer 'adva.cms.register_section_types' do
       require 'page'
     end
 
+    # initializer 'adva.cms.config.load_paths' do
+    #   Rails.application.config.load_paths.push("#{config.root}/responders")
+    # end
+
     initializer 'adva.cms.register_middlewares' do
-      Rails.application.config.middleware.use Rack::Static, :urls => ["/stylesheets/adva_cms", "/javascripts/adva_cms", "/images/adva_cms"],
-                                                            :root => File.expand_path('../../../public', __FILE__)
+      urls = ["/stylesheets/adva_cms", "/javascripts/adva_cms", "/images/adva_cms"]
+      root = File.expand_path('../../../public', __FILE__)
+      Rails.application.config.middleware.use Rack::Static, :urls => urls, :root => root
     end
 
     initializer 'adva.cms.register_asset_expansions' do
