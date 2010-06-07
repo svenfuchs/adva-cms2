@@ -12,4 +12,6 @@ group :test do
   gem 'webrat', '0.7.0'
   gem 'thor'
   gem 'ruby-debug'
+  gem 'test_declarative'
+  gem 'database_cleaner'
 end

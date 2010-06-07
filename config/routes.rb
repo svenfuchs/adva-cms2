@@ -6,4 +6,7 @@ Rails.application.routes.draw do
       end
     end
   end
+  resources :installations, :only => [:new, :create]
+
+  root :to => redirect('/installations/new')
 end

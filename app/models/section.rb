@@ -4,7 +4,7 @@ class Section < ActiveRecord::Base
     self == Section ? super : Section.model_name
   end
   
-  belongs_to :site
+  belongs_to :site, :inverse_of => :sections
   validates_presence_of :site, :title
 
   # has_option :contents_per_page, :default => 15

@@ -1,0 +1,6 @@
+<%= form_for(site, :url => installations_path) do |f| %>
+  <%= f.label :title %>
+  <%= f.text_field :title %>
+  
+  <%= f.submit 'Create' %>
+<% end %>
