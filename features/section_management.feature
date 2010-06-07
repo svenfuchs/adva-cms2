@@ -1,10 +1,5 @@
-Feature: Installing a Site, creating a section with an article
-  # Background: no site
-  
+Feature: Managing sections
   Scenario: Creating a new page
-    # Given I go to the homepage
-    # Then I see the install page
-    
     Given I am on the admin dashboard page
     When I follow "New section"
     Then I should see a new section form

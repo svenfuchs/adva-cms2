@@ -4,7 +4,6 @@
 # instead of editing this one. Cucumber will automatically load all features/**/*.rb
 # files.
 
-
 require 'uri'
 require File.expand_path(File.join(File.dirname(__FILE__), "..", "support", "paths"))
 
@@ -13,10 +12,12 @@ require File.expand_path(File.join(File.dirname(__FILE__), "..", "support", "pat
 
 Given /^(?:|I )am on (.+)$/ do |page_name|
   visit path_to(page_name)
+  follow_redirect! if redirect?
 end
 
 When /^(?:|I )go to (.+)$/ do |page_name|
   visit path_to(page_name)
+  follow_redirect! if redirect?
 end
 
 When /^(?:|I )press "([^\"]*)"$/ do |button|

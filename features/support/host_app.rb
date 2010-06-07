@@ -38,13 +38,13 @@ class HostApp
 
   def run(command, &block)
     in_root do
-      system "#{command}" #  > /tmp/#{name}_host_app.log
+      system "#{command}"
     end
   end
 
   def regenerate
     FileUtils.rm_rf(root) if File.exist?(root)
-    system "GEM_ROOT='#{gem_root}' rails #{root} -m #{template}" #  > /tmp/#{name}_host_app.log
+    system "GEM_ROOT='#{gem_root}' rails #{root} -m #{template}"
   end
 
   def generate_resource_layout
@@ -58,7 +58,6 @@ class HostApp
 
   def require_environment
     in_root do
-      # $: << File.expand_path('../../..', __FILE__)
       require "#{root}/config/environment"
     end
   end

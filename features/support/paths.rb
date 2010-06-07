@@ -8,6 +8,8 @@ module NavigationHelpers
       '/admin/sites/1'
     when 'the admin site sections page'
       admin_site_sections_path(1)
+    when 'the site installation page'
+      new_installation_path
     else
       raise "Can't find mapping from \"#{page_name}\" to a path.\n" +
         "Now, go and add a mapping in #{__FILE__}"
