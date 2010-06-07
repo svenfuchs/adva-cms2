@@ -18,10 +18,8 @@ ActionController.send(:remove_const, :AbstractRequest)
 
 require 'cucumber/rails/world'
 require 'cucumber/rails/active_record'
-
 require 'webrat'
 require 'webrat/core/matchers'
-
 require 'test/unit/assertions'
 require 'action_dispatch/testing/assertions'
 
