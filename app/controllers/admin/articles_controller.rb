@@ -11,7 +11,7 @@ class Admin::ArticlesController < Admin::BaseController
 
   def update
     article.update_attributes!(params[:article])
-    redirect_to resource(:edit)
+    respond_with(*resource)
   end
 
   protected

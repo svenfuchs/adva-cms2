@@ -1,5 +1,5 @@
 Feature: Installing a Site, creating a section with an article
-  # ... Background: no site
+  # Background: no site
   
   Scenario: Creating a new page
     # Given I go to the homepage
