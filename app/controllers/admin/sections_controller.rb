@@ -10,9 +10,8 @@ class Admin::SectionsController < Admin::BaseController
   end
 
   def create
-    self.section = params[:section][:type].constantize.create!(params[:section].merge(:site_id => site.id))
-    respond_with :edit, :admin, site, section, section.article
-    # redirect_to [:edit, :admin, site, section, section.article]
+    self.section = params[:section][:type].constantize.create(params[:section].merge(:site_id => site.id))
+    respond_with :admin, site, section, section.article
   end
 
   def edit
@@ -29,6 +28,10 @@ class Admin::SectionsController < Admin::BaseController
   end
 
   protected
+
+    def resource(action = nil)
+      [:admin, site, section].tap { |r| r.unshift(action) if action }
+    end
 
     def site
       @site ||= Site.find(params[:site_id])
