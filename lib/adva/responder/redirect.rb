@@ -11,11 +11,9 @@ module Adva
       
       def responder_redirect
         case controller_action_path
-        when 'admin/sections#create'
+        when 'admin/sections#create', 'admin/articles#update'
           redirect_to([:edit, *resources])
-        when 'admin/articles#update'
-          redirect_to([:edit, *resources])
-        end unless get? || has_errors?
+        end unless has_errors?
       end
       
       def controller_action_path

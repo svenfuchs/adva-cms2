@@ -1,6 +1,16 @@
-<%= form_for(site, :url => installations_path) do |f| %>
-  <%= f.label :title %>
-  <%= f.text_field :title %>
+<%= form_for(site, :url => installations_path) do |site| %>
+  <%= hidden_field_tag :return_to, '/' %>
+
+  <%= site.label :name %>
+  <%= site.text_field :name %>
   
-  <%= f.submit 'Create' %>
+  <%= site.fields_for(:sections) do |sections| %>
+    <%= sections.label :type %>
+    <%= sections.select :type, section_types_for_select %>
+  
+    <%= sections.label :title %>
+    <%= sections.text_field :title %>
+  <% end %>
+  
+  <%= site.submit 'Create' %>
 <% end %>

@@ -1,6 +1,7 @@
 class Admin::SectionsController < Admin::BaseController
   respond_to :html
 
+  helper :sections
   helper_method :site, :section, :sections
 
   def index

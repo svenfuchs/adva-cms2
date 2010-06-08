@@ -21,4 +21,10 @@ class Section < ActiveRecord::Base
   def type
     read_attribute(:type) || 'Section'
   end
+  
+  def attributes_protected_by_default
+    default = [ self.class.primary_key ] # , self.class.inheritance_column
+    default << 'id' unless self.class.primary_key.eql? 'id'
+    default
+  end
 end

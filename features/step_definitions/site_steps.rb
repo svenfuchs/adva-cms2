@@ -1,3 +1,3 @@
-Given /^No site$/ do
+Given /^no site$/ do
   Site.delete_all
 end
