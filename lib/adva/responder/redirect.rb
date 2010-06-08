@@ -6,7 +6,7 @@ module Adva
       end
       
       def return_to_redirect
-        redirect_to(params[:return_to]) if params[:return_to]
+        redirect_to(params[:return_to]) if params[:return_to] && !has_errors?
       end
       
       def responder_redirect

@@ -33,7 +33,10 @@ ActionController::Base.allow_rescue = false
 Cucumber::Rails::World.use_transactional_fixtures = true
 
 Before do
-  @current_site = Site.create!(:name => 'adva-cms', :host => 'adva-cms.com', :title => "adva-cms")
+  @current_site = Site.create!(
+    :name => 'adva-cms', :host => 'adva-cms.com', :title => "adva-cms",
+    :sections_attributes => [{ :type => 'Page', :title => 'Home' }]
+  )
 end
 
 Rails.backtrace_cleaner.remove_silencers!

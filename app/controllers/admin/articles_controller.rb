@@ -1,5 +1,4 @@
 class Admin::ArticlesController < Admin::BaseController
-  respond_to :html
   
   helper_method :resource, :site, :section, :article
   
@@ -11,7 +10,7 @@ class Admin::ArticlesController < Admin::BaseController
 
   def update
     article.update_attributes!(params[:article])
-    respond_with(*resource)
+    respond_with *resource
   end
 
   protected
