@@ -3,6 +3,9 @@ module NavigationHelpers
     case page_name
     when /the home\s?page/
       '/'
+    when /the admin dashboard page for the site on "(.*)"/
+      site = Site.find_by_host($1) || raise("could not find site with host #{$1}")
+      admin_site_path(site)
     when 'the admin dashboard page'
       admin_site_path(Site.first)
     when 'the admin site sections page'

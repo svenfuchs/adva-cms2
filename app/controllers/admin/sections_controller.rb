@@ -1,5 +1,4 @@
 class Admin::SectionsController < Admin::BaseController
-  respond_to :html
 
   helper :sections
   helper_method :site, :section, :sections
@@ -11,7 +10,7 @@ class Admin::SectionsController < Admin::BaseController
   end
 
   def create
-    self.section = params[:section][:type].constantize.create(params[:section].merge(:site_id => site.id))
+    @section = params[:section][:type].constantize.create(params[:section].merge(:site_id => site.id))
     respond_with :admin, site, section, section.article
   end
 
@@ -41,7 +40,6 @@ class Admin::SectionsController < Admin::BaseController
     def section
       @section ||= params[:id] ? site.sections.find(params[:id]) : site.sections.build(:type => 'Page')
     end
-    attr_writer :section
 
     def sections
       @sections ||= site.sections

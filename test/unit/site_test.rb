@@ -15,7 +15,8 @@ class SiteTest < Test::Unit::TestCase
   end
   
   test "site creation" do
-    assert Site.create(site_params).valid?
+    site = Site.create(site_params)
+    assert site.valid?
   end
 
   test "site accepts nested attributes for :section" do
@@ -38,5 +39,18 @@ class SiteTest < Test::Unit::TestCase
   test "site validates presence of :host" do
     site_params.delete(:host)
     assert_equal "can't be blank", Site.create(site_params).errors.values.flatten.first
+  end
+  
+  # test "site has one home section" do
+  #   site_params[:sections_attributes] << { :type => 'Page', :title => 'Contact' }
+  #   site = Site.create(site_params)
+  #   assert_equal 'Home', site.home_section.title
+  # end
+  
+  test "site validates presence of the home section" do
+    site_params.delete(:sections_attributes)
+    site = Site.new(site_params)
+    assert !site.valid?
+    assert_equal 'Site needs a home section', site.errors.values.flatten.first
   end
 end
