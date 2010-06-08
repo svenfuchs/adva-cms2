@@ -5,7 +5,7 @@ gem 'resource_awareness'
 
 group :test do
   gem 'adva-cms2', :path => File.expand_path('..', __FILE__), :require => 'adva/cms'
-  gem 'sqlite3-ruby'
+  gem 'sqlite3-ruby', '1.2.5'
   gem 'cucumber'
   gem 'cucumber-rails'
   gem 'webrat', '0.7.0'

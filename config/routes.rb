@@ -6,7 +6,8 @@ Rails.application.routes.draw do
       end
     end
   end
+  resources :sections,      :only => [:index, :show] # TODO remove index, gotta fix resource_awareness
   resources :installations, :only => [:new, :create]
 
-  root :to => redirect('/installations/new')
+  root :to => redirect(lambda { Site.first ? "/sections/#{Site.first.sections.first.id}" : '/installations/new' })
 end

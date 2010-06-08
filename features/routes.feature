@@ -5,6 +5,7 @@ Feature: Routes
       | method | path                | controller     | action  | id |
       | GET    | /installations/new  | installations  | new     |    |
       | POST   | /installations      | installations  | create  |    |
+      | GET    | /sections/1         | sections       | show    | 1  |
       | GET    | /admin/sites        | admin/sites    | index   |    |
       | GET    | /admin/sites/1      | admin/sites    | show    | 1  |
       | GET    | /admin/sites/new    | admin/sites    | new     |    |

@@ -19,7 +19,10 @@ class SiteTest < Test::Unit::TestCase
   end
 
   test "site accepts nested attributes for :section" do
-    assert !Site.create(site_params).sections.first.new_record?
+    site = Site.create(site_params)
+    section = site.sections.first
+    assert !section.new_record?
+    assert_equal 'Page', section.type
   end
 
   test "site validates presence of :name" do

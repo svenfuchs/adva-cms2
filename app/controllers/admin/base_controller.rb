@@ -1,5 +1,4 @@
 class Admin::BaseController < ActionController::Base
-  helper Admin::BaseHelper
   layout 'admin'
   
   def self.responder
