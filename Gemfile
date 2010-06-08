@@ -1,7 +1,6 @@
 source :rubygems
 
 gem 'rails', '3.0.0.beta3'
-gem 'prosecco'
 gem 'resource_awareness'
 
 group :test do
