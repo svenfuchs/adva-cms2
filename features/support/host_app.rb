@@ -20,7 +20,7 @@ class HostApp
       generate_resource_layout if File.exists?(@resource_layout)
       require_environment
       in_root { self.instance_exec(&block) } if block_given?
-      migrate
+      in_root { migrate }
     else
       require_environment
     end
@@ -44,7 +44,7 @@ class HostApp
 
   def regenerate
     FileUtils.rm_rf(root) if File.exist?(root)
-    system "GEM_ROOT='#{gem_root}' rails #{root} -m #{template}"
+    system "GEM_ROOT='#{gem_root}' rails new #{root} --template=#{template}"
   end
 
   def generate_resource_layout

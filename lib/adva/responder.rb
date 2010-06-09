@@ -4,7 +4,7 @@ module Adva
   class Responder < ActionController::Responder
     include Adva::Responder::Flash
     include Adva::Responder::Redirect
-    include Prosecco::Responder
+    # include Prosecco::Responder
     
     def params
       controller.params
