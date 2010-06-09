@@ -9,7 +9,7 @@ module Adva
         redirect_to(params[:return_to]) if params[:return_to] && !has_errors?
       end
       
-      def responder_redirect
+      def responder_redirect # TODO extract to registry
         case controller_action_path
         when 'admin/sections#create', 'admin/articles#update'
           redirect_to([:edit, *resources])
