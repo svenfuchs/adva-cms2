@@ -10,7 +10,7 @@ options = {
   :template   => File.expand_path('../../fixtures/host_app_template.rb', __FILE__)
 }
 HostApp.new(File.expand_path('../../..', __FILE__), options) do
-  run 'rake adva:cms:install'
+  run 'rake adva:cms:install --trace'
 end
 
 # for webrat 0.7.0 / rails 3.0.0.beta3 compat

@@ -53,7 +53,7 @@ class HostApp
   end
 
   def migrate
-    run "rake db:migrate db:schema:dump db:test:clone_structure"
+    run "rake db:migrate db:schema:dump db:test:clone_structure --trace RAILS_ENV=test"
   end
 
   def require_environment
