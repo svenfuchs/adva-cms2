@@ -5,6 +5,10 @@ class Admin::SectionsController < Admin::BaseController
 
   def index
   end
+  
+  def show
+    redirect_to :action => :edit # TODO TMP!
+  end
 
   def new
   end
