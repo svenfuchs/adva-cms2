@@ -1,1 +1,3 @@
-Dir[Rails.root + 'lib/patches/**/*'].each { |file| require file }
+Dir[File.expand_path('../../../lib/patches/**/*.rb', __FILE__)].each do |file|
+  require file
+end

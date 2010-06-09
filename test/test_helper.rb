@@ -17,6 +17,12 @@ ActiveRecord::Migrator.up(File.expand_path('../../db/migrate', __FILE__))
 
 DatabaseCleaner.strategy = :truncation
 
+require 'site'
+require 'section'
+require 'page'
+require 'content'
+require 'article'
+
 class Test::Unit::TestCase
   def teardown
     DatabaseCleaner.clean

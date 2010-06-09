@@ -1,10 +1,4 @@
 require File.expand_path('../../test_helper', __FILE__)
-require 'site'
-require 'section'
-require 'page'
-require 'content'
-require 'article'
-
 
 class PageTest < Test::Unit::TestCase
   attr_reader :page_params
