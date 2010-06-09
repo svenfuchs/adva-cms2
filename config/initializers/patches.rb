@@ -1,0 +1,1 @@
+Dir[Rails.root + 'lib/patches/**/*'].each { |file| require file }
