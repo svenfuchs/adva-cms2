@@ -1,6 +1,6 @@
 # sections tree
 # single-site/multi-site mode
-# owners/resources
+# owners/resourcess
 
 class Site < ActiveRecord::Base
   validates_presence_of :host, :name, :title

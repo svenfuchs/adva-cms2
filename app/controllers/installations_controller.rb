@@ -2,7 +2,7 @@ class InstallationsController < BaseController
   respond_to :html
 
   helper :sections
-  helper_method :resource, :site
+  helper_method :resources, :site
 
   before_filter :normalize_install_params, :only => :create
 
