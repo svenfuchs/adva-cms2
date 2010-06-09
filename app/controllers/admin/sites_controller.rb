@@ -1,7 +1,7 @@
 class Admin::SitesController < Admin::BaseController
   
   helper :sections
-  helper_method :resource, :site
+  helper_method :resources, :site
   
   def index
   end
@@ -14,12 +14,12 @@ class Admin::SitesController < Admin::BaseController
   
   def create
     site.save
-    respond_with *resource
+    respond_with *resources
   end
   
   protected
   
-    def resource
+    def resources
       [:admin, site]
     end
   

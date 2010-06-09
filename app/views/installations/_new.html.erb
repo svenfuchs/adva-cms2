@@ -3,7 +3,7 @@
 <p><%= t(:'adva.sites.install.welcome_to_installation') %></p>
 <p><%= t(:'adva.sites.install.can_always_change_settings') %></p>
 
-<% form_for(resource) do |f| %>
+<% form_for(resources) do |f| %>
   <h3><%= t(:'adva.titles.website') %></h3>
   <% f.field_set :site do %>
     <% fields_for @site do |site| %>

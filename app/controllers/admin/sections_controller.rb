@@ -29,7 +29,7 @@ class Admin::SectionsController < Admin::BaseController
 
   protected
 
-    def resource(action = nil)
+    def resources(action = nil)
       [:admin, site, section].tap { |r| r.unshift(action) if action }
     end
 

@@ -1,6 +1,6 @@
 class Admin::ArticlesController < Admin::BaseController
   
-  helper_method :resource, :site, :section, :article
+  helper_method :resources, :site, :section, :article
   
   def index
   end
@@ -10,12 +10,12 @@ class Admin::ArticlesController < Admin::BaseController
 
   def update
     article.update_attributes!(params[:article])
-    respond_with *resource
+    respond_with *resources
   end
 
   protected
   
-    def resource(action = nil)
+    def resources(action = nil)
       [:admin, site, section, article].tap { |r| r.unshift(action) if action }
     end
 
