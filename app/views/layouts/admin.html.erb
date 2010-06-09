@@ -2,51 +2,51 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
- 	<meta name="generator" content="adva-cms" />
+  <meta name="generator" content="adva-cms" />
   <title>adva-cms: Admin <%= controller.controller_name %></title>
   <%= stylesheet_link_tag :admin, :media => 'all' %>
   <%= javascript_include_tag :admin %>
-	<%#= javascript_tag "window._auth_token = #{form_authenticity_token.inspect}" %>
-	<%= yield :head %>
+  <%#= javascript_tag "window._auth_token = #{form_authenticity_token.inspect}" %>
+  <%= yield :head %>
 </head>
 <body>
-	<%#= @menu.build(self).root.render(:id => 'top') %>
-	<div id="top">
-	  <ul class="main">
-	    <li class="item active"><a href="/admin/sites/151" id="show_site">Übersicht</a></li>
-	    <li class="item">
-	      <a href="/admin/sites/151/sections" id="index_sections">Sektionen</a>
-	      <ul id="sections_menu">
-	        <li><a class="level_0" href="/admin/sites/151/sections/311/articles">Home</a></li>
-	      </ul>
-	    </li>
-	    <li class="item"><a href="/admin/sites/151/comments" id="index_comments">Kommentare</a></li>
-	    <li class="item"><a href="/admin/sites/151/newsletters" id="index_adva_newsletters">Newsletter</a></li>
-	    <li class="item"><a href="/admin/sites/151/assets" id="index_assets">Dateien</a></li>
-	  </ul>
-	  <ul class="right">
-	    <li class="item"><a href="/admin/sites/151/themes" id="index_themes">Themes</a></li>
-	    <li class="item"><a href="/admin/sites/151/edit" id="edit_site">Einstellungen</a></li>
-	    <li class="item"><a href="/admin/sites/151/users" id="index_users">Benutzer</a></li>
-	    <li class="item"><a href="/admin/sites/151/users/31/edit_profile" id="profile">Profil</a></li>
-	  </ul>
-	</div>
-	<%= render :partial => 'layouts/admin/header' %>
-	<div id="page">
-	  <%= flash.inspect %>
-		<%#= yield :form if @content_for_form %>
-		<div class="main">
-			<%#= @menu.root.find(:main).try(:render, :id => 'main_menu') %>
+  <%#= @menu.build(self).root.render(:id => 'top') %>
+  <div id="top">
+    <ul class="main">
+      <li class="item active"><a href="/admin/sites/151" id="show_site">Übersicht</a></li>
+      <li class="item">
+        <a href="/admin/sites/151/sections" id="index_sections">Sektionen</a>
+        <ul id="sections_menu">
+          <li><a class="level_0" href="/admin/sites/151/sections/311/articles">Home</a></li>
+        </ul>
+      </li>
+      <li class="item"><a href="/admin/sites/151/comments" id="index_comments">Kommentare</a></li>
+      <li class="item"><a href="/admin/sites/151/newsletters" id="index_adva_newsletters">Newsletter</a></li>
+      <li class="item"><a href="/admin/sites/151/assets" id="index_assets">Dateien</a></li>
+    </ul>
+    <ul class="right">
+      <li class="item"><a href="/admin/sites/151/themes" id="index_themes">Themes</a></li>
+      <li class="item"><a href="/admin/sites/151/edit" id="edit_site">Einstellungen</a></li>
+      <li class="item"><a href="/admin/sites/151/users" id="index_users">Benutzer</a></li>
+      <li class="item"><a href="/admin/sites/151/users/31/edit_profile" id="profile">Profil</a></li>
+    </ul>
+  </div>
+  <%= render :partial => 'layouts/admin/header' %>
+  <div id="page">
+    <%# flash.inspect %>
+    <%#= yield :form if @content_for_form %>
+    <div class="main">
+      <%#= @menu.root.find(:main).try(:render, :id => 'main_menu') %>
       <%#= render :partial => 'shared/flash' %>
-			<div id="content">
+      <div id="content">
         <%= yield %>
-			</div>
-		</div>
-   	<div id="sidebar" class="right">
-     	<%= yield :sidebar %>
-   	</div>
+      </div>
+    </div>
+    <div id="sidebar" class="right">
+      <%= yield :sidebar %>
+    </div>
     <%#= '</form>' if @content_for_form %>
-		<div id="left" class="collapsed"></div>
+    <div id="left" class="collapsed"></div>
   </div>
 </body>
 </html>
