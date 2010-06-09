@@ -49,6 +49,6 @@ class SiteTest < Test::Unit::TestCase
     site_params.delete(:sections_attributes)
     site = Site.new(site_params)
     assert !site.valid?
-    assert_equal 'Site needs a home section', site.errors.values.flatten.first
+    assert_equal "can't be blank", site.errors.values.flatten.first
   end
 end
