@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
-  devise_for :users
+  match '/users/sign_in',  :to => 'admin/session#new',     :as => 'new_user_session'
+  match '/users/sign_in',  :to => 'admin/session#create',  :as => 'user_session', :via => :post
+  match '/users/sign_out', :to => 'admin/session#destroy', :as => 'new_user_session'
+
   namespace :admin do
     resources :sites do
       resources :sections do
