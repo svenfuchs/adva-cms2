@@ -1,5 +1,5 @@
 <h2>Sign in</h2>
-xxxxxxx
+
 <%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
   <p><%= f.label :email %></p>
   <p><%= f.text_field :email %></p>
@@ -14,4 +14,4 @@ xxxxxxx
   <p><%= f.submit "Sign in" %></p>
 <% end %>
 
-<%= render :partial => "devise/shared/links" %>
+<%= render :partial => "admin/shared/devise_links" %>
