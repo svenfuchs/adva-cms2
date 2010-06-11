@@ -1,5 +1,6 @@
 Feature: Managing sections
   Scenario: Creating a new page
+    Given I am signed in
     Given I am on the admin dashboard page
     When I follow "New section"
     Then I should see a new section form

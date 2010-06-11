@@ -1,6 +1,7 @@
 Feature: Managing sites
   Scenario: Creating a new site
-    Given I am on the admin dashboard page
+    Given I am signed in
+    And I am on the admin dashboard page
     When I follow "New site"
     Then I should see a new site form
     And I fill in "Name" with "Site 2"

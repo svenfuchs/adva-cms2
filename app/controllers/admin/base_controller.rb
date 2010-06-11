@@ -1,5 +1,7 @@
 class Admin::BaseController < ActionController::Base
   
+  before_filter :authenticate_user!
+  
   respond_to :html
   layout 'admin'
   
@@ -7,8 +9,4 @@ class Admin::BaseController < ActionController::Base
     Adva::Responder
   end
   
-  def current_user
-    Struct.new(:name, :roles).new('Ingo', ['admin'])
-  end
-  helper_method :current_user
 end
