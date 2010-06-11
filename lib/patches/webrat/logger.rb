@@ -1,3 +1,8 @@
+begin
+  require 'webrat'
+rescue LoadError
+end
+# require 'webrat/core/logging'
 require 'gem_patching'
 
 Gem.patching('webrat', '0.7.0') do
@@ -11,4 +16,4 @@ Gem.patching('webrat', '0.7.0') do
       end
     end
   end
-end
+end if defined?(Webrat)
