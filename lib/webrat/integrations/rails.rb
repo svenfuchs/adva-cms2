@@ -1,7 +1,7 @@
 # webrat/integrations/rails.rb requires 'action_controller/integration' which
 # does not exist in rails 3 any more. so we gotta replace the whole file.
 
-require 'gem/patching'
+require 'gem_patching'
 
 Gem.patching('webrat', '0.7.0') do
   require "action_controller"

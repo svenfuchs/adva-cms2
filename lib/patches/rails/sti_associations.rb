@@ -1,4 +1,4 @@
-require 'gem/patching'
+require 'gem_patching'
 
 # Make build associations have their given type
 # i.e.: site.sections.build(:type => 'Page').class == Page
