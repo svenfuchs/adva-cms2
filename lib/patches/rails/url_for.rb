@@ -1,4 +1,4 @@
-require 'gem/patching'
+require 'gem_patching'
 
 # remove trailing '.1' from url
 Gem.patching('rails', '3.0.0.beta4') do 

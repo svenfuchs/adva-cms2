@@ -1,4 +1,4 @@
-require 'gem/patching'
+require 'gem_patching'
 
 Gem.patching('webrat', '0.7.0') do
   Webrat::Logging.class_eval do
