@@ -19,4 +19,5 @@ Gem::Specification.new do |s|
   s.required_rubygems_version = '>= 1.3.6'
   
   s.add_dependency 'rails', '~> 3'
+  s.add_dependency 'devise', '1.1.rc1'
 end

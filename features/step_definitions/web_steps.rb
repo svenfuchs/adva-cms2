@@ -258,6 +258,14 @@ Then /^(?:|I )should be on (.+)$/ do |page_name|
   end
 end
 
+Then /^(?:|I )should not be on (.+)$/ do |page_name|
+  if defined?(Spec::Rails::Matchers)
+    URI.parse(current_url).path.should != path_to(page_name)
+  else
+    assert_not_equal path_to(page_name), URI.parse(current_url).path
+  end
+end
+
 Then /^(?:|I )should have the following query string:$/ do |expected_pairs|
   actual_params   = CGI.parse(URI.parse(current_url).query)
   expected_params = Hash[expected_pairs.rows_hash.map{|k,v| [k,[v]]}]

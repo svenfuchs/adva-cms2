@@ -6,6 +6,8 @@ module NavigationHelpers
     when /the admin dashboard page for the site on "(.*)"/
       site = Site.find_by_host($1) || raise("could not find site with host #{$1}")
       admin_site_path(site)
+    when 'the admin sites page'
+      admin_sites_path
     when 'the admin dashboard page'
       admin_site_path(Site.first)
     when 'the admin site sections page'
@@ -14,9 +16,12 @@ module NavigationHelpers
       new_installation_path
     when 'the home section page'
       section_path(Site.first.sections.first) # TODO
+    when 'the signin page'
+      new_user_session_path
     else
-      raise "Can't find mapping from \"#{page_name}\" to a path.\n" +
-        "Now, go and add a mapping in #{__FILE__}"
+      named_route_helper = page_name.gsub(/(\Athe )|( page\Z)/, '').gsub(/ +/, '_').downcase + '_path'
+      raise "Can't find mapping from \"#{page_name}\" to a path.\nNow, go and add a mapping in #{__FILE__}" unless respond_to?(named_route_helper)
+      send named_route_helper
     end
   end
 end

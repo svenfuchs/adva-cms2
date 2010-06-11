@@ -13,4 +13,5 @@ group :test do
   gem 'ruby-debug'
   gem 'test_declarative'
   gem 'database_cleaner'
+  gem 'devise', '1.1.rc1'
 end
