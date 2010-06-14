@@ -1,5 +1,4 @@
 class Admin::SitesController < Admin::BaseController
-  
   helper :sections
   helper_method :resources, :site
   

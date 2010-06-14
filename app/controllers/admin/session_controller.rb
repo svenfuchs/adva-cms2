@@ -1,5 +1,5 @@
 class Admin::SessionController < Devise::SessionsController
-  layout 'admin'
+  layout 'login'
   
   def new
     super
