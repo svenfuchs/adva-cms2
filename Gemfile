@@ -1,6 +1,7 @@
 source :rubygems
 
 gem 'rails', '3.0.0.beta4'
+gem 'devise', '1.1.rc1'
 gem 'resource_awareness'
 
 group :test do
@@ -13,5 +14,4 @@ group :test do
   gem 'ruby-debug'
   gem 'test_declarative'
   gem 'database_cleaner'
-  gem 'devise', '1.1.rc1'
 end

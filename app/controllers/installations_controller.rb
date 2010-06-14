@@ -23,10 +23,14 @@ class InstallationsController < BaseController
   def create
     # TODO create a superuser
     site = Site.create(params[:site])
-    respond_with site
+    respond_with *resources
   end
 
   protected
+    def resources
+      [:admin, site]
+    end
+  
     def site
       @site ||= Site.new(:sections_attributes => [{ :title => t(:'adva.sites.install.section_default', :default => 'Home') }])
     end

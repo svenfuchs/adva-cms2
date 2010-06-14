@@ -17,9 +17,9 @@
         case "#{controller_path}##{params[:action]}"
         when 'installations#new'
           'Install'
-        when 'admin/registrations#new'
+        when 'admin/registrations#new', 'admin/registrations#create'
           'Sign up'
-        when 'admin/session#new'
+        when 'admin/session#new', 'admin/session#create'
           'Sign in'
         end
       %></a></li>
