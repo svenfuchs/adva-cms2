@@ -8,3 +8,7 @@ en:
   adva:
     common:
       change_language: "Change language:"
+      logged_in_as: "Logged in as %{user}"
+      log_in: "Log in"
+      log_out: "Log out"
+      website: "Website"
