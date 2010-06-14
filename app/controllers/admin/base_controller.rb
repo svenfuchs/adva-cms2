@@ -1,5 +1,4 @@
 class Admin::BaseController < ActionController::Base
-  
   before_filter :authenticate_user!
   
   respond_to :html
@@ -8,5 +7,4 @@ class Admin::BaseController < ActionController::Base
   def self.responder
     Adva::Responder
   end
-  
 end

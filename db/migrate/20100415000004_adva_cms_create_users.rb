@@ -7,6 +7,8 @@ class AdvaCmsCreateUsers < ActiveRecord::Migration
       t.rememberable
       t.trackable
       t.timestamps
+      
+      t.string :roles
     end
   end
 

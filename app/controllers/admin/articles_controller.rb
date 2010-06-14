@@ -10,7 +10,7 @@ class Admin::ArticlesController < Admin::BaseController
 
   def update
     article.update_attributes!(params[:article])
-    respond_with *resources
+    respond_with :edit, *resources
   end
 
   protected

@@ -15,7 +15,7 @@ class Admin::SectionsController < Admin::BaseController
 
   def create
     @section = params[:section][:type].constantize.create(params[:section].merge(:site_id => site.id))
-    respond_with :admin, site, section, section.article
+    respond_with :edit, :admin, site, section, section.article
   end
 
   def edit
