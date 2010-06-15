@@ -11,10 +11,10 @@ module Adva
       end
       
       def flash_message
-        namespace = controller.controller_path.split('/')
-        namespace << controller.action_name
-        namespace << (has_errors? ? 'failure' : 'success')
-        msg = I18n.t(namespace.join("."), :scope => :flash, :default => namespace.join('.'))#, :resource => resource.class.human_name)
+        key = controller.controller_path.split('/')
+        key << controller.action_name
+        key << (has_errors? ? 'failure' : 'success')
+        msg = I18n.t(key.join('.'))#, :resource => resource.class.human_name)
       end
     end
   end

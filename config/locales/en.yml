@@ -6,6 +6,12 @@ en:
       create:
         success: Site successfully created.
         failure: Site could not be created.
+      update:
+        success: Site successfully updated.
+        failure: Site could not be updated.
+      destroy:
+        success: Site successfully destroyed.
+        failure: Site could not be destroyed.
     sections:
       index:
         title: Sections
@@ -13,9 +19,27 @@ en:
         title: Create a new section
       edit:
         title: Edit section
+      create:
+        success: Section successfully created.
+        failure: Section could not be created.
+      update:
+        success: Section successfully updated.
+        failure: Section could not be updated.
+      destroy:
+        success: Section successfully destroyed.
+        failure: Section could not be destroyed.
     articles:
       edit:
         title: Edit article
+      create:
+        success: Article successfully created.
+        failure: Article could not be created.
+      update:
+        success: Article successfully updated.
+        failure: Article could not be updated.
+      destroy:
+        success: Article successfully destroyed.
+        failure: Article could not be destroyed.
     session:
       new:
         title: Sign up
