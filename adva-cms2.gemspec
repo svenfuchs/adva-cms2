@@ -12,7 +12,7 @@ Gem::Specification.new do |s|
   s.summary      = "[summary]"
   s.description  = "[description]"
 
-  s.files        = Dir['{app,config,lib}/**/*']
+  s.files        = Dir['{app,config,lib,public}/**/*']
   s.platform     = Gem::Platform::RUBY
   s.require_path = 'lib'
   s.rubyforge_project = '[none]'
