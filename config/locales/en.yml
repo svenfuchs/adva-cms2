@@ -3,8 +3,11 @@ en:
     sites:
       new:
         title: Create a new site
+      create:
+        success: Site successfully created.
+        failure: Site could not be created.
     sections:
-      index: 
+      index:
         title: Sections
       new:
         title: Create a new section
@@ -19,13 +22,19 @@ en:
     registrations:
       new:
         title: Sign up
-  
+
   section:
     types:
       page: Page
     titles:
       behaviour: Behaviour
-      
+
+  devise:
+    session:
+      user:
+        signed_in: 'Signed in successfully.'
+        signed_out: 'Signed out successfully.'
+
   adva:
     common:
       change_language: "Change language:"
