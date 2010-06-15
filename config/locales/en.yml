@@ -1,4 +1,25 @@
 en:
+  admin:
+    sites:
+      new:
+        title: Create a new site
+    sections:
+      index: 
+        title: Sections
+      new:
+        title: Create a new section
+      edit:
+        title: Edit section
+    articles:
+      edit:
+        title: Edit article
+    session:
+      new:
+        title: Sign up
+    registrations:
+      new:
+        title: Sign up
+  
   section:
     types:
       page: Page
@@ -9,6 +30,8 @@ en:
     common:
       change_language: "Change language:"
       logged_in_as: "Logged in as %{user}"
-      log_in: "Log in"
-      log_out: "Log out"
-      website: "Website"
+      log_in: Log in
+      log_out: Log out
+      website: Website
+    titles:
+      log_in: Login

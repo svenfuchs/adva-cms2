@@ -1,5 +1,4 @@
 class Admin::SectionsController < Admin::BaseController
-
   helper :sections
   helper_method :site, :section, :sections
 
