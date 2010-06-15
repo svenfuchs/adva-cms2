@@ -14,7 +14,7 @@ class Admin::SectionsController < Admin::BaseController
 
   def create
     @section = params[:section][:type].constantize.create(params[:section].merge(:site_id => site.id))
-    respond_with *resources(:edit) << section.article
+    respond_with *resources << section.article
   end
 
   def edit
@@ -22,13 +22,12 @@ class Admin::SectionsController < Admin::BaseController
 
   def update
     section.update_attributes!(params[:section])
-    respond_with *resources(:edit)
+    respond_with *resources
   end
 
   def destroy
     section.destroy
-    respond_with *resources(:edit)
-    redirect_to :admin, site
+    respond_with *resources
   end
 
   protected
