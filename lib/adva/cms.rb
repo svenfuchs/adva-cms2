@@ -7,23 +7,19 @@ module Adva
     end
     
     initializer 'adva.cms.patches' do
-      Dir[File.expand_path('../../patches/**/*.rb', __FILE__)].each do |file|
+      Dir[File.expand_path("#{root}/lib/patches/**/*.rb", __FILE__)].each do |file|
         require file
       end
     end
 
-    initializer 'adva.cms.register_section_types' do
+    initializer 'adva.cms.require_section_type_page' do
+      # require Page so that Section knows its subclasses
       require 'page'
     end
 
-    # initializer 'adva.cms.config.load_paths' do
-    #   Rails.application.config.load_paths.push("#{config.root}/responders")
-    # end
-
     initializer 'adva.cms.register_middlewares' do
       urls = ["/stylesheets/adva_cms", "/javascripts/adva_cms", "/images/adva_cms"]
-      root = File.expand_path('../../../public', __FILE__)
-      Rails.application.config.middleware.use Rack::Static, :urls => urls, :root => root
+      Rails.application.config.middleware.use Rack::Static, :urls => urls, :root => "#{root}/public"
     end
 
     initializer 'adva.cms.register_asset_expansions' do
