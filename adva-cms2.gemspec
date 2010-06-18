@@ -21,4 +21,6 @@ Gem::Specification.new do |s|
   s.add_dependency 'rails', '~> 3'
   s.add_dependency 'devise', '1.1.rc1'
   s.add_dependency 'gem_patching'
+  s.add_dependency 'resource_awareness'
+  s.add_dependency 'inherited_resources'
 end

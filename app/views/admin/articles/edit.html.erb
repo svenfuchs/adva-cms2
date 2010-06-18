@@ -3,5 +3,5 @@
 <%= render :partial => 'form' %>
 
 <p>
-  <%= button_to "Delete", [:admin, site, section], :method => :delete %>
+  <%= button_to("Delete", association_chain.dup.unshift(:admin), :method => :delete) %>
 </p>

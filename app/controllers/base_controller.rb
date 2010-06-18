@@ -1,4 +1,6 @@
-class BaseController < ActionController::Base
+require 'inherited_resources'
+
+class BaseController < InheritedResources::Base
   class << self
     def responder
       Adva::Responder

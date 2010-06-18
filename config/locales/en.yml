@@ -1,17 +1,24 @@
 en:
+  flash:
+    actions:
+      create:
+        notice: '%{resource_name} successfully created.'
+        alert:  '%{resource_name} could not be created.'
+      update:
+        notice: '%{resource_name} successfully updated.'
+        alert:  '%{resource_name} could not be updated.'
+      destroy:
+        notice: '%{resource_name} successfully destroyed.'
+        alert:  '%{resource_name} could not be destroyed.'
+  devise:
+    session:
+      user:
+        signed_in: 'Signed in successfully.'
+        signed_out: 'Signed out successfully.'
   admin:
     sites:
       new:
         title: Create a new site
-      create:
-        success: Site successfully created.
-        failure: Site could not be created.
-      update:
-        success: Site successfully updated.
-        failure: Site could not be updated.
-      destroy:
-        success: Site successfully destroyed.
-        failure: Site could not be destroyed.
     sections:
       index:
         title: Sections
@@ -19,30 +26,12 @@ en:
         title: Create a new section
       edit:
         title: Edit section
-      create:
-        success: Section successfully created.
-        failure: Section could not be created.
-      update:
-        success: Section successfully updated.
-        failure: Section could not be updated.
-      destroy:
-        success: Section successfully destroyed.
-        failure: Section could not be destroyed.
     articles:
       edit:
         title: Edit article
-      create:
-        success: Article successfully created.
-        failure: Article could not be created.
-      update:
-        success: Article successfully updated.
-        failure: Article could not be updated.
-      destroy:
-        success: Article successfully destroyed.
-        failure: Article could not be destroyed.
     session:
       new:
-        title: Sign up
+        title: Sign in
     registrations:
       new:
         title: Sign up
@@ -53,18 +42,11 @@ en:
     titles:
       behaviour: Behaviour
 
-  devise:
-    session:
-      user:
-        signed_in: 'Signed in successfully.'
-        signed_out: 'Signed out successfully.'
-
-  adva:
-    common:
-      change_language: "Change language:"
-      logged_in_as: "Logged in as %{user}"
-      log_in: Log in
-      log_out: Log out
-      website: Website
-    titles:
-      log_in: Login
+  layouts:
+    admin:
+      header:
+        change_language: "Change language:"
+        logged_in_as: "Logged in as %{user}"
+        sign_in: Sign in
+        sign_out: Sign out
+        website: Website
