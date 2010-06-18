@@ -1,29 +1,11 @@
 class Admin::SitesController < Admin::BaseController
-  helper :sections
-  helper_method :resources, :site
-  
-  def index
-  end
+  before_filter :set_params_for_nested_resources, :only => [:new, :edit]
 
-  def new
-  end
-    
-  def show
-  end
-  
-  def create
-    site.save
-    respond_with *resources
-  end
-  
+  helper :sections
+
   protected
-  
-    def resources
-      [:admin, site]
-    end
-  
-    def site
-      @site ||= params[:id] ? Site.find(params[:id]) : 
-        Site.new(params[:site] || { :host => request.host, :sections_attributes => [{ :title => '' }] })
+
+    def set_params_for_nested_resources
+      params[:site] ||= { :host => request.host, :sections_attributes => [{ :title => '' }] }
     end
 end

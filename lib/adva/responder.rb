@@ -1,10 +1,10 @@
-require 'action_controller/metal/responder'
+require 'responders'
 
 module Adva
   class Responder < ActionController::Responder
-    include Adva::Responder::Flash
     include Adva::Responder::Redirect
-    # include Prosecco::Responder
+    include Responders::FlashResponder
+    include Responders::HttpCacheResponder
     
     def params
       controller.params

@@ -1,50 +1,14 @@
 class Admin::SectionsController < Admin::BaseController
-  helper :sections
-  helper_method :site, :section, :sections
+  belongs_to :site
 
-  def index
-  end
-  
+  helper :sections
+
   def show
     redirect_to :action => :edit # TODO TMP!
   end
 
-  def new
-  end
-
   def create
-    @section = params[:section][:type].constantize.create(params[:section].merge(:site_id => site.id))
-    respond_with *resources << section.article
+    @section = params[:section][:type].constantize.create(params[:section].merge(:site_id => params[:site_id]))
+    respond_with *resources << resource.article
   end
-
-  def edit
-  end
-
-  def update
-    section.update_attributes!(params[:section])
-    respond_with *resources
-  end
-
-  def destroy
-    section.destroy
-    respond_with *resources
-  end
-
-  protected
-
-    def resources(action = nil)
-      [:admin, site, section].tap { |r| r.unshift(action) if action }
-    end
-
-    def site
-      @site ||= Site.find(params[:site_id])
-    end
-
-    def section
-      @section ||= params[:id] ? site.sections.find(params[:id]) : site.sections.build(:type => 'Page')
-    end
-
-    def sections
-      @sections ||= site.sections
-    end
 end

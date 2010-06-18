@@ -2,7 +2,9 @@ source :rubygems
 
 gem 'rails', '3.0.0.beta4'
 gem 'devise', '1.1.rc1'
-gem 'resource_awareness'
+gem 'gem_patching'
+# gem 'resource_awareness'
+gem 'inherited_resources'
 
 group :test do
   gem 'adva-cms2', :path => File.expand_path('..', __FILE__), :require => 'adva/cms'

@@ -5,17 +5,17 @@
 
 	<div class="right">
 	  <% if current_user %>
-			<%= t(:'adva.common.logged_in_as', :user => current_user.email) %> &middot;
-			<%= link_to t(:'adva.common.log_out'), destroy_user_session_path %>
+			<%= t('.logged_in_as', :user => current_user.email) %> &middot;
+			<%= link_to t('.sign_out'), destroy_user_session_path %>
 		<% else %>
-      <%= link_to t(:'adva.common.log_in'), new_user_session_path %>
+      <%= link_to t('.sign_in'), new_user_session_path %>
 	  <% end %>
 	  <% if @site %>
 			 &middot;
-	    <%= link_to t(:'adva.common.website') + ' »', "http://#{@site.host}", :id => 'go_to_website' %>
+	    <%= link_to t('.website') + ' »', "http://#{@site.host}", :id => 'go_to_website' %>
 	  <% end %>
 	  <p>
-  	  <%= t(:'adva.common.change_language')%>
+  	  <%= t('.change_language')%>
   	  <%= select_tag :lang, options_for_select(I18n.available_locales.map { |l| l.to_s}, I18n.locale.to_s ) %>
 	  </p>
 	</div>
