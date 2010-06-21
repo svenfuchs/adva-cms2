@@ -1,1 +1,21 @@
 Rails register_asset_expansion vergißt .js für z.B. adva_cms/jquery/jquery.qtip.min
+
+with only
+
+  paths.app('path/to/app')
+    
+defined in the Railtie ...
+
+  undefined method `controllers' for #<Rails::Paths::Path:0x105419938> (NoMethodError)
+  /Volumes/Users/sven/.rvm/gems/ruby-1.8.7-p174/gems/railties-3.0.0.beta4/lib/rails/paths.rb:16:in `method_missing'
+  /Volumes/Users/sven/.rvm/gems/ruby-1.8.7-p174/gems/railties-3.0.0.beta4/lib/rails/engine.rb:178
+  /Volumes/Users/sven/.rvm/gems/ruby-1.8.7-p174/gems/railties-3.0.0.beta4/lib/rails/initializable.rb:25:in `instance_exec'
+  /Volumes/Users/sven/.rvm/gems/ruby-1.8.7-p174/gems/railties-3.0.0.beta4/lib/rails/initializable.rb:25:in `run'
+  /Volumes/Users/sven/.rvm/gems/ruby-1.8.7-p174/gems/railties-3.0.0.beta4/lib/rails/initializable.rb:55:in `run_initializers'
+  /Volumes/Users/sven/.rvm/gems/ruby-1.8.7-p174/gems/railties-3.0.0.beta4/lib/rails/initializable.rb:54:in `each'
+  /Volumes/Users/sven/.rvm/gems/ruby-1.8.7-p174/gems/railties-3.0.0.beta4/lib/rails/initializable.rb:54:in `run_initializers'
+  /Volumes/Users/sven/.rvm/gems/ruby-1.8.7-p174/gems/railties-3.0.0.beta4/lib/rails/application.rb:119:in `initialize!'
+  /Volumes/Users/sven/.rvm/gems/ruby-1.8.7-p174/gems/railties-3.0.0.beta4/lib/rails/application.rb:81:in `send'
+  /Volumes/Users/sven/.rvm/gems/ruby-1.8.7-p174/gems/railties-3.0.0.beta4/lib/rails/application.rb:81:in `method_missing'
+  /tmp/host_app_adva-cms2/config/environment.rb:5
+

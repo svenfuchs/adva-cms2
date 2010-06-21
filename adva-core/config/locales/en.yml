@@ -1,0 +1,45 @@
+en:
+  flash:
+    actions:
+      create:
+        notice: '%{resource_name} successfully created.'
+        alert:  '%{resource_name} could not be created.'
+      update:
+        notice: '%{resource_name} successfully updated.'
+        alert:  '%{resource_name} could not be updated.'
+      destroy:
+        notice: '%{resource_name} successfully destroyed.'
+        alert:  '%{resource_name} could not be destroyed.'
+
+  admin:
+    sites:
+      new:
+        title: Create a new site
+    sections:
+      index:
+        title: Sections
+      new:
+        title: Create a new section
+      edit:
+        title: Edit section
+    articles:
+      edit:
+        title: Edit article
+    session:
+      new:
+        title: Sign in
+    registrations:
+      new:
+        title: Sign up
+
+  section:
+    types:
+      page: Page
+    titles:
+      behaviour: Behaviour
+
+  layouts:
+    admin:
+      header:
+        change_language: "Change language:"
+        website: Website

@@ -1,0 +1,13 @@
+en:
+  devise:
+    session:
+      user:
+        signed_in: 'Signed in successfully.'
+        signed_out: 'Signed out successfully.'
+
+  layouts:
+    admin:
+      header:
+        logged_in_as: "Logged in as %{user}"
+        sign_in: Sign in
+        sign_out: Sign out

@@ -1,12 +1,11 @@
+# this gemfile is only required for running the features/tests
+
 source :rubygems
 
-gem 'rails', '3.0.0.beta4'
-gem 'devise', '1.1.rc1'
-gem 'gem_patching'
-gem 'inherited_resources'
+gem 'adva-core', :path => File.expand_path('../adva-core', __FILE__)
+gem 'adva-user', :path => File.expand_path('../adva-user', __FILE__)
 
 group :test do
-  gem 'adva-cms2', :path => File.expand_path('..', __FILE__), :require => 'adva/cms'
   gem 'sqlite3-ruby', '1.2.5'
   gem 'cucumber'
   gem 'cucumber-rails'

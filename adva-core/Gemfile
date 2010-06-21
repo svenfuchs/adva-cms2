@@ -1,0 +1,6 @@
+source :rubygems
+
+gem 'rails', '3.0.0.beta4'
+gem 'gem_patching'
+# gem 'resource_awareness'
+gem 'inherited_resources'
