@@ -5,7 +5,13 @@ module Adva
     rake_tasks do
       require 'adva/user/tasks.rb'
     end
-    
+
+    # TODO dry up with adva.core.register_middlewares
+    initializer 'adva.user.register_middlewares' do
+      urls = ["/stylesheets/adva_core", "/javascripts/adva_core", "/images/adva_core"]
+      Rails.application.config.middleware.use Rack::Static, :urls => urls, :root => "#{root}/public"
+    end
+
     initializer 'adva.user.devise' do
       Devise.setup do |config|
         # Configure the e-mail address which will be shown in DeviseMailer.
