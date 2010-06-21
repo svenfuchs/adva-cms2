@@ -10,8 +10,6 @@ if respond_to?(:remove_file)
 
   remove_file 'public/index.html'
 
-  # for some weird reason this will get appended to the Rakefile twice
-  
   append_file 'Rakefile', <<-rb.split("\n").map { |line| line.strip }.join("\n")
     namespace :adva do
       desc 'Install Adva CMS'

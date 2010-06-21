@@ -17,6 +17,7 @@ module Adva
       require 'page'
     end
 
+    # TODO dry up with adva.user.register_middlewares
     initializer 'adva.core.register_middlewares' do
       urls = ["/stylesheets/adva_core", "/javascripts/adva_core", "/images/adva_core"]
       Rails.application.config.middleware.use Rack::Static, :urls => urls, :root => "#{root}/public"
