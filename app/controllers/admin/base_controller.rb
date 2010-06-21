@@ -13,14 +13,15 @@ class Admin::BaseController < InheritedResources::Base
   end
 
   def resource
-    super rescue build_resource # resource_class.new
+    super
+  rescue ActiveRecord::RecordNotFound
+    build_resource
   end
 
   def resources
     with_chain(resource)
   end
 
-  # TODO check for problems in inherited_resources
   def with_chain(object)
     super.unshift(:admin)
   end
