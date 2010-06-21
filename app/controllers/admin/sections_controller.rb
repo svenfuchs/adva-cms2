@@ -3,12 +3,8 @@ class Admin::SectionsController < Admin::BaseController
 
   helper :sections
 
-  def show
-    redirect_to :action => :edit # TODO TMP!
-  end
-
   def create
-    @section = params[:section][:type].constantize.create(params[:section].merge(:site_id => params[:site_id]))
+    resource.save
     respond_with *resources << resource.article
   end
 end
