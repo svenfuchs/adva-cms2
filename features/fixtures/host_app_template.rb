@@ -5,7 +5,23 @@ if respond_to?(:remove_file)
   gem_root = ENV['GEM_ROOT']
 
   gem 'devise'
-  gem 'adva-cms2', :path => gem_root, :require => 'adva/cms'
+  gem 'adva-core', :path => "#{gem_root}/adva-core"
+  gem 'adva-user', :path => "#{gem_root}/adva-user"
 
-  remove_file "public/index.html"
+  remove_file 'public/index.html'
+
+  # for some weird reason this will get appended to the Rakefile twice
+  
+  append_file 'Rakefile', <<-rb.split("\n").map { |line| line.strip }.join("\n")
+    namespace :adva do
+      desc 'Install Adva CMS'
+      task :install do
+        require 'adva/core/tasks'
+        require 'adva/user/tasks'
+
+        Adva::Core::Tasks.new.install
+        Adva::User::Tasks.new.install
+      end
+    end
+  rb
 end

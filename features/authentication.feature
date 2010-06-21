@@ -3,6 +3,7 @@ Feature: Authentication
     When I go to the admin sites page
     Then I should not be on the admin sites page
     But I should be on the signin page
+    
   Scenario: Failed login
     Given a user with email "bob@domain.com" and password "bobpass"
     When I go to the signin page
@@ -10,6 +11,7 @@ Feature: Authentication
     And I fill in "Password" with "notbobpass"
     And I press "Sign in"
     But I should be on the signin page
+
   Scenario: Successful login
     Given a user with email "bob@domain.com" and password "bobpass"
     When I go to the admin sites page
