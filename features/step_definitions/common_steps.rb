@@ -1,3 +1,7 @@
+Then /^I should see a page titled "([^"]*)"$/ do |title|
+  assert_select('h1', title)
+end
+
 Then /^I should see an? ([a-z ]+) form$/ do |form|
   class_names = form.split
   if class_names.length == 2

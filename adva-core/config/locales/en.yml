@@ -20,7 +20,7 @@ en:
         title: Sections
       new:
         title: Create a new section
-      edit:
+      show:
         title: Edit section
     articles:
       edit:

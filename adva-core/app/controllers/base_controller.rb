@@ -7,6 +7,8 @@ class BaseController < InheritedResources::Base
     end
   end
   
+  helper_method :current_site
+  
   def current_site
     Site.first # TODO
   end

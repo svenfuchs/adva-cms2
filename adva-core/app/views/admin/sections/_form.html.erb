@@ -1,9 +1,14 @@
-<%= form_for(resources) do |f| %>
-  <%= f.label :title %>
-  <%= f.text_field :title %>
+<%= form_for(resources) do |section| %>
+  <%= section.label :title %>
+  <%= section.text_field :title %>
   
-  <%= f.label :type %>
-  <%= f.select :type, section_types_for_select %>
+  <%= section.label :type %>
+  <%= section.select :type, section_types_for_select %>
   
-  <%= f.submit resource.new_record? ? 'Create' : 'Save' %>
+  <%= fields_for(resource.article) do |article| %>
+    <%= article.label :body %>
+    <%= article.text_area :body %>
+  <% end %>
+  
+  <%= section.submit resource.new_record? ? 'Create' : 'Save' %>
 <% end %>

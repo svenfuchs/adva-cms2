@@ -10,9 +10,9 @@
 		<% else %>
       <%= link_to t('.sign_in'), new_user_session_path %>
 	  <% end %>
-	  <% if @site %>
+	  <% if respond_to?(:site) && site %>
 			 &middot;
-	    <%= link_to t('.website') + ' »', "http://#{@site.host}", :id => 'go_to_website' %>
+	    <%= link_to t('.website') + ' »', public_url_for(site, resources), :id => 'go_to_website' %>
 	  <% end %>
 	  <p>
   	  <%= t('.change_language')%>

@@ -10,10 +10,10 @@ module Adva
       end
       
       def responder_redirect # TODO extract to registry
-        case controller_action_path
-        when 'admin/sections#create', 'admin/articles#update'
-          redirect_to([:edit, *resources])
-        end unless has_errors?
+        # case controller_action_path
+        # when 'admin/articles#update'
+        #   redirect_to([:edit, *resources])
+        # end unless has_errors?
       end
       
       def controller_action_path
