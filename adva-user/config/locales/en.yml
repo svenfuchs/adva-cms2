@@ -6,8 +6,15 @@ en:
         signed_out: 'Signed out successfully.'
 
   layouts:
+    default:
+      logged_in_as: "Logged in as %{user}"
+      sign_in: Sign in
+      sign_up: Sign up
+      sign_out: Sign out
+
     admin:
       header:
         logged_in_as: "Logged in as %{user}"
         sign_in: Sign in
+        sign_up: Sign up
         sign_out: Sign out
