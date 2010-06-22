@@ -6,7 +6,8 @@ class Admin::BaseController < InheritedResources::Base
   respond_to :html
   layout 'admin'
 
-  helper_method :resources
+  helper :admin
+  helper_method :resources, :site
 
   def self.responder
     Adva::Responder
@@ -20,6 +21,14 @@ class Admin::BaseController < InheritedResources::Base
 
   def resources
     with_chain(resource)
+  end
+  
+  def site
+    @site ||= if params[:site_id]
+      Site.find(params[:site_id])
+    elsif controller_name == "site"
+      Site.find(params[:id]) rescue nil
+    end
   end
 
   def with_chain(object)

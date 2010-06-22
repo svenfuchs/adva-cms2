@@ -1,11 +1,11 @@
 # encoding: utf-8
 
-$: << File.expand_path('../lib', __FILE__)
-require 'adva/version'
+# $: << File.expand_path('../lib', __FILE__)
+# require 'adva/core/version'
 
 Gem::Specification.new do |s|
   s.name         = "adva-core"
-  s.version      = Adva::VERSION
+  s.version      = '0.0.1'
   s.authors      = ["Ingo Weiss", "Sven Fuchs"]
   s.email        = "nobody@adva-cms.org"
   s.homepage     = "http://github.com/svenfuchs/adva-cms2"

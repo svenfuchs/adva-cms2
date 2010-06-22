@@ -2,6 +2,7 @@ require 'adva'
 
 module Adva
   class Core < ::Rails::Engine
+
     rake_tasks do
       require 'adva/core/tasks.rb'
     end
