@@ -5,7 +5,10 @@
   <%= section.label :type %>
   <%= section.select :type, section_types_for_select %>
   
-  <%= fields_for(resource.article) do |article| %>
+  <%= section.fields_for(:article) do |article| %>
+    <%= article.label :title, t('.heading_label') %>
+    <%= article.text_field :title %>
+
     <%= article.label :body %>
     <%= article.text_area :body %>
   <% end %>

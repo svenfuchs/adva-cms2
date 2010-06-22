@@ -36,7 +36,7 @@ Cucumber::Rails::World.use_transactional_fixtures = true
 
 Before do
   @current_site = Site.create!(
-    :name => 'adva-cms', :host => 'adva-cms.com', :title => "adva-cms",
+    :name => 'adva-cms', :host => 'www.example.com', :title => "adva-cms",
     :sections_attributes => [{ :type => 'Page', :title => 'Home' }]
   )
 end

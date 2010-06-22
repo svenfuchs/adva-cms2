@@ -7,6 +7,8 @@ class BaseController < InheritedResources::Base
     end
   end
   
+  layout 'default'
+  
   helper_method :current_site
   
   def current_site

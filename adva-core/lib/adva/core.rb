@@ -32,10 +32,18 @@ module Adva
                         adva_core/admin/jquery.table_tree.js
                         adva_core/admin/jquery.article.js
                         adva_core/admin/jquery.cached_pages.js
-                        adva_core/jquery/jquery.qtip.min.js )
-        # :default => %w( adva_core/jquery.roles adva_core/jquery.dates adva_core/parseuri adva_core/application )
-        # :common  => %w( adva_core/jquery/jquery adva_core/jquery/jquery-lowpro adva_core/jquery/jquery-ui
-        #                 adva_core/json adva_core/cookie adva_core/jquery.flash adva_core/application ),
+                        adva_core/jquery/jquery.qtip.min.js ),
+        :default => %w( adva_core/jquery.roles 
+                        adva_core/jquery.dates 
+                        adva_core/parseuri 
+                        adva_core/application ),
+        :common  => %w( adva_core/jquery/jquery
+                        adva_core/jquery/jquery-lowpro
+                        adva_core/jquery/jquery-ui
+                        adva_core/json
+                        adva_core/cookie
+                        adva_core/jquery.flash
+                        adva_core/application )
         # :login   => %w(),
         # :simple  => %w(),
         # # From qtip dev branch
@@ -57,8 +65,10 @@ module Adva
                         adva_core/admin/helptip
                         adva_core/admin/users
                         adva_core/jquery/jquery-ui.css
-                        adva_core/jquery/jquery.tooltip.css )
-        # :default => %w( adva_core/default adva_core/common adva_core/forms ),
+                        adva_core/jquery/jquery.tooltip.css ),
+        :default => %w( adva_core/default 
+                        adva_core/common 
+                        adva_core/forms )
         # :login   => %w( adva_core/admin/reset adva_core/admin/common adva_core/admin/forms
         #                 adva_core/layout/login ),
         # :simple  => %w( adva_core/reset adva_core/admin/common adva_core/admin/forms

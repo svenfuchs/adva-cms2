@@ -6,19 +6,19 @@ Feature: Managing sections
     When I follow "New section"
     Then I should see a new section form
     When I fill in "Title" with "Brand new section"
+    When I fill in "Heading" with "The brand new section's heading"
     And I fill in "Body" with "The brand new section's body"
     And I select "Page" from "Type"
     And I press "Create"
     Then I should see an edit section form
     
-    When I fill in "body" with "The updated brand new section's body"
+    When I fill in "Body" with "The updated brand new section's body"
     When I press "save"
     Then I should see an edit section form
     
-    # Then output the page
-    # When I follow "Website"
-    # Then I should see a page titled "Brand new section"
-    # And I should see "The updated brand new section's body"
+    When I follow "Website"
+    Then I should see a page titled "Brand new section"
+    And I should see "The updated brand new section's body"
     
     When I go to the admin site sections page
     Then I should see "Brand new section"
