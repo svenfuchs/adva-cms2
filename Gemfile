@@ -3,7 +3,6 @@ source :rubygems
 gem 'rails', '3.0.0.beta4'
 gem 'devise', '1.1.rc1'
 gem 'gem_patching'
-# gem 'resource_awareness'
 gem 'inherited_resources'
 
 group :test do
