@@ -234,7 +234,7 @@ Then /^the "([^\"]*)" field should not contain "([^\"]*)"$/ do |field, value|
   end
 end
 
-Then /^the "([^\"]*)" checkbox should be checked$/ do |label|
+Then /^the "([^\"]*)" (?:checkbox|radio button) should be checked$/ do |label|
   if defined?(Spec::Rails::Matchers)
     field_labeled(label).should be_checked
   else
@@ -242,7 +242,7 @@ Then /^the "([^\"]*)" checkbox should be checked$/ do |label|
   end
 end
 
-Then /^the "([^\"]*)" checkbox should not be checked$/ do |label|
+Then /^the "([^\"]*)" (?:checkbox|radio button) should not be checked$/ do |label|
   if defined?(Spec::Rails::Matchers)
     field_labeled(label).should_not be_checked
   else

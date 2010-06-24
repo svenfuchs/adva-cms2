@@ -13,8 +13,7 @@ module Adva
       end
     end
 
-    initializer 'adva.core.require_section_type_page' do
-      # require Page so that Section knows its subclasses
+    initializer 'adva.core.require_section_types' do
       require 'page'
     end
 
