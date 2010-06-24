@@ -1,10 +1,9 @@
-<%= form_for(resources) do |section| %>
+<%= form_for(resources, :html => { :class => "#{resource.new_record? ? 'new' : 'edit' }_page" }) do |section| %>
+  <%= section.hidden_field :type %>
+
   <%= section.label :title %>
   <%= section.text_field :title %>
-  
-  <%= section.label :type %>
-  <%= section.select :type, section_types_for_select %>
-  
+
   <%= section.fields_for(:article) do |article| %>
     <%= article.label :title, t('.heading_label') %>
     <%= article.text_field :title %>
@@ -12,6 +11,6 @@
     <%= article.label :body %>
     <%= article.text_area :body %>
   <% end %>
-  
+
   <%= section.submit resource.new_record? ? 'Create' : 'Save' %>
 <% end %>

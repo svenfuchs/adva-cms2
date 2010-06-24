@@ -2,7 +2,6 @@ require 'devise'
 
 module Adva
   class User < ::Rails::Engine
-
     rake_tasks do
       require 'adva/user/tasks.rb'
     end

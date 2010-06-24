@@ -1,6 +1,6 @@
 class Admin::SectionsController < Admin::BaseController
   belongs_to :site
-  before_filter :set_params_for_nested_resources, :only => [:new, :edit]
+  before_filter :set_params_for_nested_resources, :only => [:new, :create, :edit, :update]
 
   helper :sections
 
@@ -12,6 +12,11 @@ class Admin::SectionsController < Admin::BaseController
   protected
 
     def set_params_for_nested_resources
-      params[:section] ||= { :type => 'Page', :article_attributes => { :body => '' } }
+      params[:section] ||= { :type => 'Page' }
+      if params[:section][:type] == 'Page'
+        params[:section][:article_attributes] ||= { :body => '' }
+      else
+        params[:section].delete(:article_attributes)
+      end
     end
 end
