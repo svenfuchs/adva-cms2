@@ -25,9 +25,9 @@ en:
     pages:
       form:
         heading_label: Heading
-    articles:
+    posts:
       edit:
-        title: Edit article
+        title: Edit post
     session:
       new:
         title: Sign in

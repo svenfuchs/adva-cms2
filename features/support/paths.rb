@@ -6,6 +6,9 @@ module NavigationHelpers
     when /the admin dashboard page for the site on "(.*)"/
       site = Site.find_by_host($1) || raise("could not find site with host #{$1}")
       admin_site_path(site)
+    when /the admin posts list page of the "(.*)" blog/
+      section = Blog.find_by_title($1) || raise("could not find blog #{$1.inspect}")
+      admin_site_section_path(section.site, section)
     when 'the admin sites page'
       admin_sites_path
     when 'the admin dashboard page'

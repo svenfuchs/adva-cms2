@@ -1,2 +1,0 @@
-class ArticlesController < BaseController
-end
