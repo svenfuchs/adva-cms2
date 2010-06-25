@@ -11,7 +11,8 @@ module Adva
       
       def responder_redirect # TODO extract to registry
         case controller_action_path
-        when %r(admin/articles#(update|create)) # belongs to adva-blog
+        when %r(admin/articles#(create|update)) # belongs to adva-blog
+             # %r(admin/sections#(create|update)),
           redirect_to([:edit, *resources])
         end unless has_errors?
       end
