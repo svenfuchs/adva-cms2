@@ -281,6 +281,6 @@ Then /^show me the page$/ do
   save_and_open_page
 end
 
-Then /^output the page$/ do
+Then /^(?:|I )output the page$/ do
   puts response.body
 end

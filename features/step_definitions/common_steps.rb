@@ -1,5 +1,13 @@
-Then /^I should see a page titled "([^"]*)"$/ do |title|
-  assert_select('h1', title)
+Then /^I should not see any (\w*)$/ do |type|
+  assert_select(".#{type},.#{type.singularize}", :count => 0)
+end
+
+Then /^I should see an? (\w*) titled "([^"]*)"$/ do |type, title|
+  assert_select(".#{type} h2", title)
+end
+
+Then /^I should see an? (\w*) containing "([^"]*)"$/ do |type, text|
+  assert_select(".#{type}", /#{text}/)
 end
 
 Then /^I should see an? ([a-z ]+) form$/ do |form|
