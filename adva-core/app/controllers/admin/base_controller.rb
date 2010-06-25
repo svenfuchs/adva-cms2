@@ -1,6 +1,9 @@
+require 'adva/internal_redirect'
 require 'inherited_resources'
 
 class Admin::BaseController < InheritedResources::Base
+  include Adva::InternalRedirect
+  
   before_filter :authenticate_user!
 
   respond_to :html

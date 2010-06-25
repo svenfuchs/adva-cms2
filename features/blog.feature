@@ -18,6 +18,8 @@ Feature: Managing blogs
      
     When I fill in "Title" with "Brand new blog"
      And I press "Create"
+    Then I should see no articles
+    When I click on "Settings"
     Then I should see an edit blog form
 
     When I fill in "Title" with "Updated blog"
@@ -26,7 +28,7 @@ Feature: Managing blogs
     
     When I follow "Website"
     Then I should see a blog
-     And I should not see an articles list
+    Then I should see no articles
     
     When I go to the admin site sections page
     Then I should see "Updated blog"
@@ -46,13 +48,15 @@ Feature: Managing blogs
     When I follow "Website"
     Then I should see an article titled "Updated blog post"
      And I should see "Updated blog post's body"
+    When I follow "Updated blog"
+    Then I should see an article containing "Updated blog post"
     
     When I go to the admin site sections page
      And I follow "Updated blog"
      And I follow "Updated blog post"
     Then I should see an edit article form
     
-    When I press "Delete"    
+    When I press "Delete"
     Then I should see "Updated blog"
-     And I should see an empty articles list
+     And I should see no articles
      And I should not see "Updated blog post"

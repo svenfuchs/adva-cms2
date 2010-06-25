@@ -1,5 +1,4 @@
-<%#= link_to "New", new_admin_site_section_article_path(*resources - [:admin]) %>
-<%= link_to "New", resources.unshift(:new).push(:article) %>
+<%= link_to "New", resources.unshift(:new).push(:article) # TODO => menu %>
 
 <h2><%= t(:'.title') %></h2>
 
