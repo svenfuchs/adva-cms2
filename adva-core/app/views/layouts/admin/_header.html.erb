@@ -10,7 +10,7 @@
 		<% else %>
       <%= link_to t('.sign_in'), new_user_session_path %>
 	  <% end %>
-	  <% if respond_to?(:site) && site %>
+	  <% if try(:site) && resources.last.try(:persisted?) %>
 			 &middot;
 	    <%= link_to t('.website') + ' »', public_url_for(site, resources), :id => 'go_to_website' %>
 	  <% end %>
