@@ -1,0 +1,7 @@
+<h1><%= resource.title %></h1>
+
+<% unless resource.articles.empty? %>
+  <ul class="articles">
+    <%= render resource.articles %>
+  </ul>
+<% end %>

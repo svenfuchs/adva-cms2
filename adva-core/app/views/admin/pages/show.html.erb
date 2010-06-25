@@ -1,5 +1,5 @@
 <h2><%= t(:'.title') %></h2>
 
-<%= render :partial => "admin/#{resource.type.pluralize.underscore}/form" %>
+<%= render :partial => "admin/pages/form" %>
 
 <p><%= button_to("Delete", resources, :method => :delete) %></p>

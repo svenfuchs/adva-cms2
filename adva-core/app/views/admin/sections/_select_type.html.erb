@@ -1,5 +1,3 @@
-<h2><%= t(:'.title') %></h2>
-
 <%= form_for(resources, :url => { :action => :new }, :html => { :method => :get, :class => 'section_type' }) do |section| %>
   <%= section.label :type %>
   
@@ -7,9 +5,6 @@
     <%= section.radio_button :type, value %>
     <%= section.label "type_#{value.underscore}", name %>
   <% end %>
-  
-  <%#= section.select :type, section_types_for_select %>
+
   <%= section.submit 'Select', :class => 'hidden' %>
 <% end %>
-
-<%= render :partial => "admin/#{resource.type.pluralize.underscore}/form" %>

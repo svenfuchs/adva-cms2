@@ -11,7 +11,7 @@
     <%#= authorize_elements %>
     <%#= yield :head %>
   </head>
-  <body>
+  <body class="<%= resource.class.name.singularize.underscore if resource %>">
     <div id="page">
       <div id="header" class="clearing">
         <h1><%= current_site.title %></h1>

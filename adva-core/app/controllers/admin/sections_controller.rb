@@ -3,7 +3,7 @@ class Admin::SectionsController < Admin::BaseController
   before_filter :set_params_for_nested_resources, :only => [:new, :create, :edit, :update]
 
   helper :sections
-
+  
   def create
     resource.save
     respond_with *resources
@@ -17,6 +17,15 @@ class Admin::SectionsController < Admin::BaseController
         params[:section][:article_attributes] ||= { :body => '' }
       else
         params[:section].delete(:article_attributes)
+      end
+    end
+
+    def _prefix
+      case params[:action]
+      when 'index'
+        'admin/sections'
+      else
+        "admin/#{resource.type.underscore.pluralize}"
       end
     end
 end
