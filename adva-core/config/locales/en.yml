@@ -22,6 +22,11 @@ en:
         title: Create a new section
       show:
         title: Edit section
+    articles:
+      form:
+        heading_label: Heading
+      edit:
+        title: Edit article
     pages:
       form:
         heading_label: Heading

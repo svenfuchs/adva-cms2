@@ -1,0 +1,9 @@
+<%= form_for(resources, :html => { :class => "#{resource.new_record? ? 'new' : 'edit' }_article" }) do |article| %>
+  <%= article.label :title, t('.heading_label') %>
+  <%= article.text_field :title %>
+
+  <%= article.label :body %>
+  <%= article.text_area :body %>
+
+  <%= article.submit resource.new_record? ? 'Create' : 'Save' %>
+<% end %>

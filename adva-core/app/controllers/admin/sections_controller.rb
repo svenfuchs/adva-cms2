@@ -4,15 +4,13 @@ class Admin::SectionsController < Admin::BaseController
 
   helper :sections
   
-  # def show
-  #   if resource.is_a?(Page)
-  #     internal_redirect_to("admin/articles#edit") do |params|
-  #       params.merge(:section_id => params.delete(:id), :id => resource.article.id)
-  #     end
-  #   else
-  #     super
-  #   end
-  # end
+  def show
+    if resource.is_a?(Page)
+      redirect_to resources.unshift(:edit).push(resource.article)
+    else
+      super
+    end
+  end
 
   def create
     resource.save
