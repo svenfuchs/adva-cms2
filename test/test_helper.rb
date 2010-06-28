@@ -1,5 +1,5 @@
-$: << File.expand_path('../../lib', __FILE__)
-$: << File.expand_path('../../app/models', __FILE__)
+$: << File.expand_path('../../adva-core/lib', __FILE__)
+$: << File.expand_path('../../adva-core/app/models', __FILE__)
 
 require 'rubygems'
 require 'bundler'
@@ -13,7 +13,7 @@ require 'database_cleaner'
 
 ActiveRecord::Base.establish_connection :adapter => 'sqlite3', :database => ':memory:'
 ActiveRecord::Migration.verbose = false
-ActiveRecord::Migrator.up(File.expand_path('../../db/migrate', __FILE__))
+ActiveRecord::Migrator.up(File.expand_path('../../adva-core/db/migrate', __FILE__))
 
 DatabaseCleaner.strategy = :truncation
 
