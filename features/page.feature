@@ -29,8 +29,11 @@ Feature: Managing pages
     Then I should see "Brand new section"
     When I follow "Brand new section"
     Then I should see an edit article form
+
+    When I follow "Settings"
+    Then I should see an edit page form
     
-    When I press "Delete"   
+    When I press "Delete"
     Then I should be on the admin site sections page
      And I should see "Sections"
      And I should not see "Updated section"
