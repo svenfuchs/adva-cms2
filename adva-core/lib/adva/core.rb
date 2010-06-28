@@ -7,23 +7,27 @@ module Adva
       require 'adva/core/tasks.rb'
     end
     
-    initializer 'adva.core.patches' do
+    initializer 'adva-core.patches' do
       Dir[File.expand_path("#{root}/lib/patches/**/*.rb", __FILE__)].each do |file|
         require file
       end
     end
 
-    initializer 'adva.core.require_section_types' do
+    initializer 'adva-core.require_section_types' do
       require 'page'
     end
 
+    initializer 'adva-core.load_redirects' do
+      require root.join('config/redirects')
+    end
+
     # TODO dry up with adva.user.register_middlewares
-    initializer 'adva.core.register_middlewares' do
+    initializer 'adva-core.register_middlewares' do
       urls = ["/stylesheets/adva_core", "/javascripts/adva_core", "/images/adva_core"]
       Rails.application.config.middleware.use Rack::Static, :urls => urls, :root => "#{root}/public"
     end
 
-    initializer 'adva.core.register_asset_expansions' do
+    initializer 'adva-core.register_asset_expansions' do
       ActionView::Helpers::AssetTagHelper.register_javascript_expansion \
         :admin   => %w( adva_core/admin/jquery.admin.js
                         adva_core/jquery/jquery.tablednd_0_5.js

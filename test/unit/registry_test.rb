@@ -21,6 +21,7 @@ class RegistryTest < Test::Unit::TestCase
     super
     Adva::Registry.backup!
     @registry = Adva::Registry.instance
+    registry.clear
   end
 
   def teardown
@@ -33,21 +34,24 @@ class RegistryTest < Test::Unit::TestCase
   # set
 
   test '#set sets stuff' do
-    registry.clear
     registry.set(:foo, :bar)
     assert_equal({ :foo => :bar }, registry)
   end
 
   test '#set sets stuff to nested keys' do
-    registry.clear
     registry.set(:foo, :bar, :baz, :buz)
     assert_equal({ :foo => { :bar => { :baz => :buz } } }, registry)
   end
 
   test '#set recursively turns passed hashes into registries' do
-    registry.clear
     registry.set(:foo, { :bar => { :baz => :buz } })
     assert registry.get(:foo).get(:bar).instance_of?(Adva::Registry)
+  end
+  
+  test '#set merges given Hashes with an existing Registry' do
+    registry.set(:foo, { :bar => :baz })
+    registry.set(:foo, { :baz => :buz })
+    assert_equal({ :bar => :baz, :baz => :buz }, registry.get(:foo))
   end
   
   # get
@@ -81,7 +85,7 @@ class RegistryTest < Test::Unit::TestCase
     registry.set(:foo, :bar, :baz, :buz)
     assert_equal({ :baz => :buz }, registry.get(:foo, :bar))
     
-    Adva::Registry.clear
+    registry.clear
     assert_nil registry.get(:foo, :bar)
     assert registry.empty?
   end
