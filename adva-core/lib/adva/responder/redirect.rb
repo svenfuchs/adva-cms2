@@ -2,22 +2,16 @@ module Adva
   class Responder
     module Redirect
       def to_html
-        return_to_redirect || responder_redirect || super
+        return_to_redirect || registry_redirect || super
       end
 
       def return_to_redirect
         redirect_to(params[:return_to]) if params[:return_to] && !has_errors?
       end
 
-      def responder_redirect # TODO extract to registry
-        return if has_errors?
-
-        section_types = Section.types.map { |type| type.underscore.pluralize }
-        case controller_action_path
-        when %r(admin/(#{section_types.join('|') })#update),
-             %r(admin/articles#(create|update)),
-             %r(admin/posts#(create|update)) # belongs to adva-blog
-          redirect_to([:edit, *resources])
+      def registry_redirect
+        if !has_errors? && target = Registry.get(:redirect, controller_action_path)
+          redirect_to(target.respond_to?(:call) ? target.call(self) : target)
         end
       end
 

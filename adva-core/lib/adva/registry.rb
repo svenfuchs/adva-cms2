@@ -6,11 +6,11 @@ module Adva
       end
     
       def get(*args)
-        instance.get *args
+        instance.get(*args)
       end
     
       def set(*args)
-        instance.set *args
+        instance.set(*args)
       end
     
       def clear
@@ -19,33 +19,38 @@ module Adva
     end
 
     def initialize
-      blk = lambda { |hash, key| hash[key] = Registry.new(&blk) }
-      super &blk
+      super &lambda { |hash, key| hash[key] = Registry.new }
     end
 
     def set(*args)
-      value, last_key = args.pop, args.pop
-      target = args.inject(self) { |result, key| result[key] }
-      value = to_registry(value) if value.is_a?(Hash)
-      target[last_key] = value
+      value, last_key = args.pop, args.pop.to_sym
+      target = args.inject(self) { |result, key| result[key.to_sym] }
+
+      if value.is_a?(Hash)
+        target[last_key].merge!(to_registry(value))
+      else
+        target.merge!(last_key => value)
+      end
     end
 
     def get(*keys)
-      keys.inject self do |result, key| 
+      keys.map { |key| key.to_sym }.inject(self) do |result, key| 
         return nil unless result.has_key?(key)
         result[key]
       end
     end
   
     protected
+    
+      def merge!(other)
+        other.each { |key, value| self[key] = value }
+      end
   
       def to_registry(hash)
-        registry = Registry.new
-        hash.each do |key, value|
-          value = to_registry(value) if value.is_a?(Hash)
-          registry[key] = value
+        hash.inject(Registry.new) do |registry, (key, value)|
+          registry[key.to_sym] = value.is_a?(Hash) ? to_registry(value) : value
+          registry
         end
-        registry
       end
   end
 end
