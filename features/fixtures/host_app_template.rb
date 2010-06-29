@@ -5,21 +5,10 @@ if respond_to?(:remove_file)
   gem_root = ENV['GEM_ROOT']
 
   gem 'devise'
-  gem 'adva-core', :path => "#{gem_root}/adva-core"
-  gem 'adva-user', :path => "#{gem_root}/adva-user"
+  gem 'adva-core',    :path => "#{gem_root}/adva-core"
+  gem 'adva-blog',    :path => "#{gem_root}/adva-blog"
+  gem 'adva-catalog', :path => "#{gem_root}/adva-catalog"
+  gem 'adva-user',    :path => "#{gem_root}/adva-user"
 
   remove_file 'public/index.html'
-
-  append_file 'Rakefile', <<-rb.split("\n").map { |line| line.strip }.join("\n")
-    namespace :adva do
-      desc 'Install Adva CMS'
-      task :install do
-        require 'adva/core/tasks'
-        require 'adva/user/tasks'
-
-        Adva::Core::Tasks.new.install
-        Adva::User::Tasks.new.install
-      end
-    end
-  rb
 end

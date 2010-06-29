@@ -1,16 +1,9 @@
+require 'adva-core'
 require 'devise'
 
 module Adva
   class User < ::Rails::Engine
-    rake_tasks do
-      require 'adva/user/tasks.rb'
-    end
-
-    # TODO dry up with adva.core.register_middlewares
-    initializer 'adva.user.register_middlewares' do
-      urls = ["/stylesheets/adva_core", "/javascripts/adva_core", "/images/adva_core"]
-      Rails.application.config.middleware.use Rack::Static, :urls => urls, :root => "#{root}/public"
-    end
+    include Adva::Engine
 
     initializer 'adva.user.devise' do
       Devise.setup do |config|

@@ -5,7 +5,7 @@ require 'rails/generators'
 module Adva
   class Core
     class Tasks < Rails::Generators::Base
-      namespace 'adva:cms'
+      namespace 'adva:core'
       source_root Adva::Core.root
       
       def install
