@@ -1,3 +1,27 @@
+Account
+  has_many :catalogs
+  has_one :catalog
+
+Site
+  CatalogSection
+    belongs_to :catalog
+    filters_catalog :categories => [1, 2, 3]
+    
+Account
+  has_many :products
+  
+Site
+  Catalog
+    scope :products # uses dynamic filters
+
+
+
+
+
+
+
+
+
 we use admin/sites/show instead of admin/sections/index for dashboard like 
 pages because it leaves more flexibility
 

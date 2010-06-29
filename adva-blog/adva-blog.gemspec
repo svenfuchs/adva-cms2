@@ -1,7 +1,7 @@
 # encoding: utf-8
 
 # $: << File.expand_path('../lib', __FILE__)
-# require 'adva/user/version'
+# require 'adva/blog/version'
 
 Gem::Specification.new do |s|
   s.name         = "adva-blog"

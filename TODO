@@ -1,0 +1,5 @@
+* split public sections_controller (aka, implement blogs_controller etc)
+* implement common static middleware for assets (see railties)
+* maybe have an Adva::Railtie which serves as a base class for all of our railties 
+  and adds common behaviour automatically (like looking up config/redirects.rb, 
+  registering tasks etc.)

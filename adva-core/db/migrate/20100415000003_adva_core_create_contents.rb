@@ -1,4 +1,4 @@
-class AdvaCmsCreateContents < ActiveRecord::Migration
+class AdvaCoreCreateContents < ActiveRecord::Migration
   def self.up
     create_table :contents do |t|
       t.references  :site
