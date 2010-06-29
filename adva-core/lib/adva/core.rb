@@ -2,11 +2,8 @@ require 'adva'
 
 module Adva
   class Core < ::Rails::Engine
+    include Adva::Engine
 
-    rake_tasks do
-      require 'adva/core/tasks.rb'
-    end
-    
     initializer 'adva-core.patches' do
       Dir[File.expand_path("#{root}/lib/patches/**/*.rb", __FILE__)].each do |file|
         require file
@@ -15,16 +12,6 @@ module Adva
 
     initializer 'adva-core.require_section_types' do
       require 'page'
-    end
-
-    initializer 'adva-core.load_redirects' do
-      require root.join('config/redirects')
-    end
-
-    # TODO dry up with adva.user.register_middlewares
-    initializer 'adva-core.register_middlewares' do
-      urls = ["/stylesheets/adva_core", "/javascripts/adva_core", "/images/adva_core"]
-      Rails.application.config.middleware.use Rack::Static, :urls => urls, :root => "#{root}/public"
     end
 
     initializer 'adva-core.register_asset_expansions' do
@@ -36,9 +23,9 @@ module Adva
                         adva_core/admin/jquery.article.js
                         adva_core/admin/jquery.cached_pages.js
                         adva_core/jquery/jquery.qtip.min.js ),
-        :default => %w( adva_core/jquery.roles 
-                        adva_core/jquery.dates 
-                        adva_core/parseuri 
+        :default => %w( adva_core/jquery.roles
+                        adva_core/jquery.dates
+                        adva_core/parseuri
                         adva_core/application ),
         :common  => %w( adva_core/jquery/jquery
                         adva_core/jquery/jquery-lowpro
@@ -69,8 +56,8 @@ module Adva
                         adva_core/admin/users
                         adva_core/jquery/jquery-ui.css
                         adva_core/jquery/jquery.tooltip.css ),
-        :default => %w( adva_core/default 
-                        adva_core/common 
+        :default => %w( adva_core/default
+                        adva_core/common
                         adva_core/forms )
         # :login   => %w( adva_core/admin/reset adva_core/admin/common adva_core/admin/forms
         #                 adva_core/layout/login ),
