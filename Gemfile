@@ -2,9 +2,10 @@
 
 source :rubygems
 
-gem 'adva-core', :path => File.expand_path('../adva-core', __FILE__)
-gem 'adva-blog', :path => File.expand_path('../adva-blog', __FILE__)
-gem 'adva-user', :path => File.expand_path('../adva-user', __FILE__)
+gem 'adva-core',    :path => File.expand_path('../adva-core', __FILE__)
+gem 'adva-blog',    :path => File.expand_path('../adva-blog', __FILE__)
+gem 'adva-catalog', :path => File.expand_path('../adva-catalog', __FILE__)
+gem 'adva-user',    :path => File.expand_path('../adva-user', __FILE__)
 
 group :test do
   gem 'sqlite3-ruby', '1.2.5'

@@ -1,4 +1,4 @@
-class AdvaCmsCreateSections < ActiveRecord::Migration
+class AdvaCoreCreateSections < ActiveRecord::Migration
   def self.up
     create_table :sections do |t|
       t.string     :type

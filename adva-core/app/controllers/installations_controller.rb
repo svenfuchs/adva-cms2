@@ -22,7 +22,8 @@ class InstallationsController < BaseController
 
   def create
     # TODO create a superuser
-    site = Site.create(params[:site])
+    account = Account.create
+    site = account.sites.create(params[:site])
     respond_with *resources
   end
 
@@ -32,7 +33,9 @@ class InstallationsController < BaseController
     end
   
     def site
-      @site ||= Site.new(:sections_attributes => [{ :title => t(:'adva.sites.install.section_default', :default => 'Home') }])
+      @site ||= Site.new(:sections_attributes => [{ 
+        :title => t(:'adva.sites.install.section_default', :default => 'Home') 
+      }])
     end
 
     def normalize_install_params

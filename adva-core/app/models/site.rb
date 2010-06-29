@@ -6,6 +6,7 @@ class Site < ActiveRecord::Base
   validates_presence_of :host, :name, :title, :sections
   validates_uniqueness_of :host
 
+  belongs_to :site
   has_many :sections, :dependent => :destroy, :inverse_of => :site
   has_many :pages
 

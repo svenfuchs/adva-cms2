@@ -1,9 +1,5 @@
 module Adva
   class Blog < ::Rails::Engine
-    rake_tasks do
-      require 'adva/blog/tasks.rb'
-    end
-
     initializer 'adva-blog.require_section_types' do
       require 'blog'
     end
