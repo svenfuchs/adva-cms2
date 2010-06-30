@@ -9,6 +9,9 @@ module NavigationHelpers
     when /the admin posts list page of the "(.*)" blog/
       section = Blog.find_by_title($1) || raise("could not find blog #{$1.inspect}")
       admin_site_section_path(section.site, section)
+    when /the admin products list page of the "(.*)" catalog/
+      section = Catalog.find_by_title($1) || raise("could not find catalog #{$1.inspect}")
+      admin_site_section_path(section.site, section)
     when 'the admin sites page'
       admin_sites_path
     when 'the admin dashboard page'

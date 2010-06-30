@@ -10,6 +10,7 @@ require 'active_record'
 require 'test/unit'
 require 'test_declarative'
 require 'database_cleaner'
+require 'ruby-debug'
 
 ActiveRecord::Base.establish_connection :adapter => 'sqlite3', :database => ':memory:'
 ActiveRecord::Migration.verbose = false

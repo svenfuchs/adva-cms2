@@ -5,7 +5,6 @@ Feature: Managing catalogs
 
     When I follow "New section"
     Then I should see a section type form
-    Then output the page
      And the "Page" radio button should be checked
      And the "Catalog" radio button should not be checked
      And I should see a new page form
@@ -19,7 +18,7 @@ Feature: Managing catalogs
      
     When I fill in "Title" with "Brand new catalog"
      And I press "Create"
-    Then I should be on the admin products list page of the "Brand new catalog" blog
+    Then I should be on the admin products list page of the "Brand new catalog" catalog
      But I should not see any products
     When I follow "Settings"
     Then I should see an edit catalog form
