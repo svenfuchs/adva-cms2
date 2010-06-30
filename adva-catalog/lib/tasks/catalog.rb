@@ -6,8 +6,7 @@ module Adva
   class Catalog
     class Tasks < Rails::Generators::Base
       namespace 'adva:cms'
-      source_root Adva::User.root
-      
+      source_root Adva::Catalog.root
       def install
         Dir[Adva::Catalog.root.join('db/migrate/*')].each do |source|
           copy_file(source.gsub(Adva::Catalog.root.to_s, '.'))
