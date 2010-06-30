@@ -1,2 +1,2 @@
-class Admin::BlogsController < Admin::SectionsController
+class Admin::CatalogsController < Admin::SectionsController
 end

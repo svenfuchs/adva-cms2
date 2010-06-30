@@ -1,3 +1,5 @@
 class Catalog < Section
-  has_many :products, :foreign_key => 'section_id', :dependent => :destroy
+  def products
+    site.account.products
+  end
 end

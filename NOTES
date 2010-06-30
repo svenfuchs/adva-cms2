@@ -1,11 +1,11 @@
-Account
-  has_many :catalogs
-  has_one :catalog
-
-Site
-  CatalogSection
-    belongs_to :catalog
-    filters_catalog :categories => [1, 2, 3]
+# Account
+#   has_many :catalogs
+#   has_one :catalog
+# 
+# Site
+#   CatalogSection
+#     belongs_to :catalog
+#     filters_catalog :categories => [1, 2, 3]
     
 Account
   has_many :products
