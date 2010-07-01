@@ -5,12 +5,20 @@ require 'rubygems'
 require 'bundler'
 
 Bundler.setup
+# Bundler.require(:default, 'test') # TODO cleanup
 
+require 'rails'
 require 'active_record'
 require 'test/unit'
 require 'test_declarative'
 require 'database_cleaner'
 require 'ruby-debug'
+require 'mocha'
+
+require 'adva-core'
+require 'adva-blog'
+require 'adva-catalog'
+require 'adva-user'
 
 ActiveRecord::Base.establish_connection :adapter => 'sqlite3', :database => ':memory:'
 ActiveRecord::Migration.verbose = false

@@ -2,6 +2,7 @@
 
 source :rubygems
 
+gem 'rails', '3.0.0.beta4'
 gem 'adva-core',    :path => File.expand_path('../adva-core', __FILE__)
 gem 'adva-blog',    :path => File.expand_path('../adva-blog', __FILE__)
 gem 'adva-catalog', :path => File.expand_path('../adva-catalog', __FILE__)
@@ -14,6 +15,7 @@ group :test do
   gem 'webrat', '0.7.0'
   gem 'thor'
   gem 'ruby-debug'
+  gem 'mocha'
   gem 'test_declarative'
   gem 'database_cleaner'
 end
