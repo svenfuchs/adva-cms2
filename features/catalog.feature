@@ -27,38 +27,38 @@ Feature: Managing catalogs
     When I press "Save"
     Then I should see an edit catalog form
     
-    # When I follow "Website"
-    # Then I should see a blog
-    #  And I should not see any posts
-    # 
-    # When I go to the admin site sections page
-    # Then I should see "Updated blog"
-    # When I follow "Updated blog"
-    #  And I follow "New"
-    # Then I should see a new post form
-    # 
-    # When I fill in "Title" with "Brand new blog post"
-    #  And I fill in "Body" with "Brand new blog post's body"
-    #  And I press "Create"
-    # Then I should see an edit post form
-    # 
-    # When I fill in "Title" with "Updated blog post"
-    #  And I fill in "Body" with "Updated blog post's body"
-    #  And I press "Save"
-    # Then I should see an edit post form
-    # 
-    # When I follow "Website"
-    # Then I should see a post titled "Updated blog post"
-    #  And I should see a post containing "Updated blog post's body"
-    # When I follow "Updated blog"
-    # Then I should see "Updated blog post"
-    # 
-    # When I go to the admin site sections page
-    #  And I follow "Updated blog"
-    #  And I follow "Updated blog post"
-    # Then I should see an edit post form
-    # 
-    # When I press "Delete"
-    # Then I should see "Updated blog"
-    #  And I should not see any posts
-    #  And I should not see "Updated blog post"
+    When I follow "Website"
+    Then I should see a catalog
+     And I should not see any products
+    
+    When I go to the admin site sections page
+    Then I should see "Updated catalog"
+    When I follow "Updated catalog"
+     And I follow "New"
+    Then I should see a new product form
+    
+    When I fill in "Title" with "Brand new catalog product"
+     And I fill in "Body" with "Brand new catalog product's body"
+     And I press "Create"
+    Then I should see an edit product form
+    
+    When I fill in "Title" with "Updated catalog product"
+     And I fill in "Body" with "Updated catalog product's body"
+     And I press "Save"
+    Then I should see an edit product form
+    
+    When I follow "Website"
+    Then I should see a product titled "Updated catalog product"
+     And I should see a product containing "Updated catalog product's body"
+    When I follow "Updated catalog"
+    Then I should see "Updated catalog product"
+    
+    When I go to the admin site sections page
+     And I follow "Updated catalog"
+     And I follow "Updated catalog product"
+    Then I should see an edit product form
+    
+    When I press "Delete"
+    Then I should see "Updated catalog"
+     And I should not see any products
+     And I should not see "Updated catalog product"
