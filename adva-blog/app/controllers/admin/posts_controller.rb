@@ -2,6 +2,6 @@ class Admin::PostsController < Admin::BaseController
   nested_belongs_to :site, :section
   
   def index
-    redirect_to [:admin, resource.section.site, resource.section]
+    redirect_to resources[0..-2]
   end
 end
