@@ -37,28 +37,28 @@ Feature: Managing catalogs
      And I follow "New"
     Then I should see a new product form
     
-    When I fill in "Title" with "Brand new catalog product"
-     And I fill in "Body" with "Brand new catalog product's body"
+    When I fill in "Title" with "Brand new product"
+     And I fill in "Body" with "Brand new product's body"
      And I press "Create"
     Then I should see an edit product form
     
-    When I fill in "Title" with "Updated catalog product"
-     And I fill in "Body" with "Updated catalog product's body"
+    When I fill in "Title" with "Updated product"
+     And I fill in "Body" with "Updated product's body"
      And I press "Save"
     Then I should see an edit product form
     
     When I follow "Website"
-    Then I should see a product titled "Updated catalog product"
-     And I should see a product containing "Updated catalog product's body"
+    Then I should see a product titled "Updated product"
+     And I should see a product containing "Updated product's body"
     When I follow "Updated catalog"
-    Then I should see "Updated catalog product"
+    Then I should see "Updated product"
     
     When I go to the admin site sections page
      And I follow "Updated catalog"
-     And I follow "Updated catalog product"
+     And I follow "Updated product"
     Then I should see an edit product form
     
     When I press "Delete"
     Then I should see "Updated catalog"
      And I should not see any products
-     And I should not see "Updated catalog product"
+     And I should not see "Updated product"
