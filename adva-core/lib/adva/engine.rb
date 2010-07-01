@@ -26,6 +26,14 @@ module Adva
             urls = urls.select { |path| File.directory?(root.join("public/#{path}")) }
             app.middleware.use Rack::Static, :urls => urls, :root => root.join('public') unless urls.empty?
           end
+
+          def self.copy_migrations
+            Dir[root.join('db/migrate/*')].each do |source|
+              target = File.expand_path(source.gsub(root.to_s, '.'))
+              FileUtils.mkdir_p(File.dirname(target))
+              FileUtils.cp(source, target)
+            end
+          end
         end
       end
     end

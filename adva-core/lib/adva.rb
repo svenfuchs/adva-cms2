@@ -3,7 +3,14 @@ module Adva
   
   class << self
     def engines
-      @engines ||= contants.select { |constant| constant < Rails::Engine }
+      @engines ||= constants.map do |name| 
+        constant = const_get(name)
+        constant if constant < Rails::Engine
+      end.compact
+    end
+
+    def engine_names
+      @engine_names ||= engines.map { |constant| constant.name.split('::').last }
     end
   end
 end
