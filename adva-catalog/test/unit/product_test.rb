@@ -11,5 +11,4 @@ class ProductTest < Test::Unit::TestCase
     product = @account.products.create
     assert_equal @account, product.account
   end
-
 end
