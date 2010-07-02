@@ -1,4 +1,7 @@
 class InstallationsController < BaseController
+  # defaults :resource_class => Site, :collection_name => 'sites', :instance_name => 'site'
+  # belongs_to :account
+  
   layout 'login'
 
   respond_to :html
@@ -24,10 +27,15 @@ class InstallationsController < BaseController
     # TODO create a superuser
     account = Account.create
     site = account.sites.create(params[:site])
+    # resource.save
     respond_with *resources
   end
 
   protected
+    # def build_resource
+    #   get_resource_ivar || set_resource_ivar(Account.create.sites.create(params[:site]))
+    # end
+
     def resources
       [:admin, site]
     end
