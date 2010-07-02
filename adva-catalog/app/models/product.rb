@@ -1,5 +1,5 @@
 require 'content'
 
-class Product < Content
+class Product < ActiveRecord::Base
   belongs_to :account
 end
