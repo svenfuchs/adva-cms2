@@ -10,5 +10,7 @@ if respond_to?(:remove_file)
   gem 'adva-catalog', :path => "#{gem_root}/adva-catalog"
   gem 'adva-user',    :path => "#{gem_root}/adva-user"
 
+  # gem 'silence_log_tailer'
+
   remove_file 'public/index.html'
 end
