@@ -1,0 +1,13 @@
+h2. adva-cms development
+
+Views seem to be reloaded depending on their timestamp. To turn on controller/model class reloading for adva-cms Gems:
+
+  # config/application.rb
+
+  module TheApp
+    class Application < Rails::Application
+      # Enables or disables engine reloading.
+      config.reload_engines = true
+    end
+  end
+
