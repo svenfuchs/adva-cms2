@@ -1,6 +1,7 @@
 <%= link_to section.title, resources[0..-2] %>
 
 <div class="<%= resource.class.name.underscore %>">
-  <h2><%= resource.title %></h2>
-  <p><%= resource.body %></p>
+  <h2><%= resource.name %></h2>
+  <p><%= resource.number %></p>
+  <p><%= resource.description %></p>
 </div>
