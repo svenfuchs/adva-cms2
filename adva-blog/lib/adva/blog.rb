@@ -5,11 +5,11 @@ module Adva
     include Adva::Engine
 
     initializer 'adva-blog.require_section_types' do
-      require 'blog'
+      config.to_prepare { require_dependency 'blog' }
     end
 
     initializer 'adva-blog.add_blogs_to_site' do
-      Site.has_many :blogs
+      config.to_prepare { Site.has_many :blogs }
     end
   end
 end

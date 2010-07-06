@@ -10,7 +10,8 @@ module Adva
       Devise.setup do |config|
         require 'devise/orm/active_record'
         # for more devise options see http://bit.ly/bwxrGg
-        config.mailer_sender = "please-change-me@config-initializers-devise.com"
+        config.mailer_sender = 'please-change-me@config-initializers-devise.com'
+        config.encryptor     = :bcrypt
       end
     end
 

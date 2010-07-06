@@ -4,7 +4,8 @@ if respond_to?(:remove_file)
   # gem_root = File.expand_path('../../..', __FILE__)
   gem_root = ENV['GEM_ROOT']
 
-  gem 'devise'
+  gem 'devise', '1.1.rc2'
+
   gem 'adva-core',    :path => "#{gem_root}/adva-core"
   gem 'adva-blog',    :path => "#{gem_root}/adva-blog"
   gem 'adva-catalog', :path => "#{gem_root}/adva-catalog"

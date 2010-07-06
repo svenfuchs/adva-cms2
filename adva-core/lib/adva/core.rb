@@ -6,13 +6,16 @@ module Adva
 
     initializer 'adva-core.patches' do
       Dir[File.expand_path("#{root}/lib/patches/**/*.rb", __FILE__)].each do |file|
-        require file
+        require_dependency file
       end
     end
 
     initializer 'adva-core.require_section_types' do
-      require 'page'
+      config.to_prepare { require_dependency 'page' } # TODO is there a concept of "reloadable" initializers?
     end
+
+    # initializer 'adva-core.reloadable_inherited_resources' do
+    # end
 
     initializer 'adva-core.register_asset_expansions' do
       ActionView::Helpers::AssetTagHelper.register_javascript_expansion \
