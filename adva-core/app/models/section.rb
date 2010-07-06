@@ -12,9 +12,13 @@ class Section < ActiveRecord::Base
   #   :only_when_blank => true, :scope => [ :site_id, :parent_id ]
   # validates_uniqueness_of :permalink, :scope => [:site_id, :parent_id]
 
+  mattr_accessor :types
+  self.types = []
+
   class << self
-    def types
-      subclasses.map(&:name)
+    def inherited(child)
+      types << child.name
+      super
     end
   end
 

@@ -24,10 +24,12 @@ class InstallationsController < BaseController
   end
 
   def create
-    # TODO create a superuser
     account = Account.create!
     account.users.create!(:email => 'admin@admin.org', :password => 'admin')
     account.sites.create!(params[:site])
+
+    # TODO sign the in, redirect to admin/sites/1
+
     # resource.save
     respond_with *resources
   end
