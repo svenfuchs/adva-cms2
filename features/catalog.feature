@@ -16,37 +16,37 @@ Feature: Managing catalogs
      And the "Catalog" radio button should be checked
      And I should see a new catalog form
      
-    When I fill in "Title" with "Brand new catalog"
+    When I fill in "Name" with "Brand new catalog"
      And I press "Create"
     Then I should be on the admin products list page of the "Brand new catalog" catalog
      But I should not see any products
     When I follow "Settings"
     Then I should see an edit catalog form
     
-    When I fill in "Title" with "Updated catalog"
+    When I fill in "Name" with "Updated catalog"
     When I press "Save"
     Then I should see an edit catalog form
-    
+
     When I follow "Website"
     Then I should see a catalog
      And I should not see any products
-    
+
     When I go to the admin site sections page
     Then I should see "Updated catalog"
     When I follow "Updated catalog"
      And I follow "New"
     Then I should see a new product form
-    
-    When I fill in "Title" with "Brand new product"
-     And I fill in "Body" with "Brand new product's body"
+
+    When I fill in "Name" with "Brand new product"
+     And I fill in "Description" with "Brand new product's body"
      And I press "Create"
     Then I should see an edit product form
-    
-    When I fill in "Title" with "Updated product"
-     And I fill in "Body" with "Updated product's body"
+
+    When I fill in "Name" with "Updated product"
+     And I fill in "Description" with "Updated product's body"
      And I press "Save"
     Then I should see an edit product form
-    
+
     When I follow "Website"
     Then I should see a product titled "Updated product"
      And I should see a product containing "Updated product's body"
