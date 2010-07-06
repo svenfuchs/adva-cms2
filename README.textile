@@ -1,5 +1,19 @@
 h2. adva-cms development
 
+h3. Running the tests
+
+Integration tests require setting up a "host app" which is then used as a context for the various adva gems to run the cucumber features in.
+
+So when you want to run the tests for the first time you have to "regenerate" this application:
+
+$ REGENERATE_APP=1 rake
+
+As long as you don't add any migrations you can now use this application for subsequent test runs and just use:
+
+$ rake
+
+h3. development mode and class reloading
+
 Views seem to be reloaded depending on their timestamp. To turn on controller/model class reloading for adva-cms Gems:
 
   # config/application.rb
