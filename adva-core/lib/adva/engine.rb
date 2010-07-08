@@ -5,35 +5,65 @@ module Adva
     class << self
       def included(base)
         base.class_eval do
-          name = base.name.underscore.split('/').last
+          include Initializations
+          engine_name = base.name.underscore.split('/').last
 
           rake_tasks do
-            begin
-              load root.join("lib/tasks/#{name}.rb")
-            rescue LoadError
-            end
+            load_rake_tasks
           end
 
-          initializer "adva-#{name}.load_redirects" do |app|
-            begin
-              load root.join('config/redirects.rb')
-            rescue LoadError
-            end
+          initializer "adva-#{engine_name}.load_redirects" do |app|
+            load_redirects
           end
 
-          initializer "adva-#{name}.register_middlewares" do |app|
-            urls = %W(/images/adva_#{name} /javascripts/adva_#{name} /stylesheets/adva_#{name})
-            urls = urls.select { |path| File.directory?(root.join("public/#{path}")) }
-            app.middleware.use Rack::Static, :urls => urls, :root => root.join('public') unless urls.empty?
+          initializer "adva-#{engine_name}.register_statics_middleware" do |app|
+            register_statics_middleware(app)
           end
 
-          def self.copy_migrations
-            Dir[root.join('db/migrate/*')].each do |source|
-              target = File.expand_path(source.gsub(root.to_s, '.'))
-              FileUtils.mkdir_p(File.dirname(target))
-              FileUtils.cp(source, target)
-            end
+          initializer "adva-#{engine_name}.preload_sliced_models" do |app|
+            engine = self
+            config.to_prepare { engine.preload_sliced_models }
           end
+        end
+      end
+    end
+
+    module Initializations
+      def engine_name
+        self.class.name.underscore.split('/').last
+      end
+
+      def load_rake_tasks
+        begin
+          load root.join("lib/tasks/#{engine_name}.rb")
+        rescue LoadError
+        end
+      end
+
+      def load_redirects
+        begin
+          load root.join('config/redirects.rb')
+        rescue LoadError
+        end
+      end
+
+      def preload_sliced_models
+        types = %w(controllers models)
+        paths = types.map { |type| self.paths.app.send(type).to_a.first }
+        Dir["{#{paths.join(',')}}/**/*_slice.rb"].each { |path| require(path) }
+      end
+
+      def register_statics_middleware(app)
+        urls = %W(/images/adva_#{engine_name} /javascripts/adva_#{engine_name} /stylesheets/adva_#{engine_name})
+        urls = urls.select { |path| File.directory?(root.join("public/#{path}")) }
+        app.middleware.use Rack::Static, :urls => urls, :root => root.join('public') unless urls.empty?
+      end
+
+      def copy_migrations
+        Dir[root.join('db/migrate/*')].each do |source|
+          target = File.expand_path(source.gsub(root.to_s, '.'))
+          FileUtils.mkdir_p(File.dirname(target))
+          FileUtils.cp(source, target)
         end
       end
     end
