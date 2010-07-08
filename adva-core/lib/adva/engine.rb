@@ -1,5 +1,3 @@
-# Rails::Railtie::ABSTRACT_RAILTIES << 'Adva::Engine'
-
 module Adva
   module Engine
     class << self
@@ -28,7 +26,27 @@ module Adva
       end
     end
 
+    module SlicedModels
+      def preload_sliced_models
+        types = %w(controllers models)
+        paths = types.map { |type| self.paths.app.send(type).to_a.first }
+
+        Dir["{#{paths.join(',')}}/**/*_slice.rb"].each do |path|
+          const_name = path =~ %r(/([^/]*)_slice.rb) && $1.camelize
+
+          require_dependency(const_name)
+          load(path)
+
+          unless ActiveSupport::Dependencies.autoloaded_constants.include?(const_name)
+            ActiveSupport::Dependencies.autoloaded_constants << 'Product'
+          end
+        end
+      end
+    end
+
     module Initializations
+      include SlicedModels
+
       def engine_name
         self.class.name.underscore.split('/').last
       end
@@ -47,12 +65,6 @@ module Adva
         end
       end
 
-      def preload_sliced_models
-        types = %w(controllers models)
-        paths = types.map { |type| self.paths.app.send(type).to_a.first }
-        Dir["{#{paths.join(',')}}/**/*_slice.rb"].each { |path| require(path) }
-      end
-
       def register_statics_middleware(app)
         if File.directory?(root.join('public'))
           app.middleware.use(ActionDispatch::Static, root.join('public').to_s)
@@ -67,5 +79,15 @@ module Adva
         end
       end
     end
+  end
+end
+
+# TODO move this ... where?
+
+Rails::Application.class_eval do
+  include Adva::Engine::SlicedModels
+
+  initializer "application.preload_sliced_models" do |app|
+    config.to_prepare { app.preload_sliced_models }
   end
 end
