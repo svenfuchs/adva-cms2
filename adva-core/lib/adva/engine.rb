@@ -54,9 +54,9 @@ module Adva
       end
 
       def register_statics_middleware(app)
-        urls = %W(/images/adva_#{engine_name} /javascripts/adva_#{engine_name} /stylesheets/adva_#{engine_name})
-        urls = urls.select { |path| File.directory?(root.join("public/#{path}")) }
-        app.middleware.use Rack::Static, :urls => urls, :root => root.join('public') unless urls.empty?
+        if File.directory?(root.join('public'))
+          app.middleware.use(ActionDispatch::Static, root.join('public').to_s)
+        end
       end
 
       def copy_migrations
