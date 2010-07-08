@@ -2,3 +2,8 @@ en:
   section:
     types:
       catalog: Catalog
+
+  admin:
+    products:
+      edit:
+        title: Edit product
