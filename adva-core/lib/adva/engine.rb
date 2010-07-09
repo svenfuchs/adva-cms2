@@ -3,7 +3,9 @@ module Adva
     class << self
       def included(base)
         base.class_eval do
-          include Initializations
+          include Initializations # ugh. why does these need to be both class
+          extend Initializations  # and instance methods?
+
           engine_name = base.name.underscore.split('/').last
 
           rake_tasks do
@@ -51,13 +53,14 @@ module Adva
       include SlicedModels
 
       def engine_name
-        self.class.name.underscore.split('/').last
+        name = is_a?(Class) ? self.name : self.class.name # ughugh.
+        name.underscore.split('/').last
       end
 
       def load_rake_tasks
         begin
           load root.join("lib/tasks/#{engine_name}.rb")
-        rescue LoadError
+        rescue LoadError => e
         end
       end
 
