@@ -38,8 +38,10 @@ module Adva
 
         Dir["{#{paths.join(',')}}/**/*_slice.rb"].each do |filename|
           const_name = filename =~ %r(/([^/]*)_slice.rb) && $1.camelize
-          ActiveSupport::Dependencies.mark_for_unload(const_name)
-          const_name.constantize # loads the constant if required
+          # ActiveSupport::Dependencies.mark_for_unload(const_name)
+          ActiveSupport::Dependencies.autoloaded_constants << const_name
+          ActiveSupport::Dependencies.autoloaded_constants.uniq!
+          require_dependency(const_name)
           load(filename)
         end
       end
