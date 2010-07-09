@@ -43,7 +43,7 @@ module Adva
           # ActiveSupport::Dependencies.mark_for_unload(const_name)
           ActiveSupport::Dependencies.autoloaded_constants << const_name
           ActiveSupport::Dependencies.autoloaded_constants.uniq!
-          require_dependency(const_name)
+          require_dependency(const_name.underscore)
           load(filename)
         end
       end
