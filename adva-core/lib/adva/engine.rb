@@ -27,19 +27,20 @@ module Adva
     end
 
     module SlicedModels
+
+      # TODO preloading seems to work fine, but slows the dev mode down quite
+      # a bit. should be replace with an approace which lazyloads sliced
+      # models in Dependencies maybe an after-load hook in Dependencies would
+      # work.
       def preload_sliced_models
         types = %w(controllers models)
         paths = types.map { |type| self.paths.app.send(type).to_a.first }
 
-        Dir["{#{paths.join(',')}}/**/*_slice.rb"].each do |path|
-          const_name = path =~ %r(/([^/]*)_slice.rb) && $1.camelize
-
-          require_dependency(const_name)
-          load(path)
-
-          unless ActiveSupport::Dependencies.autoloaded_constants.include?(const_name)
-            ActiveSupport::Dependencies.autoloaded_constants << 'Product'
-          end
+        Dir["{#{paths.join(',')}}/**/*_slice.rb"].each do |filename|
+          const_name = filename =~ %r(/([^/]*)_slice.rb) && $1.camelize
+          ActiveSupport::Dependencies.mark_for_unload(const_name)
+          const_name.constantize # loads the constant if required
+          load(filename)
         end
       end
     end
