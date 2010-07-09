@@ -14,9 +14,5 @@ module Adva
         config.encryptor     = :bcrypt
       end
     end
-
-    initializer 'adva.user.add_users_to_account' do
-      Account.has_many :users, :dependent => :destroy
-    end
   end
 end
