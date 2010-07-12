@@ -10,3 +10,5 @@ en:
     products:
       edit:
         title: Edit product
+      new:
+        title: Create a New Product
