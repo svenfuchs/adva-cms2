@@ -30,7 +30,7 @@
 }
 #top .active > a {
   color: #fff;
-  background: #c22222 url(/images/adva_cms/admin/tab_top_active.png) repeat-x;
+  background: #c22222 url(/images/adva_core/admin/tab_top_active.png) repeat-x;
 }
 #top li:hover a {
   color: #222;
