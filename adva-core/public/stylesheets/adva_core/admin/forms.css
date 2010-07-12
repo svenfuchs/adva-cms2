@@ -49,13 +49,16 @@ textarea.small {
   height: 79px;
 }
 label {
-  display: block;
-  clear: both;
+  clear: left;
   color: #555;
   text-shadow: #fff 1px 1px;
   line-height: 1.2em;
   margin-top: 15px;
   margin-bottom: 6px;
+}
+label.block {
+  display: block;
+  clear: both;
 }
 label.inline {
   position: relative;
