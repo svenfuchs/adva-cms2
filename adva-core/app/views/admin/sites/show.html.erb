@@ -1,4 +1,6 @@
 <!-- TODO remove named_route helpers and use url_for -->
 
-<%= link_to('new section', new_admin_site_section_path(resource)) %>
-<%= link_to('new site', new_admin_site_path) %>
+<ul>
+  <li><%= link_to(t(:'.section.new'), new_admin_site_section_path(resource)) %></li>
+  <li><%= link_to(t(:'.site.new'), new_admin_site_path) %></li>
+</ul>
