@@ -1,6 +1,11 @@
 <!-- TODO remove named_route helpers and use url_for -->
 
 <ul>
-  <li><%= link_to(t(:'.section.new'), new_admin_site_section_path(resource)) %></li>
-  <li><%= link_to(t(:'.site.new'), new_admin_site_path) %></li>
+  <li><%= link_to(t(:'.sections'), url_for(resources.push(:sections))) %></li>
 </ul>
+
+<ul>
+  <li><%= link_to(t(:'.section.new'), url_for(resources.unshift(:new).push(:section))) %></li>
+  <li><%= link_to(t(:'.site.new'), url_for(resources.unshift(:new))) %></li>
+</ul>
+
