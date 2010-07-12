@@ -10,7 +10,12 @@ module Adva
 
       rack_endpoint = "#{controller}_controller".classify.constantize.action(action)
       env['action_dispatch.request.parameters'] = params
-      self.status, self.headers, self.response_body = rack_endpoint.call(env)
+      response = rack_endpoint.call(env)
+
+      self.status, self.headers, self.response_body = response
+      @_response.headers.replace(response[1])
+
+      response
     end
   end
 end

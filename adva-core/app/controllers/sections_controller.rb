@@ -1,9 +1,6 @@
 class SectionsController < BaseController
   helper_method :section
   
-  def show
-  end
-  
   protected
 
     def site
