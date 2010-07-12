@@ -26,23 +26,23 @@ module Adva
                         adva_core/admin/jquery.article.js
                         adva_core/admin/jquery.cached_pages.js
                         adva_core/jquery/jquery.qtip.min.js ),
-        :default => %w( adva_core/jquery.roles
-                        adva_core/jquery.dates
-                        adva_core/parseuri
-                        adva_core/application ),
-        :common  => %w( adva_core/jquery/jquery
-                        adva_core/jquery/jquery-lowpro
-                        adva_core/jquery/jquery-ui
-                        adva_core/json
-                        adva_core/cookie
-                        adva_core/jquery.flash
-                        adva_core/application )
+        :default => %w( adva_core/jquery.roles.js
+                        adva_core/jquery.dates.js
+                        adva_core/parseuri.js
+                        adva_core/application.js ),
+        :common  => %w( adva_core/jquery/jquery.js
+                        adva_core/jquery/jquery-lowpro.js
+                        adva_core/jquery/jquery-ui.js
+                        adva_core/json.js
+                        adva_core/cookie.js
+                        adva_core/jquery.flash.js
+                        adva_core/application.js )
         # :login   => %w(),
         # :simple  => %w(),
         # # From qtip dev branch
-        # :qtip    => %w( adva_core/jquery/qtip/jquery.qtip adva_core/jquery/qtip/jquery.qtip.tips
-        #                 adva_core/jquery/qtip/jquery.qtip.border adva_core/jquery/qtip/jquery.qtip.preload
-        #                 adva_core/jquery/qtip/jquery.qtip.bgiframe adva_core/jquery/qtip/jquery.qtip.imagemap )
+        # :qtip    => %w( adva_core/jquery/qtip/jquery.qtip.js adva_core/jquery/qtip/jquery.qtip.tips.js
+        #                 adva_core/jquery/qtip/jquery.qtip.border.js adva_core/jquery/qtip/jquery.qtip.preload.js
+        #                 adva_core/jquery/qtip/jquery.qtip.bgiframe.js adva_core/jquery/qtip/jquery.qtip.imagemap.js )
 
       ActionView::Helpers::AssetTagHelper.register_stylesheet_expansion \
         :admin   => %w( adva_core/admin/reset
