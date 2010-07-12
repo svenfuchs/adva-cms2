@@ -1,4 +1,6 @@
 en:
   section:
+    new:
+      title: Create a New Blog
     types:
       blog: Blog
