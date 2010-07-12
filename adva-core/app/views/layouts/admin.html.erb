@@ -5,7 +5,7 @@
   <meta name="generator" content="adva-cms" />
   <title>adva-cms: Admin <%= controller.controller_name %></title>
   <%= stylesheet_link_tag :admin, :media => 'all' %>
-  <%= javascript_include_tag :admin %>
+  <%= javascript_include_tag :common, :admin %>
   <%#= javascript_tag "window._auth_token = #{form_authenticity_token.inspect}" %>
   <%= yield :head %>
 </head>
