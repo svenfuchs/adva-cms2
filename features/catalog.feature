@@ -34,7 +34,7 @@ Feature: Managing catalogs
     When I go to the admin site sections page
     Then I should see "Updated catalog"
     When I follow "Updated catalog"
-     And I follow "New"
+     And I follow "New Product"
     Then I should see a new product form
 
     When I fill in "Name" with "Brand new product"
