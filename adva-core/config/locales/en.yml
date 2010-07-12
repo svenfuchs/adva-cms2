@@ -39,6 +39,8 @@ en:
         title: Create a New Page
       form:
         heading_label: Heading
+      edit:
+        title: Edit Page
     posts:
       edit:
         title: Edit Post
