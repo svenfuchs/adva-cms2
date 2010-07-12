@@ -11,4 +11,5 @@ Feature: Managing sites
     And I fill in "Section title" with "Home"
     And I press "Create"
     Then I should be on the admin dashboard page for the site on "localhost:3000"
-    
+    When I go to the admin sites page
+    Then I should see "Site 2"
