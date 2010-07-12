@@ -4,6 +4,9 @@ en:
       catalog: Catalog
 
   admin:
+    catalogs:
+      new:
+        title: Create a New Catalog
     products:
       edit:
         title: Edit product

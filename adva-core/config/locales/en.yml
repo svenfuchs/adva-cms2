@@ -14,25 +14,29 @@ en:
   admin:
     sites:
       new:
-        title: Create a new site
+        title: Create a New Site
     sections:
       index:
         title: Sections
       new:
-        title: Create a new section
+        title: Create a New Section
+      select_type:
+        title: Choose the Type of the New Section
       show:
-        title: Edit section
+        title: Edit Section
     articles:
       form:
         heading_label: Heading
       edit:
-        title: Edit article
+        title: Edit Article
     pages:
+      new:
+        title: Create a New Page
       form:
         heading_label: Heading
     posts:
       edit:
-        title: Edit post
+        title: Edit Post
     session:
       new:
         title: Sign in
