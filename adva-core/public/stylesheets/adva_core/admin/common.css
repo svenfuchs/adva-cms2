@@ -33,6 +33,11 @@ th, td {
   vertical-align: top;
 }
 
+/* common classes */
+.hidden {
+  display:none;
+}
+
 /* flash, errors, notices */
 
 p.flash {
