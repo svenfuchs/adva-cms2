@@ -28,8 +28,8 @@ $(document).ready(function() {
     }
   });
 
-	$('.hint.enabled').each(function() {
-	  $(this).qtip({
+  $('.hint.enabled').each(function() {
+    $(this).qtip({
       content: $(this).html(),
       position: {
         corner: {
@@ -68,4 +68,10 @@ $(document).ready(function() {
       }
     });
   });
+
+  // TODO make the new section creation maybe a two-step form and get rid of this here...
+  $('form.section_type input[type=submit]').hide();
+  $('form.section_type input[type=radio]').change(function(e) {
+    $('form.section_type').submit();
+  })
 });
