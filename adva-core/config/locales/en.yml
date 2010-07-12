@@ -13,6 +13,8 @@ en:
 
   admin:
     sites:
+      index:
+        title: Sites
       new:
         title: Create a New Site
       show:
