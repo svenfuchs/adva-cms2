@@ -8,6 +8,7 @@ if respond_to?(:remove_file)
 
   gem 'adva-core',    :path => "#{gem_root}/adva-core"
   gem 'adva-blog',    :path => "#{gem_root}/adva-blog"
+  gem "adva-cart",    :path => "#{gem_root}/adva-cart"
   gem 'adva-catalog', :path => "#{gem_root}/adva-catalog"
   gem 'adva-user',    :path => "#{gem_root}/adva-user"
 

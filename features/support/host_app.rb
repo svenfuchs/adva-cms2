@@ -15,7 +15,7 @@ class HostApp
     @resource_layout = "#{@gem_root}/test/fixtures/host_app_resource_layout.rb"
     @options         = options
 
-    if options[:regenerate]
+    if regenerate?
       regenerate
       generate_resource_layout if File.exists?(@resource_layout)
       require_environment
@@ -25,9 +25,13 @@ class HostApp
       require_environment
     end
   end
-  
+
   def regenerate?
-    !options.key?(:regenerate) || !options[:regenerate]
+    ENV.key?('REGENERATE_APP') || !exists?
+  end
+
+  def exists?
+    File.exists?(root)
   end
 
   def in_root(&block)

@@ -6,7 +6,6 @@ Bundler.setup
 require File.expand_path('../host_app', __FILE__)
 
 options = {
-  :regenerate => !!ENV['REGENERATE_APP'],
   :template   => File.expand_path('../../fixtures/host_app_template.rb', __FILE__)
 }
 HostApp.new(File.expand_path('../../..', __FILE__), options) do
@@ -35,8 +34,10 @@ ActionController::Base.allow_rescue = false
 Cucumber::Rails::World.use_transactional_fixtures = true
 
 Before do
+  # TODO extract to memoizing attribute_readers
+  @current_account = Account.create!
   @current_site = Site.create!(
-    :account => Account.create!,
+    :account => @current_account,
     :name  => 'adva-cms',
     :host  => 'www.example.com',
     :title => "adva-cms",

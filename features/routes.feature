@@ -13,4 +13,8 @@ Feature: Routes
       | POST   | /admin/sites        | admin/sites    | create  |    |
       | PUT    | /admin/sites/1      | admin/sites    | update  | 1  |
       | DELETE | /admin/sites/1      | admin/sites    | destroy | 1  |
+      | GET    | /cart               | cart           | show    |    |
+      | POST   | /cart/items         | cart_items     | create  |    |
+      | PUT    | /cart/items/1       | cart_items     | update  | 1  |
+      | DELETE | /cart/items/1       | cart_items     | destroy | 1  |
 
