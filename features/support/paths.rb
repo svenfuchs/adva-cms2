@@ -22,6 +22,8 @@ module NavigationHelpers
       new_installation_path
     when 'the home section page'
       section_path(Site.first.sections.first) # TODO
+    when /the "(.*)" section page/
+      section_path(Section.where(:title => $1).first)
     when 'the signin page'
       new_user_session_path
     else
