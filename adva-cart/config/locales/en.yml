@@ -1,0 +1,8 @@
+en:
+  cart:
+    add_item:
+      submit: "Add to cart"
+    show:
+      title: "Your shopping cart"
+    item:
+      delete: Delete

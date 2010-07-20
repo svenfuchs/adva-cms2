@@ -1,0 +1,9 @@
+<%= form_for [:cart, Item.new(:amount => 1, :product => resource)] do |f| %>
+  <%= hidden_field_tag :return_to, request.url %>
+  <%= f.hidden_field :product_id %>
+
+  <%= f.label :amount %>
+  <%= f.text_field :amount %>
+
+  <%= submit_tag t('.submit') %>
+<% end %>

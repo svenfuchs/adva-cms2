@@ -1,0 +1,10 @@
+<%= content_tag_for(:tr, item) do %>
+  <td><%= item.product.number %></td>
+  <td><%= item.product.name %></td>
+  <td class="numeric quantity"><%= item.amount %></td>
+  <td class="numeric price"><%= number_to_currency(item.price, :unit => '€') %></td>
+  <td class="numeric total_price"><%#= number_to_currency(item.total_price, :unit => '€') %></td>
+  <td class="actions">
+    <%= button_to t('.delete'), url_for([:cart, item]), :class => 'delete', :method => :delete %>
+  </td>
+<% end %>
