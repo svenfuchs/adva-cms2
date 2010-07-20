@@ -1,0 +1,4 @@
+source :rubygems
+
+gem 'adva-core'
+gem 'adva-catalog'
