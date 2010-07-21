@@ -9,7 +9,7 @@ Then 'the following routes should be recognized:' do |table|
     expected_options.each { |name, value| expected_options.delete(name) if value.blank? }
 
     options['params'].split(',').each do |param|
-      name, value = param.split(':')
+      name, value = param.split(':').map(&:strip)
       expected_options[name] = value
     end if options['params']
 
