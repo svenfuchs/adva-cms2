@@ -1,6 +1,6 @@
 Feature: Managing catalogs
   Scenario: Creating a new catalog
-    Given I am signed in
+    Given I am signed in with "admin@admin.org" and "admin"
     Given I am on the admin dashboard page
 
     When I follow "New section"
