@@ -1,6 +1,6 @@
 Feature: Managing blogs
   Scenario: Creating a new blog
-    Given I am signed in
+    Given I am signed in with "admin@admin.org" and "admin"
     Given I am on the admin dashboard page
 
     When I follow "New section"

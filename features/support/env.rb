@@ -33,23 +33,4 @@ end
 ActionController::Base.allow_rescue = false
 Cucumber::Rails::World.use_transactional_fixtures = true
 
-Before do
-  # TODO extract to memoizing attribute_readers
-  @current_account = Account.create!
-  @current_site = Site.create!(
-    :account => @current_account,
-    :name  => 'adva-cms',
-    :host  => 'www.example.com',
-    :title => "adva-cms",
-    :sections_attributes => [{
-      :type  => 'Page',
-      :title => 'Home',
-      :article_attributes => {
-        :title => 'Heading',
-        :body  => 'Body'
-      }
-    }]
-  )
-end
-
 Rails.backtrace_cleaner.remove_silencers!

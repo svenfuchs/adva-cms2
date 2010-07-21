@@ -9,8 +9,12 @@ class BaseController < InheritedResources::Base
   
   layout 'default'
   
-  helper_method :current_site, :resources
+  helper_method :current_account, :current_site, :resources
   
+  def current_account
+    Account.first # TODO
+  end
+
   def current_site
     Site.first # TODO
   end
