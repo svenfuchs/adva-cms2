@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
- 		<meta name="generator" content="adva-cms - Open source content management platform" />
+    <meta name="generator" content="adva-cms - Open source content management platform" />
     <%#= meta_tags(@article) if @article %>
     <title>adva-cms: <%= current_site.title %></title>
     <%= stylesheet_link_tag :default %>
@@ -17,8 +17,8 @@
         <h1><%= current_site.title %></h1>
         <h2><%#= current_site.subtitle %></h2>
         <p id="login_links" class="navigation">
-					<%= link_to(t('.sign_in'), new_user_session_path(:return_to => request.fullpath), :id => 'login_link') %> &middot;
-					<%= link_to(t('.sign_up'), new_user_registration_path, :id => 'signup_link') %>
+          <%= link_to(t('.sign_in'), new_user_session_path(:return_to => request.fullpath), :id => 'login_link') %> &middot;
+          <%= link_to(t('.sign_up'), new_user_registration_path, :id => 'signup_link') %>
         </p>
         <p id="logout_links" class="navigation" style="display: none;">
           <%= t(:'adva.users.info.logged_in_as', :name => '<span class="user_name"></span>') %> &middot;
@@ -30,14 +30,14 @@
           <% end %>
         </ul>
         <%#= yield :header %>
-				<%#= Menus::Sections.new.build(self).root.render(:id => 'sections') %>
+        <%#= Menus::Sections.new.build(self).root.render(:id => 'sections') %>
       </div>
       <div id="main">
-        <%#= render :partial => 'shared/flash' %>  
+        <%#= render :partial => 'shared/flash' %>
         <%= yield %>
       </div>
       <%#= yield :footer or render :partial => 'shared/footer' %>
     </div>
-		<%#= yield :foot %>
+    <%#= yield :foot %>
   </body>
 </html>
