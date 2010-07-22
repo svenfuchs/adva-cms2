@@ -1,0 +1,11 @@
+require 'adva'
+
+module Adva
+  class <%= class_name %> < ::Rails::Engine
+    include Adva::Engine
+
+    # initializer 'adva-<%= name %>.require_section_types' do
+    #   config.to_prepare { require_dependency 'page' }
+    # end
+  end
+end
