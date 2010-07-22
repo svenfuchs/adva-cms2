@@ -21,6 +21,7 @@ class HostApp
       require_environment
       in_root { self.instance_exec(&block) } if block_given?
       in_root { migrate }
+      in_root { lock_bundle }
     else
       require_environment
     end
@@ -58,6 +59,10 @@ class HostApp
 
   def migrate
     run "rake db:migrate db:schema:dump db:test:clone_structure --trace RAILS_ENV=test"
+  end
+
+  def lock_bundle
+    run 'bundle lock'
   end
 
   def require_environment
