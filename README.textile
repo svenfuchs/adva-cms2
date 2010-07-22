@@ -12,7 +12,7 @@ As long as you don't add any migrations you can now use this application for sub
 
 $ rake
 
-h3. development mode and class reloading
+h3. Development mode and class reloading
 
 Views seem to be reloaded depending on their timestamp. To turn on controller/model class reloading for adva-cms Gems:
 
@@ -26,3 +26,7 @@ Views seem to be reloaded depending on their timestamp. To turn on controller/mo
   end
 
 => umm, might or might not (yet) work as expected. plz check.
+
+h3. Generate a new adva engine
+
+$ thor adva:generate:engine contacts

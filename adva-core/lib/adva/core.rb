@@ -1,3 +1,4 @@
+require 'rails/engine'
 require 'adva'
 
 module Adva
