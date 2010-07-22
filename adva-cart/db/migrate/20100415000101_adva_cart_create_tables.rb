@@ -20,6 +20,8 @@ class AdvaCartCreateTables < ActiveRecord::Migration
   end
 
   def self.down
+    drop_table :items
+    drop_table :orders
     drop_table :itemizeds
   end
 end
