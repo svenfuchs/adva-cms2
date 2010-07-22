@@ -4,8 +4,11 @@ module Adva
   class Contact < ::Rails::Engine
     include Adva::Engine
 
-    # initializer 'adva-contacts.require_section_types' do
-    #   config.to_prepare { require_dependency 'page' }
-    # end
+    initializer 'adva-contacts.add_inflection_rules' do
+      ActiveSupport::Inflector.inflections do |inflect|
+        inflect.irregular 'address', 'addresses'
+      end
+    end
+    
   end
 end

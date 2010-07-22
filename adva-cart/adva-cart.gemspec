@@ -19,4 +19,5 @@ Gem::Specification.new do |s|
   
   s.add_dependency 'adva-core'
   s.add_dependency 'adva-catalog'
+  s.add_dependency 'adva-contacts'
 end

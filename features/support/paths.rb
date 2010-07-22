@@ -24,6 +24,8 @@ module NavigationHelpers
       section_path(Site.first.sections.first) # TODO
     when 'the cart page'
       cart_path
+    when 'the choose shipping address page'
+      new_cart_address_path
     when /the "(.*)" section page/
       section_path(Section.where(:title => $1).first)
     when 'the signin page'

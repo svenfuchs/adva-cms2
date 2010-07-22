@@ -4,5 +4,6 @@ en:
       submit: "Add to cart"
     show:
       title: "Your shopping cart"
+      checkout: "Checkout"
     item:
       delete: Delete
