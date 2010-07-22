@@ -78,10 +78,11 @@ module Adva
       end
 
       def copy_migrations
-        Dir[root.join('db/migrate/*')].each do |source|
+        Dir[root.join('db/migrate/*')].map do |source|
           target = File.expand_path(source.gsub(root.to_s, '.'))
           FileUtils.mkdir_p(File.dirname(target))
           FileUtils.cp(source, target)
+          target
         end
       end
     end
