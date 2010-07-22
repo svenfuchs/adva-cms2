@@ -3,14 +3,14 @@
 
   <%= site.label :name %>
   <%= site.text_field :name %>
-  
+
   <%= site.fields_for(:sections) do |sections| %>
     <%= sections.label :type %>
     <%= sections.select :type, section_types_for_select %>
-  
-    <%= sections.label :title %>
+
+    <%= sections.label :title, :class => 'block' %>
     <%= sections.text_field :title %>
   <% end %>
-  
+
   <%= site.submit 'Create' %>
 <% end %>
