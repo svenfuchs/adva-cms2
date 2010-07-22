@@ -19,3 +19,7 @@ defined in the Railtie ...
   /Volumes/Users/sven/.rvm/gems/ruby-1.8.7-p174/gems/railties-3.0.0.beta4/lib/rails/application.rb:81:in `method_missing'
   /tmp/host_app_adva-cms2/config/environment.rb:5
 
+
+
+action_dispatch/routing/mapper.rb:207 uses reverse_merge but does not require it
+active_support/core_ext/string/inflections.rb:16 uses pluralize but does not require it
