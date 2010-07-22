@@ -21,8 +21,8 @@
           <%= link_to(t('.sign_up'), new_user_registration_path, :id => 'signup_link') %>
         </p>
         <p id="logout_links" class="navigation" style="display: none;">
-          <%= t(:'adva.users.info.logged_in_as', :name => '<span class="user_name"></span>') %> &middot;
-					<%= link_to(t(:'adva.titles.logout'), destroy_user_session_path(:return_to => request.fullpath), :id => 'logout_link') %>
+          <%= t(:'.logged_in_as', :user => '<span class="user_name"></span>') %> &middot;
+          <%= link_to(t(:'.sign_out'), destroy_user_session_path(:return_to => request.fullpath), :id => 'logout_link') %>
         </p>
         <ul id="sections">
           <% current_site.sections.each do |section| %>
