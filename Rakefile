@@ -6,4 +6,10 @@ Cucumber::Rake::Task.new(:features) do |t|
   t.cucumber_opts = "features --format pretty --tags ~@wip"
 end
 
-task :default => [:features]
+desc 'Install adva'
+task :test_all do
+  STDOUT.sync = true
+  system('ruby test/all.rb')
+end
+
+task :default => [:features, :test_all]
