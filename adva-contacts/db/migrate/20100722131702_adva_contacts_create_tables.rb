@@ -3,7 +3,7 @@ class AdvaContactsCreateTables < ActiveRecord::Migration
     create_table :contact_addresses do |t|
       t.references :addressable, :polymorphic => true
       t.string  :street
-      t.string  :postalcode
+      t.string  :zipcode
       t.string  :city
       t.string  :region
       t.string  :country

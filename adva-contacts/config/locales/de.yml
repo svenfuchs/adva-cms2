@@ -15,7 +15,7 @@ de:
             locality: Ort
             location: Ort
             pobox: Postfach
-            postalcode: Postleitzahl
+            zipcode: Postleitzahl
             preferred: Bevorzugt
             region: Region
       genders:

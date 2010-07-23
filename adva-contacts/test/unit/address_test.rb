@@ -5,16 +5,16 @@ module AdvaContacts
   class AddressTest < Test::Unit::TestCase
     test "can create a valid address" do
       attributes = {
-        :street     => 'August-Bebel-Strasse 27', 
-        :postalcode => '14482',
-        :city       => 'Potsdam',
-        :country    => 'Germany'
+        :street  => 'August-Bebel-Strasse 27', 
+        :zipcode => '14482',
+        :city    => 'Potsdam',
+        :country => 'Germany'
       }
       address = Adva::Address.create(attributes)
 
       assert address.valid?
       assert_equal attributes[:street], address.street
-      assert_equal attributes[:postalcode], address.postalcode
+      assert_equal attributes[:zipcode], address.zipcode
       assert_equal attributes[:city], address.city
       assert_equal attributes[:country], address.country
     end
@@ -50,8 +50,8 @@ end
 #     address.should validate_length_of(:region, :within => 0..255) #:maximum => 255
 #   end
 #
-#   test "should validate length of postalcode" do
-#     address.should validate_length_of(:postalcode, :within => 0..255) #:maximum => 255
+#   test "should validate length of zipcode" do
+#     address.should validate_length_of(:zipcode, :within => 0..255) #:maximum => 255
 #   end
 #
 #   test "should validate length of country" do
@@ -87,15 +87,15 @@ end
 #     end
 #   end
 #
-#   test "should validate format of postalcode" do
+#   test "should validate format of zipcode" do
 #     assert_no_difference "Address.count" do
-#       create_address(:postalcode => "11").should_not be_valid
-#       create_address(:postalcode => "abc").should_not be_valid
+#       create_address(:zipcode => "11").should_not be_valid
+#       create_address(:zipcode => "abc").should_not be_valid
 #     end
 #   end
 #
-#   test "should allow nil postalcode" do
-#     create_address(:postalcode => nil).should be_valid
+#   test "should allow nil zipcode" do
+#     create_address(:zipcode => nil).should be_valid
 #   end
 #
 #   test "should allow to set as preferred" do
@@ -142,7 +142,7 @@ end
 #     vcard_address.street.should     be(address.street)
 #     vcard_address.locality.should   be(address.locality)
 #     vcard_address.region.should     be(address.region)
-#     vcard_address.postalcode.should be(address.postalcode)
+#     vcard_address.zipcode.should be(address.zipcode)
 #     vcard_address.country.should    be(address.country)
 #     vcard_address.preferred.should  be(address.preferred)
 #     vcard_address.location.should include(address.location.downcase)

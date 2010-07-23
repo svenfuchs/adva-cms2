@@ -109,7 +109,7 @@ require File.expand_path('../../../test/test_helper', __FILE__)
 #         :country     => "United States",
 #         :locality    => "Cupertino",
 #         :location    => "Work",
-#         :postalcode  => "95014",
+#         :zipcode  => "95014",
 #         :region      => "California" }
 #     end
 #

@@ -1,0 +1,20 @@
+<%= form_for(current_cart, :url => cart_addresses_path, :as => :addresses, :html => { :method => :post }) do |f| %>
+  <%= f.fields_for(:shipping_address) do |a| %>
+  	<%= a.label :name %>
+  	<%= a.text_field :name %>
+
+  	<%= a.label :street %>
+  	<%= a.text_field :street %>
+
+  	<%= a.label :zipcode %>
+  	<%= a.text_field :zipcode %>
+
+  	<%= a.label :city %>
+  	<%= a.text_field :city %>
+
+  	<%= a.label :country %>
+  	<%= a.text_field :country %>
+  <% end %>
+
+  <%= f.submit t('.submit') %>
+<% end %>

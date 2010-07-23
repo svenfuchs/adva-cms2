@@ -15,7 +15,7 @@ module Adva
     has_many :addresses, :as => :addressable
     has_one  :preferred_address, :as => :addressable, :class_name => 'Adva::Address'
   
-    delegate :extended, :street, :locality, :city, :region, :postalcode, :country, :to => :preferred_address
+    delegate :extended, :street, :locality, :city, :region, :zipcode, :country, :to => :preferred_address
   
     # has_many :positions
     # has_many :orgs, :through => :positions
@@ -46,7 +46,7 @@ module Adva
       fullname
     end
   
-    [:extended, :street, :locality, :city, :region, :postalcode, :country].each do |attribute|
+    [:extended, :street, :locality, :city, :region, :zipcode, :country].each do |attribute|
       define_method(:"#{attribute}=") do |value|
         address = preferred_address || create_preferred_address
         address.send(:"#{attribute}=", value)

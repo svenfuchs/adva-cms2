@@ -22,7 +22,7 @@ class AdvaCartCreateTables < ActiveRecord::Migration
       t.references :addressable, :polymorphic => true
       t.string  :name
       t.string  :street
-      t.string  :postalcode
+      t.string  :zipcode
       t.string  :city
       t.string  :region
       t.string  :country

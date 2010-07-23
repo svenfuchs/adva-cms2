@@ -8,8 +8,8 @@ module Adva
     belongs_to :addressable, :polymorphic => :true
 
     validates_format_of    :pobox, :delivery, :with => FORMATS[:ascii], :allow_nil => true
-    validates_format_of    :postalcode, :with => /^\d{5}$/, :allow_nil => true
-    validates_length_of    :extended, :street, :city, :region, :postalcode, :country, :maximum => 255, :allow_nil => true
+    validates_format_of    :zipcode, :with => /^\d{5}$/, :allow_nil => true
+    validates_length_of    :extended, :street, :city, :region, :zipcode, :country, :maximum => 255, :allow_nil => true
     validates_inclusion_of :location, :in => LOCATIONS, :allow_nil => true
     # validates_inclusion_of :country,  :in => I18n.t(:'adva.contacts.countries').values, :allow_nil => true
 
@@ -19,6 +19,14 @@ module Adva
 
     def locality=(locality)
       self.city = locality
+    end
+
+    def postalcode
+      self.zipcode
+    end
+
+    def postalcode=(postalcode)
+      self.zipcode = postalcode
     end
 
     def to_vcard

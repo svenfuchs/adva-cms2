@@ -1,9 +1,12 @@
 en:
   cart:
     add_item:
-      submit: "Add to cart"
+      submit: Add to cart
     show:
-      title: "Your shopping cart"
-      checkout: "Checkout"
+      title: Your shopping cart
+      checkout: Checkout
     item:
       delete: Delete
+  cart_addresses:
+    new:
+      submit: Save

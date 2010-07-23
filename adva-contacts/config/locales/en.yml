@@ -15,7 +15,7 @@ en:
             locality: Locality
             location: Location
             pobox: P.O. Box
-            postalcode: Postal Code
+            zipcode: Postal Code
             preferred: Preferred
             region: Region
       genders:
