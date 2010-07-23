@@ -1,6 +1,7 @@
 $: << File.expand_path('../../adva-blog/app/models', __FILE__)
 $: << File.expand_path('../../adva-cart/app/models', __FILE__)
 $: << File.expand_path('../../adva-catalog/app/models', __FILE__)
+$: << File.expand_path('../../adva-contacts/app/models', __FILE__)
 $: << File.expand_path('../../adva-core/app/models', __FILE__)
 $: << File.expand_path('../../adva-user/app/models', __FILE__)
 
@@ -22,6 +23,7 @@ require 'adva-core'
 require 'adva-blog'
 require 'adva-cart'
 require 'adva-catalog'
+require 'adva-contacts'
 require 'adva-user'
 
 ActiveRecord::Base.establish_connection :adapter => 'sqlite3', :database => ':memory:'
@@ -29,6 +31,7 @@ ActiveRecord::Migration.verbose = false
 ActiveRecord::Migrator.up(File.expand_path('../../adva-core/db/migrate', __FILE__))
 ActiveRecord::Migrator.up(File.expand_path('../../adva-cart/db/migrate', __FILE__))
 ActiveRecord::Migrator.up(File.expand_path('../../adva-catalog/db/migrate', __FILE__))
+ActiveRecord::Migrator.up(File.expand_path('../../adva-contacts/db/migrate', __FILE__))
 
 DatabaseCleaner.strategy = :truncation
 
