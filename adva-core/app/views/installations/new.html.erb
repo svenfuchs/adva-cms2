@@ -8,7 +8,7 @@
     <%= sections.label :type %>
     <%= sections.select :type, section_types_for_select %>
 
-    <%= sections.label :title, nil, :class => 'block' %>
+    <%= sections.label :title, t('.title'), :class => 'block' %>
     <%= sections.text_field :title %>
   <% end %>
 

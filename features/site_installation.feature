@@ -1,5 +1,5 @@
 Feature: Installing a Site, creating a section with an article
-  Background: 
+  Background:
     Given no site
 
   Scenario: Installing a Site
