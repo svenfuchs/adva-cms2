@@ -13,7 +13,7 @@ class AdvaCartCreateTables < ActiveRecord::Migration
     create_table :items do |t|
       t.references :itemized
       t.references :product
-      t.integer    :amount
+      t.integer    :quantity
       t.integer    :price
       t.timestamps
     end
