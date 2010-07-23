@@ -11,10 +11,7 @@ task :test_all do
   STDOUT.sync = true
   system('ruby test/all.rb')
   state = $?
-
-  if state.exited? and state.exitstatus != 0
-     exit state.exitstatus
-  end
+  exit(state.exitstatus) if state.exited? and state.exitstatus != 0
 end
 
 task :default => [:features, :test_all]
