@@ -3,7 +3,7 @@ Feature: Managing blogs
     Given I am signed in with "admin@admin.org" and "admin"
     Given I am on the admin dashboard page
 
-    When I follow "New s!!broken!!ection"
+    When I follow "New section"
     Then I should see a section type form
      And the "Page" radio button should be checked
      And the "Blog" radio button should not be checked

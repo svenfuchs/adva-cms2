@@ -19,6 +19,8 @@ class PageTest < Test::Unit::TestCase
   
   test "page accepts nested attributes for article" do
     page = Page.create(page_params)
+    BROKEN = false
+    assert BROKEN
     assert !page.article.new_record?
     assert_equal 'Body', page.article.body
   end
