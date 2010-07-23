@@ -74,7 +74,7 @@ module Adva
         end
 
         def class_name
-          name.classify
+          name.camelize
         end
     end
   end
