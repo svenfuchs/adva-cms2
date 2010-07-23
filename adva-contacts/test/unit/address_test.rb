@@ -1,21 +1,23 @@
 require File.expand_path(File.dirname(__FILE__) + '/../test_helper')
 require 'adva/address'
 
-class AddressTest < Test::Unit::TestCase
-  test "can create a valid address" do
-    attributes = {
-      :street     => 'August-Bebel-Strasse 27', 
-      :postalcode => '14482',
-      :city       => 'Potsdam',
-      :country    => 'Germany'
-    }
-    address = Adva::Address.create(attributes)
+module AdvaContacts
+  class AddressTest < Test::Unit::TestCase
+    test "can create a valid address" do
+      attributes = {
+        :street     => 'August-Bebel-Strasse 27', 
+        :postalcode => '14482',
+        :city       => 'Potsdam',
+        :country    => 'Germany'
+      }
+      address = Adva::Address.create(attributes)
 
-    assert address.valid?
-    assert_equal attributes[:street], address.street
-    assert_equal attributes[:postalcode], address.postalcode
-    assert_equal attributes[:city], address.locality
-    assert_equal attributes[:country], address.country
+      assert address.valid?
+      assert_equal attributes[:street], address.street
+      assert_equal attributes[:postalcode], address.postalcode
+      assert_equal attributes[:city], address.city
+      assert_equal attributes[:country], address.country
+    end
   end
 end
 

@@ -2,3 +2,4 @@ source :rubygems
 
 gem 'adva-core'
 gem 'adva-catalog'
+gem 'adva-contacts'
