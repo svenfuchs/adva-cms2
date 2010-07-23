@@ -90,6 +90,7 @@ module Adva
 end
 
 # TODO move this ... where?
+require 'rails'
 
 Rails::Application.class_eval do
   include Adva::Engine::SlicedModels

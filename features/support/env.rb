@@ -3,14 +3,9 @@ require 'rubygems'
 require 'bundler'
 Bundler.setup
 
-require File.expand_path('../host_app', __FILE__)
-
-options = {
-  :template   => File.expand_path('../../fixtures/host_app_template.rb', __FILE__)
-}
-HostApp.new(File.expand_path('../../..', __FILE__), options) do
-  run 'rake adva:install --trace'
-end
+# require File.expand_path('../host_app', __FILE__)
+require 'testing/host_app'
+HostApp.new(File.expand_path('../../..', __FILE__))
 
 # for webrat 0.7.0 / rails 3.0.0.beta3 compat
 ActionController.send(:remove_const, :AbstractRequest)
