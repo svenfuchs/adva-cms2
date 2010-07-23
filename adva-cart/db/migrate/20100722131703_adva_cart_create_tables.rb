@@ -1,7 +1,10 @@
 class AdvaCartCreateTables < ActiveRecord::Migration
   def self.up
     create_table :itemizeds do |t|
+      t.references :shipping_address
+      t.references :billing_address
       t.string :type
+      t.string :payment_method
       t.timestamps
     end
 

@@ -9,4 +9,11 @@ en:
       delete: Delete
   cart_addresses:
     new:
-      submit: Save
+      submit: Continue
+  cart_payment_method:
+    edit:
+      submit: Continue
+  cart_confirmation:
+    new:
+      title: Order confirmation
+      submit: Confirm

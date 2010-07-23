@@ -16,7 +16,7 @@ module AdvaCart
       assert !cart.shipping_address.new_record?
       assert !cart.billing_address.new_record?
 
-      assert_equal 'shipping name', cart.shipping_address.name
+      assert_equal 'shipping name', cart.shipping_address.name # TODO does this actually test anything?
       assert_equal 'billing name', cart.billing_address.name
     end
   end

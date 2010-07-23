@@ -26,6 +26,10 @@ module NavigationHelpers
       cart_path
     when 'the enter new shipping address page'
       new_cart_addresses_path
+    when 'the select payment method page'
+      edit_cart_payment_method_path
+    when 'the order confirmation page'
+      new_cart_confirmation_path
     when /the "(.*)" section page/
       section_path(Section.where(:title => $1).first)
     when 'the signin page'

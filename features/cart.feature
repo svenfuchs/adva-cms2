@@ -45,10 +45,23 @@ Feature: Using the cart
      And I fill in "Zipcode" with "12345"
      And I fill in "City" with "Philadelphia"
      And I fill in "Country" with "USA"
-         And I press "Save"
+     And I press "Continue"
     
-    # Then the cart should have the following shipping address:
+    Then the cart should have the following shipping address:
+      | name     | street         | zipcode | city         | country |
+      | John Doe | Sesamestreet 1 | 12345   | Philadelphia | USA     |
+    And I should be on the select payment method page
+    When I select "Prepaid" from "Payment method"
+    And I press "Continue"
+    
+    Then the cart should have the payment method "Prepaid"
+    And I should be on the order confirmation page
+
+    # When I press "Confirm"
+    # Then the following order confirmation emails should have been sent:
     #   | name     | street         | zipcode | city         | country |
     #   | John Doe | Sesamestreet 1 | 12345   | Philadelphia | USA     |
-    # And I should see a select payment method form
+
+
+
 
