@@ -10,6 +10,11 @@ desc 'Run all adva tests'
 task :test_all do
   STDOUT.sync = true
   system('ruby test/all.rb')
+  state = $?
+
+  if state.exited? and state.exitstatus != 0
+     exit state.exitstatus
+  end
 end
 
 task :default => [:features, :test_all]
