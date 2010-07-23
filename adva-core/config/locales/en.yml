@@ -60,6 +60,10 @@ en:
     titles:
       behaviour: Behaviour
 
+  installations:
+    new:
+      title: Title
+
   layouts:
     admin:
       header:
