@@ -16,7 +16,7 @@ class AdvaContactsCreateTables < ActiveRecord::Migration
       t.timestamps
     end
 
-    create_table :contact_contacts do |t|
+    create_table :contacts do |t|
       t.string :gender
       t.string :prefix,      :maximum => 32
       t.string :first_name,  :maximum => 32
