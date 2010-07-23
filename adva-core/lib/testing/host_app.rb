@@ -1,6 +1,7 @@
 STDOUT.sync = true
 
 require 'fileutils'
+require 'tasks/core'
 
 class HostApp
   attr_reader :gem_root, :name, :root, :template, :resource_layout, :options
@@ -11,17 +12,18 @@ class HostApp
     @gem_root        = gem_root
     @name            = options[:name] || File.basename(@gem_root)
     @root            = "/tmp/host_app_#{@name}"
-    @template        = options[:template] || "#{@gem_root}/test/fixtures/host_app_template.rb"
+    @template        = options[:template] || File.expand_path('../host_app_template.rb', __FILE__)
     @resource_layout = "#{@gem_root}/test/fixtures/host_app_resource_layout.rb"
     @options         = options
 
     if regenerate?
       regenerate
       generate_resource_layout if File.exists?(@resource_layout)
+      in_root { lock_bundle }
       require_environment
       in_root { self.instance_exec(&block) } if block_given?
+      in_root { install }
       in_root { migrate }
-      in_root { lock_bundle }
     else
       require_environment
     end
@@ -55,6 +57,10 @@ class HostApp
   def generate_resource_layout
     FileUtils.cp(resource_layout, "#{root}/config/resource_layout.rb")
     run "rails generate resource_layout --generator=ingoweiss:scaffold"
+  end
+  
+  def install
+    Adva::Install.new.perform
   end
 
   def migrate
