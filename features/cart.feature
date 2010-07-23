@@ -10,30 +10,30 @@ Feature: Using the cart
     Given I am on the "Products" section page
     And I follow "Apple Mac Mini"
     Then I should see a product named "Apple Mac Mini"
-    When I fill in "Amount" with "2"
-    And I press "Add to cart"
+  	When I fill in "Quantity" with "2"
+  	And I press "Add to cart"
     Then I should see a product named "Apple Mac Mini"
-    And the current user's cart should contain the following items:
-      | product            | amount |
-      | Apple Mac Mini     | 2      |
-
-    When I go to the "Products" section page
-    And I follow "Apple Macbook Pro"
+  	And the current user's cart should contain the following items:
+  		| product            | quantity |
+  		| Apple Mac Mini     | 2      |
+	
+  	When I go to the "Products" section page
+  	And I follow "Apple Macbook Pro"
     Then I should see a product named "Apple Macbook Pro"
     When I press "Add to cart"
     Then I should see a product named "Apple Macbook Pro"
-    And the current user's cart should contain the following items:
-      | product            | amount |
-      | Apple Mac Mini     | 2      |
-      | Apple Macbook Pro  | 1      |
-
-    When I go to the cart page
-    Then the cart should contain the following items:
-      | product            | amount |
-      | Apple Mac Mini     | 2      |
-      | Apple Macbook Pro  | 1      |
-    When I press "Delete" for the item "Apple Macbook Pro"
-    Then I should be on the cart page
-    And the cart should contain the following items:
-      | product            | amount |
-      | Apple Mac Mini     | 2      |
+  	And the current user's cart should contain the following items:
+  		| product            | quantity |
+  		| Apple Mac Mini     | 2      |
+  		| Apple Macbook Pro  | 1      |
+	
+  	When I go to the cart page
+  	Then the cart should contain the following items:
+  		| product            | quantity |
+  		| Apple Mac Mini     | 2      |
+  		| Apple Macbook Pro  | 1      |
+  	When I press "Delete" for the item "Apple Macbook Pro"
+  	Then I should be on the cart page
+  	And the cart should contain the following items:
+  		| product            | quantity |
+  		| Apple Mac Mini     | 2      |

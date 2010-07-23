@@ -2,7 +2,7 @@ Then /^the current user's cart should contain the following items:$/ do |table|
   assert cart = current_cart, "there should be a cart"
   table.hashes.each do |attributes|
     product = Product.where(:name => attributes['product']).first
-    assert cart.items.where(:product_id => product.id, :amount => attributes['amount']).any?
+    assert cart.items.where(:product_id => product.id, :quantity => attributes['quantity']).any?
   end
 end
 
@@ -10,7 +10,7 @@ Then /^the cart should contain the following items:$/ do |table|
   table.hashes.each do |attributes|
     assert_select '.item' do
       assert_select 'td', attributes['product']
-      assert_select 'td', attributes['amount']
+      assert_select 'td', attributes['quantity']
     end
   end
 end
