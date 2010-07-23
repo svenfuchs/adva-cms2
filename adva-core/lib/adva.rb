@@ -7,7 +7,7 @@ module Adva
     def engines
       @engines ||= constants.map do |name| 
         constant = const_get(name)
-        constant if constant < ::Rails::Engine
+        constant if constant.is_a?(Class) && constant < ::Rails::Engine
       end.compact
     end
 
