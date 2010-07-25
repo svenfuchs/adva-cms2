@@ -1,3 +1,10 @@
 source :rubygems
 
-gem 'adva-core'
+File.foreach(Dir[File.expand_path('../*.gemspec', __FILE__)].first) do |line|
+  if line.match(/gem\.add_(development_)?dependency +'([^']+)'(, +'([^']+)')?/)
+    args = $~.compact
+    args << { :group => :test } if args.reject! { |match| match == 'development_'}
+    gem *args
+  end
+end
+

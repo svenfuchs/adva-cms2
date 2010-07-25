@@ -1,8 +1,5 @@
 # encoding: utf-8
 
-# $: << File.expand_path('../lib', __FILE__)
-# require 'adva/contacts/version'
-
 Gem::Specification.new do |s|
   s.name         = "adva-contacts"
   s.version      = '0.0.1'
