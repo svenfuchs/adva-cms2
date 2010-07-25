@@ -1,4 +1,4 @@
-require 'adva-core'
+require 'adva/engine'
 
 module Adva
   class Blog < ::Rails::Engine
