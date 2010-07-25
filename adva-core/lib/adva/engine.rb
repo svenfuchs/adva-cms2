@@ -8,9 +8,7 @@ module Adva
 
           engine_name = base.name.underscore.split('/').last
 
-          rake_tasks do
-            load_rake_tasks
-          end
+          paths.lib.tasks = Dir[root.join('lib/adva/tasks/*.*')]
 
           initializer "adva-#{engine_name}.load_redirects" do |app|
             load_redirects
@@ -55,13 +53,6 @@ module Adva
       def engine_name
         name = is_a?(Class) ? self.name : self.class.name # ughugh.
         name.underscore.split('/').last
-      end
-
-      def load_rake_tasks
-        begin
-          load root.join("lib/tasks/#{engine_name}.rb")
-        rescue LoadError => e
-        end
       end
 
       def load_redirects
