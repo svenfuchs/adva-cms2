@@ -3,20 +3,19 @@ require 'rubygems'
 require 'bundler'
 Bundler.setup
 
-# require File.expand_path('../host_app', __FILE__)
-require 'testing/host_app'
-HostApp.new(File.expand_path('../../..', __FILE__))
+require 'adva/generators/app'
+app = Adva::Generators::App.new('cucumber-adva-cms2', :target => '/tmp', :lock => true, :migrate => true)
+app.invoke
 
-# for webrat 0.7.0 / rails 3.0.0.beta3 compat
-ActionController.send(:remove_const, :AbstractRequest)
+Gem.patching('webrat', '0.7.0') do 
+  ActionController.send(:remove_const, :AbstractRequest)
+end
 
 require 'cucumber/rails/world'
 require 'cucumber/rails/active_record'
-
 require 'webrat'
 require 'webrat/core/matchers'
 require 'patches/webrat/logger'
-
 require 'test/unit/assertions'
 require 'action_dispatch/testing/assertions'
 

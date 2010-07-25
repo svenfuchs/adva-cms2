@@ -1,4 +1,4 @@
-require File.expand_path(File.dirname(__FILE__) + '/../test_helper')
+require File.expand_path('../../test_helper', __FILE__)
 
 require 'adva/address'
 require 'address'

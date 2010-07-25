@@ -1,1 +1,6 @@
-require File.expand_path('../adva-core/lib/tasks/core', __FILE__)
+require 'rubygems'
+require 'bundler'
+Bundler.setup
+Bundler.require(:default)
+
+Adva.engines.each { |engine| engine.new.load_tasks }

@@ -1,43 +1,18 @@
-require 'rake'
-require 'thor'
-require 'thor/group'
-# require 'rails/generators'
-require 'rails/engine'
-require 'adva/core'
-
-# thor adva:generate:engine blog
+require 'rails/generators'
 
 module Adva
-  class Install < Thor::Group
-    include Thor::Actions
-
-    desc "install adva engines"
-    source_root Adva::Core.root
-
-    def perform
-      copy_migrations
-    end
-
-    protected
-
-      def copy_migrations
-        Adva.engines.each do |engine|
-          engine.copy_migrations.each do |path|
-            say_status 'copy migration', File.basename(path)
-          end
-        end
+  module Generators
+    class Engine < Rails::Generators::Base
+      source_root File.expand_path('../templates/engine', __FILE__)
+      
+      attr_reader :name
+      
+      def initialize(name, options = {})
+        @name = name
+        super()
       end
-  end
-
-  module Generate
-    class Engine < Thor::Group
-      include Thor::Actions
-
-      desc "create an adva engine"
-      argument :name
-      source_root File.expand_path('../templates', __FILE__)
-
-      def perform
+      
+      def build
         empty_directory "adva-#{name}"
         template        "gemspec.erb", "adva-#{name}/adva-#{name}.gemspec"
         template        'Gemfile.erb', "adva-#{name}/Gemfile"
@@ -49,7 +24,7 @@ module Adva
 
         empty_directory "adva-#{name}/config"
         empty_directory "adva-#{name}/config/locales"
-        template        'en.yml.erb', "adva-#{name}/config/locales/en.yml"
+        template        'en.yml.erb',  "adva-#{name}/config/locales/en.yml"
         template        'redirects.rb.erb', "adva-#{name}/config/redirects.rb"
         template        'routes.rb.erb', "adva-#{name}/config/routes.rb"
 
@@ -62,7 +37,7 @@ module Adva
 
         empty_directory "adva-#{name}/test"
       end
-
+      
       protected
 
         def migration_timestamp
@@ -72,17 +47,10 @@ module Adva
         def table_name
           name.tableize
         end
-
+        
         def class_name
           name.camelize
         end
     end
-  end
-end
-
-namespace :adva do
-  desc 'Install adva'
-  task :install do
-    Adva::Install.new.perform
   end
 end
