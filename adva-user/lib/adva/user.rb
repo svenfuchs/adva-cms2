@@ -1,4 +1,4 @@
-require 'adva-core'
+require 'adva/engine'
 require 'devise'
 
 module Adva

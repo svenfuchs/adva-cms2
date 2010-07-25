@@ -1,4 +1,4 @@
-require 'adva-core'
+require 'adva/engine'
 
 module Adva
   class Catalog < ::Rails::Engine
