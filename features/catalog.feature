@@ -35,17 +35,17 @@ Feature: Managing catalogs
     Then I should see "Updated catalog"
     When I follow "Updated catalog"
      And I follow "New Product"
-    Then I should see a new product form
+    Then I should see a product form
 
     When I fill in "Name" with "Brand new product"
      And I fill in "Description" with "Brand new product's body"
-     And I press "Create"
-    Then I should see an edit product form
+     And I press "Create product"
+    Then I should see a product form
 
     When I fill in "Name" with "Updated product"
      And I fill in "Description" with "Updated product's body"
-     And I press "Save"
-    Then I should see an edit product form
+     And I press "Update product"
+    Then I should see a product form
 
     When I follow "Website"
     Then I should see a product named "Updated product"
@@ -56,7 +56,7 @@ Feature: Managing catalogs
     When I go to the admin site sections page
      And I follow "Updated catalog"
      And I follow "Updated product"
-    Then I should see an edit product form
+    Then I should see a product form
     
     When I press "Delete"
     Then I should see "Updated catalog"

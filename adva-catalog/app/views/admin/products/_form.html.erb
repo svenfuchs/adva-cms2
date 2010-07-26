@@ -1,12 +1,8 @@
-<%= form_for(resources) do |f| %>
-  <%= f.label :name %>
-  <%= f.text_field :name %>
+<%= simple_form_for(resources) do |f| %>
 
-  <%= f.label :number %>
-  <%= f.text_field :number %>
-                      
-  <%= f.label :description %>
-  <%= f.text_area :description %>
+  <%= f.input :name %>
+  <%= f.input :number %>
+  <%= f.input :description %>
 
-  <%= f.submit resource.new_record? ? 'Create' : 'Save' %>
+  <%= f.button :submit %>
 <% end %>
