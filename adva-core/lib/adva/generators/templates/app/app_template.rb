@@ -1,4 +1,5 @@
 gem 'devise', '1.1.rc2'
+gem 'simple_form'
 
 gem 'adva-core',      :path => "#{config[:gem_root]}/adva-core"
 gem 'adva-blog',      :path => "#{config[:gem_root]}/adva-blog"
