@@ -40,11 +40,13 @@ Feature: Using the cart
 
   	When I follow "Checkout"
   	Then I should be on the enter new shipping address page
-  	When I fill in "Name" with "John Doe"
-     And I fill in "Street" with "Sesamestreet 1"
-     And I fill in "Zipcode" with "12345"
-     And I fill in "City" with "Philadelphia"
-     And I fill in "Country" with "USA"
+  	When I fill in the following:
+  	  | Email   | john@doe.com   |
+  	  | Name    | John Doe       |
+  	  | Street  | Sesamestreet 1 |
+  	  | Zipcode | 12345          |
+  	  | City    | Philadelphia   |
+  	  | Country | USA            |
      And I press "Continue"
     
     Then the cart should have the following shipping address:
@@ -57,10 +59,11 @@ Feature: Using the cart
     Then the cart should have the payment method "Prepaid"
     And I should be on the order confirmation page
 
-    # When I press "Confirm"
-    # Then the following order confirmation emails should have been sent:
-    #   | name     | street         | zipcode | city         | country |
-    #   | John Doe | Sesamestreet 1 | 12345   | Philadelphia | USA     |
+    When I press "Confirm"
+    Then the following emails should have been sent:
+      | to              | subject                 |
+      | john@doe.com    | Your order confirmation |
+      | admin@admin.org | New order               |
 
 
 
