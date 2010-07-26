@@ -17,3 +17,6 @@
 	<%= a.label :country %>
 	<%= a.text_field :country %>
 <% end %>
+
+<%= f.label :delivery_method %>
+<%= f.select :delivery_method, options_for_select(Adva::Cart::DELIVERY_METHODS) %>
