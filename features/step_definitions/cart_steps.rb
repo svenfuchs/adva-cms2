@@ -28,6 +28,14 @@ Then /^the cart should have the following (shipping|billing) address:$/ do |type
   end
 end
 
+Then /^the cart should have the email address "([^"]*)"$/ do |email|
+  assert_equal email, current_cart.email
+end
+
+Then /^the cart should have the delivery method "([^"]*)"$/ do |delivery_method|
+  assert_equal delivery_method, current_cart.delivery_method
+end
+
 Then /^the cart should have the payment method "([^"]*)"$/ do |payment_method|
   assert_equal payment_method, current_cart.payment_method
 end
@@ -37,3 +45,4 @@ Then /^the following emails should have been sent:$/ do |expected_emails|
     assert_sent_email(attributes)
   end
 end
+

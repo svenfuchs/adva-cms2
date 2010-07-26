@@ -47,9 +47,12 @@ Feature: Using the cart
   	  | Zipcode | 12345          |
   	  | City    | Philadelphia   |
   	  | Country | USA            |
+     And I select "UPS Priority" from "Delivery method"
      And I press "Continue"
     
-    Then the cart should have the following shipping address:
+    Then the cart should have the email address "john@doe.com"
+    And the cart should have the delivery method "UPS Priority"
+    And the cart should have the following shipping address:
       | name     | street         | zipcode | city         | country |
       | John Doe | Sesamestreet 1 | 12345   | Philadelphia | USA     |
     And I should be on the select payment method page
