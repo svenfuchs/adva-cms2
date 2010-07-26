@@ -5,6 +5,13 @@ en:
     show:
       title: Your shopping cart
       checkout: Checkout
+      product_number: Number
+      product_name: Product
+      quantity: Quantity
+      price: Price
+      total_price: Total Price
+      total_vat: VAT
+      total_gross_price: Subtotal
     item:
       delete: Delete
   cart_addresses:
