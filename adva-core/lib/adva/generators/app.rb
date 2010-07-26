@@ -50,7 +50,7 @@ module Adva
 
       def build
         puts "Building application ..."
-        FileUtils.rm_r(root)
+        FileUtils.rm_r(root) if File.exists?(root)
         in_root do
           options = force? || ENV.key?('REGENERATE_APP') ? ['-f'] : []
           generator = Rails::Generators::AppGenerator.new([root], options, :shell => shell)
