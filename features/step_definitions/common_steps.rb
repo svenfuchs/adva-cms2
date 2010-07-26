@@ -34,12 +34,7 @@ Then /^I should see an? (\w*) containing "([^"]*)"$/ do |type, text|
   assert_select(".#{type}", /#{text}/)
 end
 
-Then /^I should see an? ([a-z ]+) form$/ do |form|
-  class_names = form.split
-  if class_names.length == 2
-    action, resource = class_names
-    assert_select("form.#{action}_#{resource}")
-  else
-    assert_select("form.#{class_names.join('.')}")
-  end
+Then /^I should see an? ([a-z ]+) form$/ do |resource|
+  resource.gsub!(/ /, '_')
+  assert_select("form.#{resource}")
 end
