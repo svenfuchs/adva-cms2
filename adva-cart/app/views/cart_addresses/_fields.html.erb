@@ -1,3 +1,6 @@
+<%= f.label :email %>
+<%= f.text_field :email %>
+
 <%= f.fields_for(:shipping_address) do |a| %>
 	<%= a.label :name %>
 	<%= a.text_field :name %>

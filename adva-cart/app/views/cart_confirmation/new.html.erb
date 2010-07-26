@@ -33,6 +33,6 @@
   </tfoot>
 </table>
 
-<%= form_for(current_cart, :url => url_for([:cart, :confirmation])) do |f| %>
+<%= form_for(current_cart, :url => url_for([:cart, :confirmation]), :html => { :method => :post }) do |f| %>
   <%= f.submit t('.submit') %>
 <% end %>

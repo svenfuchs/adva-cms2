@@ -14,6 +14,8 @@ en:
     edit:
       submit: Continue
   cart_confirmation:
+    show:
+      confirm_order: "Thank you for your order!"
     new:
       title: Order confirmation
       submit: Confirm

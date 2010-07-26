@@ -1,11 +1,11 @@
 class CartConfirmationController < BaseController
-  # before_filter :set_cart_addresses, :only => [:new]
-  #
-  # defaults :resource_class => Address, :collection_name => 'address', :instance_name => 'address', :singleton => true
-  
   def create
-    # current_cart.update_attributes(params[:addresses])
-    # respond_with current_cart, :addresses
+    # TODO
+    CartMailer.order_confirmation_email(current_site, current_cart).deliver
+    CartMailer.order_notification_email(current_site, User.find_by_email('admin@admin.org')).deliver
+    current_cart.destroy
+    session.delete(:cart_id)
+    redirect_to :controller => :cart_confirmation, :action => :show
   end
 
   protected
@@ -21,9 +21,4 @@ class CartConfirmationController < BaseController
     def begin_of_association_chain
       current_cart
     end
-
-  #   def set_cart_addresses
-  #     current_cart.build_shipping_address
-  #     current_cart.build_billing_address
-  #   end
 end

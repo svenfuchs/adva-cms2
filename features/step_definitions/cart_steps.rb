@@ -31,3 +31,9 @@ end
 Then /^the cart should have the payment method "([^"]*)"$/ do |payment_method|
   assert_equal payment_method, current_cart.payment_method
 end
+
+Then /^the following emails should have been sent:$/ do |expected_emails|
+  expected_emails.hashes.each do |attributes|
+    assert_sent_email(attributes)
+  end
+end

@@ -4,6 +4,7 @@ class AdvaCartCreateTables < ActiveRecord::Migration
       t.references :shipping_address
       t.references :billing_address
       t.string :type
+      t.string :email
       t.string :payment_method
       t.timestamps
     end
