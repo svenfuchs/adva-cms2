@@ -7,11 +7,11 @@ class Item < ActiveRecord::Base
   end
 
   def price
-    locked? ? read_attribute(:price) : product.price
+    locked? ? read_attribute(:price) / 100 : product.price
   end
 
   def vat
-    locked? ? read_attribute(:vat) : product.vat
+    locked? ? read_attribute(:vat) / 100 : product.vat
   end
 
   def total_price

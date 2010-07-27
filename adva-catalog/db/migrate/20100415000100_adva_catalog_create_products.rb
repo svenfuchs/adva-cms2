@@ -6,6 +6,7 @@ class AdvaCatalogCreateProducts < ActiveRecord::Migration
       t.string     :number
       t.text       :description
       t.integer    :price
+      t.integer    :vat
     end
   end
 
