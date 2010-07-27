@@ -1,4 +1,3 @@
-<%= f.label :payment_method %>
-<%= f.select :payment_method, options_for_select(Adva::Cart::PAYMENT_METHODS) %>
+<%= form.input :payment_method, :collection => Adva::Cart::PAYMENT_METHODS %>
 
 

@@ -1,4 +1,6 @@
-<%= form_for(current_cart, :url => url_for([:cart, :payment_method])) do |f| %>
-  <%= render :partial => 'fields', :locals => { :f => f } %>
-  <%= f.submit t('.submit') %>
+<h2><%= t('.title') %></h2>
+
+<%= simple_form_for(current_cart, :url => url_for([:cart, :payment_method])) do |form| %>
+  <%= render :partial => 'fields', :locals => { :form => form } %>
+  <%= form.button :submit, t('.submit') %>
 <% end %>

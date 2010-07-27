@@ -1,13 +1,9 @@
-<%= f.label :email %>
-<%= f.text_field :email %>
-
-<%= f.simple_fields_for(:shipping_address) do |address_form| %>
+<%= form.input :email %>
+<%= form.simple_fields_for(:shipping_address) do |address_form| %>
 	<%= address_form.input :name %>
 	<%= address_form.input :street %>
 	<%= address_form.input :zipcode %>
 	<%= address_form.input :city %>
 	<%= address_form.input :country %>
 <% end %>
-
-<%= f.label :delivery_method %>
-<%= f.select :delivery_method, options_for_select(Adva::Cart::DELIVERY_METHODS) %>
+<%= form.input :delivery_method, :collection => Adva::Cart::DELIVERY_METHODS %>

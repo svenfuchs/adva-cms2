@@ -16,9 +16,11 @@ en:
       delete: Delete
   cart_addresses:
     new:
+      title: Enter Shipping Address
       submit: Continue
   cart_payment_method:
     edit:
+      title: Select Payment Method
       submit: Continue
   cart_confirmation:
     show:
