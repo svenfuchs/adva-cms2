@@ -18,9 +18,9 @@
     <tr>
       <td colspan="3"></td>
       <td><%= t('.total_price') %></td>
-      <td class="numeric total currency total_price"><%#= number_to_currency(cart.total_price, :unit => '€') %></td>
+      <td class="numeric total currency total_price"><%= number_to_currency(resource.total_price, :format => '%n %u', :unit => 'EUR') %></td>
     </tr>
-    <tr>
+    <!--tr>
       <td colspan="3"></td>
       <td><%= t('.total_vat') %></td>
       <td class="numeric total currency total_vat"><%#= number_to_currency(cart.total_vat, :unit => '€') %></td>
@@ -29,7 +29,7 @@
       <td colspan="3"></td>
       <td><%= t('.total_gross_price') %></td>
       <td class="numeric total currency total_gross_price"><%#= number_to_currency(cart.total_gross_price, :unit => '€') %></td>
-    </tr>
+    </tr-->
   </tfoot>
 </table>
 
