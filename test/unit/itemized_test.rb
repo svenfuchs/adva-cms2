@@ -35,7 +35,7 @@ class ItemizedTest < Test::Unit::TestCase
     item = Item.new :product => product
 
     assert !item.locked?
-    assert_equal 200, item.price
+    assert_equal 2.0, item.price
   end
   
   test "item.price reflects the item's price if locked?" do
@@ -43,6 +43,6 @@ class ItemizedTest < Test::Unit::TestCase
     item = Item.new :product => product, :price => 300
 
     assert item.locked?
-    assert_equal 300, item.price
+    assert_equal 3.0, item.price
   end
 end
