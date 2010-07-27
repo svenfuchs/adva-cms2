@@ -21,4 +21,11 @@ en:
     # hints:
     #   username: 'User name to sign in.'
     #   password: 'No special characters, please.'
+    labels:
+      "section[article_attributes]":
+        new:
+          title: Heading
+      article:
+        edit:
+          title: Heading
 

@@ -1,8 +1,5 @@
-<%= form_for(resources, :html => { :class => "#{resource.new_record? ? 'new' : 'edit' }_catalog" }) do |section| %>
+<%= simple_form_for(resources) do |section| %>
   <%= section.hidden_field :type %>
-
-  <%= section.label :title %>
-  <%= section.text_field :title %>
-
-  <%= section.submit resource.new_record? ? 'Create' : 'Save' %>
+  <%= section.input :title %>
+  <%= section.button :submit %>
 <% end %>
