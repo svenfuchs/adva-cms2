@@ -1,16 +1,9 @@
-<%= form_for(resources, :html => { :class => "#{resource.new_record? ? 'new' : 'edit' }_page" }) do |section| %>
-  <%= section.hidden_field :type %>
-
-  <%= section.label :title %>
-  <%= section.text_field :title %>
-
-  <%= section.fields_for(:article) do |article| %>
-    <%= article.label :title, t('.heading_label') %>
-    <%= article.text_field :title %>
-
-    <%= article.label :body %>
-    <%= article.text_area :body %>
+<%= simple_form_for(resources) do |section_form| %>
+  <%= section_form.hidden_field :type %>
+  <%= section_form.input :title %>
+  <%= section_form.simple_fields_for(:article) do |article_form| %>
+    <%= article_form.input :title %>
+    <%= article_form.input :body %>
   <% end %>
-
-  <%= section.submit resource.new_record? ? 'Create' : 'Save' %>
+  <%= section_form.button :submit %>
 <% end %>
