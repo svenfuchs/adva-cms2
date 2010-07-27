@@ -5,6 +5,10 @@ module Adva
   class Core < ::Rails::Engine
     include Adva::Engine
 
+    initializer 'adva-core.require_country_select' do
+      config.to_prepare { require_dependency 'country_select' }
+    end
+
     initializer 'adva-core.require_section_types' do
       config.to_prepare { require_dependency 'page' } # TODO is there a concept of "reloadable" initializers?
     end
