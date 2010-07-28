@@ -8,10 +8,10 @@ class Cart < Itemized
     attributes.each do |ix, attrs|
       attrs[:product_id].each do |product_id|
         if item = items.by_product_id(product_id).first
-          attrs[:id] = item.product_id
-          attrs[:quantity] = attrs[:quantity].to_i + item.quantity
+          item.update_attributes(:quantity => attrs[:quantity].to_i + item.quantity)
+        else
+          items.build(attrs)
         end
-        items.build(attrs)
       end
     end
   end

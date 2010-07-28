@@ -12,10 +12,15 @@ Feature: Using the cart
     Then I should see a product named "Apple Mac Mini"
   	When I fill in "Quantity" with "2"
   	And I press "Add to cart"
-    Then I should see a product named "Apple Mac Mini"
   	And the current user's cart should contain the following items:
   		| product            | quantity |
   		| Apple Mac Mini     | 2      |
+  	When I fill in "Quantity" with "1"
+    When I press "Add to cart"
+    Then I should see a product named "Apple Mac Mini"
+  	And the current user's cart should contain the following items:
+  		| product            | quantity |
+  		| Apple Mac Mini     | 3      |
 
   	When I go to the "Products" section page
   	And I follow "Apple Macbook Pro"
