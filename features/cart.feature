@@ -29,19 +29,19 @@ Feature: Using the cart
     Then I should see a product named "Apple Macbook Pro"
   	And the current user's cart should contain the following items:
   		| product            | quantity |
-  		| Apple Mac Mini     | 2      |
+  		| Apple Mac Mini     | 3      |
   		| Apple Macbook Pro  | 1      |
 
   	When I go to the cart page
   	Then the cart should contain the following items:
   		| product            | quantity |
-  		| Apple Mac Mini     | 2      |
+  		| Apple Mac Mini     | 3      |
   		| Apple Macbook Pro  | 1      |
   	When I press "Delete" for the item "Apple Macbook Pro"
   	Then I should be on the cart page
   	And the cart should contain the following items:
   		| product            | quantity |
-  		| Apple Mac Mini     | 2      |
+  		| Apple Mac Mini     | 3      |
 
   	When I follow "Checkout"
   	Then I should be on the enter new shipping address page
@@ -70,8 +70,8 @@ Feature: Using the cart
     When I press "Confirm"
     Then the following emails should have been sent:
       | to              | subject                 | body                                     |
-      | john@doe.com    | Your order confirmation | Apple Mac Mini, 600.00 EUR, 1,200.00 EUR |
-      | admin@admin.org | New order               | Apple Mac Mini, 600.00 EUR, 1,200.00 EUR |
+      | john@doe.com    | Your order confirmation | Apple Mac Mini, 600.00 EUR, 1,800.00 EUR |
+      | admin@admin.org | New order               | Apple Mac Mini, 600.00 EUR, 1,800.00 EUR |
 
 
 
