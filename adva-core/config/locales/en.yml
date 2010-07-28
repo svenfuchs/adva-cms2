@@ -1,4 +1,5 @@
 en:
+  a_or_b: '%{a} or %{b}'
   flash:
     actions:
       create:
