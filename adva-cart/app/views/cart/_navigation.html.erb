@@ -1,0 +1,21 @@
+<%
+  states = {}
+  past_current = false
+
+  [:cart, :delivery, :payment, :order].each do |state|
+    if state == current
+      states[state] = :current
+      past_current = true
+    elsif past_current
+      states[state] = :pending
+    else
+      states[state] = :done
+    end
+  end
+-%>
+<ul id="cart_navigation">
+  <li class="<%= states[:cart] %>"><%= link_to t(:".goto.cart"), url_for(current_cart) %></li>
+  <li class="<%= states[:delivery] %>"><%= link_to t(:".goto.delivery"), new_cart_addresses_path %></li>
+  <li class="<%= states[:payment] %>"><%= t(:".goto.payment") %></li>
+  <li class="<%= states[:order] %>"><%= t(:".goto.order") %></li>
+</ul>

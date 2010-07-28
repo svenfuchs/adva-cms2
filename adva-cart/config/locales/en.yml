@@ -5,6 +5,7 @@ en:
     show:
       title: Your shopping cart
       checkout: Checkout
+      continue_shopping: Continue shopping
     cart:
       product_number: Number
       product_name: Product
@@ -29,3 +30,10 @@ en:
     new:
       title: Order confirmation
       submit: Confirm
+      product_number: Number
+      product_name: Product
+      quantity: Quantity
+      price: Price
+      total_price: Total Price
+      total_vat: VAT
+      total_gross_price: Subtotal
