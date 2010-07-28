@@ -4,7 +4,9 @@
   <td class="numeric quantity"><%= item.quantity %></td>
   <td class="numeric price"><%= number_to_currency(item.price, :format => '%n %u', :unit => 'EUR') %></td>
   <td class="numeric total_price"><%= number_to_currency(item.total_price, :format => '%n %u', :unit => 'EUR') %></td>
-  <td class="actions">
-    <%= button_to t('.delete'), url_for([:cart, item]), :class => 'delete', :method => :delete %>
-  </td>
+  <% if updatable %>
+    <td class="actions">
+      <%= button_to t('.delete'), url_for([:cart, item]), :class => 'delete', :method => :delete %>
+    </td>
+  <% end %>
 <% end %>

@@ -5,6 +5,7 @@ en:
     show:
       title: Your shopping cart
       checkout: Checkout
+    cart:
       product_number: Number
       product_name: Product
       quantity: Quantity
