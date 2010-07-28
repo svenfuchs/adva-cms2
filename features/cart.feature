@@ -64,9 +64,9 @@ Feature: Using the cart
 
     When I press "Confirm"
     Then the following emails should have been sent:
-      | to              | subject                 |
-      | john@doe.com    | Your order confirmation |
-      | admin@admin.org | New order               |
+      | to              | subject                 | body                                     |
+      | john@doe.com    | Your order confirmation | Apple Mac Mini, 600.00 EUR, 1,200.00 EUR |
+      | admin@admin.org | New order               | Apple Mac Mini, 600.00 EUR, 1,200.00 EUR |
 
 
 
