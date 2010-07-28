@@ -15,18 +15,18 @@
   <tfoot class="cart_totals">
     <tr>
       <td colspan="3"></td>
-      <td><%= t('.total_price') %></td>
-      <td class="numeric total currency total_price"><%#= number_to_currency(cart.total_price, :unit => '€') %></td>
+      <th><%= t('.total_price') %></th>
+      <td class="numeric total currency total_price"><%= number_to_currency(cart.total_price, :unit => '€') %></td>
     </tr>
-    <tr>
+    <!-- <tr>
       <td colspan="3"></td>
       <td><%= t('.total_vat') %></td>
-      <td class="numeric total currency total_vat"><%#= number_to_currency(cart.total_vat, :unit => '€') %></td>
+      <td class="numeric total currency total_vat"><%# number_to_currency(cart.total_vat, :unit => '€') %></td>
     </tr>
     <tr>
       <td colspan="3"></td>
       <td><%= t('.total_gross_price') %></td>
-      <td class="numeric total currency total_gross_price"><%#= number_to_currency(cart.total_gross_price, :unit => '€') %></td>
-    </tr>
+      <td class="numeric total currency total_gross_price"><%# number_to_currency(cart.total_gross_price, :unit => '€') %></td>
+    </tr> -->
   </tfoot>
 </table>
