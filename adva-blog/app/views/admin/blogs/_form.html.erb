@@ -1,8 +1,5 @@
-<%= form_for(resources, :html => { :class => "#{resource.new_record? ? 'new' : 'edit' }_blog" }) do |section| %>
-  <%= section.hidden_field :type %>
-
-  <%= section.label :title %>
-  <%= section.text_field :title %>
-
-  <%= section.submit resource.new_record? ? 'Create' : 'Save' %>
+<%= simple_form_for(resources) do |section_form| %>
+  <%= section_form.hidden_field :type %>
+  <%= section_form.input :title %>
+  <%= section_form.button :submit %>
 <% end %>

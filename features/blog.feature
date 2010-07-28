@@ -4,28 +4,23 @@ Feature: Managing blogs
     Given I am on the admin dashboard page
 
     When I follow "New section"
-    Then I should see a section type form
+    Then I should see a section form
      And the "Page" radio button should be checked
      And the "Blog" radio button should not be checked
-     And I should see a new page form
      
     When I choose "Blog"
      And I press "Select"
-    Then I should see a section type form
+    Then I should see a section form
      And the "Page" radio button should not be checked
      And the "Blog" radio button should be checked
-     And I should see a new blog form
-     
-    When I fill in "Title" with "Brand new blog"
-     And I press "Create"
+     And I fill in "Title" with "Brand new blog"
+     And I press "Create section"
     Then I should be on the admin posts list page of the "Brand new blog" blog
      But I should not see any posts
     When I follow "Settings"
-    Then I should see an edit blog form
-
-    When I fill in "Title" with "Updated blog"
-    When I press "Save"
-    Then I should see an edit blog form
+     And I fill in "Title" with "Updated blog"
+    When I press "Update section"
+    Then I should see a section form
     
     When I follow "Website"
     Then I should see a blog
