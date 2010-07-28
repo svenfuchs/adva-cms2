@@ -20,6 +20,7 @@ class AdvaCartCreateTables < ActiveRecord::Migration
       t.references :product
       t.integer    :quantity
       t.integer    :price
+      t.integer    :vat
       t.timestamps
     end
 
