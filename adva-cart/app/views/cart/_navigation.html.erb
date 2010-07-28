@@ -16,6 +16,6 @@
 <ul id="cart_navigation">
   <li class="<%= states[:cart] %>"><%= link_to t(:".goto.cart"), url_for(current_cart) %></li>
   <li class="<%= states[:delivery] %>"><%= link_to t(:".goto.delivery"), new_cart_addresses_path %></li>
-  <li class="<%= states[:payment] %>"><%= t(:".goto.payment") %></li>
+  <li class="<%= states[:payment] %>"><%= link_to t(:".goto.payment"), edit_cart_payment_method_path %></li>
   <li class="<%= states[:order] %>"><%= t(:".goto.order") %></li>
 </ul>

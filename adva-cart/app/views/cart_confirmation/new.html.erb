@@ -1,3 +1,5 @@
+<%= render :partial => 'cart/navigation', :locals => { :current => :order } %>
+
 <h2><%= t('.title') %></h2>
 
 <%= render :partial => 'cart/cart', :locals => { :cart => resource, :updatable => false } %>
