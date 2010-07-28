@@ -4,6 +4,18 @@ class Cart < Itemized
 
   accepts_nested_attributes_for :shipping_address, :billing_address
 
+  def items_attributes=(attributes)
+    attributes.each do |ix, attrs|
+      attrs[:product_id].each do |product_id|
+        if item = items.by_product_id(product_id).first
+          attrs[:id] = item.product_id
+          attrs[:quantity] = attrs[:quantity].to_i + item.quantity
+        end
+        items.build(attrs)
+      end
+    end
+  end
+
   def total_price
     items.map(&:total_price).inject(&:+)
   end

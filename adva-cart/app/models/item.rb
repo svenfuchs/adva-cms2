@@ -2,6 +2,12 @@ class Item < ActiveRecord::Base
   belongs_to :itemized
   belongs_to :product
 
+  class << self
+    def by_product_id(product_id)
+      where(:product_id => product_id)
+    end
+  end
+
   def locked?
     read_attribute(:price).present?
   end
