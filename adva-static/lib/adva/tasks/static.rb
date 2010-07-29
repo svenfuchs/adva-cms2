@@ -6,8 +6,8 @@ require 'patches/thor/group/symbolized_options'
 module Adva
   module Tasks
     class Static < Thor::Group
-      namespace 'adva:static'
-      desc 'Static a static version of your site'
+      namespace 'adva:static:export'
+      desc 'Export a static version of your site'
       class_option :target, :required => false
       
       def export
