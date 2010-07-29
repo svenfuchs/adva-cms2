@@ -6,6 +6,7 @@ class AdvaCoreCreateContents < ActiveRecord::Migration
       t.string      :type
       t.string      :title
       t.text        :body
+      t.timestamps
     end
   end
 
