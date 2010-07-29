@@ -36,7 +36,7 @@ module AdvaStatic
     test "process" do
       exporter.store.expects(:write).with('/foo', '<h1>Foo</h1><a href="/bar">bar</a>')
       exporter.send(:process, path('/foo'))
-      assert_equal ['/bar'], exporter.queue
+      assert exporter.queue.include?('/bar')
     end
   end
 end

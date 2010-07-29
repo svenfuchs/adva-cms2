@@ -3,8 +3,11 @@ require 'uri'
 module Adva
   class Static
     class Path < String
+      attr_reader :host
+
       def initialize(path)
-        path = normalize_path(path)
+        @host = URI.parse(path.to_s).host
+        path  = normalize_path(path)
         super
       end
 
@@ -20,10 +23,14 @@ module Adva
         extname.blank? || extname == '.html'
       end
 
+      def remote?
+        host.present?
+      end
+
       protected
 
         def normalize_path(path)
-          path = URI.parse(path.to_s).path                          # extract path
+          path = URI.parse(path.to_s).path || '/'                   # extract path
           path = path[0..-2] if path[-1, 1] == '/'                  # remove trailing slash
           path = "/#{path}" unless path[0, 1] == '/'                # add leading slash
           path
