@@ -8,10 +8,10 @@ module AdvaStatic
       FakeFS.activate!
 
       dir = Pathname.new('/tmp/adva-static-test/export')
+      @store = Adva::Static::Store.new(dir)
+
       FileUtils.mkdir_p(dir)
       FileUtils.touch(dir.join('index.html'))
-
-      @store = Adva::Static::Store.new(dir)
     end
     
     def teardown

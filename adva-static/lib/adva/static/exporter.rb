@@ -16,10 +16,11 @@ module Adva
         @app   = app
         @store = Static::Store.new(options[:target])
         @queue = Static::Queue.new
+
+        queue.push(options[:queue] || Path.new('/'))
       end
 
       def run
-        queue << Path.new('/')
         process(queue.shift) until queue.empty?
         configure
       end
@@ -52,7 +53,7 @@ module Adva
         end
 
         def enqueue_urls(page)
-          queue.push(page.urls.reject { |path| store.exists?(path) })
+          queue.push(page.urls.reject { |path| path.remote? || store.exists?(path) })
         end
 
         def configure
