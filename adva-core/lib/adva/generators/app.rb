@@ -17,12 +17,12 @@ module Adva
         :template => File.expand_path('../templates/app/app_template.rb', __FILE__),
         :engines  => [:all],
         :migrate  => false,
-        :lock     => false,
+        :install  => false,
         :force    => false
       }
 
       attr_reader :name
-      option_reader :gem_root, :target, :template, :resources, :migrate, :lock, :force
+      option_reader :gem_root, :target, :template, :resources, :migrate, :install, :force
 
       def initialize(name, options = {}, &block)
         @options = options.reverse_merge!(DEFAULT_OPTIONS)
@@ -34,7 +34,7 @@ module Adva
         if force? || build?
           build
           generate_resources  if generate_resources?
-          lock_bundle         if lock?
+          install_bundle      if install?
           load_environment    if block_given? || migrate?
           exec(&block)        if block_given?
           install
@@ -70,14 +70,14 @@ module Adva
         in_root { ActiveRecord::Migrator.migrate('db/migrate/') }
       end
 
-      def lock_bundle
-        puts "Locking bundle ..."
-        in_root { run 'bundle lock' }
+      def install_bundle
+        puts "Installing bundle ..."
+        in_root { run 'bundle install' }
       end
 
       def load_environment
         puts "Loading environment ..."
-        in_root { require "#{root}/config/environment" }
+        in_root { require "config/environment" }
       end
 
       def generate_resources

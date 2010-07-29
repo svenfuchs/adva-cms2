@@ -2,7 +2,7 @@
 
 source :rubygems
 
-gem 'rails', '3.0.0.beta4'
+gem 'rails', '3.0.0.rc'
 gem 'adva-core',     :path => File.expand_path('../adva-core', __FILE__)
 gem 'adva-blog',     :path => File.expand_path('../adva-blog', __FILE__)
 gem 'adva-cart',     :path => File.expand_path('../adva-cart', __FILE__)
@@ -19,7 +19,7 @@ group :test do
   gem 'thor'
   gem 'ruby-debug'
   gem 'mocha'
-  gem 'fakefs'
+  gem 'fakefs', :require => 'fakefs/safe'
   gem 'test_declarative'
   gem 'database_cleaner'
 end

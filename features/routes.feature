@@ -48,13 +48,7 @@ Feature: Routes
       | GET    | /installations/new                        | installations       | new     |                                  |
       | GET    | /sections                                 | sections            | index   |                                  |
       | GET    | /sections/1                               | sections            | show    | id: 1                            |
-      | GET    | /sections/1/article                       | articles            | index   | section_id: 1                    |
-      | POST   | /sections/1/article                       | articles            | create  | section_id: 1                    |
-      | GET    | /sections/1/article/new                   | articles            | new     | section_id: 1                    |
-      | GET    | /sections/1/article/1                     | articles            | show    | section_id: 1, id: 1             |
-      | PUT    | /sections/1/article/1                     | articles            | update  | section_id: 1, id: 1             |
-      | DELETE | /sections/1/article/1                     | articles            | destroy | section_id: 1, id: 1             |
-      | GET    | /sections/1/article/1/edit                | articles            | edit    | section_id: 1, id: 1             |
+      | GET    | /sections/1/article                       | articles            | show    | section_id: 1                    |
 
       | GET    | /admin/sites                              | admin/sites         | index   |                                  |
       | POST   | /admin/sites                              | admin/sites         | create  |                                  |
@@ -72,13 +66,12 @@ Feature: Routes
       | DELETE | /admin/sites/1/sections/1                 | admin/sections      | destroy | site_id: 1, id: 1                |
       | GET    | /admin/sites/1/sections/1/edit            | admin/sections      | edit    | site_id: 1, id: 1                |
 
-      | GET    | /admin/sites/1/sections/1/article         | admin/articles      | index   | site_id: 1, section_id: 1        |
+      | GET    | /admin/sites/1/sections/1/article         | admin/articles      | show    | site_id: 1, section_id: 1        |
       | POST   | /admin/sites/1/sections/1/article         | admin/articles      | create  | site_id: 1, section_id: 1        |
       | GET    | /admin/sites/1/sections/1/article/new     | admin/articles      | new     | site_id: 1, section_id: 1        |
-      | GET    | /admin/sites/1/sections/1/article/1       | admin/articles      | show    | site_id: 1, section_id: 1, id: 1 |
-      | PUT    | /admin/sites/1/sections/1/article/1       | admin/articles      | update  | site_id: 1, section_id: 1, id: 1 |
-      | DELETE | /admin/sites/1/sections/1/article/1       | admin/articles      | destroy | site_id: 1, section_id: 1, id: 1 |
-      | GET    | /admin/sites/1/sections/1/article/1/edit  | admin/articles      | edit    | site_id: 1, section_id: 1, id: 1 |
+      | PUT    | /admin/sites/1/sections/1/article         | admin/articles      | update  | site_id: 1, section_id: 1        |
+      | DELETE | /admin/sites/1/sections/1/article         | admin/articles      | destroy | site_id: 1, section_id: 1        |
+      | GET    | /admin/sites/1/sections/1/article/edit    | admin/articles      | edit    | site_id: 1, section_id: 1        |
 
       # adva-user
       | POST   | /users                                    | admin/registrations | create  |  |
