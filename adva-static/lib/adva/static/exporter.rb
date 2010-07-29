@@ -21,8 +21,9 @@ module Adva
       def run
         queue << Path.new('/')
         process(queue.shift) until queue.empty?
+        configure
       end
-      
+
       protected
 
         def process(path)
@@ -52,6 +53,17 @@ module Adva
 
         def enqueue_urls(page)
           queue.push(page.urls.reject { |path| store.exists?(path) })
+        end
+
+        def configure
+          store.write Path.new('config.ru'), <<-conf.split("\n").map(&:strip).join("\n")
+            require 'rubygems'
+            require 'action_controller'
+            require 'action_dispatch'
+
+            use ActionDispatch::Static, Dir.pwd
+            run lambda { |env| [404, { 'Content-Type' => 'text/plain' }, '404'] }
+          conf
         end
     end
   end
