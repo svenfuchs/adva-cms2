@@ -8,7 +8,7 @@ gem 'adva-blog',     :path => File.expand_path('../adva-blog', __FILE__)
 gem 'adva-cart',     :path => File.expand_path('../adva-cart', __FILE__)
 gem 'adva-catalog',  :path => File.expand_path('../adva-catalog', __FILE__)
 gem 'adva-contacts', :path => File.expand_path('../adva-contacts', __FILE__)
-gem 'adva-export',   :path => File.expand_path('../adva-export', __FILE__)
+gem 'adva-static',   :path => File.expand_path('../adva-static', __FILE__)
 gem 'adva-user',     :path => File.expand_path('../adva-user', __FILE__)
 
 group :test do
@@ -19,6 +19,7 @@ group :test do
   gem 'thor'
   gem 'ruby-debug'
   gem 'mocha'
+  gem 'fakefs'
   gem 'test_declarative'
   gem 'database_cleaner'
 end
