@@ -1,5 +1,5 @@
 module Adva
-  class Export
+  class Static
     class Store
       attr_reader :dir
 
@@ -8,20 +8,14 @@ module Adva
       end
 
       def exists?(path)
-        dir.join(normalize_path(path)).exist?
+        File.exists?(dir.join(path.filename))
       end
 
       def write(path, body)
-        path = dir.join(normalize_path(path))
+        path = dir.join(path.filename)
         FileUtils.mkdir_p(File.dirname(path))
         File.open(path, 'w+') { |f| f.write(body) }
       end
-
-      protected
-
-        def normalize_path(path)
-          path[0, 1] == '/' ? path.to_s[1..-1] : path
-        end
     end
   end
 end

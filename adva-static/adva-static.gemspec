@@ -1,10 +1,10 @@
 # encoding: utf-8
 
 # $: << File.expand_path('../lib', __FILE__)
-# require 'adva/export/version'
+# require 'adva/static/version'
 
 Gem::Specification.new do |s|
-  s.name         = "adva-export"
+  s.name         = "adva-static"
   s.version      = '0.0.1'
   s.authors      = ["Ingo Weiss", "Sven Fuchs"]
   s.email        = "nobody@adva-cms.org"

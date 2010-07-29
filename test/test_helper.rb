@@ -18,6 +18,7 @@ require 'test_declarative'
 require 'database_cleaner'
 require 'ruby-debug'
 require 'mocha'
+require 'fakefs/safe'
 
 require 'adva-core'
 require 'adva-blog'

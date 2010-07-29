@@ -1,10 +1,9 @@
 require File.expand_path('../../test_helper', __FILE__)
-require 'adva/exporter'
 
-module AdvaExporter
+module AdvaStatic
   class PathTest < Test::Unit::TestCase
     def path(path)
-      Adva::Export::Path.new(path)
+      Adva::Static::Path.new(path)
     end
     
     test "path strips protocol and domain" do
@@ -17,6 +16,10 @@ module AdvaExporter
 
     test "path adds a missing leading slash" do
       assert_equal '/foo/bar', path('foo/bar')
+    end
+    
+    test "path strips a tailing slash" do
+      assert_equal '/foo/bar', path('/foo/bar/')
     end
     
     test "extname returns the extension" do
@@ -37,6 +40,14 @@ module AdvaExporter
     
     test "html? is false if the extname does not equal .html" do
       assert !path('foo/bar.js').html?
+    end
+    
+    test "filename returns the path with .html appended if the path is .html? (1)" do
+      assert_equal 'foo/bar.html', path('foo/bar').filename
+    end
+    
+    test "filename returns the path with .html appended if the path is .html? (2)" do
+      assert_equal 'foo/bar.html', path('foo/bar.html').filename
     end
   end
 end
