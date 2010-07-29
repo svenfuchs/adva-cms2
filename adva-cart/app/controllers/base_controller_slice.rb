@@ -1,3 +1,5 @@
+require 'base_controller'
+
 BaseController.class_eval do
   def current_cart
     @current_cart ||= begin

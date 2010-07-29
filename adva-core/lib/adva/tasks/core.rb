@@ -12,7 +12,7 @@ module Adva
       argument :name, :required => false
       class_option :target,   :required => false
       class_option :engines,  :required => false, :type => :array
-      class_option :lock,     :required => false, :type => :boolean
+      class_option :install,  :required => false, :type => :boolean
       class_option :migrate,  :required => false, :type => :boolean
       class_option :template, :required => false
       class_option :force,    :required => false, :type => :boolean
