@@ -22,7 +22,7 @@ class BaseController < InheritedResources::Base
   def resource
     super
   rescue ActiveRecord::RecordNotFound
-    build_resource
+    build_resource unless params[:action] == 'index'
   end
 
   def resources
