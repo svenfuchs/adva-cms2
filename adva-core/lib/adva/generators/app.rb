@@ -56,6 +56,7 @@ module Adva
           generator = Rails::Generators::AppGenerator.new([root], options, :shell => shell)
           generator.invoke
           generator.apply(template, :gem_root => gem_root)
+          FileUtils.cp("#{gem_root}/Thorfile", "#{root}/Thorfile")
         end
       end
 
