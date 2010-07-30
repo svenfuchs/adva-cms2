@@ -19,7 +19,7 @@ group :test do
   gem 'thor'
   gem 'ruby-debug'
   gem 'mocha'
-  gem 'fakefs'
+  gem 'fakefs', :require => 'fakefs/safe'
   gem 'test_declarative'
   gem 'database_cleaner'
 end
