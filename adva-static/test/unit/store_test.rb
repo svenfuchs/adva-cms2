@@ -13,11 +13,11 @@ module AdvaStatic
       FileUtils.mkdir_p(dir)
       FileUtils.touch(dir.join('index.html'))
     end
-    
+
     def teardown
       FakeFS.deactivate!
     end
-    
+
     def path(path)
       Adva::Static::Path.new(path)
     end
@@ -33,7 +33,7 @@ module AdvaStatic
     test "exists? does not find a missing path" do
       assert !store.exists?(path('/missing.html'))
     end
-    
+
     test "write" do
       store.write(path('/foo/bar'), 'foo and bar')
       assert_equal 'foo and bar', File.read(store.dir.join('foo/bar.html'))

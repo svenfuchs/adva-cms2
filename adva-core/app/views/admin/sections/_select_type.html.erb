@@ -1,5 +1,6 @@
 <h2><%= t(:'.title') %></h2>
-<%= form_for(resources, :url => { :action => :new }, :html => { :method => :get, :class => 'section_type' }) do |section| %>
+
+<%= form_for(resources, :as => :section, :url => { :action => :new }, :html => { :method => :get, :class => 'section_type' }) do |section| %>
   <%= section.label :type %>
 
   <% section_types_for_select.each do |name, value| %>

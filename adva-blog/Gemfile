@@ -7,3 +7,5 @@ File.foreach(Dir[File.expand_path('../*.gemspec', __FILE__)].first) do |line|
     gem *args
   end
 end
+
+gem 'simple_slugs', :path => '/Volumes/Users/sven/Development/projects/simple_slugs'

@@ -1,3 +1,9 @@
+ActiveSupport.on_load(:action_view) do
+  # can we use this for slices?
+end
+
+
+
 Account
   has_many :products
   
