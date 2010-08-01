@@ -26,7 +26,7 @@ Feature: Routes
       | GET    | /cart                                     | cart                | show    |                                                     |
 
       # adva-catalog
-      | GET    | /catalogs/1/foo                           | products            | show    | catalog_id: 1, slug: foo                            |
+      | GET    | /catalogs/1/products/foo                  | products            | show    | catalog_id: 1, slug: foo                            |
       | GET    | /admin/sites/1/catalogs/1/products        | admin/products      | index   | site_id: 1, catalog_id: 1                           |
       | POST   | /admin/sites/1/catalogs/1/products        | admin/products      | create  | site_id: 1, catalog_id: 1                           |
       | GET    | /admin/sites/1/catalogs/1/products/new    | admin/products      | new     | site_id: 1, catalog_id: 1                           |

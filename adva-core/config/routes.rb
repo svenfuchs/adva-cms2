@@ -1,4 +1,9 @@
+require 'routing_filter'
+require 'routing_filter/section_root'
+
 Rails.application.routes.draw do
+  filter :section_root
+
   namespace :admin do
     resources :sites do
       resources :sections, :only => [:index, :new, :create]
@@ -7,11 +12,11 @@ Rails.application.routes.draw do
       end
     end
   end
-  
+
   match 'pages/:id',              :to => 'pages#show',    :as => :page
   match 'pages/:page_id/article', :to => 'articles#show', :as => :page_article
 
   resources :installations, :only => [:new, :create]
 
-  root :to => redirect(lambda { Site.first ? "/pages/#{Site.first.sections.first.id}" : '/installations/new' })
+  root :to => redirect('/installations/new') # should only match if no section is present
 end

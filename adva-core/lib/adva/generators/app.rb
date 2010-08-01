@@ -54,7 +54,7 @@ module Adva
         in_root do
           options = force? || ENV.key?('REGENERATE_APP') ? ['-f'] : []
           generator = Rails::Generators::AppGenerator.new([root], options, :shell => shell)
-          generator.invoke
+          generator.invoke_all
           generator.apply(template, :gem_root => gem_root)
           FileUtils.cp("#{gem_root}/Thorfile", "#{root}/Thorfile")
         end
