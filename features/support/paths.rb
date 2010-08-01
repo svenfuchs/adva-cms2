@@ -3,6 +3,8 @@ module NavigationHelpers
     case page_name
     when /the home\s?page/
       '/'
+    when 'the home section page'
+      '/'
     when /the admin dashboard page for the site on "(.*)"/
       site = Site.find_by_host($1) || raise("could not find site with host #{$1}")
       admin_site_path(site)
@@ -20,11 +22,6 @@ module NavigationHelpers
       admin_site_sections_path(1)
     when 'the site installation page'
       new_installation_path
-    when 'the home section page'
-      # TODO remove Site.first
-      section = Site.first.sections.first
-      # TODO patch url_for to accept an options hash to pass to polymorphic_path
-      url_for(section).gsub('http://www.example.com', '')
     when 'the cart page'
       cart_path
     when 'the enter new shipping address page'
