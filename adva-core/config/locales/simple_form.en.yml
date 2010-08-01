@@ -22,7 +22,7 @@ en:
     #   username: 'User name to sign in.'
     #   password: 'No special characters, please.'
     labels:
-      "section[article_attributes]":
+      "page[article_attributes]":
         new:
           title: Heading
       article:

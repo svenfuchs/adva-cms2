@@ -3,6 +3,7 @@ class AdvaCatalogCreateProducts < ActiveRecord::Migration
     create_table :products do |t|
       t.references :account
       t.string     :name
+      t.string     :slug
       t.string     :number
       t.text       :description
       t.integer    :price

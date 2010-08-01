@@ -27,6 +27,8 @@ require 'adva-catalog'
 require 'adva-contacts'
 require 'adva-user'
 
+require 'simple_slugs'
+
 ActiveRecord::Base.establish_connection :adapter => 'sqlite3', :database => ':memory:'
 ActiveRecord::Migration.verbose = false
 ActiveRecord::Migrator.up(File.expand_path('../../adva-core/db/migrate', __FILE__))

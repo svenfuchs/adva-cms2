@@ -8,10 +8,10 @@ module NavigationHelpers
       admin_site_path(site)
     when /the admin posts list page of the "(.*)" blog/
       section = Blog.find_by_title($1) || raise("could not find blog #{$1.inspect}")
-      admin_site_section_path(section.site, section)
+      admin_site_blog_path(section.site, section)
     when /the admin products list page of the "(.*)" catalog/
       section = Catalog.find_by_title($1) || raise("could not find catalog #{$1.inspect}")
-      admin_site_section_path(section.site, section)
+      admin_site_catalog_path(section.site, section)
     when 'the admin sites page'
       admin_sites_path
     when 'the admin dashboard page'
@@ -21,7 +21,10 @@ module NavigationHelpers
     when 'the site installation page'
       new_installation_path
     when 'the home section page'
-      section_path(Site.first.sections.first) # TODO
+      # TODO remove Site.first
+      section = Site.first.sections.first
+      # TODO patch url_for to accept an options hash to pass to polymorphic_path
+      url_for(section).gsub('http://www.example.com', '')
     when 'the cart page'
       cart_path
     when 'the enter new shipping address page'
@@ -31,7 +34,8 @@ module NavigationHelpers
     when 'the order confirmation page'
       new_cart_confirmation_path
     when /the "(.*)" section page/
-      section_path(Section.where(:title => $1).first)
+      section = Section.where(:title => $1).first
+      url_for(section).gsub('http://www.example.com', '')
     when 'the signin page'
       new_user_session_path
     else

@@ -1,8 +1,8 @@
 class Section < ActiveRecord::Base
   # to make url_for(site, section) use site_section, not site_[child_class_name]
-  def self.model_name
-    self == Section ? super : Section.model_name
-  end
+  # def self.model_name
+  #   self == Section ? super : Section.model_name
+  # end
   
   belongs_to :site, :inverse_of => :sections
   validates_presence_of :site, :title

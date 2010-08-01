@@ -31,7 +31,7 @@ class ItemizedTest < Test::Unit::TestCase
   end
   
   test "item.price reflects the product price unless locked?" do
-    product = Product.create! :price => 200
+    product = Product.create! :name => 'Apple pie', :price => 200
     item = Item.new :product => product
 
     assert !item.locked?
@@ -39,7 +39,7 @@ class ItemizedTest < Test::Unit::TestCase
   end
   
   test "item.price reflects the item's price if locked?" do
-    product = Product.create! :price => 200
+    product = Product.create! :name => 'Apple pie', :price => 200
     item = Item.new :product => product, :price => 300
 
     assert item.locked?

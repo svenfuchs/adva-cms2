@@ -1,13 +1,13 @@
 Rails.application.routes.draw do
   namespace :admin do
     resources :sites do
-      resources :sections do
+      resources :blogs do
         resources :posts
       end
     end
   end
 
-  resources :sections, :only => [:index, :show] do # TODO remove index, gotta fix resource_awareness
-    resources :posts
-  end
+  match 'blogs/:id(/:year(/:month(/:day)))',      :to => 'blogs#show',     :as => :blog
+  match 'blogs/:blog_id/:year/:month/:day/:slug', :to => 'posts#show'
+  match 'blogs/:blog_id/*permalink',              :to => "posts#internal", :as => :blog_post
 end

@@ -1,3 +1,3 @@
 class ArticlesController < BaseController
-  belongs_to :section, :singleton => true
+  belongs_to :page, :singleton => true
 end
