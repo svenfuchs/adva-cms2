@@ -59,7 +59,7 @@ module RoutingFilter
       end
 
       def host_with_port(env)
-        host, port = env.values_at('HTTP_HOST', 'SERVER_PORT')
+        host, port = env.values_at('SERVER_NAME', 'SERVER_PORT')
         port == default_port ? host : [host, port].join(':')
       end
   end

@@ -49,7 +49,11 @@ module Adva
         end
 
         def env_for(path)
-          Rack::MockRequest.env_for(path)
+          site = Site.first || raise('could not find any site') # TODO make this a cmd line arg or options
+          Rack::MockRequest.env_for(path).merge(
+            'SERVER_NAME' => site.host.split(':').first,
+            'SERVER_PORT' => site.host.split(':').last
+          )
         end
 
         def enqueue_urls(page)
