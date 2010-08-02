@@ -1,5 +1,6 @@
 require 'rails/engine'
 require 'adva'
+require 'simple_nested_set'
 
 module Adva
   class Core < ::Rails::Engine
