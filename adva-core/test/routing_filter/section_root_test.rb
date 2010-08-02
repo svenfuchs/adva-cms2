@@ -1,4 +1,5 @@
 require File.expand_path('../../test_helper', __FILE__)
+
 require 'routing_filter/section_root'
 require 'page'
 
