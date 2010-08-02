@@ -1,3 +1,5 @@
+require 'fileutils'
+
 module Adva
   class Static
     class Store
@@ -5,6 +7,7 @@ module Adva
 
       def initialize(dir)
         @dir = Pathname.new(dir.to_s)
+        FileUtils.rm_r(dir) rescue Errno::ENOENT
       end
 
       def exists?(path)

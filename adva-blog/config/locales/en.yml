@@ -1,6 +1,11 @@
 en:
   section:
-    new:
-      title: Create a New Blog
     types:
       blog: Blog
+  admin:
+    blogs:
+      new:
+        title: Create a new blog
+    posts:
+      new:
+        title: Create a new blog post

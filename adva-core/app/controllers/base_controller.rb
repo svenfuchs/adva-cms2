@@ -21,8 +21,8 @@ class BaseController < InheritedResources::Base
 
   def resource
     super
-  rescue ActiveRecord::RecordNotFound
-    build_resource
+  rescue ActiveRecord::RecordNotFound => e
+    params[:action] == 'new' ? build_resource : raise(e)
   end
 
   def resources
