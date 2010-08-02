@@ -24,6 +24,9 @@ defined in the Railtie ...
 action_dispatch/routing/mapper.rb:207 uses reverse_merge but does not require it
 active_support/core_ext/string/inflections.rb:16 uses pluralize but does not require it
 
+action_dispatch/testing/assertions.rb:9: uninitialized constant ActionDispatch::Assertions::ActiveSupport (NameError)
+
+
 
 extend fields_for so that
 

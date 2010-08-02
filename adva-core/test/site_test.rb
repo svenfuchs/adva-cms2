@@ -1,5 +1,7 @@
 require File.expand_path('../test_helper', __FILE__)
 
+require 'patches/rails/sti_associations' # TODO load all patches in test_helper?
+
 module AdvaCore
   class SiteTest < Test::Unit::TestCase
     attr_reader :site_params
@@ -19,7 +21,7 @@ module AdvaCore
     end
 
     test "site accepts nested attributes for :section" do
-      site = Site.create(site_params)
+      site = Site.create!(site_params)
       section = site.sections.first
       assert !section.new_record?
       assert_equal 'Page', section.type
@@ -27,17 +29,17 @@ module AdvaCore
 
     test "site validates presence of :name" do
       site_params.delete(:name)
-      assert_equal "can't be blank", Site.create(site_params).errors.values.flatten.first
+      assert_equal ["can't be blank"], Site.create(site_params).errors[:name]
     end
 
     test "site validates presence of :title" do
       site_params.delete(:title)
-      assert_equal "can't be blank", Site.create(site_params).errors.values.flatten.first
+      assert_equal ["can't be blank"], Site.create(site_params).errors[:title]
     end
 
     test "site validates presence of :host" do
       site_params.delete(:host)
-      assert_equal "can't be blank", Site.create(site_params).errors.values.flatten.first
+      assert_equal ["can't be blank"], Site.create(site_params).errors[:host]
     end
   
     # test "site has one home section" do
