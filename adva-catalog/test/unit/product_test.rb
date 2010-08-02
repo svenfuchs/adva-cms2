@@ -1,7 +1,7 @@
 # require File.expand_path('../../test_helper', __FILE__)
+# require 'account'
 #
 # class ProductTest < Test::Unit::TestCase
-#
 #   def setup
 #     @account = Account.create
 #   end

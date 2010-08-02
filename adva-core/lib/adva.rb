@@ -1,7 +1,8 @@
 require 'rails/engine'
 
 module Adva  
-  autoload :Engine, 'adva/engine'
+  autoload :Engine,    'adva/engine'
+  autoload :Responder, 'adva/responder'
   
   class << self
     def engines

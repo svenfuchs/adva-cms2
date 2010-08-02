@@ -1,4 +1,4 @@
-gem 'devise', '1.1.rc2'
+gem 'devise', '1.1.1'
 gem 'simple_form'
 gem 'simple_table', '>=0.0.3'
 

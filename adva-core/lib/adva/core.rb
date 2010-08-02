@@ -1,5 +1,6 @@
 require 'rails/engine'
 require 'adva'
+require 'simple_nested_set'
 
 module Adva
   class Core < ::Rails::Engine
@@ -24,24 +25,24 @@ module Adva
 
     initializer 'adva-core.register_asset_expansions' do
       ActionView::Helpers::AssetTagHelper.register_javascript_expansion \
-        :admin   => %w( adva_core/admin/jquery.admin.js
-                        adva_core/jquery/jquery.tablednd_0_5.js
-                        adva_core/jquery/jquery.table_tree.js
-                        adva_core/admin/jquery.table_tree.js
-                        adva_core/admin/jquery.article.js
-                        adva_core/admin/jquery.cached_pages.js
-                        adva_core/jquery/jquery.qtip.min.js ),
-        :default => %w( adva_core/jquery.roles.js
-                        adva_core/jquery.dates.js
-                        adva_core/parseuri.js
-                        adva_core/application.js ),
-        :common  => %w( adva_core/jquery/jquery.js
-                        adva_core/jquery/jquery-lowpro.js
-                        adva_core/jquery/jquery-ui.js
-                        adva_core/json.js
-                        adva_core/cookie.js
-                        adva_core/jquery.flash.js
-                        adva_core/application.js )
+        :admin   => %w( adva-core/admin/jquery.admin.js
+                        adva-core/jquery/jquery.tablednd_0_5.js
+                        adva-core/jquery/jquery.table_tree.js
+                        adva-core/admin/jquery.table_tree.js
+                        adva-core/admin/jquery.article.js
+                        adva-core/admin/jquery.cached_pages.js
+                        adva-core/jquery/jquery.qtip.min.js ),
+        :default => %w( adva-core/jquery.roles.js
+                        adva-core/jquery.dates.js
+                        adva-core/parseuri.js
+                        adva-core/application.js ),
+        :common  => %w( adva-core/jquery/jquery.js
+                        adva-core/jquery/jquery-lowpro.js
+                        adva-core/jquery/jquery-ui.js
+                        adva-core/json.js
+                        adva-core/cookie.js
+                        adva-core/jquery.flash.js
+                        adva-core/application.js )
         # :login   => %w(),
         # :simple  => %w(),
         # # From qtip dev branch

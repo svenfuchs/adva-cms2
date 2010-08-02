@@ -4,7 +4,7 @@ require 'bundler'
 Bundler.setup
 
 require 'adva/generators/app'
-app = Adva::Generators::App.new('cucumber-adva-cms2', :target => '/tmp', :lock => true, :migrate => true)
+app = Adva::Generators::App.new('cucumber-adva-cms2', :target => '/tmp', :install => true, :migrate => true)
 app.invoke
 
 Gem.patching('webrat', '0.7.0') do 

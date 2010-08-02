@@ -5,7 +5,9 @@ class AdvaCoreCreateContents < ActiveRecord::Migration
       t.references  :section
       t.string      :type
       t.string      :title
+      t.string      :slug
       t.text        :body
+      t.timestamps
     end
   end
 

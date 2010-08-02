@@ -3,15 +3,17 @@ module NavigationHelpers
     case page_name
     when /the home\s?page/
       '/'
+    when 'the home section page'
+      '/'
     when /the admin dashboard page for the site on "(.*)"/
       site = Site.find_by_host($1) || raise("could not find site with host #{$1}")
       admin_site_path(site)
     when /the admin posts list page of the "(.*)" blog/
       section = Blog.find_by_title($1) || raise("could not find blog #{$1.inspect}")
-      admin_site_section_path(section.site, section)
+      admin_site_blog_path(section.site, section)
     when /the admin products list page of the "(.*)" catalog/
       section = Catalog.find_by_title($1) || raise("could not find catalog #{$1.inspect}")
-      admin_site_section_path(section.site, section)
+      admin_site_catalog_path(section.site, section)
     when 'the admin sites page'
       admin_sites_path
     when 'the admin dashboard page'
@@ -20,8 +22,6 @@ module NavigationHelpers
       admin_site_sections_path(1)
     when 'the site installation page'
       new_installation_path
-    when 'the home section page'
-      section_path(Site.first.sections.first) # TODO
     when 'the cart page'
       cart_path
     when 'the enter new shipping address page'
@@ -31,7 +31,8 @@ module NavigationHelpers
     when 'the order confirmation page'
       new_cart_confirmation_path
     when /the "(.*)" section page/
-      section_path(Section.where(:title => $1).first)
+      section = Section.where(:title => $1).first
+      url_for(section).gsub('http://www.example.com', '')
     when 'the signin page'
       new_user_session_path
     else

@@ -34,7 +34,7 @@ Then /^I should see an? (\w*) containing "([^"]*)"$/ do |type, text|
   assert_select(".#{type}", /#{text}/)
 end
 
-Then /^I should see an? ([a-z ]+) form$/ do |resource|
-  resource.gsub!(/ /, '_')
-  assert_select("form.#{resource}")
+Then /^I should see an? ([a-z ]+) form$/ do |type|
+  type = type.gsub(' ', '_') #.gsub(/edit_/, '')
+  assert_select("form.#{type},form##{type}")
 end
