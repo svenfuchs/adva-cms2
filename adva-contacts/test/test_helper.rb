@@ -1,4 +1,4 @@
-require File.expand_path('../../../test/test_helper', __FILE__)
+require File.expand_path('../../../adva-core/test/test_helper', __FILE__)
 
 # require File.expand_path(File.dirname(__FILE__) + '/../../../adva/engines/adva_cms/test/test_helper')
 # require File.dirname(__FILE__) + '/fixtures'
