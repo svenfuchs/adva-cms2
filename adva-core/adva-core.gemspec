@@ -19,7 +19,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'routing-filter', '0.1.6'
   s.add_dependency 'inherited_resources', '1.1.2'
   s.add_dependency 'simple_form'
+  s.add_dependency 'simple_table', '>=0.0.3'
   s.add_dependency 'simple_nested_set'
   s.add_dependency 'nbrew-country_select'
-  s.add_dependency 'simple_table', '>=0.0.3'
 end
