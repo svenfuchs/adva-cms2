@@ -1,5 +1,3 @@
-require 'simple_slugs'
-
 class Post < Content
   has_slug :scope => :section_id
 
