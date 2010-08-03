@@ -6,11 +6,11 @@ class Product < ActiveRecord::Base
   has_slug :scope => :account_id
 
   def price
-    read_attribute(:price) / 100
+    read_attribute(:price).to_i / 100
   end
 
   def vat
-    read_attribute(:vat) / 100
+    read_attribute(:vat).to_i / 100
   end
 
   def to_param(name)
