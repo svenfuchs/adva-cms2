@@ -1,10 +1,13 @@
+<%= link_to "Settings", resources.unshift(:edit) %>
+<%= link_to "New Product", resources.unshift(:new).push(:product) %>  <!-- TODO => menu -->
+
 <h2><%= resource.title %></h2>
 
-<%= table_for(products) do |table|
+<%= table_for(resource.products) do |table|
       table.column 'Name', 'Number', 'Price'
       table.row do |row, product|
-        row.cell link_to(product.name, url_for([catalog, product]))
+        row.cell link_to(product.name, url_for(resources.unshift(:edit).push(product)))
         row.cell product.number
         row.cell number_to_currency(product.price, :format => '%n %u', :unit => 'EUR')
       end
-    end unless products.empty? %>
+    end unless resource.products.empty? %>
