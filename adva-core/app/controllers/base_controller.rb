@@ -1,4 +1,7 @@
 require 'inherited_resources'
+require 'simple_table'
+
+ActionView::Base.send :include, SimpleTable
 
 class BaseController < InheritedResources::Base
   class << self
@@ -8,7 +11,6 @@ class BaseController < InheritedResources::Base
   end
   
   layout 'default'
-  
   helper_method :current_account, :current_site, :resources
   
   def current_account
