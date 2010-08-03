@@ -37,11 +37,13 @@ module Adva
         paths = types.map { |type| self.paths.app.send(type).to_a.first }
 
         Dir["{#{paths.join(',')}}/**/*_slice.rb"].each do |filename|
-          const_name = filename =~ %r(/([^/]*)_slice.rb) && $1.camelize
+          # const_name = filename =~ %r(/([^/]*)_slice.rb) && $1.camelize
           # ActiveSupport::Dependencies.mark_for_unload(const_name)
           # ActiveSupport::Dependencies.autoloaded_constants << const_name
           # ActiveSupport::Dependencies.autoloaded_constants.uniq!
           # require_dependency(const_name.underscore)
+
+          require filename.match(%r(/([^/]*)_slice.rb))[1]
           load(filename)
         end
       end
