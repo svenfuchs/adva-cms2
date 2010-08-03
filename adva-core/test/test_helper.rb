@@ -39,6 +39,10 @@ require 'content'
 require 'article'
 
 class Test::Unit::TestCase
+  def setup
+    DatabaseCleaner.start
+  end
+
   def teardown
     DatabaseCleaner.clean
   end
