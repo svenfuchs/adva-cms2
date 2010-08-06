@@ -2,6 +2,8 @@ require 'rails/engine'
 require 'adva'
 require 'simple_nested_set'
 
+require 'minimal'
+
 module Adva
   class Core < ::Rails::Engine
     include Adva::Engine
@@ -18,6 +20,11 @@ module Adva
       Dir[File.expand_path("#{root}/lib/patches/**/*.rb", __FILE__)].each do |file|
         require_dependency file
       end
+    end
+
+    initializer 'adva-core.setup_minimal' do
+      Minimal::Template.send(:include, Minimal::Template::FormBuilderProxy)
+      ActionView::Template.register_template_handler('rb', Minimal::Template::Handler)
     end
 
     # initializer 'adva-core.reloadable_inherited_resources' do

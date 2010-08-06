@@ -3,11 +3,13 @@
 
 <h2><%= resource.title %></h2>
 
-<%= table_for(resource.products) do |table|
+<%=
+  table_for(resource.products) do |table|
       table.column 'Name', 'Number', 'Price'
       table.row do |row, product|
         row.cell link_to(product.name, url_for(resources.unshift(:edit).push(product)))
         row.cell product.number
         row.cell number_to_currency(product.price, :format => '%n %u', :unit => 'EUR')
       end
-    end unless resource.products.empty? %>
+    end unless resource.products.empty?
+%>
