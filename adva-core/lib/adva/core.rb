@@ -8,6 +8,8 @@ module Adva
   class Core < ::Rails::Engine
     include Adva::Engine
 
+    config.autoload_paths << paths.app.views.to_a.first
+
     initializer 'adva-core.require_country_select' do
       config.to_prepare { require_dependency 'country_select' }
     end
