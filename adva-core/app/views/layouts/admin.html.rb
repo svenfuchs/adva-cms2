@@ -2,15 +2,21 @@ class Layouts::Admin < Minimal::Template
   def to_html
     self << doctype
     html do
-      content_tag :head, head
+      content_tag :head do
+        head
+      end
       content_tag :body do
         render :partial => 'layouts/admin/header'
 
         div :id => 'page' do
           # self << yield(:form) if @content_for_form
           div :class => 'main' do
-            div content, :id => 'content'
-            div sidebar, :id => 'sidebar'
+            div :id => 'content' do
+              content
+            end
+            div :id => 'sidebar' do
+              sidebar
+            end
           end
           # self<< '</form>'.html_safe if @content_for_form
         end

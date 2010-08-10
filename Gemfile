@@ -11,7 +11,9 @@ gem 'adva-contacts', :path => File.expand_path('../adva-contacts', __FILE__)
 gem 'adva-static',   :path => File.expand_path('../adva-static', __FILE__)
 gem 'adva-user',     :path => File.expand_path('../adva-user', __FILE__)
 
-gem 'minimal', :path => '/Volumes/Users/sven/Development/projects/minimal'
+group :development do
+  gem 'tidy_ffi'
+end
 
 group :test do
   gem 'sqlite3-ruby', '1.2.5'
