@@ -59,12 +59,12 @@ module ActionView # FIXME
       
       def login_links
         p :id => 'login_links', :class => 'navigation' do
-          link_to(t('.sign_in'), new_user_session_path(:return_to => request.fullpath), :id => 'login_link') + ' &middot; '.html_safe
-          link_to t('.sign_up'), new_user_registration_path, :id => 'signup_link'
+          link_to :'.sign_in', new_user_session_path(:return_to => request.fullpath), :id => 'login_link'
+          link_to :'.sign_up', new_user_registration_path, :id => 'signup_link'
         end
         p :id => 'logout_links', :class => 'navigation', :style => 'display: none;' do
-          self << t(:'.logged_in_as', :user => '<span class="user_name"></span>') + ' &middot; '.html_safe
-          link_to t(:'.sign_out'), destroy_user_session_path(:return_to => request.fullpath), :id => 'logout_link'
+          self << t(:'.logged_in_as', :user => '<span class="user_name"></span>')
+          link_to :'.sign_out', destroy_user_session_path(:return_to => request.fullpath), :id => 'logout_link'
         end
       end
       
