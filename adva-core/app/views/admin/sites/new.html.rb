@@ -2,7 +2,7 @@ module Admin
   module Sites
     class New < Minimal::Template
       def to_html
-        h2 t(:'.title')
+        h2 :'.title'
         form_for(resources) do |f|
 
           f.label :name

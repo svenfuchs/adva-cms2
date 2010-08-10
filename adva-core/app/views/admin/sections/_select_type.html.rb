@@ -2,7 +2,7 @@ module Admin
   module Sections
     class SelectType < Minimal::Template
       def to_html
-        h2 t(:'.title')
+        h2 :'.title'
 
         form_for(resources, :as => :section, :url => { :action => :new }, :html => { :method => :get, :class => 'section_type' }) do |f|
           f.label :type

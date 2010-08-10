@@ -11,7 +11,7 @@ module Installations
           s.label :type
           s.select :type, section_types_for_select
 
-          s.label :title, t('.title'), :class => 'block'
+          s.label :title, :'.title', :class => 'block'
           s.text_field :title
         end
 

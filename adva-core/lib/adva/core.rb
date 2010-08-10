@@ -24,7 +24,10 @@ module Adva
 
     initializer 'adva-core.setup_minimal' do
       Minimal::Template::FormBuilderProxy::PROXY_TAGS << :simple_form_for << :simple_fields_for
-      Minimal::Template.send(:include, Minimal::Template::FormBuilderProxy)
+      Minimal::Template.class_eval do
+        include Minimal::Template::FormBuilderProxy
+        include Minimal::Template::TranslatedTags
+      end
       ActionView::Template.register_template_handler('rb', Minimal::Template::Handler)
     end
 
