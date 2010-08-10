@@ -3,12 +3,17 @@ require 'adva'
 require 'simple_nested_set'
 
 require 'minimal'
+require 'minimal/template/beautify_html'
 
 module Adva
   class Core < ::Rails::Engine
     include Adva::Engine
 
     config.autoload_paths << paths.app.views.to_a.first
+
+    initializer 'adva-core.beautify_html' do
+      ApplicationController.after_filter(Minimal::Template::BeautifyHtml) unless Rails.env.production?
+    end
 
     initializer 'adva-core.require_country_select' do
       config.to_prepare { require_dependency 'country_select' }
@@ -32,9 +37,6 @@ module Adva
       end
       ActionView::Template.register_template_handler('rb', Minimal::Template::Handler)
     end
-
-    # initializer 'adva-core.reloadable_inherited_resources' do
-    # end
 
     initializer 'adva-core.register_asset_expansions' do
       ActionView::Helpers::AssetTagHelper.register_javascript_expansion \
