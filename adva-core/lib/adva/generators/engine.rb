@@ -37,6 +37,7 @@ module Adva
 
         empty_directory "adva-#{name}/test"
         template        'all.rb', "adva-#{name}/test/all.rb"
+        template        'test_helper.rb.erb', "adva-#{name}/test/test_helper.rb"
       end
       
       protected
