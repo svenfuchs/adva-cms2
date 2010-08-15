@@ -30,7 +30,7 @@ module Adva
 
       def perform
         require 'adva/generators/engine'
-        Adva::Generators::Engine.new(name, symbolized_options).invoke
+        Adva::Generators::Engine.new(name, symbolized_options).invoke_all
       end
     end
 
