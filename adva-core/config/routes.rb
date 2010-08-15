@@ -1,5 +1,5 @@
 require 'routing_filter'
-require 'routing_filter/section_root'
+require 'adva/routing_filters/section_root'
 
 Rails.application.routes.draw do
   filter :section_root
@@ -18,5 +18,5 @@ Rails.application.routes.draw do
 
   resources :installations, :only => [:new, :create]
 
-  root :to => redirect('/installations/new') # should only match if no section is present
+  root :to => redirect('/installations/new') # should only match if no root section is present
 end
