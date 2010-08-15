@@ -11,9 +11,9 @@ module Adva
 
     config.autoload_paths << paths.app.views.to_a.first
 
-    initializer 'adva-core.beautify_html' do
-      ApplicationController.after_filter(Minimal::Template::BeautifyHtml) unless Rails.env.production?
-    end
+    # initializer 'adva-core.beautify_html' do
+    #   ApplicationController.after_filter(Minimal::Template::BeautifyHtml) unless Rails.env.production?
+    # end
 
     initializer 'adva-core.require_country_select' do
       config.to_prepare { require_dependency 'country_select' }

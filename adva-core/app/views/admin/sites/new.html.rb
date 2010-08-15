@@ -2,7 +2,6 @@ class Admin::Sites::New < Minimal::Template
   def to_html
     h2 :'.title'
     form_for(resources) do |f|
-
       f.label :name
       f.text_field :name
 

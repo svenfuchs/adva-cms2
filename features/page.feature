@@ -7,7 +7,6 @@ Feature: Managing pages
     Then I should see a section type form
      And the "Page" radio button should be checked
      And I should see a new page form
-     
     When I fill in "Title" with "Brand new page"
      And I fill in "Heading" with "The brand new page's heading"
      And I fill in "Body" with "The brand new page's body"

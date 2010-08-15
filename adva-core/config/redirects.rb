@@ -9,5 +9,6 @@ Adva::Registry.set :redirect, {
   'admin/articles#create' => lambda { |responder| [:edit, *responder.resources] },
   'admin/articles#update' => lambda { |responder| [:edit, *responder.resources] },
 
+  'installations#create'  => lambda { |responder| '/' },
   'articles#show'         => lambda { |responder| responder.resource.section }
 }

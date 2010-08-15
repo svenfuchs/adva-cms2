@@ -26,12 +26,11 @@ class InstallationsController < BaseController
   def create
     account = Account.create!
     account.users.create!(:email => 'admin@admin.org', :password => 'admin')
-    account.sites.create!(params[:site])
+    site = account.sites.create!(params[:site])
 
     # TODO sign the in, redirect to admin/sites/1
 
-    # resource.save
-    respond_with *resources
+    respond_with site
   end
 
   protected
