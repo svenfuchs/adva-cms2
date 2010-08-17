@@ -2,16 +2,16 @@ class Layouts::Default < Minimal::Template
   def to_html
     self << doctype
     html do
-      content_tag :head, head
+      content_tag(:head) { head }
       content_tag :body, :class => body_class do
-        div :id => 'header', :class => 'clearing'
-        h1 current_site.title
-        # h2 current_site.subtitle
-        login_links
-        section_links
-        # self << Menus::Sections.new.build(self).root.render(:id => 'sections')
-        # yield :header
-
+        div :id => 'header', :class => 'clearing' do
+          h1 current_site.title
+          # h2 current_site.subtitle
+          login_links
+          section_links
+          # self << Menus::Sections.new.build(self).root.render(:id => 'sections')
+          # yield :header
+        end
         div :id => 'page' do
           div :id => 'main' do
             #= render :partial => 'shared/flash'
@@ -25,14 +25,14 @@ class Layouts::Default < Minimal::Template
   end
 
   def head
-    tag :meta, :'http-equiv' => 'Content-Type', :content => 'text/html; charset=utf-8'
-    tag :meta, :'generator' => 'adva-cms2'
+    self << tag(:meta, :'http-equiv' => 'Content-Type', :content => 'text/html; charset=utf-8')
+    self << tag(:meta, :'generator' => 'adva-cms2')
     # self << meta_tags(@article) if @article
-    title
-    stylesheets
-    javascripts
-    # authorize_elements
-    # block.call :head
+    self << title
+    self << stylesheets
+    self << javascripts
+    # self << authorize_elements
+    # self << block.call :head
   end
 
   def doctype

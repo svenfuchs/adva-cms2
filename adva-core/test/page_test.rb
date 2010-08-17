@@ -1,6 +1,6 @@
 # require File.expand_path('../test_helper', __FILE__)
 #
-# module AdvaCore
+# module AdvaCoreTests
 #   class PageTest < Test::Unit::TestCase
 #     attr_reader :page_params
 #
