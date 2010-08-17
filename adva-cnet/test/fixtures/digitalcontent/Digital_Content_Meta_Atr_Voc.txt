@@ -1,0 +1,8 @@
+5	en	File Size
+7	en	Image Weight
+8	en	Image ID
+6	en	Resolution
+1	en	Image Angle
+2	en	Image Type
+3	en	Image Width
+4	en	Image Height

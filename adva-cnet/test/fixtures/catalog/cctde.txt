@@ -1,0 +1,179 @@
+A	Systeme	
+AA	Desktops & Server	I01881
+AB	Notebooks	I01880
+AC	Handhelds	I01882
+AD	Prozessor-Upgrades	I01408
+AE	Motherboards	I01779
+AF	Systemgehäuse	I01883
+AG	USV & Stromversorgungsgeräte	I01185
+AH	System- & Stromkabel	I02124
+AI	Anschlusserweiterung	I01535
+AJ	Systemzubehör	I01634
+AK	Systeme Service & Support	I01667
+B	Speicher	
+BA	RAM	I01386
+BB	Videospeicher	I01396
+BC	Cache Memory	I01884
+BD	Flash-Speicher	I01885
+BE	Read-Only Speicher	I01147
+BF	Speicheradapter	I01405
+C	Speichergeräte	
+CA	Festplatten	I01190
+CB	Nicht definiert	I01886
+CC	Datenträgerlaufwerke	I01188
+CD	Bandlaufwerke	I01371
+CE	Netzwerkspeicher	I01887
+CF	Wechselmedien	I01253
+CG	Speicheradapter	I01278
+CH	Speicherkabel	I01534
+CI	Storage-Gehäuse und RAID-Arrays	I01451
+CJ	Speicherzubehör	I01215
+CK	Speichergeräte Service & Support	I01733
+D	Eingabegeräte	
+DA	Tastaturen	I01186
+DB	Zeigegeräte	I01187
+DC	Game Controller	I01888
+DD	Scanner	I01889
+DE	Strichcodeleser	I01890
+DF	Audioeingang	I01891
+DG	PC- und Netzwerkkameras	I01892
+DH	Eingabe Adapter	I01514
+DI	Eingabe Kabel	I01195
+DJ	Eingabe Zubehör	I01433
+DK	Eingabegeräte Service & Support	I01182
+E	Ausgabegeräte	
+EA	Monitore	I01893
+EB	Präsentationsmonitore	I01894
+EC	Projektoren	I01895
+ED	Drucker	I01905
+EE	Audioausgang	I01904
+EF	Videokarten	I01581
+EG	Soundkarten	I01583
+EH	Ausgabe Kabel	I01903
+EI	Druckerverbrauchsmaterial	I01610
+EJ	Ausgabe Zubehör	I01230
+EK	Ausgabegeräte Service & Support	I01740
+F	Netzwerk	
+FA	Modems	I01222
+FB	Videokonferenz	I01896
+FC	Konzentratoren & Multiplexer	I01897
+FD	Repeater & Transceiver	I01736
+FE	Hubs & Switches	I01902
+FF	Bridges & Router	I01232
+FG	Netzwerkgeräte	I01146
+FH	Netzwerkadapter	I01306
+FI	Netzwerkkabel	I01220
+FJ	Netzwerkzubehör	I01203
+FK	Netzwerk Service & Support	I01787
+G	Software	
+GA	Betriebssysteme	I01709
+GB	Anwendungen	I01413
+GC	Software Service & Support	I01628
+H	Lernmittel	
+HA	Referenzmaterial	I03959
+HB	Schulungen	I20418
+I	Filme	
+IA	Filme & Videos	I38841
+J	Video	
+JA	Fernsehgeräte & Flachbildschirme	I38767
+JB	Videorecorder	I38773
+JC	Blu-ray- & DVD-Player	I38747
+JD	Camcorder & Digitalkameras	I38768
+JE	Web-TV	I144015
+JF	Videospielkonsolen	I45097
+JG	Satellitenfernsehen	I38765
+JH	DVRs	I144014
+JI	AV-Geräte (Kombination)	I144013
+JJ	Kfz Audio / Video	I112560
+JK	Digitale AV-Player & -Recorder	I200059
+K	Audio	
+KA	Heim-Audio	I38757
+KB	Tragbares Audio	I38755
+KC	Audio für das Auto	I72197
+KD	Lautsprecher	I38780
+KE	Kopfhörer & Mikrofone	I41812
+L	Kameras & Optische Systeme	
+LA	Kameras	I38761
+LB	Objektiv/Filter	I41835
+LC	Blitzgeräte	I45108
+LD	Fernglas	I38753
+LE	Teleskope	I144017
+LF	Filter	I35917
+LG	Film	I144012
+M	CE-Optionen	
+MA	Antennen	I75591
+MB	Stative & Video-Halterungssysteme	I45104
+MC	Leere AV-Medien	I45143
+MD	AV-Möbel	I36041
+ME	Tragetaschen	I42855
+MF	Fernsteuerungen	I47866
+MG	Netzgeräte & Batterien/Akkus	I41920
+MH	Kabel	I45459
+MI	Zubehör	I48374
+MJ	Service & Support	I78116
+MK	Photo & Video Accessories	I373370
+N	Spezialisierte Elektronik	
+NA	Radardetektoren	I86181
+NB	Sicherheitssysteme für PKW	I35248
+O	Büroausstattung	
+OA	Multifunktions- und Bürogeräte	I144007
+OB	Büroaktenvernichter	I626476
+P	Kommunikation	
+PA	Telefone	I56957
+PB	Mobiltelefone	I75035
+PC	Pager	I144010
+PD	Anrufbeantworter & Anrufererkennung	I86184
+PE	Zwei-Wege-Radios	I58573
+PF	GPS-Receiver	I170077
+PG	GPS-Kits	I170081
+PH	GPS-Software	I170080
+PI	Schiffselektronik	I630425
+Q	White Goods	
+QA	White Goods	I811244
+R	Großgeräte	
+RA	Kühl- & Gefrierschränke	I357508
+RB	Herde & Backöfen	I357509
+RC	Kochfelder	I357519
+RD	Abzugshauben	I357514
+RE	Geschirrspülmaschinen	I357518
+RF	Mikrowellenherde	I357511
+RG	Zubehör für Großgeräte	I357512
+RH	Waschmaschinen & Trockner	I357520
+S	Kleingeräte	
+SA	Staubsauger	I357501
+SB	Küchenmaschinen	I357517
+SC	Kaffeemaschinen	I357499
+SD	Bügeleisen	I357513
+SE	Toaster & Grills	I357502
+SF	Körperpflege	I357510
+SG	Heiz- & Kühlgeräte	I357516
+SH	Kleine Küchengeräte	I357503
+SI	Zubehör für Kleingeräte	I357504
+T	Studioausrüstung	
+TA	Hintergründe	I355230
+TB	Beleuchtungsfilter	I355940
+TC	Lichtsteuerung	I365194
+TD	Studio Light & Flashes	I369725
+TE	Studio Mounting	I369722
+TG	Light Meters	I373488
+U	Dunkelkammer	
+UA	Fotopapier	I357840
+UB	Photographic Chemistry	I373486
+UD	Enlargers & Components	I373485
+UE	Developing & Processing Equipment	I373424
+UF	Darkroom Accessories, Safelight & Setup	I373321
+V	Fotospeicherung und -präsentation	
+VA	Fotorahmen	I365198
+VB	Fotoalben und Archivierung	I365203
+VC	Cutters & Trimmers	I373347
+VD	Laminators	I373360
+W	Professional Video	
+WA	Videobearbeitung, Mischen & Untertitelung	I373481
+WB	Monitore für den Innen- und Außenbereich	I373478
+WC	Studio- & Produktionsausrüstung	I373477
+X	Professional Audio	
+XA	Tonmischpulte	I373475
+Y	Bereichssicherheitssysteme	
+YA	Zeitraffer-VCRs und -DVRs	I607602
+YB	Quadprozessor & Video-Multiplexer	I811356
+YC	Videoüberwachungssets und -lösungen	I607600
