@@ -39,3 +39,13 @@ extend fields_for so that
 
 renders the :street field no matter what (i.e. build a shipping_address if 
 missing).
+
+
+# make RouteSet.new accept a block and call draw?
+  routes = ActionDispatch::Routing::RouteSet.new
+  routes.draw do
+    match 'blogs/:blog_id/:year/:month/:day/:slug', :to => "#{PostController.controller_path}#show"
+  end
+
+# make Devise.config.encryptor default to :bcrypt (or something else) so
+that one doesn't need to to configure Devise in tests

@@ -7,6 +7,7 @@ class AdvaCoreCreateSites < ActiveRecord::Migration
       t.string :title
       t.string :subtitle
       t.string :timezone
+      t.timestamps
     end
   end
 

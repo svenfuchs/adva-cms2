@@ -2,7 +2,7 @@ require File.expand_path('../test_helper', __FILE__)
 
 require 'patches/rails/sti_associations' # TODO load all patches in test_helper?
 
-module AdvaCore
+module AdvaCoreTests
   class SiteTest < Test::Unit::TestCase
     attr_reader :site_params
   

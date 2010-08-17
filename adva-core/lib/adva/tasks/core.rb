@@ -34,6 +34,21 @@ module Adva
       end
     end
 
+    module Import 
+      class Directory < Thor::Group
+        namespace 'adva:import:directory'
+        desc 'Import adva site'
+        class_option :source, :required => false
+
+        def import
+          require 'config/environment'
+          require 'adva/importers/directory'
+          source = symbolized_options[:source] || 'import'
+          Adva::Importers::Directory.new(source, symbolized_options).synchronize!
+        end
+      end
+    end
+
     class Install < Thor::Group
       namespace 'adva:install'
       desc 'Install adva engines'

@@ -3,7 +3,7 @@ require File.expand_path('../../test_helper', __FILE__)
 require 'adva/routing_filters/section_root'
 require 'page'
 
-module AdvaCore
+module AdvaCoreTests
   class SectionRootTest < Test::Unit::TestCase
     attr_reader :filter, :root, :non_root
 

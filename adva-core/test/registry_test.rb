@@ -16,7 +16,7 @@ class Adva::Registry
   end
 end
 
-module AdvaCore
+module AdvaCoreTests
   class RegistryTest < Test::Unit::TestCase
     def setup
       super

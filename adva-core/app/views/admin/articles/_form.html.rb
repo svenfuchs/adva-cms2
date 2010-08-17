@@ -1,9 +1,9 @@
 class Admin::Articles::Form < Minimal::Template
   def to_html
-    simple_form_for(resources) do |article|
-      article.input(:title)
-      article.input(:body)
-      article.button(:submit)
+    simple_form_for(resources) do |f|
+      f.input(:title)
+      f.input(:body)
+      f.button(:submit)
     end
   end
 end

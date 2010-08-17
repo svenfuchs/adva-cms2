@@ -4,7 +4,7 @@
 # require 'action_controller'
 # require 'adva/tasks/core'
 #
-# module AdvaCore
+# module AdvaCoreTests
 #   class TasksTest < Test::Unit::TestCase
 #     test 'adva:core:install copies all migrations from all adva engines' do
 #

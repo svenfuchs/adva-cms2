@@ -7,6 +7,7 @@ class AdvaCoreCreateSections < ActiveRecord::Migration
       t.integer    :rgt
       t.string     :type
       t.string     :title
+      t.timestamps
     end
   end
 

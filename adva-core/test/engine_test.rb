@@ -6,7 +6,7 @@
 # class ApplicationController < ActionController::Base
 # end
 #
-# module AdvaCore
+# module AdvaCoreTests
 #   class EnginesTest < Test::Unit::TestCase
 #     attr_accessor :app
 # 
