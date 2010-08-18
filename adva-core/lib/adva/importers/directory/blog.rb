@@ -2,14 +2,37 @@ module Adva
   module Importers
     class Directory
       class Blog < Section
-        PATTERN = %r(\d{4}/\d{1,2}/\d{1,2}/.*$)
+        PERMALINK = %r((?:^|/)\d{4}/\d{1,2}/\d{1,2}/.*$)
+        YEAR      = %r((?:^|/)(\d{4})(?:/|$))
         
         class << self
           def detect(paths)
-            posts = paths.select { |path| path.to_s =~ PATTERN }
-            # TODO this leaves archive directories in the path array
-            paths.replace(paths - posts)
-            posts.map { |path| new(path.to_s.gsub!(PATTERN, '')) }.uniq
+            return [] if paths.empty?
+            root = paths.first.root
+            posts = select_by_permalink(paths)
+            years = extract_year(posts)
+            paths.reject! { |path| years.include?(year(path)) }
+            strip_permalink(posts).map { |blog| new(blog, root) }
+          end
+          
+          def select_by_permalink(paths)
+            paths.select { |path| permalink?(path) }
+          end
+          
+          def permalink?(path)
+            path.to_s =~ PERMALINK
+          end
+          
+          def year(path)
+            path.to_s =~ YEAR and $1
+          end
+          
+          def extract_year(paths)
+            paths.map { |post| post.to_s =~ YEAR and $1 }.uniq
+          end
+          
+          def strip_permalink(paths)
+            paths.map { |path| path.to_s.gsub!(PERMALINK, '') }.uniq
           end
         end
         
@@ -19,10 +42,6 @@ module Adva
         
         def posts
           @posts ||= Post.detect(self)
-        end
-        
-        def title
-          @title ||= root? ? 'Home' : local_path.to_s.titleize
         end
       end
     end

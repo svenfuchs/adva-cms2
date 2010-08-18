@@ -25,7 +25,7 @@ class Layouts::Admin < Minimal::Template
   end
 
   def head
-    output tag(:meta, :'http-equiv' => 'Content-Type', :content => 'text/html; charset=utf-8')
+    self << tag(:meta, :'http-equiv' => 'Content-Type', :content => 'text/html; charset=utf-8')
     self << title
     self << stylesheets
     self << javascripts
