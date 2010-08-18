@@ -1,13 +1,15 @@
 require 'nokogiri'
 require 'uri'
 
+# FIXME don't export 404's
+
 module Adva
   class Static
     class Exporter
       attr_reader :app, :target, :queue, :store
 
       DEFAULT_OPTIONS = {
-        :target => '/tmp/export'
+        :target => "#{Dir.pwd}/export"
       }
 
       def initialize(app, options = {})

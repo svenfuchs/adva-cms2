@@ -35,20 +35,17 @@ module Tests
         def site
           @site ||= ::Site.first
         end
-        
-        def root_section
-          @root_section ||= site.sections.first
-        end
-        
-        def post
-          @post ||= root_section.posts.first
-        end
       
         test "synchronize! with an empty database" do
           setup_root_blog
           Adva::Importers::Directory.new(root, :routes => routes).synchronize!
+          
+          site = Site.first
+          blog = site.sections.first
+          post = blog.posts.first
+          
           assert_equal 'rails-i18n.org', site.host
-          assert_equal 'Home', root_section.title
+          assert_equal 'Home', blog.title
           assert_equal 'Welcome To The Future Of I18n In Ruby On Rails', post.title
         end
       
@@ -59,8 +56,12 @@ module Tests
           setup_root_blog
           Adva::Importers::Directory.new(root, :routes => routes).synchronize!
           
+          site = Site.first
+          blog = site.sections.first
+          post = blog.posts.first
+          
           assert_equal 'rails-i18n.org', site.host
-          assert_equal 'Home', root_section.title
+          assert_equal 'Home', blog.title
           assert_equal 'Welcome To The Future Of I18n In Ruby On Rails', post.title
         end
       
@@ -70,8 +71,14 @@ module Tests
           setup_non_root_page
           Adva::Importers::Directory.new(root, :routes => routes).synchronize!
           
+          site = Site.first
+          page = site.sections.first
+          blog = site.sections[1]
+          post = blog.posts.first
+
           assert_equal 'rails-i18n.org', site.host
-          assert_equal 'Home', root_section.title
+          assert_equal 'Home', page.title
+          assert_equal 'Blog', blog.title
           assert_equal 'Welcome To The Future Of I18n In Ruby On Rails', post.title
         end
       end

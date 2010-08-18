@@ -2,5 +2,5 @@
 
 <div class="<%= resource.class.name.underscore %>">
   <h2><%= resource.title %></h2>
-  <p><%= resource.body %></p>
+  <p><%= resource.body.try(:html_safe) %></p>
 </div>

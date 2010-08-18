@@ -21,7 +21,7 @@ module Adva
         end
 
         def loadable
-          "#{self}/site.yml"
+          Path.new("#{self}/site.yml")
         end
 
         def site

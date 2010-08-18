@@ -15,7 +15,7 @@ module Tests
         end
 
         def getbinaryfile(filename, target)
-          FileUtils.cp(File.expand_path(File.dirname(__FILE__) + '/../../fixtures/' + filename), target)
+          FileUtils.cp(File.expand_path(File.dirname(__FILE__) + '/../fixtures/' + filename), target)
         end
 
         def delete(file)

@@ -1,4 +1,4 @@
-class Admin::Pages::Form < Adva::Form
+class Admin::Pages::Form < Minimal::Template
   def to_html
     simple_form_for(resources) do |f|
       f.hidden_field :type
