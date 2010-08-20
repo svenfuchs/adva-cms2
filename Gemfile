@@ -12,6 +12,8 @@ gem 'adva-contacts', :path => File.expand_path('../adva-contacts', __FILE__)
 gem 'adva-static',   :path => File.expand_path('../adva-static', __FILE__)
 gem 'adva-user',     :path => File.expand_path('../adva-user', __FILE__)
 
+# gem 'simple_nested_set', :path => '/Volumes/Users/sven/Development/projects/simple_nested_set'
+
 group :development do
   gem 'tidy_ffi'
 end
