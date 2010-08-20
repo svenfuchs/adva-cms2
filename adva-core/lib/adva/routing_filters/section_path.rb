@@ -48,6 +48,7 @@ module RoutingFilter
         if path =~ generate_pattern
           section = Section.find($2.to_i)
           path.sub!("/#{$1}/#{$2}", "#{section.path}#{$3}")
+          path.replace("/#{path}") unless path[0, 1] == '/'
         end
       end
 
