@@ -6,7 +6,7 @@ module Adva
         YEAR      = %r((?:^|/)(\d{4})(?:/|$))
         
         class << self
-          def detect(paths)
+          def build(paths)
             return [] if paths.empty?
             root = paths.first.root
             posts = select_by_permalink(paths)
@@ -41,7 +41,7 @@ module Adva
         end
         
         def posts
-          @posts ||= Post.detect(self)
+          @posts ||= Post.build(self)
         end
       end
     end

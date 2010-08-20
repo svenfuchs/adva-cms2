@@ -5,7 +5,7 @@ module Adva
         include Loadable
 
         class << self
-          def detect(path)
+          def build(path)
             glob(path).map { |path| new(path) }
           end
           

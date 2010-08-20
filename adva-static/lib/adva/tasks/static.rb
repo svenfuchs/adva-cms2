@@ -17,4 +17,3 @@ module Adva
     end
   end
 end
-

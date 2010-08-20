@@ -25,11 +25,11 @@ module RoutingFilter
     protected
     
       def excluded?(path)
-        path =~ %r(^/admin)
+        path =~ exclude
       end
 
       def prepend_root_section!(path, root)
-        path.sub!(recognize_pattern) { "#{$1}/#{root.type.tableize}/#{root.id}#{$2}" }
+        path.sub!(recognize_pattern(root)) { "#{$1}/#{root.type.tableize}/#{root.id}#{$2}" }
       end
       
       def remove_trailing_slash!(path)
@@ -40,9 +40,17 @@ module RoutingFilter
         path.sub!(%r(#{$2}/#{$3}/?), '') if path =~ generate_pattern && root?($3)
       end
     
-      def recognize_pattern
-        # TODO segment patterns should be registered by engines
-        @recognize_pattern ||= %r(^(/[\w]{2})?(/article|/\d{4}|/products|\.|\?|/?\Z))
+      def recognize_pattern(root)
+        # TODO segment patterns must be registered by engines
+        anchor = case root
+        when Blog
+          '\d{4}'
+        when Catalog
+          'products'
+        when Page
+          'article'
+        end
+        %r(^(/[\w]{2})?(/#{anchor}|\.|\?|/?\Z))
       end
 
       def generate_pattern

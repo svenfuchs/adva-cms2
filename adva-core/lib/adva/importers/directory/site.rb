@@ -39,7 +39,7 @@ module Adva
         end
         
         def sections
-          sections = Section.detect(self).map(&:section)
+          sections = Section.build(self).map(&:section)
           sections = [::Page.new(:title => 'Home', :article_attributes => { :title => 'Home' })] if sections.empty?
           sections
         end

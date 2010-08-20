@@ -5,7 +5,7 @@ module Adva
         PATTERN = %r(/[\w-]+\.yml$)
         
         class << self
-          def detect(paths)
+          def build(paths)
             return [] if paths.empty?
             root  = paths.first.root
             pages = paths.select { |path| path.to_s =~ PATTERN }
@@ -18,9 +18,13 @@ module Adva
           path = File.dirname(path) if File.basename(path, File.extname(path)) == 'index'
           super
         end
-
+        
         def section
-          @section ||= ::Page.new(:title => title, :article => Article.new(:title => title))
+          @section ||= ::Page.new(:title => title, :article => Article.new(:title => title, :body => body))
+        end
+        
+        def body
+          @body || ''
         end
       end
     end

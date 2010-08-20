@@ -1,8 +1,9 @@
 require 'routing_filter'
 require 'adva/routing_filters/section_root'
+require 'adva/routing_filters/section_path'
 
 Rails.application.routes.draw do
-  filter :section_root
+  filter :section_root, :section_path
 
   namespace :admin do
     resources :sites do

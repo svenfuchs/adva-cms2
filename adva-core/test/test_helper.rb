@@ -12,6 +12,7 @@ Bundler.setup
 
 require 'rails'
 require 'active_record'
+require 'action_controller'
 require 'test/unit'
 require 'test_declarative'
 require 'database_cleaner'
@@ -22,7 +23,12 @@ require 'fakefs/safe'
 require 'adva-core'
 require 'devise'
 
+log = '/tmp/adva-core_test.log'
+FileUtils.touch(log) unless File.exists?(log)
+ActiveRecord::Base.logger = Logger.new(log)
+ActiveRecord::LogSubscriber.attach_to(:active_record)
 ActiveRecord::Base.establish_connection(:adapter => 'sqlite3', :database => ':memory:')
+
 ActiveRecord::Migration.verbose = false
 ActiveRecord::Migrator.up(File.expand_path('../../../adva-core/db/migrate', __FILE__))
 ActiveRecord::Migrator.up(File.expand_path('../../../adva-cart/db/migrate', __FILE__))
