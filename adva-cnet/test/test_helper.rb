@@ -5,4 +5,9 @@ require 'adva-cnet'
 
 ActiveRecord::Base.configurations = { 'cnet_origin' => { :adapter => 'sqlite3', :database => ':memory:' } }
 
-CNET_FIXTURES_PATH = File.expand_path('../fixtures', __FILE__)
+fixtures_path = File.expand_path('/tmp/adva-cnet-test/fixtures', __FILE__)
+unless File.directory?("#{fixtures_path}/catalog")
+  FileUtils.mkdir_p(fixtures_path)
+  `unzip #{File.expand_path('../fixtures/download.zip', __FILE__)} -d #{fixtures_path}`
+end
+CNET_FIXTURES_PATH = fixtures_path

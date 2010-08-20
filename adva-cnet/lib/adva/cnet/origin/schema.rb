@@ -3,10 +3,11 @@ module Adva
     class Origin < ActiveRecord::Base
       module Schema
         class << self
-          delegate :connection, :to => Origin
+          attr_reader :connection
           delegate :create_table, :add_index, :to => :connection
-
-          def load!
+          
+          def load!(connection)
+            @connection = connection
             instance_eval(schema)
           end
 

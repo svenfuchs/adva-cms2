@@ -7,12 +7,12 @@ module Tests
     class OriginTest < Test::Unit::TestCase
       
       def setup
-        Adva::Cnet::Origin::Schema.load!
+        # Adva::Cnet::Origin::Dump.load
         super
       end
       
       test "load data to origin database" do
-        # Adva::Cnet::Origin::Source.load!(CNET_FIXTURES_PATH)
+        
       end
     end
   end
