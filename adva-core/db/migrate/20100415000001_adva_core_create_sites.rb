@@ -2,9 +2,9 @@ class AdvaCoreCreateSites < ActiveRecord::Migration
   def self.up
     create_table :sites do |t|
       t.references :account
-      t.string :name
-      t.string :host
-      t.string :title
+      t.string :name,  :default => '', :null => false
+      t.string :host,  :default => '', :null => false
+      t.string :title, :default => '', :null => false
       t.string :subtitle
       t.string :timezone
       t.timestamps

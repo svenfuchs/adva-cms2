@@ -3,7 +3,7 @@
 # owners/resourcess
 
 class Site < ActiveRecord::Base
-  validates_presence_of :host, :name, :title, :sections
+  validates_presence_of :host, :name, :title #, :sections
   validates_uniqueness_of :host
 
   belongs_to :account

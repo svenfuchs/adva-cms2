@@ -28,11 +28,30 @@ module AdvaCoreTests
 
     test "sections act as a nested set" do
       root = site.sections.first
-      node_1 = site.sections.create(:title => 'node 1', :parent => root)
-      node_2 = site.sections.create(:title => 'node 2', :parent => root)
+      node_1 = site.sections.create!(:title => 'node 1', :parent_id => root.id)
+      node_2 = site.sections.create!(:title => 'node 2', :parent_id => node_1.id)
 
-      assert_equal [node_1, node_2], root.reload.children
+      [node_1, node_2].map(&:reload)
+
       assert_equal root, site.sections.root
+      assert_equal [node_1], root.reload.children
+      assert_equal [node_2], node_1.reload.children
+
+      assert_equal [1, 6], [root.lft, root.rgt]
+      assert_equal [2, 5], [node_1.lft, node_1.rgt]
+      assert_equal [3, 4], [node_2.lft, node_2.rgt]
+    end
+
+    test "a section has its path denormalized (happens in simple_nested_set)" do
+      root = site.sections.first
+      node_1 = site.sections.create!(:title => 'node 1')
+      node_2 = site.sections.create!(:title => 'node 2', :parent => node_1)
+
+      [node_1, node_2].map(&:reload)
+
+      assert_equal '', root.path
+      assert_equal 'node-1', node_1.path
+      assert_equal 'node-1/node-2', node_2.path
     end
   end
 end

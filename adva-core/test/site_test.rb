@@ -48,11 +48,11 @@ module AdvaCoreTests
     #   assert_equal 'Home', site.home_section.title
     # end
   
-    test "site validates presence of the home section" do
-      site_params.delete(:sections_attributes)
-      site = Site.new(site_params)
-      assert !site.valid?
-      assert_equal "can't be blank", site.errors.values.flatten.first
-    end
+    # test "site validates presence of the home section" do
+    #   site_params.delete(:sections_attributes)
+    #   site = Site.new(site_params)
+    #   assert !site.valid?
+    #   assert_equal "can't be blank", site.errors.values.flatten.first
+    # end
   end
 end

@@ -4,9 +4,9 @@ class AdvaCoreCreateContents < ActiveRecord::Migration
       t.references  :site
       t.references  :section
       t.string      :type
-      t.string      :title
-      t.string      :slug
-      t.text        :body
+      t.string      :title, :default => '', :null => false
+      t.string      :slug,  :default => '', :null => false
+      t.text        :body,  :default => '', :null => false
       t.timestamps
     end
   end
