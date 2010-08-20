@@ -7,14 +7,14 @@ module Tests
         class BlogTest < Test::Unit::TestCase
           include Setup
 
-          test "Blog.detect finds a root blog" do
+          test "Blog.build finds a root blog" do
             setup_root_blog
-            assert_equal 1, Adva::Importers::Directory::Section.detect(root).size
+            assert_equal 1, Adva::Importers::Directory::Section.build(root).size
           end
     
-          test "Blog.detect finds a non_root blog" do
+          test "Blog.build finds a non_root blog" do
             setup_non_root_blog
-            assert_equal 1, Adva::Importers::Directory::Section.detect(root).size
+            assert_equal 1, Adva::Importers::Directory::Section.build(root).size
           end
     
           test "Blog loads index.yml if present" do
