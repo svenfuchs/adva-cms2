@@ -17,5 +17,4 @@ Gem::Specification.new do |s|
   s.rubyforge_project = '[none]'
   
   s.add_dependency 'adva-core'
-  s.add_dependency 'simple_slugs', '0.0.1'
 end
