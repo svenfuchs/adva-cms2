@@ -49,6 +49,10 @@ module Adva
           self.class.new(local_path.gsub(File.extname(local_path), ''))
         end
         
+        def <=>(other)
+          to_s <=> other.to_s
+        end
+        
         def updated_at
           self.mtime
         end

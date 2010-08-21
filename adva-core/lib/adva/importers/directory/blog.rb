@@ -37,7 +37,7 @@ module Adva
         end
         
         def section
-          @section ||= ::Blog.new(:title => title, :posts => posts.map(&:post).compact)
+          @section ||= ::Blog.new(:path => path, :title => title, :posts => posts.map(&:post).compact)
         end
         
         def posts

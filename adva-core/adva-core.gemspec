@@ -22,6 +22,6 @@ Gem::Specification.new do |s|
   s.add_dependency 'simple_form'
   s.add_dependency 'simple_slugs', '0.0.4'
   s.add_dependency 'simple_table', '0.0.5'
-  s.add_dependency 'simple_nested_set', '0.0.8'
+  s.add_dependency 'simple_nested_set', '0.0.10'
   s.add_dependency 'nbrew-country_select'
 end

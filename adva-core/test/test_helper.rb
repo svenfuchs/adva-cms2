@@ -30,6 +30,7 @@ ActiveRecord::LogSubscriber.attach_to(:active_record)
 ActiveRecord::Base.establish_connection(:adapter => 'sqlite3', :database => ':memory:')
 
 ActiveRecord::Migration.verbose = false
+ActiveRecord::Migrator.up(File.expand_path('../../../adva-blog/db/migrate', __FILE__))
 ActiveRecord::Migrator.up(File.expand_path('../../../adva-core/db/migrate', __FILE__))
 ActiveRecord::Migrator.up(File.expand_path('../../../adva-cart/db/migrate', __FILE__))
 ActiveRecord::Migrator.up(File.expand_path('../../../adva-catalog/db/migrate', __FILE__))

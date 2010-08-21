@@ -7,7 +7,7 @@ module Adva
       class Site < Path
         include Loadable
 
-        def synchronize!
+        def import!
           clear!
           site.save!
           self

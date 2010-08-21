@@ -26,8 +26,7 @@ class Section < ActiveRecord::Base
   end
   
   def path
-    path = read_attribute(:path)
-    path == site.sections.root.read_attribute(:path) ? '' : path
+    read_attribute(:path) == root_path ? '' : read_attribute(:path)
   end
 
   def root?
@@ -40,13 +39,10 @@ class Section < ActiveRecord::Base
     default
   end
   
-  # def update_paths
-  #   
-  # end
+  protected
   
-  # def update_path
-  #   path = self_and_ancestors.reject(&:root?).map(&:slug).join('/')
-  #   update_attributes!(:path => path) unless self.path == path
-  # end
+    def root_path
+      site && site.sections.root && site.sections.root.read_attribute(:path)
+    end
 
 end
