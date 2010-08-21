@@ -1,10 +1,10 @@
 require 'rails/engine'
 require 'adva'
+
 require 'simple_nested_set'
 require 'simple_slugs'
-
 require 'minimal'
-require 'minimal/template/beautify_html'
+# require 'minimal/template/beautify_html'
 
 module Adva
   class Core < ::Rails::Engine

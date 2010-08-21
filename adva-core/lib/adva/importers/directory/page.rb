@@ -20,7 +20,7 @@ module Adva
         end
         
         def section
-          @section ||= ::Page.new(:title => title, :article => Article.new(:title => title, :body => body))
+          @section ||= ::Page.new(:path => path, :title => title, :article => Article.new(:title => title, :body => body))
         end
         
         def body

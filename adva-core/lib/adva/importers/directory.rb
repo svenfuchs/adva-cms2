@@ -19,14 +19,14 @@ module Adva
         @routes = options[:routes] || Rails.application.routes
       end
     
-      def synchronize!(files = nil)
-        Site.new(root).synchronize!
+      def import!(files = nil)
+        Site.new(root).import!
       end
     
       def sync_file(site, file)
         params = recognize_path(file.local_path.to_s, env(site))
         type = params[:controller].split('/').last.gsub('_controller', '').camelize
-        Directory.const_get(type).new(file, params).synchronize!
+        Directory.const_get(type).new(file, params).import!
       rescue ActionController::RoutingError
       end
       

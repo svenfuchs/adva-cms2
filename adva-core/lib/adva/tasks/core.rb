@@ -44,7 +44,7 @@ module Adva
           require 'config/environment'
           require 'adva/importers/directory'
           source = symbolized_options[:source] || 'import'
-          Adva::Importers::Directory.new(source, symbolized_options).synchronize!
+          Adva::Importers::Directory.new(source, symbolized_options).import!
         end
       end
     end
