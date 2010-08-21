@@ -61,14 +61,7 @@ module Adva
         end
 
         def configure
-          store.write Path.new('config.ru'), <<-conf.split("\n").map(&:strip).join("\n")
-            require 'rubygems'
-            require 'action_controller'
-            require 'action_dispatch'
-
-            use ActionDispatch::Static, Dir.pwd
-            run lambda { |env| [404, { 'Content-Type' => 'text/plain' }, '404'] }
-          conf
+          store.write(Path.new('config.ru'), File.read(File.expand_path('../templates/config.ru', __FILE__)))
         end
     end
   end
