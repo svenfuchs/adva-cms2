@@ -2,14 +2,14 @@ module Adva
   class Cnet
     class Origin
       module Fixtures
-        class Extraction
+        class Extract
           LOCALES = %w(de)
           
           attr_reader :source, :target, :prod_ids
 
           def initialize(source, target, prod_ids)
-            source   ||= Adva::Cnet.root.join('db/dump/origin.full.sqlite3')
-            target   ||= Adva::Cnet.root.join('db/dump/origin.fixtures.sqlite3')
+            source   ||= Adva::Cnet.root.join('db/cnet/origin.full.sqlite3')
+            target   ||= Adva::Cnet.root.join('db/cnet/origin.fixtures.sqlite3')
             prod_ids ||= %w(100329 100372 100724 100732 100733)
 
             @source = Database.new(source)

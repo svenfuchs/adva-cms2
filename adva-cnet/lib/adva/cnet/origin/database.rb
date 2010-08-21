@@ -8,24 +8,19 @@ module Adva
         
         def initialize(database)
           @database = database
-          
-          Schema.load!(connection) if connection.tables.empty?
+          # Schema.load!(connection) if connection.tables.empty?
         end
         
         def pool
-          @pool = begin
+          @pool ||= begin
             id = "cnet_#{object_id}"
             ActiveRecord::Base.configurations[id] = { :adapter => 'sqlite3', :database => database }
             ActiveRecord::Base.establish_connection(id)
           end
         end
-
-        def select_rows(query)
-          connection.select_rows(replace_bind_variables(query))
-        end
-
-        def select_values(query)
-          connection.select_values(replace_bind_variables(query))
+        
+        def count(table_name)
+          select_values("SELECT count(*) FROM #{table_name}").first.to_i
         end
     
         def insert(table_name, row)
@@ -39,6 +34,16 @@ module Adva
         def quote(values)
           values.map { |value| "'#{value}'" }
         end
+        
+        def method_missing(method, *args, &block)
+          method.to_s =~ /^select_/ ? _select(method, *args) : super
+        end
+        
+        protected
+        
+          def _select(method, query)
+            connection.send(method, replace_bind_variables(query))
+          end
       end
     end
   end

@@ -9,6 +9,7 @@ module Adva
           def load!(connection)
             @connection = connection
             instance_eval(schema)
+            p connection.tables
           end
 
           def schema

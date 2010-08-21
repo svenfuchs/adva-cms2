@@ -1,4 +1,5 @@
 require 'adva'
+require 'globalize'
 
 module Adva
   class Cnet < ::Rails::Engine

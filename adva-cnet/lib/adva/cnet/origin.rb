@@ -5,6 +5,7 @@ module Adva
     class Origin < ActiveRecord::Base
       autoload :Database, 'adva/cnet/origin/database'
       autoload :Fixtures, 'adva/cnet/origin/fixtures'
+      autoload :Prepare,  'adva/cnet/origin/prepare'
       autoload :Schema,   'adva/cnet/origin/schema'
       autoload :Source,   'adva/cnet/origin/source'
       
