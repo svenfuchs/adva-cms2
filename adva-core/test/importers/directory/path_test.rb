@@ -8,11 +8,11 @@ module Tests
           include Setup
 
           test "path.dirs returns directory paths" do
-            assert_equal %w(images javascripts stylesheets), root.dirs.map(&:local_path).map(&:to_s)
+            assert_equal %w(images javascripts stylesheets), root.dirs.map(&:local).map(&:to_s)
           end
   
           test "dirs returned by path.dirs have their root populated" do
-            assert_equal [''], root.dirs.map(&:root).map(&:local_path).map(&:to_s).uniq
+            assert_equal [''], root.dirs.map(&:root).map(&:local).map(&:to_s).uniq
           end
   
           test "path.files returns file paths" do
@@ -20,7 +20,7 @@ module Tests
           end
   
           test "files returned by path.files have their root populated" do
-            assert_equal [''], root.files.map(&:root).map(&:local_path).map(&:to_s).uniq
+            assert_equal [''], root.files.map(&:root).map(&:local).map(&:to_s).uniq
           end
         end
       end

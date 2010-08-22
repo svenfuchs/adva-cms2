@@ -1,9 +1,7 @@
 module Adva
   module Importers
     class Directory
-      class Post < Path
-        include Loadable
-
+      class Post < Model
         class << self
           def build(path)
             glob(path).map { |path| new(path) }
@@ -15,21 +13,17 @@ module Adva
         end
         
         def initialize(*args)
+          @attribute_names = [:title, :body, :created_at] # TODO created_at should be published_at
           super
           load!
         end
         
         def post
-          # TODO created_at should be published_at
-          @post ||= ::Post.new(:title => title, :body => body, :created_at => created_at)
+          @post ||= ::Post.new(attributes)
         end
         
         def title
           @title ||= File.basename(self, extname).titleize
-        end
-        
-        def body
-          @body ||= ''
         end
         
         def created_at
