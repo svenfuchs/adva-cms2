@@ -5,7 +5,8 @@ class PostsController < BaseController
   protected
 
     def set_id
-      args = *params.values_at(:year, :month, :day, :slug)
-      params[:id] = Post.by_permalink(*args).first.try(:id)
+      blog = current_site.blogs.find(params[:blog_id])
+      permalink = params.values_at(:year, :month, :day, :slug)
+      params[:id] = blog.posts.by_permalink(*permalink).first.try(:id)
     end
 end

@@ -33,12 +33,13 @@ module Adva
         end
         
         def initialize(*args)
+          @model = ::Blog
           @attribute_names = [:path, :title, :posts]
           super
         end
         
         def section
-          @section ||= ::Blog.new(attributes)
+          @section ||= model.new(attributes)
         end
         
         def posts

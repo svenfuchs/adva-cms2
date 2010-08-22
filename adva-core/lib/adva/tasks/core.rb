@@ -35,16 +35,32 @@ module Adva
     end
 
     module Import 
-      class Directory < Thor::Group
-        namespace 'adva:import:directory'
-        desc 'Import adva site'
-        class_option :source, :required => false
+      module Directory
+        class File < Thor::Group
+          namespace 'adva:import:file'
+          desc 'Import a single file'
+          argument :file
+          class_option :source, :required => false
 
-        def import
-          require 'config/environment'
-          require 'adva/importers/directory'
-          source = symbolized_options[:source] || 'import'
-          Adva::Importers::Directory.new(source, symbolized_options).import!
+          def sync
+            require 'config/environment'
+            require 'adva/importers/directory'
+            source = symbolized_options[:source] || 'import'
+            Adva::Importers::Directory.new(source, symbolized_options).sync!(file)
+          end
+        end
+
+        class Import < Thor::Group
+          namespace 'adva:import:directory'
+          desc 'Import adva site'
+          class_option :source, :required => false
+
+          def import
+            require 'config/environment'
+            require 'adva/importers/directory'
+            source = symbolized_options[:source] || 'import'
+            Adva::Importers::Directory.new(source, symbolized_options).import!
+          end
         end
       end
     end

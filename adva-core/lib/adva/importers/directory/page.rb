@@ -15,13 +15,14 @@ module Adva
         end
         
         def initialize(path, root = nil)
+          @model = ::Page
           @attribute_names = [:path, :title, :article]
           path = File.dirname(path) if File.basename(path, File.extname(path)) == 'index'
           super
         end
         
         def section
-          @section ||= ::Page.new(attributes)
+          @section ||= model.new(attributes)
         end
         
         def article
