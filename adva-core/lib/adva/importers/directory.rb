@@ -5,6 +5,7 @@ module Adva
     class Directory
       autoload :Blog,     'adva/importers/directory/blog'
       autoload :Loadable, 'adva/importers/directory/loadable'
+      autoload :Model,    'adva/importers/directory/model'
       autoload :Page,     'adva/importers/directory/page'
       autoload :Path,     'adva/importers/directory/path'
       autoload :Post,     'adva/importers/directory/post'
@@ -23,20 +24,20 @@ module Adva
         Site.new(root).import!
       end
     
-      def sync_file(site, file)
-        params = recognize_path(file.local_path.to_s, env(site))
-        type = params[:controller].split('/').last.gsub('_controller', '').camelize
-        Directory.const_get(type).new(file, params).import!
-      rescue ActionController::RoutingError
-      end
-      
-      def recognize_path(path, env)
-        routes.recognize_path(path, env)
-      end
-      
-      def env(site)
-        { 'SERVER_NAME' => site.host }
-      end
+      # def sync_file(site, file)
+      #   params = recognize_path(file.local.to_s, env(site))
+      #   type = params[:controller].split('/').last.gsub('_controller', '').camelize
+      #   Directory.const_get(type).new(file, params).import!
+      # rescue ActionController::RoutingError
+      # end
+      # 
+      # def recognize_path(path, env)
+      #   routes.recognize_path(path, env)
+      # end
+      # 
+      # def env(site)
+      #   { 'SERVER_NAME' => site.host }
+      # end
     end
   end
 end
