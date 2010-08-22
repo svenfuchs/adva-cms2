@@ -1,9 +1,0 @@
-<h2><%= resource.title %></h2>
-
-<% unless resource.posts.empty? %>
-  <ul class="posts">
-    <% resource.posts.each do |post| %>
-      <li><%= link_to post.title, resources.push(post) %></li>
-    <% end %>
-  </ul>
-<% end %>

@@ -1,9 +1,14 @@
-<h2><%= resource.title %></h2>
-
 <% unless resource.posts.empty? %>
   <ul class="posts">
     <% resource.posts.each do |post| %>
-      <li><%= link_to post.title, resources.push(post) %></li>
+      <li class="post hentry">
+        <h2><%= link_to(post.title, [resource, post], :class => "entry-title", :rel => "bookmark") %></h2>
+        <%= render :partial => 'posts/meta', :locals => { :post => post } %>
+        <div class="entry-content">
+          <%= truncate_html(post.body, :length => 500, :omission => ' …') %>
+        </div>
+        <p><%= link_to('Read the rest of this entry', [resource, post]) %></p>
+      </li>
     <% end %>
   </ul>
 <% end %>

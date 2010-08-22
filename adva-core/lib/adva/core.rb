@@ -1,6 +1,8 @@
 require 'rails/engine'
 require 'adva'
 
+require 'active_record' # should be in simple_slugs
+require 'simple_slugs'
 require 'simple_nested_set'
 require 'simple_slugs'
 require 'minimal'

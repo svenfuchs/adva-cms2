@@ -17,4 +17,5 @@ Gem::Specification.new do |s|
   s.rubyforge_project = '[none]'
   
   s.add_dependency 'adva-core'
+  s.add_dependency 'truncate_html'
 end
