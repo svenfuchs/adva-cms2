@@ -1,6 +1,5 @@
-<%= link_to resource.section.title, resources[0..-2] %>
-
 <div class="<%= resource.class.name.underscore %>">
   <h2><%= resource.title %></h2>
-  <p><%= resource.body.html_safe %></p>
+  <%= render :partial => 'posts/meta', :locals => { :post => resource } %>
+  <%= resource.body.html_safe %>
 </div>
