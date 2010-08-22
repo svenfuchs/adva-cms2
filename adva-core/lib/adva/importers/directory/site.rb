@@ -6,6 +6,7 @@ module Adva
     class Directory
       class Site < Model
         def initialize(*args)
+          @model = ::Site
           @attribute_names = [:account, :sections, :host, :name, :title]
           super
         end
@@ -29,7 +30,7 @@ module Adva
         end
 
         def site
-          @site ||= ::Site.find_or_initialize_by_host(host).tap do |site| 
+          @site ||= model.find_or_initialize_by_host(host).tap do |site| 
             site.attributes = attributes
           end
         end
