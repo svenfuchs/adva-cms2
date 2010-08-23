@@ -23,13 +23,13 @@ module Adva
         end
         
         def load_cnet_dump
-          Cnet.say "loading data from #{source}"
+          Adva.out.puts "loading data from #{source}"
           files.each { |file| load_cnet_file(file) }
         end
         
         def load_cnet_file(file)
           table_name = self.table_name(file)
-          Cnet.say "loading data to #{table_name}"
+          Adva.out.puts "loading data to #{table_name}"
           `echo '.mode csv\n.separator "\t"\n.import #{file} #{table_name}' | sqlite3 #{target}`
         end
         

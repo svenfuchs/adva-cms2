@@ -23,6 +23,9 @@ require 'fakefs/safe'
 require 'adva-core'
 require 'devise'
 
+require 'stringio'
+Adva.out = StringIO.new('')
+
 log = '/tmp/adva-core_test.log'
 FileUtils.touch(log) unless File.exists?(log)
 ActiveRecord::Base.logger = Logger.new(log)

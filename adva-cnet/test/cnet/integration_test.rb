@@ -2,7 +2,6 @@ require File.expand_path('../../test_helper', __FILE__)
 
 require 'adva/tasks/cnet'
 require 'adva/cnet/origin'
-require 'stringio'
 
 module Tests
   module Cnet
@@ -11,7 +10,6 @@ module Tests
 
       def setup
         @db = Adva::Cnet::Origin::Database.new(':memory:')
-        Adva::Cnet.out = StringIO.new('')
       end
       
       def prepare!

@@ -44,7 +44,7 @@ module Adva
 
           status = response[0]
           if status == 200
-            puts "#{bench.total}s: exporting #{path}"
+            Adva.out.puts "#{bench.total}s: exporting #{path}"
             Page.new(path, response[2])
           else
             puts "can not export #{path} (status: #{status})"
