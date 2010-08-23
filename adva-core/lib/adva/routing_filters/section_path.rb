@@ -61,13 +61,7 @@ module RoutingFilter
       end
     
       def section_paths(site)
-        if site
-          paths = site.sections.map(&:path).reject(&:blank?)
-          paths.delete(site.sections.root.path)
-          paths.sort { |a, b| b.size <=> a.size }
-        else
-          []
-        end
+        site ? site.sections.map(&:path).reject(&:blank?).sort { |a, b| b.size <=> a.size } : []
       end
       
       def recognize_pattern(site)

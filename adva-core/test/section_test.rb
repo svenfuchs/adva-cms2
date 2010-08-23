@@ -42,22 +42,35 @@ module AdvaCoreTests
       assert_equal [3, 4], [node_2.lft, node_2.rgt]
     end
 
-    test "a section has its path denormalized (happens in simple_nested_set) and strips the root path off (on read)" do
-      root = site.sections.first
-      node_1 = site.sections.create!(:title => 'node 1')
+    test "a section has its path denormalized (happens in simple_nested_set) and strips the home section path off (on read)" do
+      root_1 = site.sections.first
+      node_1 = site.sections.create!(:title => 'node 1', :parent => root_1)
       node_2 = site.sections.create!(:title => 'node 2', :parent => node_1)
 
-      [node_1, node_2].map(&:reload)
+      root_2 = site.sections.create!(:title => 'root 2')
+      node_3 = site.sections.create!(:title => 'node 3', :parent => root_2)
+      node_4 = site.sections.create!(:title => 'node 4', :parent => node_3)
 
-      assert_equal '', root.path
-      assert_equal 'node-1', node_1.path
-      assert_equal 'node-1/node-2', node_2.path
+      assert_equal 'home',                 root_1.reload.read_attribute(:path)
+      assert_equal 'home/node-1',          node_1.reload.read_attribute(:path)
+      assert_equal 'home/node-1/node-2',   node_2.reload.read_attribute(:path)
+
+      assert_equal 'root-2',               root_2.reload.read_attribute(:path)
+      assert_equal 'root-2/node-3',        node_3.reload.read_attribute(:path)
+      assert_equal 'root-2/node-3/node-4', node_4.reload.read_attribute(:path)
     end
-    
-    # test "Section.paths returns all paths" do
-    #   root = site.sections.first
-    #   node_1 = site.sections.create!(:title => 'node 1')
+
+    # test "Section.paths returns all paths w/ home section path stripped off" do
+    #   root_1 = site.sections.first
+    #   node_1 = site.sections.create!(:title => 'node 1', :parent => root_1)
     #   node_2 = site.sections.create!(:title => 'node 2', :parent => node_1)
+    #
+    #   root_2 = site.sections.create!(:title => 'root 2')
+    #   node_3 = site.sections.create!(:title => 'node 3', :parent => root_2)
+    #   node_4 = site.sections.create!(:title => 'node 4', :parent => node_3)
+    #
+    #   paths = ['', 'node-1', 'node-1/node-2', 'root-2', 'root-2/node-3', 'root-2/node-3/node-4']
+    #   assert_equal paths, site.sections.paths
     # end
   end
 end

@@ -21,26 +21,19 @@ class Section < ActiveRecord::Base
       types << child.name
       super
     end
-
-    def paths
-      all(:select => :path).map(&:path)
-    end
   end
 
   def type
     read_attribute(:type) || 'Section'
   end
-  memoize :type
 
   def path
-    read_attribute(:path) == root_path ? '' : read_attribute(:path)
+    _path == site.home_section.send(:_path) ? '' : _path
   end
-  memoize :path
 
-  def root?
-    super && previous_sibling.nil?
+  def home?
+    root? && previous_sibling.nil?
   end
-  memoize :root?
 
   def attributes_protected_by_default
     default = [self.class.primary_key]
@@ -50,9 +43,7 @@ class Section < ActiveRecord::Base
 
   protected
 
-    def root_path
-      site && (root = site.sections.root) && root.read_attribute(:path)
+    def _path
+      read_attribute(:path)
     end
-    memoize :root_path
-
 end
