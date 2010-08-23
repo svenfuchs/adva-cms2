@@ -1,7 +1,6 @@
 require 'nokogiri'
 require 'uri'
-
-# FIXME don't export 404's
+require 'benchmark'
 
 module Adva
   class Static
@@ -30,15 +29,26 @@ module Adva
       protected
 
         def process(path)
-          page = get(path)
-          store.write(path, page.body)
-          enqueue_urls(page) if path.html?
+          if page = get(path)
+            store.write(path, page.body)
+            enqueue_urls(page) if path.html?
+          end
         end
 
         def get(path)
-          response = app.call(env_for(path))
-          response = follow_redirects(response)
-          Page.new(path, response[2])
+          response = nil
+          bench = Benchmark.measure do
+            response = app.call(env_for(path))
+            response = follow_redirects(response)
+          end
+
+          status = response[0]
+          if status == 200
+            puts "#{bench.total}s: exporting #{path}"
+            Page.new(path, response[2])
+          else
+            puts "can not export #{path} (status: #{status})"
+          end
         end
 
         def follow_redirects(response)

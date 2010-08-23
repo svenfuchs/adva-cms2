@@ -18,7 +18,7 @@ module Adva
         end
 
         def title
-          @title ||= root? ? 'Home' : local.to_s.titleize
+          @title ||= root? ? 'Home' : File.basename(local).to_s.titleize
         end
 
         def path
