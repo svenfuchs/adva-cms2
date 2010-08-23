@@ -4,7 +4,7 @@ module Adva
   autoload :Engine,    'adva/engine'
   autoload :Responder, 'adva/responder'
 
-  cattr_accessor :out
+  mattr_accessor :out
   self.out = $stdout
 
   class << self

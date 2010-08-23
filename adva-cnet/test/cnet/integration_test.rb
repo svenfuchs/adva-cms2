@@ -28,29 +28,27 @@ module Tests
       def dump_fixtures!
         source = 'origin.fixtures.sqlite3'
         target = 'origin.fixtures.sql'
-        Adva::Tasks::Cnet::Origin::Fixtures::Dump.new([source, target]).invoke_all
+        Adva::Tasks::Cnet::Origin::Sql::Dump.new([source, target]).invoke_all
       end
       
       def load_fixtures!
         source = 'origin.fixtures.sql'
         target = db.connection
-        Adva::Tasks::Cnet::Origin::Fixtures::Load.new([source, target]).invoke_all
+        Adva::Tasks::Cnet::Origin::Sql::Load.new([source, target]).invoke_all
       end
       
       test "creating fixtures from new cnet dump and using them to import stuff" do
         assert_nothing_raised do
           
-          # comment this in to generate origin.full.sqlite3 as well
-          # prepare!
-
+          prepare! unless Adva::Cnet.normalize_path('origin.full.sqlite3').exist?
           extract_fixtures!
           dump_fixtures!
           load_fixtures!
         
           db.attach_database(":memory:", :origin)
-          Adva::Cnet::Origin::Fixtures.load('origin.fixtures.sql', db.connection, :as => :origin)
+          Adva::Cnet::Origin::Sql.load('origin.fixtures.sql', db.connection, :as => :origin)
           db.attach_database(":memory:", :import)
-          Adva::Cnet::Origin::Fixtures.load('import.schema.sql', db.connection, :as => :import)
+          Adva::Cnet::Origin::Sql.load('import.schema.sql', db.connection, :as => :import)
 
           db.connection.execute <<-sql
             INSERT INTO import.products (prod_id, cat_id)

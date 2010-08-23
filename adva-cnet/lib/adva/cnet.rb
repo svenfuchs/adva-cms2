@@ -8,7 +8,7 @@ module Adva
     autoload :Origin,     'adva/cnet/origin'
 
     include Adva::Engine
-    
+
     class << self
       def normalize_path(path)
         path.to_s.include?('/') ? path : root.join("db/cnet/#{path}")
