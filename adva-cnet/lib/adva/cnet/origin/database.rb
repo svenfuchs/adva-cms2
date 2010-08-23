@@ -19,6 +19,11 @@ module Adva
           end
         end
         
+        def attach_database(name, alias_name)
+          # this is sqlite3-specific...
+          connection.execute("attach database \"#{name}\" as #{alias_name}")
+        end
+        
         def count(table_name)
           select_values("SELECT count(*) FROM #{table_name}").first.to_i
         end

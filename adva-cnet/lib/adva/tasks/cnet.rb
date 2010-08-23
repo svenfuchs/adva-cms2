@@ -10,11 +10,12 @@ module Adva
         class Prepare < Thor::Group
           namespace 'adva:cnet:origin:prepare'
           desc 'Prepare origin database by loading cnet source files (e.g. full dump)'
-          argument :source, :required => false
-          argument :target, :required => false
+          argument :source,  :required => false
+          argument :target,  :required => false
+          class_option :pattern, :required => false
     
           def stage
-            Adva::Cnet::Origin::Prepare.new(source, target).run
+            Adva::Cnet::Origin::Prepare.new(source, target, :pattern => symbolized_options[:pattern]).run
           end
         end
 

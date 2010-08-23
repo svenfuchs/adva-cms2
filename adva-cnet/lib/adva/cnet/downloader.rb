@@ -61,7 +61,7 @@ module Adva
         return unless fresh_data?
         download
         confirm_download if !!options[:confirm_download]
-        request_import
+        # request_import
       end
 
       protected

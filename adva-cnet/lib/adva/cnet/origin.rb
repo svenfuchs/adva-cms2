@@ -6,8 +6,7 @@ module Adva
       autoload :Database, 'adva/cnet/origin/database'
       autoload :Fixtures, 'adva/cnet/origin/fixtures'
       autoload :Prepare,  'adva/cnet/origin/prepare'
-      autoload :Schema,   'adva/cnet/origin/schema'
-      autoload :Source,   'adva/cnet/origin/source'
+      autoload :Sql,      'adva/cnet/origin/sql'
       
       establish_connection('cnet_origin') # #{Rails.env.downcase}
     end

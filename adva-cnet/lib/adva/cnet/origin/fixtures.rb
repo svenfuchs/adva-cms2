@@ -11,14 +11,9 @@ module Adva
 
             `sqlite3 #{source} .dump > #{target}`
           end
-          
-          def load(source, target)
-            source ||= Adva::Cnet.root.join('db/cnet/origin.fixtures.sql')
-            target ||= Adva::Cnet.root.join('db/cnet/origin.test.sqlite3')
-            # `rm -f #{target}; sqlite3 #{target} < #{source}`
-            
-            fixtures = File.read(source).split("\n")
-            fixtures.each { |line| target.execute(line) }
+
+          def load(source, target, options = {})
+            Sql.load(source, target, options)
           end
         end
       end
