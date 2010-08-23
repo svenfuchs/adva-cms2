@@ -1,6 +1,9 @@
 require 'adva/engine'
 
-require 'action_controller' # should be in truncate_html
+require 'routing_filter'
+require 'adva/routing_filters/section_root'
+
+require 'action_controller' # really should be in truncate_html
 require 'truncate_html'
 
 module Adva
@@ -12,3 +15,5 @@ module Adva
     end
   end
 end
+
+RoutingFilter::SectionRoot.anchors_segments['Blog'] = '\d{4}'

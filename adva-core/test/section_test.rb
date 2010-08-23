@@ -42,7 +42,7 @@ module AdvaCoreTests
       assert_equal [3, 4], [node_2.lft, node_2.rgt]
     end
 
-    test "a section has its path denormalized (happens in simple_nested_set)" do
+    test "a section has its path denormalized (happens in simple_nested_set) and strips the root path off (on read)" do
       root = site.sections.first
       node_1 = site.sections.create!(:title => 'node 1')
       node_2 = site.sections.create!(:title => 'node 2', :parent => node_1)
@@ -53,5 +53,11 @@ module AdvaCoreTests
       assert_equal 'node-1', node_1.path
       assert_equal 'node-1/node-2', node_2.path
     end
+    
+    # test "Section.paths returns all paths" do
+    #   root = site.sections.first
+    #   node_1 = site.sections.create!(:title => 'node 1')
+    #   node_2 = site.sections.create!(:title => 'node 2', :parent => node_1)
+    # end
   end
 end

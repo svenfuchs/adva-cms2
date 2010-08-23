@@ -1,4 +1,6 @@
 require 'adva/engine'
+require 'routing_filter'
+require 'adva/routing_filters/section_root'
 
 module Adva
   class Catalog < ::Rails::Engine
@@ -9,3 +11,5 @@ module Adva
     end
   end
 end
+
+RoutingFilter::SectionRoot.anchors_segments['Catalog'] = 'products'

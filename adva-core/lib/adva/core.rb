@@ -1,12 +1,15 @@
 require 'rails/engine'
 require 'adva'
 
-require 'active_record' # should be in simple_slugs
+require 'simple_form'
 require 'simple_slugs'
 require 'simple_nested_set'
 require 'simple_slugs'
 require 'minimal'
-# require 'minimal/template/beautify_html'
+
+require 'routing_filter'
+require 'adva/routing_filters/section_path'
+require 'adva/routing_filters/section_root'
 
 module Adva
   class Core < ::Rails::Engine
@@ -14,9 +17,12 @@ module Adva
 
     config.autoload_paths << paths.app.views.to_a.first
 
-    # initializer 'adva-core.beautify_html' do
-    #   ApplicationController.after_filter(Minimal::Template::BeautifyHtml) unless Rails.env.production?
-    # end
+    initializer 'adva-core.beautify_html' do
+      if Rails.env.development?
+        require 'minimal/template/beautify_html'
+        ApplicationController.after_filter(Minimal::Template::BeautifyHtml)
+      end
+    end
 
     initializer 'adva-core.require_country_select' do
       config.to_prepare { require_dependency 'country_select' }

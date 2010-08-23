@@ -3,12 +3,6 @@ require File.expand_path('../../../test_helper', __FILE__)
 require 'yaml'
 require 'ruby-debug'
 
-require 'adva-blog'
-require 'adva-catalog'
-require 'blog'
-require 'post'
-require 'catalog'
-require 'user'
 require 'adva/importers/directory'
 
 Devise.setup do |config|

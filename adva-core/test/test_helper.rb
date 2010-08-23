@@ -41,15 +41,24 @@ DatabaseCleaner.strategy = :truncation
 
 DIRS = { :fixtures => Pathname.new(File.expand_path('../fixtures', __FILE__)) }
 
+require 'adva-core'
+require 'adva-blog'
+require 'adva-catalog'
+
+# TODO instead of requiring everthing manually, set up autoload paths
+
+require 'user'
 require 'account'
 require 'site'
 require 'section'
 require 'page'
 require 'content'
 require 'article'
+require 'blog'
+require 'post'
+require 'catalog'
 
-require 'patches/rails/sti_associations'
-require 'patches/rails/recognize_path_env' # TODO load all patches?
+Dir[Adva::Core.root.join('lib/patches/**/*.rb')].each { |patch| require patch }
 
 class Test::Unit::TestCase
   def setup
