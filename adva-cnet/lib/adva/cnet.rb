@@ -4,6 +4,8 @@ require 'globalize'
 module Adva
   class Cnet < ::Rails::Engine
     autoload :Downloader, 'adva/cnet/downloader'
+    autoload :Extractor,  'adva/cnet/extractor'
+    autoload :Importer,   'adva/cnet/importer'
     autoload :Logger,     'adva/cnet/logger'
     autoload :Origin,     'adva/cnet/origin'
 

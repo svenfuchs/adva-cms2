@@ -50,10 +50,8 @@ module Tests
           db.attach_database(":memory:", :import)
           Adva::Cnet::Origin::Sql.load('import.schema.sql', db.connection, :as => :import)
 
-          db.connection.execute <<-sql
-            INSERT INTO import.products (prod_id, cat_id)
-              SELECT "ProdID", "CatID" FROM origin.cds_prod
-          sql
+          Adva::Cnet::Extractor::Product.new(db.connection, 'products').run
+          assert_equal db.count('origin.cds_prod'), db.count('import.products')
         end
       end
     end

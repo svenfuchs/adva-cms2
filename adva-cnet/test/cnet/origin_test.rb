@@ -9,7 +9,7 @@ module Tests
 
       def setup
         @origin = Adva::Cnet::Origin::Database.new(':memory:')
-        Adva::Cnet::Origin::Fixtures.load('origin.fixtures.sql', origin.connection)
+        Adva::Cnet::Origin::Sql.load('origin.fixtures.sql', origin.connection)
       end
 
       test "loading product fixtures to origin database works" do
