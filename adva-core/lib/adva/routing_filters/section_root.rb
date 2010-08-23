@@ -1,7 +1,11 @@
 require 'routing_filter/filter'
 
+# TODO needs to unmemoize if any section is created, renamed, moved or deleted!
+
 module RoutingFilter
   class SectionRoot < Filter
+    extend ActiveSupport::Memoizable
+
     cattr_accessor :default_port
     self.default_port = '80'
 
@@ -12,9 +16,10 @@ module RoutingFilter
     self.anchors_segments = { 'Page' => 'article' }
 
     def around_recognize(path, env, &block)
-      if !excluded?(path) && root = find_root_section_by_host(env)
-        prepend_root_section!(path, root)
-        remove_trailing_slash!(path)
+      if !excluded?(path)
+        search, replace = *recognition(host(env))
+        path.sub!(search) { "#{$1}#{replace}#{$2}" } if search
+        path.chomp!('/')
       end
       yield
     end
@@ -30,40 +35,34 @@ module RoutingFilter
       def excluded?(path)
         path =~ exclude
       end
-
-      def prepend_root_section!(path, root)
-        path.sub!(recognize_pattern(root)) { "#{$1}/#{root.type.tableize}/#{root.id}#{$2}" }
+      memoize :excluded?
+      
+      def recognition(host)
+        site = Site.where(:host => host).first
+        if site and root = site.sections.root
+          anchor = anchors_segments[root.class.name] || raise("undefined url anchor segment for: #{root.class.name}")
+          [%r(^(/[\w]{2})?(?:\/?)(/#{anchor}|\.|\?|/?\Z)), "/#{root.type.tableize}/#{root.id}"]
+        end
       end
-
-      def remove_trailing_slash!(path)
-        path.chop! if path =~ %r(.+/\Z)
-      end
+      memoize :recognition
 
       def remove_root_section!(path)
         path.sub!(%r(#{$2}/#{$3}/?), '') if path =~ generate_pattern && home?($3)
       end
 
-      def recognize_pattern(root)
-        anchor = anchors_segments[root.class.name] || raise("can not find url anchor segment for #{root.class}")
-        %r(^(/[\w]{2})?(/#{anchor}|\.|\?|/?\Z))
-      end
-
       def generate_pattern
-        @generate_pattern ||= %r(^(?:/[\w]{2})?(/(#{Section.types.map(&:tableize).join('|')})/([\d]+)(?:/|\.|$)))
+        @generate_pattern ||= %r(^(?:/[\w]{2})?(/(#{Section.types.map(&:tableize).join('|')})/([\d]+)(?:/|\.|\?|$)))
       end
-
-      def find_root_section_by_host(env)
-        site = Site.where(:host => host_with_port(env)).first
-        site.sections.root if site
-      end
+      memoize :generate_pattern
 
       def home?(id)
         Section.find(id.to_i).try(:home?)
       end
+      memoize :home?
 
-      def host_with_port(env)
+      def host(env)
         host, port = env.values_at('SERVER_NAME', 'SERVER_PORT')
-        port == default_port ? host : [host, port].join(':')
+        port == default_port ? host : [host, port].compact.join(':')
       end
   end
 end
