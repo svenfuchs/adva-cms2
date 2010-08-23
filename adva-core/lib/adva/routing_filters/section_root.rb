@@ -40,7 +40,7 @@ module RoutingFilter
       end
 
       def remove_root_section!(path)
-        path.sub!(%r(#{$2}/#{$3}/?), '') if path =~ generate_pattern && root?($3)
+        path.sub!(%r(#{$2}/#{$3}/?), '') if path =~ generate_pattern && home?($3)
       end
 
       def recognize_pattern(root)
@@ -57,8 +57,8 @@ module RoutingFilter
         site.sections.root if site
       end
 
-      def root?(id)
-        Section.find(id.to_i).try(:root?)
+      def home?(id)
+        Section.find(id.to_i).try(:home?)
       end
 
       def host_with_port(env)

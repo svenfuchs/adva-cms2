@@ -26,7 +26,7 @@ require 'devise'
 require 'stringio'
 Adva.out = StringIO.new('')
 
-log = '/tmp/adva-core_test.log'
+log = '/tmp/adva-cms_test.log'
 FileUtils.touch(log) unless File.exists?(log)
 ActiveRecord::Base.logger = Logger.new(log)
 ActiveRecord::LogSubscriber.attach_to(:active_record)
