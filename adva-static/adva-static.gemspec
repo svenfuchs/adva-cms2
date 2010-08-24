@@ -19,4 +19,5 @@ Gem::Specification.new do |s|
   
   s.add_dependency 'adva-core'
   s.add_dependency 'nokogiri'
+  s.add_dependency 'rack-cache'
 end
