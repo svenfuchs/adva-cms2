@@ -14,7 +14,7 @@ module Adva
           argument :target,  :required => false
           class_option :pattern, :required => false
 
-          def stage
+          def prepare
             Adva::Cnet::Origin::Prepare.new(source, target, :pattern => symbolized_options[:pattern]).run
           end
         end
@@ -28,8 +28,22 @@ module Adva
             argument :prod_ids, :required => false
 
             def extract
-              prod_ids = self.prod_ids ? self.prod_ids.to_s.split(',').map(&:strip) : nil
               Adva::Cnet::Origin::Fixtures::Extract.new(source, target, prod_ids).run
+            end
+          end
+
+          class Rebuild < Thor::Group
+            namespace 'adva:cnet:origin:fixtures:rebuild'
+            desc 'Rebuild fixtures sql dump from cnet source files (e.g. full dump)'
+            argument :source, :required => false
+            argument :target, :required => false
+            argument :prod_ids, :required => false
+            class_option :pattern, :required => false
+
+            def rebuild
+              Adva::Cnet::Origin::Prepare.new(source, nil, :pattern => symbolized_options[:pattern]).run
+              Adva::Cnet::Origin::Fixtures::Extract.new(nil, nil, prod_ids).run
+              Adva::Cnet::Origin::Sql.dump(nil, target)
             end
           end
         end
@@ -41,7 +55,7 @@ module Adva
             argument :source, :required => false
             argument :target, :required => false
 
-            def extract
+            def dump
               Adva::Cnet::Origin::Sql.dump(source, target)
             end
           end
@@ -52,7 +66,7 @@ module Adva
             argument :source, :required => false
             argument :target, :required => false
 
-            def extract
+            def load
               Adva::Cnet::Origin::Sql.load(source, target)
             end
           end

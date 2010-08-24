@@ -16,7 +16,7 @@ module Adva
               Sql.load('origin.schema.sqlite3.sql', @target.connection)
             end
 
-            @prod_ids = prod_ids || %w(100329 100372 100724 100732 100733)
+            @prod_ids = prod_ids ? prod_ids.split(',').map(&:strip) : %w(100329 100372 100724 100732 100733)
           end
 
           def run
@@ -31,26 +31,26 @@ module Adva
 
           def extract_prod
             table_name = 'cds_prod'
-            rows = source.select_rows(["SELECT * FROM #{table_name} WHERE ProdID IN (?)", prod_ids])
+            rows = source.select_rows(["SELECT * FROM #{table_name} WHERE ProdID IN (?) ORDER BY ProdID", prod_ids])
             rows.each { |row| target.insert(table_name, row) }
           end
           
           def extract_mkt(locale)
             mkt_ids = target.select_values(["SELECT MktID FROM cds_prod WHERE ProdID IN (?)", prod_ids])
             table_name = "cds_mkt#{locale}"
-            rows = source.select_rows(["SELECT * FROM #{table_name} WHERE MktID IN (?)", mkt_ids])
+            rows = source.select_rows(["SELECT * FROM #{table_name} WHERE MktID IN (?) ORDER BY MktID", mkt_ids])
             rows.each { |row| target.insert(table_name, row) }
           end
 
           def extract_stdn(locale)
             table_name = "cds_stdn#{locale}"
-            rows = source.select_rows(["SELECT * FROM #{table_name} WHERE ProdID IN (?)", prod_ids])
+            rows = source.select_rows(["SELECT * FROM #{table_name} WHERE ProdID IN (?) ORDER BY ProdID", prod_ids])
             rows.each { |row| target.insert(table_name, row) }
           end
 
           def extract_mspec(locale)
             table_name = "cds_mspec#{locale}"
-            rows = source.select_rows(["SELECT * FROM #{table_name} WHERE ProdID IN (?)", prod_ids])
+            rows = source.select_rows(["SELECT * FROM #{table_name} WHERE ProdID IN (?) ORDER BY ProdID, HdrID, BodyID", prod_ids])
             rows.each { |row| target.insert(table_name, row) }
             extract_mvoc(locale)
           end
@@ -61,13 +61,13 @@ module Adva
             body_ids = target.select_values(["SELECT BodyID FROM #{table_name} WHERE ProdID IN (?)", self.prod_ids])
 
             table_name = "cds_mvoc#{locale}"
-            rows = source.select_rows(["SELECT * FROM #{table_name} WHERE ID  IN (?)", hdr_ids + body_ids])
+            rows = source.select_rows(["SELECT * FROM #{table_name} WHERE ID IN (?) ORDER BY ID", hdr_ids + body_ids])
             rows.each { |row| target.insert(table_name, row) }
           end
 
           def extract_espec(locale)
             table_name = "cds_espec#{locale}"
-            rows = source.select_rows(["SELECT * FROM #{table_name} WHERE ProdID IN (?)", prod_ids])
+            rows = source.select_rows(["SELECT * FROM #{table_name} WHERE ProdID IN (?) ORDER BY ProdID, SectID, HdrID, BodyID", prod_ids])
             rows.each { |row| target.insert(table_name, row) }
             extract_evoc(locale)
           end
@@ -79,7 +79,7 @@ module Adva
             body_ids = target.select_values(["SELECT BodyID FROM #{table_name} WHERE ProdID IN (?)", self.prod_ids])
 
             table_name = "cds_evoc#{locale}"
-            rows = source.select_rows(["SELECT * FROM #{table_name} WHERE ID  IN (?)", hdr_ids + sect_ids + body_ids])
+            rows = source.select_rows(["SELECT * FROM #{table_name} WHERE ID IN (?) ORDER BY ID", hdr_ids + sect_ids + body_ids])
             rows.each { |row| target.insert(table_name, row) }
           end
         end

@@ -17,8 +17,10 @@ module Adva
             if File.file?(target.to_s)
               `rm -f #{target}; sqlite3 #{target} < #{source}`
             else
+              target = Database.new(target) if target.is_a?(String)
               sql = File.read(source)
               sql = prepend_database_name(sql, options[:as]) if options[:as]
+
               sql.split(";\n").each { |line| target.execute(line) }
             end
           end
