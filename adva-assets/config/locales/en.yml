@@ -1,0 +1,6 @@
+en:
+  assets:
+    carrierwave:
+      errors:
+        integrity: 'Not an image.'
+        processing: 'Cannot resize image.'

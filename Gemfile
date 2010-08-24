@@ -1,6 +1,7 @@
 source :rubygems
 
 gem 'rails', '3.0.0'
+gem 'adva-assets',     :path => File.expand_path('../adva-assets', __FILE__)
 gem 'adva-cache',      :path => File.expand_path('../adva-cache', __FILE__)
 gem 'adva-core',       :path => File.expand_path('../adva-core', __FILE__)
 gem 'adva-blog',       :path => File.expand_path('../adva-blog', __FILE__)

@@ -1,0 +1,6 @@
+de:
+  assets:
+    carrierwave:
+      errors:
+        integrity: 'Kein Bild.'
+        processing: 'Das Bild kann nicht angepasst werden.'
