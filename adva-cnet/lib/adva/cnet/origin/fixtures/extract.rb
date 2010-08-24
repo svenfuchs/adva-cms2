@@ -11,7 +11,7 @@ module Adva
             @source = Database.new(Cnet.normalize_path(source || 'origin.full.sqlite3'))
             @target = Database.new(Cnet.normalize_path(target || 'origin.fixtures.sqlite3'))
 
-            if target =~ /sqlite3$/
+            if @target.database.to_s =~ /sqlite3$/
               @target.database.delete rescue Errno::ENOENT
               Sql.load('origin.schema.sqlite3.sql', @target.connection)
             end

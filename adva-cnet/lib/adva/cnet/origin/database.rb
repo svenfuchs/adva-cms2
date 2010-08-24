@@ -6,9 +6,9 @@ module Adva
         
         delegate :connection, :to => :pool
         
-        def initialize(database)
+        def initialize(database, options = {})
           @database = database
-          # Schema.load!(connection) if connection.tables.empty?
+          attach_database('main', options[:as]) if options[:as]
         end
         
         def pool
@@ -32,14 +32,6 @@ module Adva
           connection.execute("INSERT INTO #{table_name} VALUES (#{quote(row).join(', ')})")
         end
         
-        def replace_bind_variables(query)
-          query.is_a?(Array) ? query.first.gsub('?', quote(query.last).join(', ')) : query
-        end
-    
-        def quote(values)
-          values.map { |value| "'#{value}'" }
-        end
-        
         def method_missing(method, *args, &block)
           method.to_s =~ /^select_/ ? _select(method, *args) : super
         end
@@ -47,7 +39,15 @@ module Adva
         protected
         
           def _select(method, query)
-            connection.send(method, replace_bind_variables(query))
+            connection.send(method, replace_bound_variables(query))
+          end
+        
+          def replace_bound_variables(query)
+            query.is_a?(Array) ? query.first.gsub('?', quote(query.last).join(', ')) : query
+          end
+    
+          def quote(values)
+            values.map { |value| "'#{value}'" }
           end
       end
     end

@@ -4,14 +4,15 @@ module Adva
       module Sql
         class << self
           def dump(source, target)
-            source = Cnet.normalize_path(source || 'db/cnet/origin.fixtures.sqlite3')
-            target = Cnet.normalize_path(target || 'db/cnet/origin.fixtures.sql')
+            source = Cnet.normalize_path(source || 'origin.fixtures.sqlite3')
+            target = Cnet.normalize_path(target || 'origin.fixtures.sql')
 
             `sqlite3 #{source} .dump > #{target}`
           end
 
           def load(source, target, options = {})
-            source = Cnet.normalize_path(source || 'db/cnet/origin.fixtures.sql')
+            source = Cnet.normalize_path(source || 'origin.fixtures.sql')
+            target ||= Cnet.normalize_path('origin.fixtures.sqlite3')
 
             if File.file?(target.to_s)
               `rm -f #{target}; sqlite3 #{target} < #{source}`

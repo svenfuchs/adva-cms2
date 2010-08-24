@@ -47,7 +47,7 @@ module Adva
           end
 
           class Load < Thor::Group
-            namespace 'adva:cnet:origin:fixtures:load'
+            namespace 'adva:cnet:origin:sql:load'
             desc 'Load a sql file to a sqlite3 database'
             argument :source, :required => false
             argument :target, :required => false
