@@ -25,8 +25,9 @@ module RoutingFilter
 
     def around_generate(params, &block)
       yield.tap do |path|
-        if !excluded?(path) && (search, replace = *generation(path))
-          path.sub!(search) { "#{replace}#{$3}" }
+        if !excluded?(path)
+          search, replace = *generation(path)
+          path.sub!(search) { "#{replace}#{$3}" } if search
           path.replace("/#{path}") unless path[0, 1] == '/'
         end
       end
@@ -37,7 +38,7 @@ module RoutingFilter
       def excluded?(path)
         path =~ exclude
       end
-      memoize :excluded?
+      # memoize :excluded?
 
       def recognition(host, path)
         site = site_by_host(host)
@@ -53,7 +54,7 @@ module RoutingFilter
         paths = paths.sort { |a, b| b.size <=> a.size }.join('|')
         %r(^/([\w]{2,4}/)?(#{paths})(?=/|\.|\?|$))
       end
-      memoize :recognition_pattern
+      # memoize :recognition_pattern
 
       def generation(path)
         if path =~ generate_pattern
@@ -66,7 +67,7 @@ module RoutingFilter
         types = Section.types.map { |type| type.downcase.pluralize }.join('|')
         %r(/(sections|#{types})/([\d]+(/?))(\.?))
       end
-      memoize :generate_pattern
+      # memoize :generate_pattern
 
       def host(env)
         host, port = env.values_at('SERVER_NAME', 'SERVER_PORT')

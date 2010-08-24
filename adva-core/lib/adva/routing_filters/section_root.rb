@@ -19,7 +19,7 @@ module RoutingFilter
       if !excluded?(path)
         search, replace = *recognition(host(env))
         path.sub!(search) { "#{$1}#{replace}#{$2}" } if search
-        path.chomp!('/')
+        # path.chomp!('/')
       end
       yield
     end
@@ -44,7 +44,7 @@ module RoutingFilter
           [%r(^(/[\w]{2})?(?:\/?)(/#{anchor}|\.|\?|/?\Z)), "/#{root.type.tableize}/#{root.id}"]
         end
       end
-      memoize :recognition
+      # memoize :recognition
 
       def remove_root_section!(path)
         path.sub!(%r(#{$2}/#{$3}/?), '') if path =~ generate_pattern && home?($3)
@@ -53,7 +53,7 @@ module RoutingFilter
       def generate_pattern
         @generate_pattern ||= %r(^(?:/[\w]{2})?(/(#{Section.types.map(&:tableize).join('|')})/([\d]+)(?:/|\.|\?|$)))
       end
-      memoize :generate_pattern
+      # memoize :generate_pattern
 
       def home?(id)
         Section.find(id.to_i).try(:home?)
