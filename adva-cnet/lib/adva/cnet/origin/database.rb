@@ -5,6 +5,7 @@ module Adva
         attr_reader :database
         
         delegate :connection, :to => :pool
+        delegate :execute, :to => :connection
         
         def initialize(database, options = {})
           @database = database
@@ -13,9 +14,8 @@ module Adva
         
         def pool
           @pool ||= begin
-            id = "cnet_#{object_id}"
-            ActiveRecord::Base.configurations[id] = { :adapter => 'sqlite3', :database => database }
-            ActiveRecord::Base.establish_connection(id)
+            ActiveRecord::Base.configurations[database.to_s] = { :adapter => 'sqlite3', :database => database.to_s }
+            ActiveRecord::Base.establish_connection(database.to_s)
           end
         end
         
