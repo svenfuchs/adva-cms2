@@ -24,7 +24,7 @@ module AdvaStatic
         :name => 'Site Name',
         :sections_attributes => [{ :title => 'Home' }]
       )
-      @exporter = Adva::Static::Exporter.new(Application.new, :target => '/tmp/adva-export-test/export')
+      @exporter = Adva::Static::Exporter.new(Application.new, :target => '/tmp/adva-static-test/export')
     end
 
     def path(path)
