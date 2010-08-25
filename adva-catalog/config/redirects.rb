@@ -1,5 +1,3 @@
-require 'adva/registry'
-
 Adva::Registry.set :redirect, {
   'admin/catalogs#update' => lambda { |responder| [:edit, *responder.resources] },
   'admin/products#index'  => lambda { |responder| responder.resources[0..-2]    },

@@ -1,0 +1,27 @@
+middleware stack
+  # adva-static/rack/crawl
+  adva-static/rack/watch
+  adva-static/rack/export
+  adva-core/rack/cache-tags
+  adva-cms2 application
+  
+# adva-static/rack/crawl
+#   crawl all pages if requested (trap some signal?)
+
+adva-static/rack/watch
+  watch changes to files in /import
+  if any file has changed in /import, load it and post it to the application
+  the application will respond with x-purge-by-tag :tag
+  requests pages referenced by x-purge header
+
+adva-static/rack/export
+  save any 200 responses to export/path
+  watch for responses with x-purge :path
+  purges previously exported pages from the export directory
+
+adva-core/rack/cache-tags
+  watch for responses with x-purge-by-tag :tag
+  turns x-purge-by-tag headers into x-purge :path headers
+  
+
+

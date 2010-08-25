@@ -16,7 +16,7 @@ module Adva
         
         def initialize(path, root = nil)
           @model = ::Page
-          @attribute_names = [:path, :title, :article]
+          @attribute_names = [:path, :title, :article_attributes]
           path = File.dirname(path) if File.basename(path, File.extname(path)) == 'index'
           super
         end
@@ -25,9 +25,19 @@ module Adva
           @section ||= model.new(attributes)
         end
         
-        def article
-          @article ||= Article.new(:title => title, :body => body)
+        def id
+          @id
         end
+        
+        def article_attributes
+          { :title => title, :body => body }.tap do |attributes|
+            attributes.merge!(:id => ::Page.find(id).article.id) if id
+          end
+        end
+
+        # def article
+        #   @article ||= Article.new(:title => title, :body => body)
+        # end
       end
     end
   end

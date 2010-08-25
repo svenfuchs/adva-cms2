@@ -20,6 +20,10 @@ module Adva
         FileUtils.mkdir_p(File.dirname(path))
         File.open(path, 'w+') { |f| f.write(body) }
       end
+      
+      def purge(path)
+        dir.join(path.filename).delete rescue Errno::ENOENT
+      end
     end
   end
 end

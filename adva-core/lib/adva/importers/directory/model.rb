@@ -12,8 +12,11 @@ module Adva
           load!
         end
 
-        def sync!(params)
-          model.find(params[:id]).update_attributes!(attributes)
+        def sync(params)
+          @id = params[:id]
+          record = model.find_by_id(params[:id])
+          record.attributes = attributes
+          record
         end
 
         def attributes

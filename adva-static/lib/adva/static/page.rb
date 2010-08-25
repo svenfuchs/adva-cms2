@@ -1,3 +1,5 @@
+require 'rack'
+
 module Adva
   class Static
     class Page
@@ -24,7 +26,7 @@ module Adva
         @body ||= case response
         when ActionDispatch::Response
           response.body
-        when Rack::File
+        when ::Rack::File
           File.read(response.path)
         else
           response.to_s
