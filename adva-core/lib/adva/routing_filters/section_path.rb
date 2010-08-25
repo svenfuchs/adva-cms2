@@ -52,7 +52,7 @@ module RoutingFilter
         site = site_by_host(host)
         paths = site.sections.map(&:path).reject(&:blank?)
         paths = paths.sort { |a, b| b.size <=> a.size }.join('|')
-        %r(^/([\w]{2,4}/)?(#{paths})(?=/|\.|\?|$))
+        paths.empty? ? %r(^$) : %r(^/([\w]{2,4}/)?(#{paths})(?=/|\.|\?|$))
       end
       # memoize :recognition_pattern
 
