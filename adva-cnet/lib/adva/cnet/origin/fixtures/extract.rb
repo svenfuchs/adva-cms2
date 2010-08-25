@@ -8,12 +8,12 @@ module Adva
           attr_reader :source, :target, :prod_ids
 
           def initialize(source, target, prod_ids)
-            @source = Database.new(Cnet.normalize_path(source || 'origin.full.sqlite3'))
-            @target = Database.new(Cnet.normalize_path(target || 'origin.fixtures.sqlite3'))
+            @source = Connection.new(Cnet.normalize_path(source || 'origin.full.sqlite3'))
+            @target = Connection.new(Cnet.normalize_path(target || 'origin.fixtures.sqlite3'))
 
-            if @target.database.to_s =~ /sqlite3$/
-              @target.database.delete rescue Errno::ENOENT
-              Sql.load('origin.schema.sqlite3.sql', @target.connection)
+            if @target.database =~ /sqlite3$/
+              FileUtils.rm(@target.database) rescue Errno::ENOENT
+              @target.load('origin.schema.sqlite3.sql')
             end
 
             @prod_ids = prod_ids ? prod_ids.split(',').map(&:strip) : %w(100329 100372 100724 100732 100733)
