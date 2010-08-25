@@ -11,3 +11,9 @@ unless File.directory?("#{fixtures_path}/catalog")
   `unzip #{File.expand_path('../fixtures/download.zip', __FILE__)} -d #{fixtures_path}`
 end
 CNET_FIXTURES_PATH = fixtures_path
+
+class Test::Unit::TestCase
+  def tmp_db_path
+    Pathname.new('/tmp/adva-cnet-test/db').tap { |path| FileUtils.mkdir_p(path) }
+  end
+end

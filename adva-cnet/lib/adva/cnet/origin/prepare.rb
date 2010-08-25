@@ -12,7 +12,7 @@ module Adva
         
         def run
           extract_cnet_dump
-          Sql.load('origin.schema.sqlite3.sql', Database.new(target).connection)
+          Connection.new(target).load('origin.schema.sqlite3.sql')
           load_cnet_dump
         end
 
