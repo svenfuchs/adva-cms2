@@ -41,10 +41,11 @@ module Tests
           site_id = Site.first.id.to_s
           page_id = Page.first.id.to_s
           
-          import = Adva::Importers::Directory::Import.new(root, '/', :routes => routes)
-          request = ActionDispatch::TestRequest.new(Rack::MockRequest.env_for(import.request.path))
+          import  = Adva::Importers::Directory::Import.new(root, '/', :routes => routes)
+          url     = import.request.url
+          request = ActionDispatch::TestRequest.new(Rack::MockRequest.env_for(url))
 
-          params = { 'id' => page_id, 'page' => {'title' => '', 'path' => '' }, 'site_id' => site_id }
+          params  = { 'page' => {'title' => '', 'path' => '' } }
           assert_equal params, request.params
           assert_equal "/admin/sites/#{site_id}/pages/#{page_id}", request.path
         end

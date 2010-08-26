@@ -4,9 +4,17 @@ module Adva
   module Importers
     class Directory
       autoload :Import,   'adva/importers/directory/import'
-      autoload :Models,   'adva/importers/directory/models'
       autoload :Path,     'adva/importers/directory/path'
       autoload :Request,  'adva/importers/directory/request'
+
+      module Models
+        autoload :Base,    'adva/importers/directory/models/base'
+        autoload :Blog,    'adva/importers/directory/models/blog'
+        autoload :Page,    'adva/importers/directory/models/page'
+        autoload :Post,    'adva/importers/directory/models/post'
+        autoload :Section, 'adva/importers/directory/models/section'
+        autoload :Site,    'adva/importers/directory/models/site'
+      end
 
       attr_reader :root, :routes
 
@@ -20,7 +28,11 @@ module Adva
       end
 
       def sync!(path)
-        Import.new(root, path, :routes => routes).sync!
+        import(path).sync!
+      end
+
+      def import(path)
+        Import.new(root, path, :routes => routes)
       end
     end
   end

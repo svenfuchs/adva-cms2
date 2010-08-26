@@ -36,8 +36,7 @@ module Adva
         end
         
         def request
-          params = self.params.except(:controller, :action).merge(model_name.to_sym => changes)
-          Request.new(record, params)
+          Request.new(self)
         end
 
         def model_name
