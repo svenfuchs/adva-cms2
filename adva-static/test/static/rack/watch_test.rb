@@ -8,8 +8,6 @@ module AdvaStatic
   class RackWatchTest < Test::Unit::TestCase
     include Adva::Static::Rack
 
-    class PagesController < ActionController::Base; end
-    
     attr_reader :app, :export_dir, :import_dir
     
     def setup
@@ -55,18 +53,25 @@ module AdvaStatic
       assert export_dir.join('baz.html').file?
     end
     
-    test "foo" do
-      @app = lambda { |env| [200, {}, env['PATH_INFO']] }
+    test "imports and re-requests a modified file" do
+      @app = lambda do |env|
+        request = ActionDispatch::TestRequest.new(env)
+        page = Page.first
+        page.update_attributes!(request.params[:page]) if request.method == 'POST'
+        [200, {}, page.title]
+      end
       
-      file = import_dir.join('home.yml')
+      file = import_dir.join('index.yml')
       FileUtils.touch(file)
       assert !export_dir.join('index.html').file?
       
       watch
+      file.open('w') { |f| f.write('title: modified title') }
       File.utime(file.mtime, future, file)
       sleep(1)
       
-      # assert export_dir.join('index.html').file?
+      assert export_dir.join('index.html').file?
+      assert_equal 'modified title', export_dir.join('index.html').open { |f| f.read }
     end
     
     protected
@@ -75,8 +80,10 @@ module AdvaStatic
         @routes ||= ActionDispatch::Routing::RouteSet.new.tap do |routes|
           routes.draw do
             filter :section_root, :section_path
-            match '/pages/:id', :to => "#{PagesController.new.controller_path}#show"
+            match 'pages/:id', :to => 'pages#show'
+            match 'admin/sites/:site_id/pages/:id', :to => 'admin/pages#update', :as => 'admin_site_page'
           end
+          Admin::BaseController.send(:include, routes.url_helpers)
         end
       end
 

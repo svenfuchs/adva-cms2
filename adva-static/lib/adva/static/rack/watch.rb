@@ -32,10 +32,9 @@ module Adva
 
         def update(path, event_type = nil)
           if event_type == :modified
-            # attributes = importer.recognize_file(path).attributes
-            # query = ::Rack::Utils.build_nested_query(attributes)
-            # request('POST', "#{path}?#{query}", attributes)
-            # request('GET', path.to_s)
+            import = importer.import(path)
+            request('POST', import.request.url)
+            request('GET', import.path.path)
           end
         end
 

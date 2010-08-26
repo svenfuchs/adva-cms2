@@ -2,22 +2,26 @@ module Adva
   module Importers
     class Directory
       class Request
-        attr_reader :record
-        
-        def initialize(record, params)
-          @record = record
-          @params = params
+        delegate :record, :changes, :model_name, :to => :import
+        attr_reader :import
+
+        def initialize(import)
+          @import = import
         end
-        
+
+        def url
+          "#{path}?#{Rack::Utils.build_nested_query(model_name.to_sym => changes)}"
+        end
+
         def path
           controller.params = params
-          path = controller.polymorphic_path(controller.resources)
-          "#{path}?#{Rack::Utils.build_nested_query(params)}"
+          controller.polymorphic_path(controller.resources)
         end
-      
+
         def params
+          params = import.params.except(:controller, :action)
           symbols = controller.send(:symbols_for_association_chain).map { |name| :"#{name}_id" }
-          symbols.inject(@params) { |data, name| data.merge(name => record.send(name).to_s) }
+          symbols.inject(params) { |data, name| data.merge(name => record.send(name).to_s) }
         end
 
         def controller
@@ -25,7 +29,7 @@ module Adva
             controller.request = ActionDispatch::TestRequest.new
           end
         end
-      
+
         def controller_name
           "Admin::#{record.class.name.pluralize}Controller"
         end
