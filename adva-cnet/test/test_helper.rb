@@ -1,7 +1,11 @@
 require File.expand_path('../../../adva-core/test/test_helper', __FILE__)
 
 $: << File.expand_path('../../../adva-cnet/lib', __FILE__)
+
 require 'adva-cnet'
+require 'adva/cnet/downloader'
+require 'adva/cnet/origin'
+require 'adva/tasks/cnet'
 
 ActiveRecord::Base.configurations = { 'cnet_origin' => { :adapter => 'sqlite3', :database => ':memory:' } }
 
@@ -25,6 +29,7 @@ module CnetTestHelper
       Adva::Cnet::Sql.load(Adva::Cnet.normalize_path('origin.schema.sqlite3.sql'), db_path(test, 'full'))
       Adva::Cnet::Sql.load(Adva::Cnet.normalize_path('origin.schema.sqlite3.sql'), db_path(test, 'fixtures'))
       Adva::Cnet::Sql.load(Adva::Cnet.normalize_path('import.schema.sql'), db_path(test, 'import'))
+      Adva::Cnet::Sql.load(Adva::Cnet.normalize_path('import.schema.sql'), db_path(test, 'production'))
     end
     
     def attach_dbs!(test)
@@ -36,7 +41,7 @@ module CnetTestHelper
     end
     
     def db_names
-      %w(main origin full fixtures import)
+      %w(main origin full fixtures import production)
     end
     
     def db_path(test, stage)

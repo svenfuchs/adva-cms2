@@ -32,7 +32,6 @@ module Adva
       attr_reader :database
 
       delegate :connection, :to => :pool
-      delegate :execute, :to => :connection
 
       @@pool ||= {}
 
@@ -67,6 +66,10 @@ module Adva
         connection.execute(using(options[:as], "INSERT INTO #{table_name} VALUES (#{quote(row).join(', ')})"))
       end
 
+      def execute(sql, options = {})
+        connection.execute(using(options[:as], sql))
+      end
+
       def import
         @import ||= DatabaseProxy.new(self, :import)
       end
@@ -98,7 +101,11 @@ module Adva
         end
 
         def using(database, sql)
-          database ? sql.gsub(/(CREATE TABLE|CREATE INDEX|INSERT INTO|FROM) /i) { "#{$1} #{database}." } : sql
+          if database && sql !~ /TEMPORARY TABLE/
+            sql.gsub(/(CREATE TABLE|CREATE INDEX|INSERT INTO|FROM) /i) { "#{$1} #{database}." }
+          else
+            sql
+          end
         end
 
       # def attach_databases
