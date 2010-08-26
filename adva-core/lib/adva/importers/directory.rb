@@ -4,11 +4,12 @@ module Adva
   module Importers
     class Directory
       autoload :Blog,     'adva/importers/directory/blog'
+      autoload :Import,   'adva/importers/directory/import'
       autoload :Model,    'adva/importers/directory/model'
       autoload :Page,     'adva/importers/directory/page'
       autoload :Path,     'adva/importers/directory/path'
       autoload :Post,     'adva/importers/directory/post'
-      autoload :Runner,   'adva/importers/directory/runner'
+      autoload :Request,  'adva/importers/directory/request'
       autoload :Section,  'adva/importers/directory/section'
       autoload :Site,     'adva/importers/directory/site'
 
@@ -24,43 +25,22 @@ module Adva
       end
 
       def sync!(path)
-        sync(path).save!
-      end
-
-      def sync(path)
-        params = recognize_path(path)
-        recognize_file(path).sync(params)
-      rescue ActionController::RoutingError => e
-        puts "can't sync #{path} because: #{e.message}"
-      end
-      
-      def recognize_file(path)
-        params = recognize_path(path)
-        path   = normalize_path(path)
-        const_from_params(params).new(path)
-      end
-
-      def recognize_path(path)
-        routes.recognize_path(normalize_url(path), env)
+        Import.new(root, path, :routes => routes).sync!
       end
 
       protected
-      
-        def site
-          @site ||= ::Site.first # FIXME
+
+        def recognize_path(path, env)
+          path = "/#{path.local.to_s}"
+          routes.recognize_path(path == '/index' ? '/' : path, env)
         end
 
-        def env
+        def env(site)
           { 'SERVER_NAME' => site.host }
         end
 
-        def normalize_path(path)
-          Path.new(root.join(path.to_s.gsub(/^#{root.to_s}\//, '')), root) # TODO ???
-        end
-
-        def normalize_url(path)
-          path = Path.new(path).local
-          path == site.sections.root.read_attribute(:path) ? '/' : "/#{path}"
+        def absolutize_path(path)
+          Path.new(root.join(path.to_s.gsub(/^#{root.to_s}\//, '')), root)
         end
 
         def const_from_params(params)

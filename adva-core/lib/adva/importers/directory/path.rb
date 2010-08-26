@@ -18,6 +18,10 @@ module Adva
           local = local[1..-1] if local[0, 1] == '/'
           Path.new(local.gsub(File.extname(local), ''))
         end
+        
+        def path
+          local == 'index' ? '/' : "/#{local}"
+        end
 
         def all
           Dir["#{self}/**/*"].map { |path| Path.new(path, self) }
@@ -37,6 +41,10 @@ module Adva
 
         def join(other)
           self.class.new(super, root.is_a?(Path) ? root : Path.new(root))
+        end
+        
+        def ==(other)
+          to_s == other.to_s
         end
 
         def <=>(other)

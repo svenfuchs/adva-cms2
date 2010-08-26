@@ -12,11 +12,16 @@ module Adva
           load!
         end
 
-        def sync(params)
-          @id = params[:id]
-          record = model.find_by_id(params[:id])
-          record.attributes = attributes
-          record
+        def sync!(params)
+          record(params).save!
+        end
+
+        def record(params)
+          @record ||= find_or_instantiate(params[:id]).tap { |record| record.attributes = attributes }
+        end
+        
+        def find_or_instantiate(id)
+          model.find(id) rescue model.new
         end
 
         def attributes
