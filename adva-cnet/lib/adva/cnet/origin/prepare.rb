@@ -3,16 +3,15 @@ module Adva
     class Origin
       class Prepare
         attr_reader :source, :target, :pattern
-        
+
         def initialize(source, target, options = {})
-          @source = Cnet.normalize_path(source || 'origin.full.zip')
-          @target = Cnet.normalize_path(target || 'origin.full.sqlite3')
+          @source = source.respond_to?(:execute) ? source : Cnet.normalize_path(source || 'origin.full.zip')
+          @target = target.respond_to?(:execute) ? target : Cnet.normalize_path(target || 'origin.full.sqlite3')
           @pattern = options[:pattern] || '**/*.txt'
         end
-        
+
         def run
           extract_cnet_dump
-          Connection.new(target).load('origin.schema.sqlite3.sql')
           load_cnet_dump
         end
 
@@ -21,22 +20,22 @@ module Adva
           FileUtils.mkdir_p(tmp_dir)
           `unzip #{source} -d #{tmp_dir}`
         end
-        
+
         def load_cnet_dump
           Adva.out.puts "loading data from #{source}"
           files.each { |file| load_cnet_file(file) }
         end
-        
+
         def load_cnet_file(file)
           table_name = self.table_name(file)
-          Adva.out.puts "loading data to #{table_name}"
+          Adva.out.puts "loading data to #{table_name} in #{target}"
           `echo '.mode csv\n.separator "\t"\n.import #{file} #{table_name}' | sqlite3 #{target}`
         end
-        
+
         def files
           Dir["#{tmp_dir}/#{pattern}"]
         end
-        
+
         def table_name(file)
           name = "cds_#{File.basename(file, File.extname(file))}"
           name.downcase!
@@ -45,7 +44,7 @@ module Adva
           name.gsub!('languages', 'langs')
           name
         end
-        
+
         def tmp_dir
           @tmp_dir ||= path = Pathname.new('/tmp/adva-cnet/data')
         end

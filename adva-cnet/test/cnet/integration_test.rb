@@ -7,67 +7,64 @@
 # module Tests
 #   module Cnet
 #     class IntegrationTest < Test::Unit::TestCase
-#       attr_reader :db
+#       include CnetTestHelper
 # 
 #       def setup
-#         Adva.out = STDOUT
-#         # FileUtils.rm(tmp_db_path.join('origin.full.sqlite3')) rescue Errno::ENOENT
-#         # FileUtils.rm(tmp_db_path.join('origin.fixtures.sqlite3')) rescue Errno::ENOENT
-#         # @db = Adva::Cnet::Connection.new(':memory:')
-#       end
-# 
-#       def teardown
-#         # db.close
-#         tmp_db_path.join('integration.fixtures.sqlite3').delete rescue Errno::ENOENT
-#         tmp_db_path.join('integration.fixtures.sql').delete rescue Errno::ENOENT
-#         tmp_db_path.join('integration.test.sqlite3').delete rescue Errno::ENOENT
+#         super
+#         # Adva.out = STDOUT
 #       end
 # 
 #       test "creating fixtures from new cnet dump and using them to import stuff" do
-#         target = tmp_db_path.join('integration.full.sqlite3')
-#         if !target.exist? || `sqlite3 #{target} 'SELECT COUNT(*) FROM cds_prod'`.chomp.to_i == 0
-#           source  = 'origin.full.zip'
-#           pattern = '**/{prod,mktde,stdnde,mspecde,especde}.txt'
-#           Adva::Tasks::Cnet::Origin::Prepare.new([source, target], :pattern => pattern).invoke_all
-#         end
-#         assert `sqlite3 #{target} 'SELECT COUNT(*) FROM cds_prod'`.chomp.to_i > 0
-#         # Adva::Cnet::Connection.new(target).close
+#         source  = 'origin.full.zip'
+#         target  = full_path
+#         # pattern = '**/{prod,mktde,stdnde,mspecde,especde}.txt'
+#         pattern = '**/{prod}.txt'
+# 
+#         assert_equal 0, full.count('cds_prod')
+#         Adva::Tasks::Cnet::Origin::Prepare.new([source, target], :pattern => pattern).invoke_all
+#         assert full.count('cds_prod') > 0
 # 
 #         # EXTRACT FIXTURES
+#         source = full_path
+#         target = fixtures_path
 # 
-#         source = tmp_db_path.join('integration.full.sqlite3')
-#         target = tmp_db_path.join('integration.fixtures.sqlite3')
+#         assert_equal 0, fixtures.count('cds_prod')
 #         Adva::Tasks::Cnet::Origin::Fixtures::Extract.new([source, target]).invoke_all
-#         assert_equal 5, `sqlite3 #{target} 'SELECT COUNT(*) FROM cds_prod'`.chomp.to_i
-#         # source.close
-#         # target.close
+#         CnetTestHelper.attach_dbs!(self) # have to re-attach because Fixtures::Extract itself attaches 
+# 
+#         assert_equal 5, fixtures.count('cds_prod')
 # 
 #         # DUMP FIXTURES
 # 
-#         source = tmp_db_path.join('integration.fixtures.sqlite3')
-#         target = tmp_db_path.join('integration.fixtures.sql')
+#         source = fixtures_path
+#         target = CnetTestHelper.db_dir.join('integration.fixtures.sql')
+# 
 #         Adva::Tasks::Cnet::Sql::Dump.new([source, target]).invoke_all
-#         # source.close
-#         # target.close
+#         sql = File.read(target)
+#         assert_match    /INSERT INTO "cds_prod"/,  sql
+#         assert_no_match /CREATE TABLE "cds_prod"/, sql
 # 
 #         # LOAD FIXTURES
 # 
-#         source = tmp_db_path.join('integration.fixtures.sql')
-#         target = tmp_db_path.join('integration.test.sql')
+#         source = CnetTestHelper.db_dir.join('integration.fixtures.sql')
+#         target = origin_path
+#         assert_equal 0, origin.count('cds_prod')
 #         Adva::Tasks::Cnet::Sql::Load.new([source, target]).invoke_all
-#         # assert_equal 5, db.import.count('cds_prod')
-#         # assert_equal 5, db.origin.count('cds_prod')
-#         # assert_equal 5, db.count('cds_prod')
+#         assert_equal 5, origin.count('cds_prod')
 # 
 #         # EXTRACT IMPORT
 # 
-#         # db.attach_database(":memory:", :origin)
-#         # Adva::Cnet::Sql.load('origin.fixtures.sql', db.connection, :to => :origin)
-#         # db.attach_database(":memory:", :import)
-#         # Adva::Cnet::Sql.load('import.schema.sql', db.connection, :to => :import)
-#         #
-#         # Adva::Cnet::Extractor::Product.new(db.connection, 'products').run
-#         # assert_equal db.count('origin.cds_prod'), db.count('import.products')
+#         Adva::Cnet::Extractor::Product.new(import, 'products').run
+#         assert_equal 5, import.count('products')
+#         
+#         product = import.select_all('SELECT * FROM products LIMIT 1').first
+#         
+#         assert_equal 'F00058',   product['mf_id']
+#         assert_equal 'D4648527', product['mkt_id']
+#         assert_equal '100329',   product['product_number']
+#         assert_equal 'I311014',  product['img_id']
+#         assert_equal 'CA',       product['cat_id']
+#         assert_equal 'SP2514N',  product['manufacturer_part_number']
 #       end
 #     end
 #   end

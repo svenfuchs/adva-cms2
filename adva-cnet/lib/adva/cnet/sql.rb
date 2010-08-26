@@ -6,15 +6,15 @@ module Adva
           source = Cnet.normalize_path(source || 'origin.fixtures.sqlite3')
           target = Cnet.normalize_path(target || 'origin.fixtures.sql')
 
-          `sqlite3 #{source} .dump > #{target}`
+          `sqlite3 #{source} .dump | grep '^INSERT INTO' > #{target}`
         end
 
         def load(source, target, options = {})
           source = Cnet.normalize_path(source || 'origin.fixtures.sql')
           target ||= Cnet.normalize_path('origin.fixtures.sqlite3')
 
-          if File.file?(target.to_s)
-            `rm -f #{target}; sqlite3 #{target} < #{source}`
+          unless target.respond_to?(:execute)
+            `sqlite3 #{target} < #{source}`
           else
             target = Connection.new(target) unless target.respond_to?(:execute)
             
