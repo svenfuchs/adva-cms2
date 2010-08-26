@@ -19,7 +19,7 @@ module Adva
           load!
         end
 
-        def sync!(params)
+        def record(params)
           args = *params.values_at(:year, :month, :day, :slug)
           post = ::Blog.find(params[:blog_id]).posts.by_permalink(*args).all.first
           super(params.merge(:id => post.id))

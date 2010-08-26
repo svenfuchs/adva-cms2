@@ -48,6 +48,13 @@ require 'adva-core'
 require 'adva-blog'
 require 'adva-catalog'
 
+Adva.engines.each do |engine|
+  engine.paths.app.each { |path| $:.unshift(path) if File.directory?(path) }
+  ActiveSupport::Dependencies.autoload_paths.unshift(*engine.paths.app)
+end
+
+class ApplicationController < ActionController::Base ; end
+
 # TODO instead of requiring everthing manually, set up autoload paths
 
 require 'user'
