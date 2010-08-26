@@ -32,7 +32,7 @@ module Adva
         end
         
         def importer
-          Directory.const_get(model_name.camelize).new(path)
+          Models.const_get(model_name.camelize).new(path)
         end
         
         def request

@@ -5,11 +5,11 @@ module Tests
     module Importers
       module Directory
         class PostTest < Test::Unit::TestCase
-          include Setup
+          include Setup, Adva::Importers::Directory::Models
 
           test "Post defaults created_at to the path's archive date" do
             setup_root_blog
-            post = Adva::Importers::Directory::Blog.new(root).section.posts.first
+            post = Blog.new(root).section.posts.first
             assert_equal DateTime.civil(2008, 7, 31), post.created_at
           end
 
@@ -20,7 +20,7 @@ module Tests
               'body'  => 'In hindsight we\'ve initially tried to accomplish way to much.'
             )])
             
-            post = Adva::Importers::Directory::Blog.new(root).section.posts.first
+            post = Blog.new(root).section.posts.first
             assert_equal 'Finally. Ruby on Rails gets internationalized', post.title
           end
         end
