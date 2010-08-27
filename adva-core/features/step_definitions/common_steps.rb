@@ -42,3 +42,41 @@ Then /^I should see an? ([a-z ]+) form$/ do |type|
   type = type.gsub(' ', '_') #.gsub(/edit_/, '')
   assert_select("form.#{type},form##{type}")
 end
+
+
+Given(/^I am signed in$/) do
+  @user = User.find_or_create_by_email(:email => 'bob@domain.com', :password => 'bobpass')
+  get new_user_session_path
+  fill_in 'Email', :with => @user.email
+  fill_in 'Password', :with => 'bobpass'
+  click_button 'Sign in'
+end
+
+Given(/^I am signed in as user "([^"]+)" with password "([^"]+)"$/) do |email, password|
+  get new_user_session_path
+  fill_in 'Email', :with => email
+  fill_in 'Password', :with => password
+  click_button 'Sign in'
+end
+
+Then /^I should see a table "(.*)" with the following entries:$/ do |table_id, expected_table|
+  html_table = table(tableish("table##{table_id} tr", 'td,th'))
+  begin
+  expected_table.diff!(html_table)
+  rescue
+    puts expected_table
+    raise
+  end
+end
+
+Given(/^no site or account$/) do
+  [Site,Section,Account,User].map(&:delete_all)
+end
+
+Then(/^I should see the "([^"]+)" page$/) do |title|
+  assert_select('h2', title)
+end
+
+Then(/(?:\$|eval) (.*)$/) do |code|
+  pp eval(code)
+end

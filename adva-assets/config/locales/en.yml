@@ -1,5 +1,22 @@
 en:
+  action: "Action"
+  attributes:
+    created_at: "Created at"
+    updated_at: "Updated at"
+  admin:
+    assets:
+      new: "New asset"
+      edit: "Edit asset"
+      index:
+        title: "Assets"
+        new: "New Asset"
+        no_assets: "No assets given."
+        delete_confirmation: "Do you really want to delete this asset?"
   assets:
+    columns:
+      title: "Title"
+      description: "Description"
+      path: "Path"
     carrierwave:
       errors:
         integrity: 'Not an image.'

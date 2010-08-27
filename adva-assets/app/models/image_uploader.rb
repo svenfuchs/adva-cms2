@@ -3,7 +3,7 @@ module MiniMagick
   end
 end
 
-class Adva::ImageUploader < Adva::AssetUploader
+class ImageUploader < AssetUploader
 
   # Include RMagick or ImageScience support
   include CarrierWave::MiniMagick

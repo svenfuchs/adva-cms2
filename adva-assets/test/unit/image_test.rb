@@ -1,7 +1,7 @@
 require File.expand_path('../../test_helper', __FILE__)
 
-require 'adva/asset'
-require 'adva/image'
+require 'asset'
+require 'image'
 
 require 'carrierwave/test/matchers'
 
@@ -16,7 +16,7 @@ module AdvaAssets
       @site.save!
 
       @image_path = File.expand_path("../../fixtures/rails.png", __FILE__)
-      @image = Adva::Image.create!(:file => File.open(@image_path), :site => @site,
+      @image = Image.create!(:file => File.open(@image_path), :site => @site,
                                    :title => "Rails Logo", :description => 'This is a Rails Logo.')
     end
 
@@ -24,7 +24,7 @@ module AdvaAssets
       assert @image.valid?
       @txt_path = File.expand_path("../../fixtures/test.txt", __FILE__)
       assert File.exists?(@txt_path)
-      @txt = Adva::Image.create(:file => File.open(@txt_path), :site => @site,
+      @txt = Image.create(:file => File.open(@txt_path), :site => @site,
                                    :title => "Rails Logo", :description => 'This is a Rails Logo.')
       assert !@txt.valid?
       assert_equal @txt.errors.first[1], "is not an allowed type of file."
@@ -34,7 +34,7 @@ module AdvaAssets
       @txt_path = File.expand_path("../../fixtures/test.jpg", __FILE__)
       assert File.exists?(@txt_path)
       assert_raises MiniMagick::Error do
-        @txt = Adva::Image.create(:file => File.open(@txt_path), :site => @site,
+        @txt = Image.create(:file => File.open(@txt_path), :site => @site,
                                    :title => "Rails Logo", :description => 'This is a Rails Logo.')
       end
     end
@@ -59,7 +59,7 @@ module AdvaAssets
 
     test "doesn't stretch medium image to default image size" do
       @medium_image_path = File.expand_path("../../fixtures/rails_medium.png", __FILE__)
-      @medium_image = Adva::Image.create!(:file => File.open(@medium_image_path), :site => @site,
+      @medium_image = Image.create!(:file => File.open(@medium_image_path), :site => @site,
                                    :title => "Rails Logo", :description => 'This is a Rails Logo.')
 
       image = CarrierWave::Test::Matchers::ImageLoader.load_image(@medium_image.path)

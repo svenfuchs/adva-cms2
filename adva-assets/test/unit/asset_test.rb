@@ -1,6 +1,6 @@
 require File.expand_path('../../test_helper', __FILE__)
 
-require 'adva/asset'
+require 'asset'
 
 module AdvaAssets
   class AssetTest < Test::Unit::TestCase
@@ -13,7 +13,7 @@ module AdvaAssets
       @site.save!
 
       @asset_path = File.expand_path("../../fixtures/rails.png", __FILE__)
-      @asset = Adva::Asset.create!(:file => File.open(@asset_path), :site => @site,
+      @asset = Asset.create!(:file => File.open(@asset_path), :site => @site,
                                    :title => "Rails Logo", :description => 'This is a Rails Logo.')
     end
 
@@ -34,13 +34,13 @@ module AdvaAssets
     end
 
     test "asset must have a file" do
-      @invalid_asset = Adva::Asset.create(:site => @site, :title => "Rails Logo", :description => 'This is a Rails Logo.')
+      @invalid_asset = Asset.create(:site => @site, :title => "Rails Logo", :description => 'This is a Rails Logo.')
       assert !@invalid_asset.valid?
-      assert @invalid_asset.errors.first[1] == "can't be blank"
+      assert_equal @invalid_asset.errors.first[1], "can't be blank"
     end
 
     test "asset must have a site assignment" do
-      @invalid_asset = Adva::Asset.create(:file => File.open(@asset_path), :title => "Rails Logo", :description => 'This is a Rails Logo.')
+      @invalid_asset = Asset.create(:file => File.open(@asset_path), :title => "Rails Logo", :description => 'This is a Rails Logo.')
       assert !@invalid_asset.valid?
       assert @invalid_asset.errors.first[1] == "can't be blank"
     end

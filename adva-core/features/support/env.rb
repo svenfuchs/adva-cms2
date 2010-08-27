@@ -7,12 +7,9 @@ require 'adva/generators/app'
 app = Adva::Generators::App.new('adva-cms2-test', :target => '/tmp', :install => true, :migrate => true)
 app.invoke
 
-Gem.patching('webrat', '0.7.0') do 
-  ActionController.send(:remove_const, :AbstractRequest)
-end
-
 require 'cucumber/rails/world'
 require 'cucumber/rails/active_record'
+require 'cucumber/web/tableish'
 require 'webrat'
 require 'webrat/core/matchers'
 require 'patches/webrat/logger'

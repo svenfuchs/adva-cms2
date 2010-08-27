@@ -1,5 +1,22 @@
 de:
+  action: "Aktion"
+  attributes:
+    created_at: "Erstellt am"
+    updated_at: "Aktualisiert am"
+  admin:
+    assets:
+      new: "Neue Datei"
+      new: "Datei editieren"
+      index:
+        title: "Dateien"
+        new: "Neue Datei anlegen"
+        no_assets: "Keine Dateien vorhanden."
+        delete_confirmation: "Möchten Sie wirklich die Datei löschen?"
   assets:
+    columns:
+      title: "Titel"
+      description: "Beschreibung"
+      path: "Pfad"
     carrierwave:
       errors:
         integrity: 'Kein Bild.'

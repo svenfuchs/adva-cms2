@@ -1,13 +1,9 @@
 class Admin::AssetsController < Admin::BaseController
-  before_filter :set_assets
+  #defaults :resource_class => Asset,
+  #         :collection_name => 'assets', :instance_name => 'asset',
+  #         :route_collection_name => "site_assets", :route_instance_name => "site_asset" # ???
 
-  def resources
-    Adva::Asset.all
-  end
-
-  private
-
-  def set_assets
-    @assets = Adva::Asset.all
-  end
+  #def resources
+  #  [resource.site, resource]
+  #end
 end
