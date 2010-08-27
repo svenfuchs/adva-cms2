@@ -8,7 +8,6 @@ module Adva
       def initialize(dir)
         @dir = Pathname.new(dir.to_s)
         FileUtils.mkdir_p(dir)
-        FileUtils.rm_r(Dir["#{dir}/*"]) rescue Errno::ENOENT
       end
 
       def exists?(path)

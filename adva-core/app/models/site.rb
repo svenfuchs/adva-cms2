@@ -6,8 +6,8 @@ class Site < ActiveRecord::Base
   validates_uniqueness_of :host
 
   belongs_to :account
-  has_many :sections, :dependent => :destroy, :inverse_of => :site
-  has_many :pages
+  has_many :sections, :inverse_of => :site, :dependent => :destroy
+  has_many :pages, :dependent => :destroy
 
   accepts_nested_attributes_for :sections
 

@@ -19,6 +19,8 @@ module Adva
         @queue = Static::Queue.new
 
         queue.push(options[:queue] || Path.new('/'))
+
+        FileUtils.rm_r(Dir["#{options[:target]}/*"]) rescue Errno::ENOENT
       end
 
       def run

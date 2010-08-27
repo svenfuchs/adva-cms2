@@ -32,13 +32,9 @@ module Adva
         
           def article_attributes
             { :title => title, :body => body }.tap do |attributes|
-              attributes.merge!(:id => ::Page.find(id).article.id) if id
+              attributes.merge!(:id => ::Page.find(@id).article.id.to_s) if @id # TODO uuughs.
             end
           end
-
-          # def article
-          #   @article ||= Article.new(:title => title, :body => body)
-          # end
         end
       end
     end

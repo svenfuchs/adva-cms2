@@ -17,11 +17,13 @@ module Adva
         def initialize(app, options = {}, &block)
           @app = app
           @options = options
-          @dir = Pathname.new(options[:dir] || File.expand_path('./import'))
+          @dir = Pathname.new(options[:dir] || File.expand_path('import'))
           FileUtils.mkdir_p(dir)
 
           @watcher  = fork { watch!($stdout) }
           at_exit { kill_watcher }
+
+          Admin::BaseController.skip_before_filter :authenticate_user! # TODO use http_auth?
         end
 
         def call(env)
@@ -33,7 +35,8 @@ module Adva
         def update(path, event_type = nil)
           if event_type == :modified
             import = importer.import(path)
-            request('POST', import.request.url)
+            puts "\nmodified: #{path}"
+            request('POST', import.request.path, import.request.params)
             request('GET', import.path.path)
           end
         end
@@ -43,14 +46,17 @@ module Adva
           def importer
             @importer ||= Adva::Importers::Directory.new(dir, :routes => options[:routes])
           end
-          
+
           def get_all(paths)
             paths = paths.split(',') if paths.is_a?(String)
             Array(paths).each { |path| request('GET', path) }
           end
 
-          def request(method, path, attributes = {})
-            call(env_for(path).merge('REQUEST_METHOD' => method).merge(attributes))
+          def request(method, path, params = nil)
+            puts "  #{method} #{path} " # + (method == 'POST' ? "(#{params.inspect})" : '')
+            status, headers, response = call(env_for(method, path, params))
+            puts "  => #{status} " + (status == 302 ? "(Location: #{headers['Location']})" : '')
+            puts response if status == 500
           end
 
           def watch!(stdout)
@@ -58,6 +64,7 @@ module Adva
               $stdout = stdout
               handler = Watchr.handler.new
               handler.add_observer(self)
+              puts "watching #{dir} for changes"
               handler.listen(monitored_paths)
             end
           rescue SignalException, SystemExit
@@ -76,11 +83,11 @@ module Adva
             paths
           end
 
-          def env_for(path)
-            name, port = site.host.split(':')
-            ::Rack::MockRequest.env_for(path).merge('SERVER_NAME' => name,'SERVER_PORT' => port || '80')
+          def env_for(method, path, params)
+            ::Rack::MockRequest.env_for("http://#{site.host}#{path}", :method => method,
+              :input => ::Rack::Utils.build_nested_query(params))
           end
-          
+
           def site
             @site ||= Site.first || raise('could not find any site') # FIXME
           end

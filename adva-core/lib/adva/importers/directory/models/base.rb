@@ -24,6 +24,7 @@ module Adva
           end
 
           def record(params)
+            @id = params[:id] # TODO uuuugh.
             @record ||= find_or_instantiate(params[:id]).tap { |record| record.attributes = attributes }
           end
         
