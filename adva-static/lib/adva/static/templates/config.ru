@@ -1,23 +1,10 @@
-require 'rubygems'
-require 'rack/utils'
+Dir.chdir('..') until File.exists?('config/environment.rb')
 
-class Static < ::Rack::File
-  def call(env)
-    path = env['PATH_INFO'].chomp('/')
-    path = [path, "#{path}.html", "#{path}/index.html"].detect { |path| file?(path) }
-    
-    if path
-      super(env.merge('PATH_INFO' => path))
-    else
-      [404, { 'Content-Type' => 'text/plain' }, '404']
-    end
-  end
+require 'config/environment.rb'
 
-  protected
-  
-    def file?(path)
-      File.file?(File.join(root, ::Rack::Utils.unescape(path)))
-    end
-end
+use Adva::Static::Rack::Watch
+use Adva::Static::Rack::Export
+use Adva::Static::Rack::Static, ::File.expand_path('../export', __FILE__)
 
-run Static.new(File.expand_path(File.dirname(__FILE__)))
+puts 'listening.'
+run Rails.application
