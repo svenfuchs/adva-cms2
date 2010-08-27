@@ -31,8 +31,12 @@ Feature: Asset Management
     When I fill in "Title" with "Image1"
     And I fill in "Description" with "Image 1 description"
     And I fill in "asset_file" with "rails.png"
-    Then show me the page
     And I press "Create Asset"
+    Then I should see the "Assets" page
+    #And I should see "Asset 'Image1' created successfully."
+    And I should see a table "assets" with the following entries:
+      | Title      | Description           |
+      | Image1     | Image 1 description   |
 
     
 

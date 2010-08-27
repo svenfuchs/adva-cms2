@@ -17,6 +17,10 @@ de:
       title: "Titel"
       description: "Beschreibung"
       path: "Pfad"
+    flash:
+      create:
+        success: "Datei '%{name}' erfolgreich erstellt."
+        error: "Fehler: '%{name}' nicht erfolgreich erstellt."
     carrierwave:
       errors:
         integrity: 'Kein Bild.'

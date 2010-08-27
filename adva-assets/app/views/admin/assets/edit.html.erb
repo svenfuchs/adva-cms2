@@ -2,9 +2,6 @@
 
 <%= simple_form_for @asset, :url => admin_site_assets_path(site, @asset), :method => :post do |f| %>
 
-  <%= f.input :title %>
-  <%= f.input :description, :as => :text %>
-  <%= f.file_field :file %>
+  <%= render :partial => 'form', :object => f %>
 
-  <%= f.button :submit %>
 <% end %>

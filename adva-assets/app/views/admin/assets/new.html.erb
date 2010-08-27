@@ -3,9 +3,6 @@
 <%= simple_form_for resource, :url => admin_site_assets_path(site),
                               :html => { :multipart => true }, :method => :post do |f| %>
 
-  <%= f.input :title %>
-  <%= f.input :description, :as => :text %>
-  <%= f.file_field :file %>
-
-  <%= f.button :submit %>
+  <%= render :partial => 'form', :object => f %>
+  
 <% end %>

@@ -17,6 +17,10 @@ en:
       title: "Title"
       description: "Description"
       path: "Path"
+    flash:
+      create:
+        success: "Asset '%{name}' created successfully."
+        error: "Asset %{name} not created."
     carrierwave:
       errors:
         integrity: 'Not an image.'
