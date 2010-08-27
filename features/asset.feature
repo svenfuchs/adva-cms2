@@ -30,9 +30,11 @@ Feature: Asset Management
     Then I should see "New asset"
     When I fill in "Title" with "Image1"
     And I fill in "Description" with "Image 1 description"
-    And I fill in "asset_file" with "/Users/mschiller/Projekte/adva-cms2/adva-assets/test/fixtures/rails.png"
+    And I fill in "asset_file" with "rails.png"
     Then show me the page
     And I press "Create Asset"
+
+    
 
 
 #
