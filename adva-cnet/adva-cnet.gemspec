@@ -18,5 +18,6 @@ Gem::Specification.new do |s|
   s.rubyforge_project = '[none]'
   
   s.add_dependency 'adva-core'
+  s.add_dependency 'pg'
   s.add_dependency 'globalize3', '0.0.5'
 end

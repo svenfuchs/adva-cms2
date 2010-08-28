@@ -5,8 +5,8 @@ module Adva
         attr_reader :source, :target, :pattern
 
         def initialize(source, target, options = {})
-          @source = source.respond_to?(:execute) ? source : Cnet.normalize_path(source || 'origin.full.zip')
-          @target = target.respond_to?(:execute) ? target : Cnet.normalize_path(target || 'origin.full.sqlite3')
+          @source  = source
+          @target  = target
           @pattern = options[:pattern] || '**/*.txt'
         end
 
@@ -29,7 +29,10 @@ module Adva
         def load_cnet_file(file)
           table_name = self.table_name(file)
           Adva.out.puts "loading data to #{table_name} in #{target}"
-          `echo '.mode csv\n.separator "\t"\n.import #{file} #{table_name}' | sqlite3 #{target}`
+          target.execute <<-sql
+            SET CLIENT_ENCODING TO 'LATIN1'
+          sql
+          # `echo '.mode csv\n.separator "\t"\n.import #{file} #{table_name}' | sqlite3 #{target}`
         end
 
         def files
