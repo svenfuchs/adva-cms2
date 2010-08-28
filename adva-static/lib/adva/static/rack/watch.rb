@@ -20,7 +20,7 @@ module Adva
           @dir = Pathname.new(options[:dir] || File.expand_path('import'))
           FileUtils.mkdir_p(dir)
 
-          @watcher  = fork { watch!($stdout) }
+          @watcher  = fork { watch!(Adva.out) }
           at_exit { kill_watcher }
 
           Admin::BaseController.skip_before_filter :authenticate_user! # TODO use http_auth?
@@ -34,8 +34,8 @@ module Adva
 
         def update(path, event_type = nil)
           if event_type == :modified
-            import = importer.import(path)
-            puts "\nmodified: #{path}"
+            import = Adva::Importers::Directory::Import.new(dir, path, :routes => options[:routes])
+            Adva.out.puts "\nmodified: #{path}"
             request('POST', import.request.path, import.request.params)
             request('GET', import.path.path)
           end
@@ -43,28 +43,24 @@ module Adva
 
         protected
 
-          def importer
-            @importer ||= Adva::Importers::Directory.new(dir, :routes => options[:routes])
-          end
-
           def get_all(paths)
             paths = paths.split(',') if paths.is_a?(String)
             Array(paths).each { |path| request('GET', path) }
           end
 
           def request(method, path, params = nil)
-            puts "  #{method} #{path} " # + (method == 'POST' ? "(#{params.inspect})" : '')
+            Adva.out.puts "  #{method} #{path} "
             status, headers, response = call(env_for(method, path, params))
-            puts "  => #{status} " + (status == 302 ? "(Location: #{headers['Location']})" : '')
-            puts response if status == 500
+            Adva.out.puts "  => #{status} " + (status == 302 ? "(Location: #{headers['Location']})" : '')
+            Adva.out.puts response if status == 500
           end
 
-          def watch!(stdout)
+          def watch!(out)
             Dir.chdir(dir) do
-              $stdout = stdout
+              # $stdout = out
               handler = Watchr.handler.new
               handler.add_observer(self)
-              puts "watching #{dir} for changes"
+              Adva.out.puts "watching #{dir} for changes"
               handler.listen(monitored_paths)
             end
           rescue SignalException, SystemExit
@@ -85,7 +81,9 @@ module Adva
 
           def env_for(method, path, params)
             ::Rack::MockRequest.env_for("http://#{site.host}#{path}", :method => method,
-              :input => ::Rack::Utils.build_nested_query(params))
+              :input => ::Rack::Utils.build_nested_query(params),
+              'CONTENT_TYPE' => 'application/x-www-form-urlencoded'
+            )
           end
 
           def site

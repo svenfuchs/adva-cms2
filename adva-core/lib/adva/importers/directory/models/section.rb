@@ -8,22 +8,42 @@ module Adva
               [Blog, Page]
             end
 
-            def build(path)
-              paths = path.all.reject { |path| File.basename(path) == 'site.yml' }
-              types.map { |type| type.build(paths) }.flatten.compact.sort
+            def build(root)
+              paths = root.all.reject { |path| File.extname(path) != '.yml' || File.basename(path) == 'site.yml' }
+              paths = paths.sort
+
+              sections = types.map { |type| type.build(paths) }.flatten.compact.sort
+              sections << new(Path.new('home', root)) if sections.empty?
+              sections
             end
           end
 
+          def record
+            @record ||= site.send(association).find_or_initialize_by_path(path)
+          end
+
+          def site
+            @site ||= Site.new(source.root).record
+          end
+
           def loadable
-            root? ? File.join(self, 'index.yml') : self
+            source.root? ? File.join(source, 'index.yml') : source
+          end
+
+          def type
+            model.name
           end
 
           def title
-            @title ||= root? ? 'Home' : File.basename(local).to_s.titleize
+            @title ||= source.root? ? 'Home' : File.basename(source.local).to_s.titleize
           end
 
           def path
-            root? ? 'home' : local.to_s # TODO can this be in local?
+            source.root? ? 'home' : source.local.to_s # TODO can this be in local?
+          end
+
+          def association
+            model.name.underscore.pluralize
           end
         end
       end

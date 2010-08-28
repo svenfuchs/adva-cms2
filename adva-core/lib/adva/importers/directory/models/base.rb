@@ -4,18 +4,17 @@ module Adva
   module Importers
     class Directory
       module Models
-        class Base < Path
+        class Base
           autoload :Base,    'adva/importers/directory/models/base'
           autoload :Blog,    'adva/importers/directory/models/blog'
           autoload :Post,    'adva/importers/directory/models/post'
           autoload :Section, 'adva/importers/directory/models/section'
           autoload :Site,    'adva/importers/directory/models/site'
-        
-          attr_reader :model, :attribute_names
 
-          def initialize(*args)
-            raise 'got to set @attribute_names' if @attribute_names.nil?
-            super
+          attr_reader :source, :attribute_names
+
+          def initialize(source)
+            @source = Path.new(source)
             load!
           end
 
@@ -23,21 +22,23 @@ module Adva
             record(params).save!
           end
 
-          def record(params)
-            @id = params[:id] # TODO uuuugh.
-            @record ||= find_or_instantiate(params[:id]).tap { |record| record.attributes = attributes }
-          end
-        
-          def find_or_instantiate(id)
-            model.find(id) rescue model.new
+          def attributes
+            attributes = Hash[*attribute_names.map { |name| [name, self.send(name)] }.flatten_once]
+            record && record.id ? attributes.merge(:id => record.id.to_s) : attributes
           end
 
-          def attributes
-            Hash[*attribute_names.map { |name| [name, self.send(name)] }.flatten_once]
+          def updated_record
+            # p attributes
+            record.attributes = attributes
+            record
+          end
+
+          def site_id
+            site.id
           end
 
           def slug
-            File.basename(self)
+            File.basename(source, '.yml')
           end
 
           def body
@@ -45,11 +46,11 @@ module Adva
           end
 
           def updated_at
-            self.mtime
+            source.mtime
           end
 
           def loadable
-            self
+            source
           end
 
           def load!
@@ -59,6 +60,14 @@ module Adva
           def load_yml!
             data = YAML.load_file(loadable)
             data.each { |key, value| instance_variable_set(:"@#{key}", value) } if data.is_a?(Hash)
+          end
+
+          def ==(other)
+            source == other
+          end
+
+          def <=>(other)
+            source <=> other.source
           end
         end
       end

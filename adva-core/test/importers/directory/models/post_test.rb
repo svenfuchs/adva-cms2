@@ -9,19 +9,21 @@ module Tests
 
           test "Post defaults created_at to the path's archive date" do
             setup_root_blog
-            post = Blog.new(root).section.posts.first
-            assert_equal DateTime.civil(2008, 7, 31), post.created_at
+
+            path = root.join('2008/07/31/welcome-to-the-future-of-i18n-in-ruby-on-rails.yml')
+            assert_equal DateTime.civil(2008, 7, 31), Post.new(path).created_at
           end
 
           test "Post loads [article].yml files" do
             setup_root_blog
-            setup_files(['2008/07/18/finally-ruby-on-rails-gets-internationalized.yml', YAML.dump(
+
+            path = root.join('2008/07/18/finally-ruby-on-rails-gets-internationalized.yml')
+            setup_files([path, YAML.dump(
               'title' => 'Finally. Ruby on Rails gets internationalized',
               'body'  => 'In hindsight we\'ve initially tried to accomplish way to much.'
             )])
             
-            post = Blog.new(root).section.posts.first
-            assert_equal 'Finally. Ruby on Rails gets internationalized', post.title
+            assert_equal 'Finally. Ruby on Rails gets internationalized', Post.new(path).title
           end
         end
       end

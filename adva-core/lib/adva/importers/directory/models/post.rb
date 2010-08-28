@@ -5,37 +5,42 @@ module Adva
         class Post < Base
           class << self
             def build(path)
-              glob(path).map { |path| new(path) }
-            end
-
-            def glob(path)
-              Dir["#{path}/*/*/*/*.yml"].map { |p| Path.new(p, path) }
+              posts = Dir["#{path.to_s.gsub('.yml', '')}/*/*/*/*.yml"]
+              posts.map { |post| new(Path.new(post, path.root)) }
             end
           end
-
-          def initialize(*args)
-            @model = ::Post
-            @attribute_names = [:title, :body, :created_at] # TODO created_at should be published_at
-            super
+          
+          def initialize(path)
+            super(path)
             load!
           end
-
-          def record(params)
-            args = *params.values_at(:year, :month, :day, :slug)
-            post = ::Blog.find(params[:blog_id]).posts.by_permalink(*args).all.first
-            super(params.merge(:id => post.id))
+          
+          def attribute_names
+            [:title, :body, :created_at] # TODO created_at should be published_at
           end
 
-          def post
-            @post ||= model.new(attributes)
+          def record
+            @record ||= section.posts.by_permalink(*permalink).all.first || section.posts.build
+          end
+          
+          def section
+            @section ||= Blog.new(section_path).record
+          end
+          
+          def section_path
+            Blog.strip_permalink(source).first
           end
 
           def title
-            @title ||= File.basename(self, extname).titleize
+            @title ||= File.basename(source, source.extname).titleize
+          end
+          
+          def permalink
+            source.to_s.match(%r((\d{4})/(\d{1,2})/(\d{1,2}))).to_a[1..-1] << slug
           end
 
           def created_at
-            @created_at ||= DateTime.civil(*self.to_s.match(%r((\d{4})/(\d{1,2})/(\d{1,2}))).to_a[1..-1].map(&:to_i))
+            @created_at ||= DateTime.civil(*permalink[0..-2].map(&:to_i))
           end
         end
       end

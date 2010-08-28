@@ -6,7 +6,7 @@ module Adva
 
         def initialize(path, root = nil)
           @root = root || (path.respond_to?(:root) ? path.root : path)
-          super(path)
+          super(path || '')
         end
 
         def root?

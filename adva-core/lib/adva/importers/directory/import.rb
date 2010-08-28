@@ -10,26 +10,23 @@ module Adva
           @routes = options[:routes] || Rails.application.routes
         end
 
-        def sync!
-          record.save!
-        end
-
         def record
-          importer.record(params)
+          model.updated_record
         end
 
         def params
           @params ||= routes.recognize_path(path.path, env)
         rescue ActionController::RoutingError => e
           puts "can't recognize #{path} because: #{e.message}"
-        end
-        
-        def importer
-          @importer ||= Models.const_get(model_name.camelize).new(path)
+          nil
         end
         
         def request
           Request.new(self)
+        end
+        
+        def model
+          @model ||= Models.const_get(model_name.camelize).new(path)
         end
 
         def model_name
@@ -37,7 +34,9 @@ module Adva
         end
 
         def absolutize_path(path)
-          Path.new(root.join(path.to_s.gsub(/^#{root.to_s}\//, '')), root) # TODO ???
+          path = path.to_s.gsub(/^(#{root.to_s})?\/?/, '')
+          path = root.join(path)
+          Path.new(path, root)
         end
         
         def site

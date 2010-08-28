@@ -3,48 +3,37 @@ module Adva
     class Directory
       module Models
         class Blog < Section
-          PERMALINK = %r((?:^|/)\d{4}/\d{1,2}/\d{1,2}/.*$)
-          YEAR      = %r((?:^|/)(\d{4})(?:/|$))
-        
+          PERMALINK = %r((?:^|/)\d{4}/\d{1,2}/\d{1,2}/(.*)$)
+
           class << self
             def build(paths)
               return [] if paths.empty?
-              root = paths.first.root
+
               posts = paths.select { |path| permalink?(path) }
-              years = extract_year(posts)
-              paths.reject! { |path| years.include?(year(path)) }
-              strip_permalink(posts).map { |blog| new(blog, root) }
+              blogs = strip_permalink(posts).uniq
+              paths.replace(paths - blogs - posts)
+              blogs.map { |path| new(path) }
             end
-          
+
             def permalink?(path)
               path.to_s =~ PERMALINK
             end
-          
-            def extract_year(paths)
-              paths.map { |path| year(path) }.uniq
-            end
-          
-            def year(path)
-              path.to_s =~ YEAR and $1
-            end
-          
+
             def strip_permalink(paths)
-              paths.map { |path| path.to_s.gsub!(PERMALINK, '') }.uniq
+              Array(paths).map { |path| Path.new(path.to_s.gsub!(PERMALINK) { $2 }, path.root) }
             end
           end
-        
-          def initialize(*args)
-            @model = ::Blog
-            @attribute_names = [:path, :title, :posts]
-            super
+
+          def attribute_names
+            [:type, :path, :title, :posts_attributes]
           end
-        
-          def section
-            @section ||= model.new(attributes)
+
+          def model
+            ::Blog
           end
-        
-          def posts
-            @posts ||= Post.build(self).map(&:post).compact
+
+          def posts_attributes
+            Post.build(source).map(&:attributes)
           end
         end
       end
