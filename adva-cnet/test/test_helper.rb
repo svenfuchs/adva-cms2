@@ -7,7 +7,7 @@ require 'adva/cnet/downloader'
 require 'adva/cnet/origin'
 require 'adva/tasks/cnet'
 
-require File.expand_path('../test_helper/setup_database', __FILE__)
+# require File.expand_path('../test_helper/setup_database', __FILE__)
 
 fixtures_path = File.expand_path('/tmp/adva-cnet-test/fixtures', __FILE__)
 unless File.directory?("#{fixtures_path}/catalog")

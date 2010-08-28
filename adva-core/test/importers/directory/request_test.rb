@@ -42,8 +42,9 @@ module Tests
           page_id = Page.first.id.to_s
           
           import  = Adva::Importers::Directory::Import.new(root, '/', :routes => routes)
-          url     = import.request.url
-          request = ActionDispatch::TestRequest.new(Rack::MockRequest.env_for(url))
+          path    = import.request.path
+          params  = import.request.params
+          request = ActionDispatch::TestRequest.new(Rack::MockRequest.env_for(path, :input => params))
 
           params  = { 'page' => {'title' => '', 'path' => '' } }
           assert_equal params, request.params
