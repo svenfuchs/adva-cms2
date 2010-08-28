@@ -6,40 +6,16 @@ module Adva
     class Directory
       module Models
         class Site < Base
-          def initialize(*args)
-            @model = ::Site
-            @attribute_names = [:account, :sections, :host, :name, :title]
-            super
+          def attribute_names
+            [:host, :name, :title, :account, :sections_attributes]
           end
         
-          def import!
-            clear!
-            site.save!
-            self
-          end
-
-          def clear!
-            Account.all.each(&:destroy)
-          end
-
           def loadable
-            Path.new("#{self}/site.yml")
-          end
-        
-          def account
-            ::Account.new(:users => [::User.new(:email => 'admin@admin.org', :password => 'admin')])
+            Path.new("#{source}/site.yml")
           end
 
-          def site
-            @site ||= model.find_or_initialize_by_host(host).tap do |site| 
-              site.attributes = attributes
-            end
-          end
-        
-          def sections
-            @sections ||= Section.build(self).map(&:section).tap do |sections|
-              sections << ::Page.new(:title => 'Home', :article_attributes => { :title => 'Home' }) if sections.empty?
-            end
+          def record
+            @record ||= ::Site.find_or_initialize_by_host(host)
           end
 
           def host
@@ -52,6 +28,14 @@ module Adva
 
           def title
             @title ||= name
+          end
+        
+          def account
+            ::Account.new(:users => [::User.new(:email => 'admin@admin.org', :password => 'admin')]) # TODO
+          end
+          
+          def sections_attributes
+            Section.build(source).map(&:attributes)
           end
         end
       end

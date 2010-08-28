@@ -57,10 +57,10 @@ module Tests
 
         test "import! with an existing site and root blog" do
           setup_site_record
+          Page.first.destroy
           setup_root_blog
           Adva::Importers::Directory.new(root).import!
 
-          site = Site.first
           blog = site.sections.first
           post = blog.posts.first
 
@@ -86,7 +86,7 @@ module Tests
           assert_equal 'Welcome To The Future Of I18n In Ruby On Rails', post.title
         end
 
-        test "sync_file! can sync changes to /index.yml (root page)" do
+        test "import!(path) can sync changes to /index.yml (root page)" do
           setup_site_record
           setup_root_page
 
@@ -97,13 +97,13 @@ module Tests
           assert_equal 'will be overwritten', section.article.reload.body
 
           path = 'index.yml'
-          Adva::Importers::Directory.new(root, :routes => routes).sync!(path)
+          Adva::Importers::Directory.new(root, :routes => routes).import!(path)
 
           assert_equal 'Home', section.reload.title
           assert_equal 'home', section.article.reload.body
         end
 
-        test "sync! can sync changes to /contact.yml (non-root page)" do
+        test "import!(path) can sync changes to /contact.yml (non-root page)" do
           setup_non_root_page_record
           setup_non_root_page
 
@@ -114,13 +114,13 @@ module Tests
           assert_equal 'will be overwritten', section.article.reload.body
 
           path = 'contact.yml'
-          Adva::Importers::Directory.new(root, :routes => routes).sync!(path)
+          Adva::Importers::Directory.new(root, :routes => routes).import!(path)
 
           assert_equal 'Contact', section.reload.title
           assert_equal 'contact', section.article.reload.body
         end
 
-        test "sync! can sync changes to /blog.yml (non-root blog)" do
+        test "import!(path) can sync changes to /blog.yml (non-root blog)" do
           setup_non_root_blog_record
           setup_non_root_blog
 
@@ -129,12 +129,12 @@ module Tests
           assert_equal 'will be overwritten', section.reload.title
 
           path = 'blog.yml'
-          Adva::Importers::Directory.new(root, :routes => routes).sync!(path)
+          Adva::Importers::Directory.new(root, :routes => routes).import!(path)
 
           assert_not_equal 'will be overwritten', section.reload.title
         end
 
-        test "sync! can sync changes to blog/2009/07/12/ruby-i18n-gem-hits-0-2-0.yml (root blog)" do
+        test "import!(path) can sync changes to blog/2009/07/12/ruby-i18n-gem-hits-0-2-0.yml (root blog)" do
           setup_non_root_blog_record
           setup_non_root_blog
 
@@ -143,21 +143,21 @@ module Tests
           assert_equal 'will be overwritten', section.posts.first.reload.body
 
           path = 'blog/2008/07/31/welcome-to-the-future-of-i18n-in-ruby-on-rails.yml'
-          Adva::Importers::Directory.new(root, :routes => routes).sync!(path)
+          Adva::Importers::Directory.new(root, :routes => routes).import!(path)
 
           assert_not_equal 'will be overwritten', section.posts.first.reload.body
         end
 
-        test "sync! can sync changes to 2009/07/12/ruby-i18n-gem-hits-0-2-0.yml (non-root blog)" do
+        test "import!(path) can sync changes to 2009/07/12/ruby-i18n-gem-hits-0-2-0.yml (non-root blog)" do
           setup_root_blog_record
           setup_root_blog
 
-          section = Blog.find_by_slug('blog')
+          section = Blog.find_by_slug('home')
           section.posts.first.update_attributes!(:body => 'will be overwritten')
           assert_equal 'will be overwritten', section.posts.first.reload.body
 
           path = '2008/07/31/welcome-to-the-future-of-i18n-in-ruby-on-rails.yml'
-          Adva::Importers::Directory.new(root, :routes => routes).sync!(path)
+          Adva::Importers::Directory.new(root, :routes => routes).import!(path)
 
           assert_not_equal 'will be overwritten', section.posts.first.reload.body
         end

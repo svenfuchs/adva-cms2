@@ -17,7 +17,7 @@ module Adva
         end
 
         def params
-          params = { model_name.to_sym => import.importer.attributes }
+          params = { model_name.to_sym => import.model.attributes }
           # params.key?('id') ? params.merge('_method' => 'put') : params
           record.new_record? ? params : params.merge('_method' => 'put')
         end

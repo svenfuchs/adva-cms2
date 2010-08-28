@@ -16,7 +16,7 @@ module Tests
           end
   
           test "path.files returns file paths" do
-            assert_equal %w(config.ru), root.files.map { |file| File.basename(file) }
+            assert_equal %w(config.ru site.yml), root.files.map { |file| File.basename(file) }
           end
   
           test "files returned by path.files have their root populated" do

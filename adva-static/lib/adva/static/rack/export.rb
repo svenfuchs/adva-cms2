@@ -32,13 +32,13 @@ module Adva
 
           def export(path, body)
             page = Page.new(path, body)
-            puts "  storing #{page.url.filename}"
+            Adva.out.puts "  storing #{page.url.filename}"
             store.write(page.url, page.body)
           end
 
           def purge(paths)
             normalize_paths(paths).each do |path|
-              puts "  purging #{path}"
+              Adva.out.puts "  purging #{path}"
               store.purge(Path.new(path))
             end
           end

@@ -45,7 +45,7 @@ module Tests
             site = setup_site_record
             site.pages.first.destroy
 
-            site.blogs.create!(:title => 'Blog', :posts_attributes => [
+            site.blogs.create!(:title => 'Home', :posts_attributes => [
               { :title => 'Welcome to the future of I18n in Ruby on Rails', :body => 'Welcome to the future!', :created_at => '2008-07-31' }
             ])
           end
@@ -60,7 +60,7 @@ module Tests
           def setup_import_directory
             FileUtils.mkdir_p(root)
             setup_dirs(%w(images javascripts stylesheets))
-            setup_files(['config.ru', 'foo'])
+            setup_files(['config.ru', 'foo'], ['site.yml', YAML.dump(:host => 'rails-i18n.org', :name => 'name', :title => 'title')])
           end
 
           def setup_root_blog

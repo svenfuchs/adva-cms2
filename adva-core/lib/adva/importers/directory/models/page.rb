@@ -8,32 +8,28 @@ module Adva
           class << self
             def build(paths)
               return [] if paths.empty?
-              root  = paths.first.root
               pages = paths.select { |path| path.to_s =~ PATTERN }
               paths.replace(paths - pages)
-              pages.map { |path| new(path, root) }.uniq
+              pages.map { |path| new(path) }.uniq
             end
           end
         
-          def initialize(path, root = nil)
-            @model = ::Page
-            @attribute_names = [:path, :title, :article_attributes]
+          def initialize(path)
             path = File.dirname(path) if File.basename(path, File.extname(path)) == 'index'
             super
           end
-        
-          def section
-            @section ||= model.new(attributes)
+          
+          def attribute_names
+            [:type, :path, :title, :article_attributes]
           end
-        
-          def id
-            @id
+          
+          def model
+            ::Page
           end
         
           def article_attributes
-            { :title => title, :body => body }.tap do |attributes|
-              attributes.merge!(:id => ::Page.find(@id).article.id.to_s) if @id # TODO uuughs.
-            end
+            attributes = { :title => title, :body => body }
+            record.article && record.id ? attributes.merge(:id => record.article.id.to_s) : attributes
           end
         end
       end

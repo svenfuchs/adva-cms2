@@ -23,16 +23,13 @@ module Adva
         @routes = options[:routes] || Rails.application.routes
       end
 
-      def import!
-        Models::Site.new(root).import!
-      end
-
-      def sync!(path)
-        import(path).sync!
-      end
-
-      def import(path)
-        Import.new(root, path, :routes => routes)
+      def import!(path = nil)
+        if path
+          Import.new(root, path, :routes => routes).record.save!
+        else
+          Account.all.each(&:destroy)
+          Models::Site.new(root).updated_record.save!
+        end
       end
     end
   end

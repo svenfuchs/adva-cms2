@@ -34,19 +34,33 @@ module Tests
           super
         end
 
-        test 'path returns a complete path w/ query string that can be posted to import the model' do
+        test 'path returns a complete path w/ query string that can be PUTed to import the model' do
           setup_site_record
           setup_root_page
           
           site_id = Site.first.id.to_s
           page_id = Page.first.id.to_s
+          article_id = Page.first.article.id.to_s
           
           import  = Adva::Importers::Directory::Import.new(root, '/', :routes => routes)
           path    = import.request.path
-          params  = import.request.params
-          request = ActionDispatch::TestRequest.new(Rack::MockRequest.env_for(path, :input => params))
+          input   = ::Rack::Utils.build_nested_query(import.request.params)
+          request = Rack::Request.new(Rack::MockRequest.env_for(path, :method => 'POST', :input => input))
 
-          params  = { 'page' => {'title' => '', 'path' => '' } }
+          params  = { 
+            '_method' => 'put', 
+            'page'    => {
+              'id'    => page_id,
+              'type'  => 'Page',
+              'title' => 'Home', 
+              'path'  => 'home', 
+              'article_attributes' => { 
+                'id'    => article_id, 
+                'title' => 'Home', 
+                'body'  => 'home' 
+              } 
+            } 
+          }
           assert_equal params, request.params
           assert_equal "/admin/sites/#{site_id}/pages/#{page_id}", request.path
         end

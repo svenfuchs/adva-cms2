@@ -9,7 +9,7 @@ module Adva
         def initialize(app, root)
           @app  = app
           @root = root
-          puts "serving from #{root}"
+          Adva.out.puts "serving from #{root}"
         end
 
         def call(env)
