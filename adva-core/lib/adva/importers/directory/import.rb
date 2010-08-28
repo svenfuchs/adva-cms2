@@ -24,13 +24,6 @@ module Adva
           puts "can't recognize #{path} because: #{e.message}"
         end
         
-        def changes
-          @changes ||= record.changed.inject(HashWithIndifferentAccess.new) do |changes, name| 
-            changes[name] = record.send(name)
-            changes
-          end
-        end
-        
         def importer
           @importer ||= Models.const_get(model_name.camelize).new(path)
         end
