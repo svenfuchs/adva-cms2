@@ -13,10 +13,7 @@ module Adva
         end
 
         def call(env)
-          path = env['PATH_INFO'].chomp('/')
-          path = [path, "#{path}.html", "#{path}/index.html"].detect { |path| file?(path) }
-
-          if path && get?(env)
+          if get?(env) && path = static(env)
             super(env.merge('PATH_INFO' => path))
           else
             app.call(env)
@@ -24,6 +21,11 @@ module Adva
         end
 
         protected
+
+          def static(env)
+            path = env['PATH_INFO'].chomp('/')
+            [path, "#{path}.html", "#{path}/index.html"].detect { |path| file?(path) }
+          end
 
           def file?(path)
             File.file?(File.join(root, ::Rack::Utils.unescape(path)))

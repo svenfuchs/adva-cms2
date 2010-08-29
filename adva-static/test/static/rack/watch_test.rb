@@ -61,24 +61,24 @@ module AdvaStatic
 
     test "imports and re-requests a modified file" do
       @app = lambda do |env|
-        request = ActionDispatch::TestRequest.new(env)
         page = Page.first
+        request = ActionDispatch::TestRequest.new(env)
         if request.method == 'POST'
           page.update_attributes!(request.params[:page])
-          [302, { 'Location' => 'path/to/edit' }, 'ok']
+          [302, { 'Location' => 'path/to/edit', PURGE_HEADER => '/' }, 'ok']
         else
           [200, {}, page.title]
         end
       end
 
-      file = import_dir.join('index.yml')
-      FileUtils.touch(file)
+      index = import_dir.join('index.yml')
+      FileUtils.touch(index)
       assert !export_dir.join('index.html').file?
 
       watch
-      file.open('w') { |f| f.write('title: modified title') }
-      File.utime(file.mtime, future, file)
-      sleep(1)
+      index.open('w') { |f| f.write('title: modified title') }
+      File.utime(index.mtime, future, index)
+      sleep(0.5)
 
       assert export_dir.join('index.html').file?
       assert_equal 'modified title', export_dir.join('index.html').open { |f| f.read }

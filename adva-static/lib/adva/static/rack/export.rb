@@ -4,6 +4,8 @@ module Adva
   class Static
     module Rack
       class Export
+        include Request
+
         attr_reader :app, :target, :store
 
         def initialize(app, options = {})
@@ -15,19 +17,18 @@ module Adva
         def call(env)
           path = env['PATH_INFO'].dup # gets modified by routing_filter
           app.call(env).tap do |status, headers, body|
-            export(path, body) if ok?(status) && get?(env)
-            purge(headers[PURGE_HEADER]) if paths = headers.key?(PURGE_HEADER)
+            export(path, body) if export?(env)
+            if headers.key?(PURGE_HEADER)
+              paths = purge(headers[PURGE_HEADER])
+              paths.each { |path| request('GET', path, STORE_HEADER => true) }
+            end
           end
         end
 
         protected
-        
-          def ok?(status)
-            status == 200
-          end
-          
-          def get?(env)
-            env['REQUEST_METHOD'] == 'GET'
+
+          def export?(env)
+            env[STORE_HEADER].present?
           end
 
           def export(path, body)
@@ -42,7 +43,7 @@ module Adva
               store.purge(Path.new(path))
             end
           end
-          
+
           def normalize_paths(paths)
             paths = paths.split(',') if paths.is_a?(String)
             Array(paths)
