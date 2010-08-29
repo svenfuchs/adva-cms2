@@ -8,9 +8,17 @@ module AdvaStatic
     
     attr_reader :app
     
+    def setup
+      ::Site.create!(:host => 'rails-i18n.org', :name => 'name', :title => 'title', :sections_attributes => [
+        { :type => 'Page', :title => 'Home' }
+      ])
+      super
+    end
+    
     def teardown
       FileUtils.rm_r(export.target)
       @export = nil
+      super
     end
 
     def export
@@ -18,14 +26,14 @@ module AdvaStatic
     end
     
     test "exports a page /foo.html if response is 200" do
-      @app = lambda { |env| [200, {}, '200 ok'] }
+      @app = lambda { |env| [200, {}, 'ok'] }
       
       export.call(env_for('/foo'))
       assert export.target.join('foo.html').file?
     end
     
     test "exports a page /index.html if response is 200" do
-      @app = lambda { |env| [200, {}, '200 ok'] }
+      @app = lambda { |env| [200, {}, 'ok'] }
       
       export.call(env_for('/'))
       assert export.target.join('index.html').file?
@@ -38,7 +46,14 @@ module AdvaStatic
     end
 
     test "purges files referenced by a given rack-cache.purge header" do
-      @app = lambda { |env| [200, { PURGE_HEADER => ['/bar', '/baz'] }, '200 ok'] }
+      @app = lambda { |env|
+        case env['PATH_INFO']
+        when '/'
+          [200, { PURGE_HEADER => ['/bar', '/baz'] }, 'ok']
+        else
+          [404, {}, 'not found']
+        end
+      }
       %w(bar.html baz.html).each { |path| FileUtils.touch(export.target.join(path)) }
       
       export.call(env_for('/'))
@@ -50,7 +65,7 @@ module AdvaStatic
     protected
 
       def env_for(uri, options = nil)
-        Rack::MockRequest.env_for(uri, options || {})
+        Rack::MockRequest.env_for(uri, options || {}).merge(STORE_HEADER => true)
       end
   end
 end
