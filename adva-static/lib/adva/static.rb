@@ -8,8 +8,7 @@ module Adva
     autoload :Page,     'adva/static/page'
     autoload :Path,     'adva/static/path'
     autoload :Queue,    'adva/static/queue'
-    autoload :Store,    'adva/static/store'
-
     autoload :Rack,     'adva/static/rack'
+    autoload :Store,    'adva/static/store'
   end
 end

@@ -52,7 +52,7 @@ module AdvaStatic
         end
       end
 
-      watch.call(env_for('/'))
+      watch.call(env_for('/').merge(STORE_HEADER => true))
 
       assert export_dir.join('index.html').file?
       assert export_dir.join('bar.html').file?
@@ -78,9 +78,9 @@ module AdvaStatic
       watch
       index.open('w') { |f| f.write('title: modified title') }
       File.utime(index.mtime, future, index)
-      sleep(0.5)
+      # sleep(2)
+      sleep(0.1) until export_dir.join('index.html').file?
 
-      assert export_dir.join('index.html').file?
       assert_equal 'modified title', export_dir.join('index.html').open { |f| f.read }
     end
 
