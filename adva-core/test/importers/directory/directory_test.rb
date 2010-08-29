@@ -1,4 +1,4 @@
-require File.expand_path('../directory/test_helper', __FILE__)
+require File.expand_path('../test_helper', __FILE__)
 require 'action_controller'
 require 'routing_filter'
 require 'adva/routing_filters/section_root'
@@ -19,6 +19,8 @@ module Tests
           Rails.application = Rails::Application.send(:new)
           Rails.application.singleton_class.send(:include, Rails::Application::Configurable)
           Devise.warden_config = Rails.application.config
+
+          Admin::BaseController.send(:include, routes.url_helpers)
           super
         end
 
@@ -26,9 +28,10 @@ module Tests
           @routes ||= ActionDispatch::Routing::RouteSet.new.tap do |routes|
             routes.draw do
               filter :section_root, :section_path
-              match 'blogs/:blog_id/:year/:month/:day/:slug', :to => "#{PostController.controller_path}#show"
               match 'pages/:id', :to => "#{PagesController.controller_path}#show"
               match 'blogs/:id', :to => "#{BlogsController.controller_path}#show"
+              match 'blogs/:blog_id/:year/:month/:day/:slug', :to => "#{PostController.controller_path}#show"
+              match 'admin/sites/:site_id/pages/:id', :to => 'admin/pages#update', :as => 'admin_site_page'
             end
           end
         end
@@ -42,9 +45,9 @@ module Tests
           @site ||= ::Site.first
         end
 
-        test "import! with an empty database" do
+        test "import_all! with an empty database" do
           setup_root_blog
-          Adva::Importers::Directory.new(root).import!
+          Adva::Importers::Directory.new(root).import_all!
 
           site = Site.first
           blog = site.sections.first
@@ -55,11 +58,11 @@ module Tests
           assert_equal 'Welcome To The Future Of I18n In Ruby On Rails', post.title
         end
 
-        test "import! with an existing site and root blog" do
+        test "import_all! with an existing site and root blog" do
           setup_site_record
           Page.first.destroy
           setup_root_blog
-          Adva::Importers::Directory.new(root).import!
+          Adva::Importers::Directory.new(root).import_all!
 
           blog = site.sections.first
           post = blog.posts.first
@@ -69,11 +72,11 @@ module Tests
           assert_equal 'Welcome To The Future Of I18n In Ruby On Rails', post.title
         end
 
-        test "import! with a root page, a blog and another page" do
+        test "import_all! with a root page, a blog and another page" do
           setup_root_page
           setup_non_root_blog
           setup_non_root_page
-          Adva::Importers::Directory.new(root).import!
+          Adva::Importers::Directory.new(root).import_all!
 
           site = Site.first
           page = site.sections.first
@@ -86,7 +89,7 @@ module Tests
           assert_equal 'Welcome To The Future Of I18n In Ruby On Rails', post.title
         end
 
-        test "import!(path) can sync changes to /index.yml (root page)" do
+        test "import!(path) syncs changes to /index.yml (existing root page)" do
           setup_site_record
           setup_root_page
 
@@ -97,13 +100,13 @@ module Tests
           assert_equal 'will be overwritten', section.article.reload.body
 
           path = 'index.yml'
-          Adva::Importers::Directory.new(root, :routes => routes).import!(path)
+          Adva::Importers::Directory.new(root).import!(path)
 
           assert_equal 'Home', section.reload.title
           assert_equal 'home', section.article.reload.body
         end
 
-        test "import!(path) can sync changes to /contact.yml (non-root page)" do
+        test "import!(path) syncs changes to /contact.yml (existing non-root page)" do
           setup_non_root_page_record
           setup_non_root_page
 
@@ -114,27 +117,25 @@ module Tests
           assert_equal 'will be overwritten', section.article.reload.body
 
           path = 'contact.yml'
-          Adva::Importers::Directory.new(root, :routes => routes).import!(path)
+          Adva::Importers::Directory.new(root).import!(path)
 
           assert_equal 'Contact', section.reload.title
           assert_equal 'contact', section.article.reload.body
         end
 
-        test "import!(path) can sync changes to /blog.yml (non-root blog)" do
-          setup_non_root_blog_record
-          setup_non_root_blog
+        test "import!(path) syncs changes to /contact.yml (not yet existing non-root page)" do
+          setup_site_record
+          setup_non_root_page
 
-          section = Blog.find_by_slug('blog')
-          section.update_attributes!(:title => 'will be overwritten')
-          assert_equal 'will be overwritten', section.reload.title
+          path = 'contact.yml'
+          Adva::Importers::Directory.new(root).import!(path)
 
-          path = 'blog.yml'
-          Adva::Importers::Directory.new(root, :routes => routes).import!(path)
-
-          assert_not_equal 'will be overwritten', section.reload.title
+          section = Page.find_by_slug('contact')
+          assert_equal 'Contact', section.reload.title
+          assert_equal 'contact', section.article.reload.body
         end
 
-        test "import!(path) can sync changes to blog/2009/07/12/ruby-i18n-gem-hits-0-2-0.yml (root blog)" do
+        test "import!(path) syncs changes to blog/2009/07/12/ruby-i18n-gem-hits-0-2-0.yml (existing root blog post)" do
           setup_non_root_blog_record
           setup_non_root_blog
 
@@ -143,12 +144,12 @@ module Tests
           assert_equal 'will be overwritten', section.posts.first.reload.body
 
           path = 'blog/2008/07/31/welcome-to-the-future-of-i18n-in-ruby-on-rails.yml'
-          Adva::Importers::Directory.new(root, :routes => routes).import!(path)
+          Adva::Importers::Directory.new(root).import!(path)
 
           assert_not_equal 'will be overwritten', section.posts.first.reload.body
         end
 
-        test "import!(path) can sync changes to 2009/07/12/ruby-i18n-gem-hits-0-2-0.yml (non-root blog)" do
+        test "import!(path) syncs changes to 2009/07/12/ruby-i18n-gem-hits-0-2-0.yml (existing non-root blog post)" do
           setup_root_blog_record
           setup_root_blog
 
@@ -157,9 +158,29 @@ module Tests
           assert_equal 'will be overwritten', section.posts.first.reload.body
 
           path = '2008/07/31/welcome-to-the-future-of-i18n-in-ruby-on-rails.yml'
-          Adva::Importers::Directory.new(root, :routes => routes).import!(path)
+          Adva::Importers::Directory.new(root).import!(path)
 
           assert_not_equal 'will be overwritten', section.posts.first.reload.body
+        end
+
+        test "request returns what's needed to be PUTed to import the model" do
+          setup_site_record
+          setup_root_page
+
+          site_id = Site.first.id.to_s
+          page_id = Page.first.id.to_s
+          article_id = Page.first.article.id.to_s
+
+          request = Adva::Importers::Directory.new(root).request_for('/index.yml')
+          input   = ::Rack::Utils.build_nested_query(request.params)
+          request = Rack::Request.new(Rack::MockRequest.env_for(request.path, :method => 'POST', :input => input))
+
+          params  = { '_method' => 'put', 'page' => {
+            'id' => page_id, 'site_id' => site_id, 'type' => 'Page', 'title' => 'Home',  'path' => 'home',
+            'article_attributes' => { 'id' => article_id, 'title' => 'Home', 'body' => 'home' }
+          } }
+          assert_equal params, request.params
+          assert_equal "/admin/sites/#{site_id}/pages/#{page_id}", request.path
         end
       end
     end

@@ -7,8 +7,9 @@ module Adva
 
           class << self
             def build(paths)
-              return [] if paths.empty?
+              return [] if paths.blank?
 
+              paths = Array(paths)
               posts = paths.select { |path| permalink?(path) }
               blogs = strip_permalink(posts).uniq
               paths.replace(paths - blogs - posts)

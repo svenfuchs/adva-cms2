@@ -7,7 +7,9 @@ module Adva
         
           class << self
             def build(paths)
-              return [] if paths.empty?
+              return [] if paths.blank?
+
+              paths = Array(paths)
               pages = paths.select { |path| path.to_s =~ PATTERN }
               paths.replace(paths - pages)
               pages.map { |path| new(path) }.uniq
@@ -20,7 +22,7 @@ module Adva
           end
           
           def attribute_names
-            [:type, :path, :title, :article_attributes]
+            [:site_id, :type, :path, :title, :article_attributes]
           end
           
           def model

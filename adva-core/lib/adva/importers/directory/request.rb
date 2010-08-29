@@ -2,35 +2,55 @@ module Adva
   module Importers
     class Directory
       class Request
-        delegate :record, :model_name, :to => :import
-        attr_reader :import
+        attr_reader :record, :attributes
 
-        def initialize(import)
-          @import = import
-        end
-
-        def path            
-          controller.params = import.params.except(:controller, :action)
-          symbols = controller.send(:symbols_for_association_chain).map { |name| :"#{name}_id" }
-          symbols.each { |name| controller.params[name] = record.send(name).to_s }
-          controller.polymorphic_path(controller.resources)
+        def initialize(record, attributes)
+          @record = record
+          @attributes = attributes
         end
 
         def params
-          params = { model_name.to_sym => import.model.attributes }
-          # params.key?('id') ? params.merge('_method' => 'put') : params
-          record.new_record? ? params : params.merge('_method' => 'put')
-        end
-
-        def controller
-          @controller ||= controller_name.constantize.new.tap do |controller|
-            controller.request = ActionDispatch::TestRequest.new
+          @params ||= begin
+            params = { model_name.underscore.to_sym => attributes }
+            params.merge!('_method' => 'put') unless record.new_record?
+            params
           end
         end
 
-        def controller_name
-          "Admin::#{record.class.name.pluralize}Controller"
+        def path
+          controller.polymorphic_path(controller.resources)
         end
+
+        protected
+
+          def controller
+            @controller ||= init_controller(controller_name.constantize.new)
+          end
+
+          def init_controller(controller)
+            controller.request = ActionDispatch::TestRequest.new
+
+            symbols = controller.send(:symbols_for_association_chain).map { |name| :"#{name}_id" }
+            symbols << :id unless record.new_record?
+            controller.params = symbols.inject({}) do |params, name|
+              # umm. admin blog routes use :blog_id, but Post has a section_id
+              params.merge(name => attributes[section_ids.include?(name) ? :section_id : name].to_s)
+            end
+
+            controller
+          end
+
+          def section_ids
+            @section_ids ||= Section.types.map { |type| :"#{type.underscore}_id" }
+          end
+
+          def controller_name
+            "Admin::#{model_name.pluralize}Controller"
+          end
+
+          def model_name
+            record.class.name
+          end
       end
     end
   end

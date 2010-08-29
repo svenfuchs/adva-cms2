@@ -6,10 +6,16 @@ module Adva
     class Directory
       module Models
         class Site < Base
+          class << self
+            def build(path)
+              path.to_s =~ /^site.yml$/ ? [new(path)] : []
+            end
+          end
+
           def attribute_names
             [:host, :name, :title, :account, :sections_attributes]
           end
-        
+
           def loadable
             Path.new("#{source}/site.yml")
           end
@@ -29,13 +35,15 @@ module Adva
           def title
             @title ||= name
           end
-        
+
           def account
             ::Account.new(:users => [::User.new(:email => 'admin@admin.org', :password => 'admin')]) # TODO
           end
-          
+
           def sections_attributes
-            Section.build(source).map(&:attributes)
+            sections = Section.build(source.paths)
+            sections << Page.new(Path.new('home', source)) if sections.empty?
+            sections.map(&:attributes)
           end
         end
       end
