@@ -22,8 +22,6 @@ module Adva
 
           @watcher  = fork { watch!(Adva.out) }
           at_exit { kill_watcher }
-
-          Admin::BaseController.skip_before_filter :authenticate_user! # TODO use http_auth?
         end
 
         def call(env)
@@ -82,8 +80,17 @@ module Adva
           def env_for(method, path, params)
             ::Rack::MockRequest.env_for("http://#{site.host}#{path}", :method => method,
               :input => ::Rack::Utils.build_nested_query(params),
-              'CONTENT_TYPE' => 'application/x-www-form-urlencoded'
+              'CONTENT_TYPE' => 'application/x-www-form-urlencoded',
+              'HTTP_AUTHORIZATION' => 'Basic ' + ["#{username}:#{password}"].pack('m*')
             )
+          end
+
+          def username
+            'admin@admin.org' # TODO read from conf/auth.yml or something
+          end
+
+          def password
+            'admin'
           end
 
           def site

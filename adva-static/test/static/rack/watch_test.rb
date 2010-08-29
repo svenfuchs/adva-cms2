@@ -11,6 +11,8 @@ module AdvaStatic
     attr_reader :app, :export_dir, :import_dir
 
     def setup
+      # Adva.out = $stdout
+
       # TODO fix devise to be able to load up w/o a Rails.application being present
       Rails.application = Rails::Application.send(:new)
       Rails.application.singleton_class.send(:include, Rails::Application::Configurable)
@@ -61,8 +63,12 @@ module AdvaStatic
       @app = lambda do |env|
         request = ActionDispatch::TestRequest.new(env)
         page = Page.first
-        page.update_attributes!(request.params[:page]) if request.method == 'POST'
-        [200, {}, page.title]
+        if request.method == 'POST'
+          page.update_attributes!(request.params[:page])
+          [302, { 'Location' => 'path/to/edit' }, 'ok']
+        else
+          [200, {}, page.title]
+        end
       end
 
       file = import_dir.join('index.yml')
