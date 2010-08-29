@@ -8,13 +8,8 @@ module Adva
               [Blog, Page]
             end
 
-            def build(root)
-              paths = root.all.reject { |path| File.extname(path) != '.yml' || File.basename(path) == 'site.yml' }
-              paths = paths.sort
-
-              sections = types.map { |type| type.build(paths) }.flatten.compact.sort
-              sections << new(Path.new('home', root)) if sections.empty?
-              sections
+            def build(paths)
+              types.map { |type| type.build(paths) }.flatten.compact.sort
             end
           end
 

@@ -9,12 +9,12 @@ module Tests
 
           test "Blog.build finds a root blog" do
             setup_root_blog
-            assert_equal 1, Section.build(root).size
+            assert_equal 1, Section.build(root.paths).size
           end
     
           test "Blog.build finds a non_root blog" do
             setup_non_root_blog
-            assert_equal 1, Section.build(root).size
+            assert_equal 1, Section.build(root.paths).size
           end
     
           test "Blog loads index.yml if present" do

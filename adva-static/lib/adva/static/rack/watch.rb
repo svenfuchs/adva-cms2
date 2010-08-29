@@ -14,13 +14,12 @@ module Adva
       class Watch
         include Request
 
-        attr_reader :app, :dir, :routes, :watcher
+        attr_reader :app, :dir, :watcher
 
         delegate :call, :to => :app
 
         def initialize(app, options = {}, &block)
           @app = app
-          @routes = options[:routes]
           @dir = Pathname.new(options[:dir] || File.expand_path('import'))
           FileUtils.mkdir_p(dir)
 
@@ -31,8 +30,8 @@ module Adva
         def update(path, event_type = nil)
           if event_type == :modified
             Adva.out.puts "\nmodified: #{path}"
-            import = Adva::Importers::Directory::Import.new(dir, path, :routes => routes)
-            request('POST', import.request.path, import.request.params)
+            request = Adva::Importers::Directory.new(dir).request_for(path)
+            request('POST', request.path, request.params)
           end
         end
 

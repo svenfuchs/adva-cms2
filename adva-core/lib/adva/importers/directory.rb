@@ -3,7 +3,6 @@ require 'action_controller/metal/exceptions'
 module Adva
   module Importers
     class Directory
-      autoload :Import,   'adva/importers/directory/import'
       autoload :Path,     'adva/importers/directory/path'
       autoload :Request,  'adva/importers/directory/request'
 
@@ -18,19 +17,37 @@ module Adva
 
       attr_reader :root, :routes
 
-      def initialize(root, options = {})
+      def initialize(root)
         @root = Path.new(File.expand_path(root))
-        @routes = options[:routes] || Rails.application.routes
       end
 
-      def import!(path = nil)
-        if path
-          Import.new(root, path, :routes => routes).record.save!
-        else
-          Account.all.each(&:destroy)
-          Models::Site.new(root).updated_record.save!
-        end
+      def import_all!
+        Adva.out.puts "importing from #{root}"
+
+        Account.all.each(&:destroy)
+        Models::Site.new(root).updated_record.save!
       end
+
+      def import!(path)
+        importer_for(path).updated_record.save!
+      end
+
+      def request_for(path)
+        importer = importer_for(path)
+        Request.new(importer.record, importer.attributes)
+      end
+
+      protected
+
+        def importer_for(path)
+          path = absolutize(path)
+          types = [Models::Site, Models::Post, Models::Section]
+          types.each { |type| importer = type.build(path).first and return importer }
+        end
+
+        def absolutize(path)
+          Path.new(root.join(path.to_s.gsub(/^(#{root.to_s})?\/?/, '')), root)
+        end
     end
   end
 end

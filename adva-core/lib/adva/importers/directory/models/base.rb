@@ -23,18 +23,18 @@ module Adva
           end
 
           def attributes
-            attributes = Hash[*attribute_names.map { |name| [name, self.send(name)] }.flatten_once]
+            attributes = attribute_names.map { |name| [name, self.send(name)] unless self.send(name).nil? }
+            attributes = Hash[*attributes.compact.flatten_once]
             record && record.id ? attributes.merge(:id => record.id.to_s) : attributes
           end
 
           def updated_record
-            # p attributes
             record.attributes = attributes
             record
           end
 
           def site_id
-            site.id
+            site.id.to_s
           end
 
           def slug

@@ -2,7 +2,7 @@ module Adva
   class Static
     class Queue < Array
       def push(*elements)
-        elements = Array(elements).flatten
+        elements = Array(elements).flatten.uniq
         elements.reject! { |element| seen?(element) }
         seen(elements)
         super

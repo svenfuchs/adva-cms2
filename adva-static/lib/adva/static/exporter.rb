@@ -69,7 +69,7 @@ module Adva
         end
 
         def enqueue_urls(page)
-          queue.push(page.urls.reject { |path| path.remote? || store.exists?(path) })
+          queue.push(page.urls.reject { |path| path.remote? || store.exists?(path) }.uniq)
         end
 
         def configure

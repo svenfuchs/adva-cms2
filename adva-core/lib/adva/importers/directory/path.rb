@@ -18,13 +18,13 @@ module Adva
           local = local[1..-1] if local[0, 1] == '/'
           Path.new(local.gsub(File.extname(local), ''))
         end
-        
+
         def path
           local == 'index' ? '/' : "/#{local}"
         end
 
         def all
-          Dir["#{self}/**/*"].map { |path| Path.new(path, self) }
+          Dir["#{self.to_s}/**/*"].map { |path| Path.new(path, self) }
         end
 
         def files
@@ -39,10 +39,14 @@ module Adva
           @sub_paths ||= Dir["#{self}/*"].map { |path| Path.new(path, self) }
         end
 
+        def paths
+          all.reject { |path| File.extname(path) != '.yml' || File.basename(path) == 'site.yml' }.sort
+        end
+
         def join(other)
           self.class.new(super, root.is_a?(Path) ? root : Path.new(root))
         end
-        
+
         def ==(other)
           to_s == other.to_s
         end
