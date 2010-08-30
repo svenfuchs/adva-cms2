@@ -80,3 +80,20 @@ end
 Then(/(?:\$|eval) (.*)$/) do |code|
   pp eval(code)
 end
+
+Then /^I should see a flash (error|notice) "(.*)"$/ do |message_type, message|
+  assert_match message, flash_cookie[message_type].to_s
+end
+
+Then /^I should not see a flash (error|notice) "(.*)"$/ do |message_type, message|
+  assert_no_match /message/, flash_cookie[message_type].to_s
+end
+
+Then /^I (press|click) "(.*)" in the row where "(.*)" is "(.*)"$/ do |method, link_or_button, header, cell_content|
+  body = Nokogiri::HTML(response.body)
+  header_id = body.xpath("//th[normalize-space(text())='#{header}']/@id").first.value
+  row_id = body.xpath("//tr/td[@headers='#{header_id}'][normalize-space(text())='#{cell_content}']/ancestor::tr/@id").first.value
+  within("##{row_id}") do
+    send({'press' => 'click_button', 'click' => 'click_link'}[method], link_or_button)
+  end
+end

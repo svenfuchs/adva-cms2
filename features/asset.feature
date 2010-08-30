@@ -22,7 +22,7 @@ Feature: Asset Management
       | Title      | Description           |
       | Rails Logo | This is a Rails Logo. |
 
-  Scenario: Create a new Asset with uploading a picture file
+  Scenario: Create and delete a new Asset with uploading a picture file
     When I follow "Dateien"
     Then I should see the "Assets" page
     Then I should see "No assets given."
@@ -32,14 +32,14 @@ Feature: Asset Management
     And I fill in "Description" with "Image 1 description"
     And I fill in "asset_file" with "rails.png"
     And I press "Create Asset"
+    #And I output the page
     Then I should see the "Assets" page
-    #And I should see "Asset 'Image1' created successfully."
+    #Then I should see a flash notice "Asset 'Image1' created successfully."
     And I should see a table "assets" with the following entries:
       | Title      | Description           |
       | Image1     | Image 1 description   |
-
-    
-
+    When I press "Delete" in the row where "Title" is "Image1"
+    Then I should see "No assets given."
 
 #
 #  Scenario: I want to create a new bundle with a main product and add other products to my bundle
