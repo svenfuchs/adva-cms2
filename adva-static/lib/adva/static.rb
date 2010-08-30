@@ -1,6 +1,8 @@
 require 'adva'
 
 module Adva
+  autoload :Importers, 'adva/importers'
+
   class Static < ::Rails::Engine
     include Adva::Engine
 
