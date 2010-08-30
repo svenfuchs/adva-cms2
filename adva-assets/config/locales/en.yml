@@ -17,11 +17,20 @@ en:
       title: "Title"
       description: "Description"
       path: "Path"
-    flash:
-      create:
-        success: "Asset '%{name}' created successfully."
-        error: "Asset %{name} not created."
     carrierwave:
       errors:
         integrity: 'Not an image.'
         processing: 'Cannot resize image.'
+  flash:
+    #actions:
+    #  create:
+    #    notice: "%{resource_name} was successfully created."
+    #  update:
+    #    notice: "%{resource_name} was successfully updated."
+    #  destroy:
+    #    notice: "%{resource_name} was successfully destroyed."
+    #    alert: "%{resource_name} could not be destroyed."
+    #assets:
+    #  create:
+    #    notice: "Asset '%{name}' successfully created."
+    #    alert: "Asset not created."

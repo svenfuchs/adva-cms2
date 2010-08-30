@@ -3,16 +3,17 @@
 <%= link_to(t('.new'), new_admin_site_asset_path(site)) %>
 
 <%= table_for collection do |table|
-  table.column :title, :description, :path
+  table.column :title, :id => :title_header
+  table.column :description, :id => :description_header
+  table.column :path, :id => :path_header
   table.column t('action'), :class => 'action'
 
   table.row do |row, asset|
-    row.cell asset.title
-    row.cell asset.description
-    row.cell asset.path
+    row.cell asset.title, :headers => :title_header
+    row.cell asset.description, :headers => :description_header
+    row.cell asset.path, :headers => :path_header
     row.cell link_to(image_tag('icons/page_edit.png'), edit_admin_site_asset_path(site, asset), :id => "edit_asset_#{asset.id}") +
-             link_to(image_tag('icons/page_delete.png'), admin_site_asset_path(site, asset), :id => "edit_asset_#{asset.id}",
-                     :method => :delete, :confirm => t('.delete_confirmation'))
+             button_to("Delete", admin_site_asset_path(site, asset), :method => :delete), :id => "action_"
   end
 
   table.empty :p, t('.no_assets'), :class => 'empty'

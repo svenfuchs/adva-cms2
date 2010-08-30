@@ -25,3 +25,12 @@ de:
       errors:
         integrity: 'Kein Bild.'
         processing: 'Das Bild kann nicht angepasst werden.'
+  flash:
+    #actions:
+    #  create:
+    #    notice: "%{resource_name} was successfully created."
+    #  update:
+    #    notice: "%{resource_name} was successfully updated."
+    #  destroy:
+    #    notice: "%{resource_name} was successfully destroyed."
+    #    alert: "%{resource_name} could not be destroyed."
