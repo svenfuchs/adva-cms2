@@ -2,7 +2,7 @@
 
 source :rubygems
 
-gem 'rails', '3.0.0.rc2'
+gem 'rails', '3.0.0'
 gem 'adva-core',     :path => File.expand_path('../adva-core', __FILE__)
 gem 'adva-blog',     :path => File.expand_path('../adva-blog', __FILE__)
 gem 'adva-cart',     :path => File.expand_path('../adva-cart', __FILE__)
