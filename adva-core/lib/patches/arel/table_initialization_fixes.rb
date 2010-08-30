@@ -17,7 +17,7 @@ require 'gem_patching'
 # http://github.com/svenfuchs/arel/commit/4b476404cbbecfedc255039c66c6eececb667d7f
 # http://github.com/svenfuchs/arel/commit/3b1b24551106bc116cba404c992b513c5fbd137b
 
-Gem.patching('arel', '1.0.0.rc1') do
+Gem.patching('arel', '1.0.1') do
   Arel::Table.class_eval do
     def initialize(name, options = {})
       @name = name.to_s
