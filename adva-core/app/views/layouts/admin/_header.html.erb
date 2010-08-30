@@ -32,7 +32,7 @@
 	  <% end %>
 	  <% if try(:site) && resources.last.try(:persisted?) %>
 			 &middot;
-	    <%#= link_to t('.website') + ' »', public_url_for(site, resources), :id => 'go_to_website' %>
+	    <%= link_to t('.website') + ' »', public_url_for(site, resources), :id => 'go_to_website' %>
 	  <% end %>
 	  <p>
   	  <%= t('.change_language')%>
