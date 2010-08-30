@@ -1,6 +1,6 @@
 module Adva
   class Cnet
-    class Connections
+    module Connections
       class Origin < ActiveRecord::Base
         establish_connection('cnet_origin')
       end
@@ -8,14 +8,22 @@ module Adva
       class Import < ActiveRecord::Base
         establish_connection('cnet_import')
       end
+    
+      class Tmp < ActiveRecord::Base
+        establish_connection('cnet_tmp')
+      end
       
       class << self
         def origin
-          Origin.connection
+          @origin ||= Connection.new(Origin.connection)
         end
       
         def import
-          Import.connection
+          @import ||= Connection.new(Import.connection, :with_link => 'cnet_origin')
+        end
+      
+        def tmp
+          @tmp ||= Connection.new(Tmp.connection)
         end
       end
     end

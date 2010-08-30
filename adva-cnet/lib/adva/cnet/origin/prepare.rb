@@ -5,7 +5,7 @@ module Adva
         attr_reader :source, :target, :pattern
 
         def initialize(source, target, options = {})
-          @source  = source
+          @source  = source.respond_to?(:stat) ? source : Adva::Cnet.normalize_path(source)
           @target  = target
           @pattern = options[:pattern] || '**/*.txt'
         end
@@ -23,16 +23,18 @@ module Adva
 
         def load_cnet_dump
           Adva.out.puts "loading data from #{source}"
-          files.each { |file| load_cnet_file(file) }
+          target.with_encoding('LATIN1') do
+            files.each { |file| load_cnet_file(file) }
+          end
         end
 
         def load_cnet_file(file)
+          return if file =~ /Catalog_Info/
           table_name = self.table_name(file)
-          Adva.out.puts "loading data to #{table_name} in #{target}"
-          target.execute <<-sql
-            SET CLIENT_ENCODING TO 'LATIN1'
-          sql
-          # `echo '.mode csv\n.separator "\t"\n.import #{file} #{table_name}' | sqlite3 #{target}`
+          Adva.out.puts "loading data to #{table_name} in #{target.config[:database]}"
+          target.execute "COPY #{table_name} FROM '#{file}'"
+        rescue ActiveRecord::StatementInvalid => e
+          puts "could not import #{file} because: #{e.message}"
         end
 
         def files

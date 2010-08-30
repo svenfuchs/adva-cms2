@@ -38,7 +38,7 @@ CREATE TABLE "cds_atr" (
   "AtrID" varchar(10) NOT NULL,
   "ValID" varchar(10) NOT NULL,
   "UnitID" varchar(10) DEFAULT NULL,
-  "NNV" float DEFAULT NULL,
+  "NNV" varchar DEFAULT NULL,
   PRIMARY KEY ("ProdID","AtrID","ValID")
 );
 CREATE INDEX "idx_cds_Atr1" ON cds_atr ("CatID");

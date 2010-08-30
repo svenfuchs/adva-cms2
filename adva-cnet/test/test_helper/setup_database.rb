@@ -11,13 +11,18 @@ postgres_config = default_config.merge(
   :schema_search_path => 'public'
 )
 
-%w(cnet_origin cnet_import).each do |name|
+postgres  = ActiveRecord::Base.establish_connection(postgres_config).connection
+databases = postgres.select_values('SELECT datname FROM pg_database')
+
+%w(cnet_origin cnet_import cnet_tmp).each do |name|
   config = default_config.merge(:database => name)
   ActiveRecord::Base.configurations[name] = config
-  postgres = ActiveRecord::Base.establish_connection(postgres_config).connection
-  postgres.drop_database(name) rescue ActiveRecord::StatementInvalid
-  postgres.create_database(name, config) # rescue ActiveRecord::StatementInvalid
+  # postgres.drop_database(name)
+  postgres.create_database(name, config) unless databases.include?(name)
 end
 
-Adva::Cnet::Sql.load('origin.schema.postgres.sql', Adva::Cnet::Connections.origin)
-Adva::Cnet::Sql.load('origin.schema.postgres.sql', Adva::Cnet::Connections.import)
+out, Adva.out = Adva.out, $stdout
+origin = Adva::Cnet::Connections.origin
+origin.load('origin.schema.postgres.sql') if origin.tables.empty?
+origin.prepare('origin.full.zip') unless origin.count('cds_prod') > 0
+Adva.out = out
