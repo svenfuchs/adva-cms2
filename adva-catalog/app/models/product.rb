@@ -4,7 +4,7 @@ require 'asset_assignment'
 class Product < ActiveRecord::Base
   belongs_to :account
 
-  has_many :asset_assignments, :foreign_key => :obj_id, :dependent => :delete_all
+  has_many :asset_assignments, :foreign_key => :obj_id, :dependent => :destroy
   has_many :assets, :through => :asset_assignments
 
   has_slug :scope => :account_id
