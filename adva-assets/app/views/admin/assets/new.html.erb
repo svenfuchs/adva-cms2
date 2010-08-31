@@ -2,7 +2,5 @@
 
 <%= simple_form_for resource, :url => admin_site_assets_path(site),
                               :html => { :multipart => true }, :method => :post do |f| %>
-
   <%= render :partial => 'form', :object => f %>
-  
 <% end %>

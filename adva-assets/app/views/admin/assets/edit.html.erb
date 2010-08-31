@@ -1,7 +1,5 @@
 <h3><%= t(:'.') %></h3>
 
-<%= simple_form_for @asset, :url => admin_site_assets_path(site, @asset), :method => :post do |f| %>
-
+<%= simple_form_for @asset, :url => admin_site_asset_path(site, @asset) do |f| %>
   <%= render :partial => 'form', :object => f %>
-
 <% end %>
