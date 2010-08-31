@@ -1,4 +1,11 @@
 PATH
+  remote: adva-attributes
+  specs:
+    adva-attributes (0.0.1)
+      adva-core
+      globalize3 (= 0.0.7)
+
+PATH
   remote: adva-blog
   specs:
     adva-blog (0.0.1)
@@ -32,8 +39,9 @@ PATH
   remote: adva-cnet
   specs:
     adva-cnet (0.0.1)
+      adva-attributes
       adva-core
-      globalize3 (= 0.0.5)
+      globalize3 (= 0.0.7)
       pg
 
 PATH
@@ -127,7 +135,7 @@ GEM
     gem_patching (0.0.2)
     gherkin (2.1.5)
       trollop (~> 1.16.2)
-    globalize3 (0.0.5)
+    globalize3 (0.0.7)
       activerecord (>= 3.0.0.rc)
     has_scope (0.5.0)
     i18n (0.4.1)
@@ -211,6 +219,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  adva-attributes!
   adva-blog!
   adva-cache!
   adva-cart!

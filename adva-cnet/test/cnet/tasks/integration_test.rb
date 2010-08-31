@@ -28,7 +28,7 @@
 #         target = fixtures
 # 
 #         assert_equal 0, fixtures.count('cds_prod')
-#         Adva::Tasks::Cnet::Origin::Fixtures::Extract.new([full, fixtures]).invoke_all
+#         Adva::Tasks::Cnet::Fixtures::Origin::Extract.new([full, fixtures]).invoke_all
 # 
 #         assert_equal 5, fixtures.count('cds_prod')
 # 

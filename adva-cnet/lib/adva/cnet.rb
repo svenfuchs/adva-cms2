@@ -7,9 +7,11 @@ module Adva
     autoload :Connections, 'adva/cnet/connections'
     autoload :Downloader,  'adva/cnet/downloader'
     autoload :Extractor,   'adva/cnet/extractor'
+    autoload :Finalizer,   'adva/cnet/finalizer'
     autoload :Importer,    'adva/cnet/importer'
     autoload :Logger,      'adva/cnet/logger'
-    autoload :Origin,      'adva/cnet/origin'
+    autoload :Fixtures,    'adva/cnet/fixtures'
+    autoload :Prepare,     'adva/cnet/prepare'
     autoload :Sql,         'adva/cnet/sql'
 
     include Adva::Engine

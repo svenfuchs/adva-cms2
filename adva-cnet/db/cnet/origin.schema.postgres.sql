@@ -1,15 +1,15 @@
 DROP TABLE IF EXISTS "cds_acc_links";
 CREATE TABLE "cds_acc_links" (
   "ProdID" varchar(40) NOT NULL,
-  "PProdID" varchar(40) NOT NULL,
-  PRIMARY KEY ("ProdID","PProdID")
+  "PProdID" varchar(40) NOT NULL
 );
+CREATE UNIQUE INDEX "idx_cds_acc_links" ON cds_acc_links ("ProdID", "PProdID");
 
 DROP TABLE IF EXISTS "cds_acc_updates";
 CREATE TABLE "cds_acc_updates" (
-  "ProdID" varchar(40) NOT NULL,
-  PRIMARY KEY ("ProdID")
+  "ProdID" varchar(40) NOT NULL
 );
+CREATE UNIQUE INDEX "idx_cds_acc_updates" ON cds_acc_updates ("ProdID");
 
 DROP TABLE IF EXISTS "cds_acccompat";
 CREATE TABLE "cds_acccompat" (
@@ -20,16 +20,16 @@ CREATE TABLE "cds_acccompat" (
   "PCatID" char(2) NOT NULL,
   "PMfID" varchar(10) NOT NULL
 );
-CREATE INDEX "idx_cds_AccCompat1" ON cds_acccompat ("ProdID");
-CREATE INDEX "idx_cds_AccCompat2" ON cds_acccompat ("ComplementID");
+CREATE INDEX "idx_cds_acccompat_1" ON cds_acccompat ("ProdID");
+CREATE INDEX "idx_cds_acccompat_2" ON cds_acccompat ("ComplementID");
 
 DROP TABLE IF EXISTS "cds_acccompat_complement_de";
 CREATE TABLE "cds_acccompat_complement_de" (
   "ComplementID" integer NOT NULL,
   "ApplicableCondition" text,
-  "Details" text,
-  PRIMARY KEY ("ComplementID")
+  "Details" text
 );
+CREATE UNIQUE INDEX "idx_cds_acccompat_complement_de" ON cds_acccompat_complement_de ("ComplementID");
 
 DROP TABLE IF EXISTS "cds_atr";
 CREATE TABLE "cds_atr" (
@@ -38,30 +38,30 @@ CREATE TABLE "cds_atr" (
   "AtrID" varchar(10) NOT NULL,
   "ValID" varchar(10) NOT NULL,
   "UnitID" varchar(10) DEFAULT NULL,
-  "NNV" varchar DEFAULT NULL,
-  PRIMARY KEY ("ProdID","AtrID","ValID")
+  "NNV" varchar DEFAULT NULL
 );
-CREATE INDEX "idx_cds_Atr1" ON cds_atr ("CatID");
-CREATE INDEX "idx_cds_Atr2" ON cds_atr ("AtrID");
-CREATE INDEX "idx_cds_Atr3" ON cds_atr ("ValID");
-CREATE INDEX "idx_cds_Atr4" ON cds_atr ("UnitID");
+CREATE UNIQUE INDEX "idx_cds_atr" ON cds_atr ("ProdID", "AtrID", "ValID");
+CREATE INDEX "idx_cds_atr_1" ON cds_atr ("CatID");
+CREATE INDEX "idx_cds_atr_2" ON cds_atr ("AtrID");
+CREATE INDEX "idx_cds_atr_3" ON cds_atr ("ValID");
+CREATE INDEX "idx_cds_atr_4" ON cds_atr ("UnitID");
 
 DROP TABLE IF EXISTS "cds_cat";
 CREATE TABLE "cds_cat" (
   "CatID" char(2) NOT NULL,
-  "AtrID" varchar(10) NOT NULL,
-  PRIMARY KEY ("AtrID","CatID")
+  "AtrID" varchar(10) NOT NULL
 );
-CREATE INDEX "idx_cds_Cat1" ON cds_cat ("CatID");
+CREATE UNIQUE INDEX "idx_cds_cat" ON cds_cat ("AtrID", "CatID");
+CREATE INDEX "idx_cds_cat_1" ON cds_cat ("CatID");
 
 DROP TABLE IF EXISTS "cds_catalog";
 CREATE TABLE "cds_catalog" (
   "ProdID" varchar(40) NOT NULL,
   "StatusCode" varchar(4) NOT NULL,
-  "Timestamp" varchar(10) NOT NULL,
-  PRIMARY KEY ("ProdID")
+  "Timestamp" varchar(10) NOT NULL
 );
-CREATE INDEX "idx_cds_Catalog1" ON cds_catalog ("StatusCode");
+CREATE UNIQUE INDEX "idx_cds_catalog" ON cds_catalog ("ProdID");
+CREATE INDEX "idx_cds_catalog_1" ON cds_catalog ("StatusCode");
 
 DROP TABLE IF EXISTS "cds_catalog_info";
 CREATE TABLE "cds_catalog_info" (
@@ -70,26 +70,26 @@ CREATE TABLE "cds_catalog_info" (
   "LastDeliveryDate" varchar(10) NULL,
   "CreationDate" varchar(10) NULL,
   "LastRequestDate" varchar(10) NULL,
-  "IsPartial" integer NOT NULL,
-  PRIMARY KEY ("ProdID")
+  "IsPartial" integer NOT NULL
 );
-CREATE INDEX "idx_cds_catalog_info1" ON cds_catalog_info ("StatusCode");
+CREATE UNIQUE INDEX "idx_cds_catalog_info" ON cds_catalog_info ("ProdID");
+CREATE INDEX "idx_cds_catalog_info_1" ON cds_catalog_info ("StatusCode");
 
 DROP TABLE IF EXISTS "cds_cctde";
 CREATE TABLE "cds_cctde" (
   "ID" char(2) NOT NULL,
   "Description" varchar(80) NOT NULL,
-  "DefaultImageID" varchar(10) DEFAULT NULL,
-  PRIMARY KEY ("ID")
+  "DefaultImageID" varchar(10) DEFAULT NULL
 );
+CREATE UNIQUE INDEX "idx_cds_cctde" ON cds_cctde ("ID");
 
 DROP TABLE IF EXISTS "cds_cctee";
 CREATE TABLE "cds_cctee" (
   "ID" char(2) NOT NULL,
   "Description" varchar(80) NOT NULL,
-  "DefaultImageID" varchar(10) DEFAULT NULL,
-  PRIMARY KEY ("ID")
+  "DefaultImageID" varchar(10) DEFAULT NULL
 );
+CREATE UNIQUE INDEX "idx_cds_cctee" ON cds_cctee ("ID");
 
 DROP TABLE IF EXISTS "cds_digcontent";
 CREATE TABLE "cds_digcontent" (
@@ -97,93 +97,94 @@ CREATE TABLE "cds_digcontent" (
   "MediaTypeID" integer NOT NULL,
   "MimeType" varchar(50) NOT NULL,
   "URL" text NOT NULL,
-  "Timestamp" timestamp DEFAULT NULL,
-  PRIMARY KEY ("ContentGuid")
+  "Timestamp" timestamp DEFAULT NULL
 );
-CREATE INDEX "idx_cds_DigContent1" ON cds_digcontent ("MediaTypeID");
+CREATE UNIQUE INDEX "idx_cds_digcontent" ON cds_digcontent ("ContentGuid");
+CREATE INDEX "idx_cds_digcontent_1" ON cds_digcontent ("MediaTypeID");
 
 DROP TABLE IF EXISTS "cds_digcontent_meta";
 CREATE TABLE "cds_digcontent_meta" (
   "ContentGuid" char(36) NOT NULL,
   "MetaAtrId" integer NOT NULL,
-  "MetaValueId" integer NOT NULL,
-  PRIMARY KEY ("ContentGuid", "MetaAtrId", "MetaValueId")
+  "MetaValueId" integer NOT NULL
 );
+CREATE UNIQUE INDEX "idx_cds_digcontent_meta" ON cds_digcontent_meta ("ContentGuid", "MetaAtrId", "MetaValueId");
+
 DROP TABLE IF EXISTS "cds_digcontent_meta_atr_voc";
 CREATE TABLE "cds_digcontent_meta_atr_voc" (
   "MetaAtrId" integer NOT NULL,
   "LanguageCode" varchar(20) NOT NULL,
-  "MetaAtrName" varchar(200) NOT NULL,
-  PRIMARY KEY ("MetaAtrId", "LanguageCode")
+  "MetaAtrName" varchar(200) NOT NULL
 );
+CREATE UNIQUE INDEX "idx_cds_digcontent_meta_atr_voc" ON cds_digcontent_meta_atr_voc ("MetaAtrId", "LanguageCode");
 CREATE INDEX "idx_cds_digcontent_meta_atr_voc1" ON cds_digcontent_meta_atr_voc ("LanguageCode");
 
 DROP TABLE IF EXISTS "cds_digcontent_meta_value_voc";
 CREATE TABLE "cds_digcontent_meta_value_voc" (
   "MetaValueId" integer NOT NULL,
   "LanguageCode" varchar(20) NOT NULL,
-  "MetaValueName" text NOT NULL,
-  PRIMARY KEY ("MetaValueId", "LanguageCode")
+  "MetaValueName" text NOT NULL
 );
-CREATE INDEX "idx_cds_digcontent_meta_value_voc" ON cds_digcontent_meta_value_voc ("LanguageCode");
+CREATE UNIQUE INDEX "idx_cds_digcontent_meta_value_voc" ON cds_digcontent_meta_value_voc ("MetaValueId", "LanguageCode");
+CREATE INDEX "idx_cds_digcontent_meta_value_voc_1" ON cds_digcontent_meta_value_voc ("LanguageCode");
 
 DROP TABLE IF EXISTS "cds_digcontent_lang_links";
 CREATE TABLE "cds_digcontent_lang_links" (
   "ContentGuid" char(36) NOT NULL,
-  "LanguageCode" varchar(20) NOT NULL,
-  PRIMARY KEY ("ContentGuid","LanguageCode")
+  "LanguageCode" varchar(20) NOT NULL
 );
-CREATE INDEX "idx_cds_DigContent_Lang_Links1" ON cds_digcontent_lang_links ("LanguageCode");
+CREATE UNIQUE INDEX "idx_cds_digcontent_lang_links" ON cds_digcontent_lang_links ("ContentGuid", "LanguageCode");
+CREATE INDEX "idx_cds_digcontent_lang_links_1" ON cds_digcontent_lang_links ("LanguageCode");
 
 DROP TABLE IF EXISTS "cds_digcontent_langs";
 CREATE TABLE "cds_digcontent_langs" (
   "LanguageCode" varchar(20) NOT NULL,
-  "LanguageName" varchar(200) NOT NULL,
-  PRIMARY KEY ("LanguageCode")
+  "LanguageName" varchar(200) NOT NULL
 );
+CREATE UNIQUE INDEX "idx_cds_digcontent_langs" ON cds_digcontent_langs ("LanguageCode");
 
 DROP TABLE IF EXISTS "cds_digcontent_links";
 CREATE TABLE "cds_digcontent_links" (
   "ProdID" varchar(40) NOT NULL,
-  "ContentGuid" char(36) NOT NULL,
-  PRIMARY KEY ("ProdID","ContentGuid")
+  "ContentGuid" char(36) NOT NULL
 );
-CREATE INDEX "idx_cds_DigContent_Links1" ON cds_digcontent_links ("ContentGuid");
+CREATE UNIQUE INDEX "idx_cds_digcontent_links" ON cds_digcontent_links ("ProdID", "ContentGuid");
+CREATE INDEX "idx_cds_digcontent_links_1" ON cds_digcontent_links ("ContentGuid");
 
 DROP TABLE IF EXISTS "cds_digcontent_media_types";
 CREATE TABLE "cds_digcontent_media_types" (
   "MediaTypeID" integer NOT NULL,
-  "MediaTypeDescription" text NOT NULL,
-  PRIMARY KEY ("MediaTypeID")
+  "MediaTypeDescription" text NOT NULL
 );
+CREATE UNIQUE INDEX "idx_cds_digcontent_media_types" ON cds_digcontent_media_types ("MediaTypeID");
 
 DROP TABLE IF EXISTS "cds_digcontent_prod";
 CREATE TABLE "cds_digcontent_prod" (
-  "ProdID" varchar(40) NOT NULL,
-  PRIMARY KEY ("ProdID")
+  "ProdID" varchar(40) NOT NULL
 );
+CREATE UNIQUE INDEX "idx_cds_digcontent_prod" ON cds_digcontent_prod ("ProdID");
 
 DROP TABLE IF EXISTS "cds_digcontent_region_links";
 CREATE TABLE "cds_digcontent_region_links" (
   "ContentGuid" char(36) NOT NULL,
-  "RegionCode" varchar(20) NOT NULL,
-  PRIMARY KEY ("ContentGuid","RegionCode")
+  "RegionCode" varchar(20) NOT NULL
 );
-CREATE INDEX "idx_cds_DigContent_Region_Links1" ON cds_digcontent_region_links ("RegionCode");
+CREATE UNIQUE INDEX "idx_cds_digcontent_region_links" ON cds_digcontent_region_links ("ContentGuid", "RegionCode");
+CREATE INDEX "idx_cds_digcontent_region_links_1" ON cds_digcontent_region_links ("RegionCode");
 
 DROP TABLE IF EXISTS "cds_digcontent_regions";
 CREATE TABLE "cds_digcontent_regions" (
   "RegionCode" varchar(20) NOT NULL,
-  "RegionName" varchar(200) NOT NULL,
-  PRIMARY KEY ("RegionCode")
+  "RegionName" varchar(200) NOT NULL
 );
+CREATE UNIQUE INDEX "idx_cds_digcontent_regions" ON cds_digcontent_regions ("RegionCode");
 
 DROP TABLE IF EXISTS "cds_distivoc";
 CREATE TABLE "cds_distivoc" (
   "ID" varchar(10) NOT NULL,
-  "Name" varchar(50) NOT NULL,
-  PRIMARY KEY ("ID")
+  "Name" varchar(50) NOT NULL
 );
+CREATE UNIQUE INDEX "idx_cds_distivoc" ON cds_distivoc ("ID");
 
 DROP TABLE IF EXISTS "cds_especde";
 CREATE TABLE "cds_especde" (
@@ -191,12 +192,12 @@ CREATE TABLE "cds_especde" (
   "SectID" varchar(10) NOT NULL,
   "HdrID" varchar(10) NOT NULL,
   "BodyID" varchar(10) NOT NULL,
-  "DisplayOrder" integer NOT NULL,
-  PRIMARY KEY ("ProdID","SectID","BodyID","HdrID")
+  "DisplayOrder" integer NOT NULL
 );
-CREATE INDEX "idx_cds_Especde1" ON cds_especde ("BodyID");
-CREATE INDEX "idx_cds_Especde2" ON cds_especde ("HdrID");
-CREATE INDEX "idx_cds_Especde3" ON cds_especde ("SectID");
+CREATE UNIQUE INDEX "idx_cds_especde" ON cds_especde ("ProdID", "SectID", "BodyID", "HdrID");
+CREATE INDEX "idx_cds_especde_1" ON cds_especde ("BodyID");
+CREATE INDEX "idx_cds_especde_2" ON cds_especde ("HdrID");
+CREATE INDEX "idx_cds_especde_3" ON cds_especde ("SectID");
 
 DROP TABLE IF EXISTS "cds_especee";
 CREATE TABLE "cds_especee" (
@@ -204,85 +205,85 @@ CREATE TABLE "cds_especee" (
   "SectID" varchar(10) NOT NULL,
   "HdrID" varchar(10) NOT NULL,
   "BodyID" varchar(10) NOT NULL,
-  "DisplayOrder" integer NOT NULL,
-  PRIMARY KEY ("ProdID","SectID","BodyID","HdrID")
+  "DisplayOrder" integer NOT NULL
 );
-CREATE INDEX "idx_cds_Especee1" ON cds_especee ("BodyID");
-CREATE INDEX "idx_cds_Especee2" ON cds_especee ("HdrID");
-CREATE INDEX "idx_cds_Especee3" ON cds_especee ("SectID");
+CREATE UNIQUE INDEX "idx_cds_especee" ON cds_especee ("ProdID", "SectID", "BodyID", "HdrID");
+CREATE INDEX "idx_cds_especee_1" ON cds_especee ("BodyID");
+CREATE INDEX "idx_cds_especee_2" ON cds_especee ("HdrID");
+CREATE INDEX "idx_cds_especee_3" ON cds_especee ("SectID");
 
 DROP TABLE IF EXISTS "cds_evocde";
 CREATE TABLE "cds_evocde" (
   "ID" varchar(10) NOT NULL,
-  "Text" text,
-  PRIMARY KEY ("ID")
+  "Text" text
 );
+CREATE UNIQUE INDEX "idx_cds_evocde" ON cds_evocde ("ID");
 
 DROP TABLE IF EXISTS "cds_evocee";
 CREATE TABLE "cds_evocee" (
   "ID" varchar(10) NOT NULL,
-  "Text" text,
-  PRIMARY KEY ("ID")
+  "Text" text
 );
+CREATE UNIQUE INDEX "idx_cds_evocee" ON cds_evocee ("ID");
 
 DROP TABLE IF EXISTS "cds_metamap";
 CREATE TABLE "cds_metamap" (
   "ProdID" varchar(40) NOT NULL,
   "DistiSKU" varchar(40) NOT NULL,
-  "DistiID" varchar(10) NOT NULL,
-  PRIMARY KEY ("ProdID","DistiID","DistiSKU")
+  "DistiID" varchar(10) NOT NULL
 );
-CREATE INDEX "idx_cds_Metamap1" ON cds_metamap ("DistiID");
+CREATE UNIQUE INDEX "idx_cds_metamap" ON cds_metamap ("ProdID", "DistiID", "DistiSKU");
+CREATE INDEX "idx_cds_metamap_1" ON cds_metamap ("DistiID");
 
 DROP TABLE IF EXISTS "cds_mktde";
 CREATE TABLE "cds_mktde" (
   "MktID" varchar(10) NOT NULL,
-  "Description" text,
-  PRIMARY KEY ("MktID")
+  "Description" text
 );
+CREATE UNIQUE INDEX "idx_cds_mktde" ON cds_mktde ("MktID");
 
 DROP TABLE IF EXISTS "cds_mktee";
 CREATE TABLE "cds_mktee" (
   "MktID" varchar(10) NOT NULL,
-  "Description" text,
-  PRIMARY KEY ("MktID")
+  "Description" text
 );
+CREATE UNIQUE INDEX "idx_cds_mktee" ON cds_mktee ("MktID");
 
 DROP TABLE IF EXISTS "cds_mspecde";
 CREATE TABLE "cds_mspecde" (
   "ProdID" varchar(40) NOT NULL,
   "HdrID" varchar(10) NOT NULL,
   "BodyID" varchar(10) NOT NULL,
-  "DisplayOrder" integer NOT NULL,
-  PRIMARY KEY ("ProdID","HdrID","BodyID")
+  "DisplayOrder" integer NOT NULL
 );
-CREATE INDEX "idx_cds_Mspecde1" ON cds_mspecde ("BodyID");
-CREATE INDEX "idx_cds_Mspecde2" ON cds_mspecde ("HdrID");
+CREATE UNIQUE INDEX "idx_cds_mspecde" ON cds_mspecde ("ProdID", "HdrID", "BodyID");
+CREATE INDEX "idx_cds_mspecde_1" ON cds_mspecde ("BodyID");
+CREATE INDEX "idx_cds_mspecde_2" ON cds_mspecde ("HdrID");
 
 DROP TABLE IF EXISTS "cds_mspecee";
 CREATE TABLE "cds_mspecee" (
   "ProdID" varchar(40) NOT NULL,
   "HdrID" varchar(10) NOT NULL,
   "BodyID" varchar(10) NOT NULL,
-  "DisplayOrder" integer NOT NULL,
-  PRIMARY KEY ("ProdID","HdrID","BodyID")
+  "DisplayOrder" integer NOT NULL
 );
-CREATE INDEX "idx_cds_Mspecee1" ON cds_mspecee ("BodyID");
-CREATE INDEX "idx_cds_Mspecee2" ON cds_mspecee ("HdrID");
+CREATE UNIQUE INDEX "idx_cds_mspecee" ON cds_mspecee ("ProdID", "HdrID", "BodyID");
+CREATE INDEX "idx_cds_mspecee_1" ON cds_mspecee ("BodyID");
+CREATE INDEX "idx_cds_mspecee_2" ON cds_mspecee ("HdrID");
 
 DROP TABLE IF EXISTS "cds_mvocde";
 CREATE TABLE "cds_mvocde" (
   "ID" varchar(10) NOT NULL,
-  "Text" text,
-  PRIMARY KEY ("ID")
+  "Text" text
 );
+CREATE UNIQUE INDEX "idx_cds_mvocde" ON cds_mvocde ("ID");
 
 DROP TABLE IF EXISTS "cds_mvocee";
 CREATE TABLE "cds_mvocee" (
   "ID" varchar(10) NOT NULL,
-  "Text" text,
-  PRIMARY KEY ("ID")
+  "Text" text
 );
+CREATE UNIQUE INDEX "idx_cds_mvocee" ON cds_mvocee ("ID");
 
 DROP TABLE IF EXISTS "cds_prod";
 CREATE TABLE "cds_prod" (
@@ -305,92 +306,92 @@ CREATE TABLE "cds_prod" (
   "Reserved11" varchar(1) DEFAULT NULL,
   "Reserved12" varchar(1) DEFAULT NULL,
   "Reserved13" varchar(1) DEFAULT NULL,
-  "Reserved14" varchar(1) DEFAULT NULL,
-  PRIMARY KEY ("ProdID")
+  "Reserved14" varchar(1) DEFAULT NULL
 );
-CREATE INDEX "idx_cds_Prod1" ON cds_prod ("CatID");
-CREATE INDEX "idx_cds_Prod2" ON cds_prod ("MktID");
-CREATE INDEX "idx_cds_Prod3" ON cds_prod ("MfID");
+CREATE UNIQUE INDEX "idx_cds_prod" ON cds_prod ("ProdID");
+CREATE INDEX "idx_cds_prod_1" ON cds_prod ("CatID");
+CREATE INDEX "idx_cds_prod_2" ON cds_prod ("MktID");
+CREATE INDEX "idx_cds_prod_3" ON cds_prod ("MfID");
 
 DROP TABLE IF EXISTS "cds_skustatus";
 CREATE TABLE "cds_skustatus" (
   "StatusCode" varchar(4) NOT NULL,
-  "StatusName" varchar(100) NOT NULL,
-  PRIMARY KEY ("StatusCode")
+  "StatusName" varchar(100) NOT NULL
 );
+CREATE UNIQUE INDEX "idx_cds_skustatus" ON cds_skustatus ("StatusCode");
 
 DROP TABLE IF EXISTS "cds_stdnde";
 CREATE TABLE "cds_stdnde" (
   "ProdID" varchar(40) NOT NULL,
-  "Description" text NOT NULL,
-  PRIMARY KEY ("ProdID")
+  "Description" text NOT NULL
 );
+CREATE UNIQUE INDEX "idx_cds_stdnde" ON cds_stdnde ("ProdID");
 
 DROP TABLE IF EXISTS "cds_stdnee";
 CREATE TABLE "cds_stdnee" (
   "ProdID" varchar(40) NOT NULL,
-  "Description" text NOT NULL,
-  PRIMARY KEY ("ProdID")
+  "Description" text NOT NULL
 );
+CREATE UNIQUE INDEX "idx_cds_stdnee" ON cds_stdnee ("ProdID");
 
 DROP TABLE IF EXISTS "cds_unspsc";
 CREATE TABLE "cds_unspsc" (
   "ProdID" varchar(40) NOT NULL,
-  "CommodityCode" varchar(8) NOT NULL,
-  PRIMARY KEY ("ProdID","CommodityCode")
+  "CommodityCode" varchar(8) NOT NULL
 );
-CREATE INDEX "idx_cds_UNSPSC1" ON cds_unspsc ("CommodityCode");
+CREATE UNIQUE INDEX "idx_cds_unspsc" ON cds_unspsc ("ProdID", "CommodityCode");
+CREATE INDEX "idx_cds_unspsc_1" ON cds_unspsc ("CommodityCode");
 
 DROP TABLE IF EXISTS "cds_unspsc_versioned_commodities";
 CREATE TABLE "cds_unspsc_versioned_commodities" (
   "CommodityCode" varchar(8) NOT NULL,
   "CommodityName" varchar(255) NOT NULL,
-  "UNSPSCVersionID" integer NOT NULL,
-  PRIMARY KEY ("UNSPSCVersionID","CommodityCode")
+  "UNSPSCVersionID" integer NOT NULL
 );
+CREATE UNIQUE INDEX "idx_cds_unspsc_versioned_commodities" ON cds_unspsc_versioned_commodities ("UNSPSCVersionID", "CommodityCode");
 
 DROP TABLE IF EXISTS "cds_unspsc_versioned_links";
 CREATE TABLE "cds_unspsc_versioned_links" (
   "ProdID" varchar(40) NOT NULL,
   "CommodityCode" varchar(8) NOT NULL,
   "UNSPSCVersionID" integer NOT NULL,
-  "IsDefault" integer,
-  PRIMARY KEY ("UNSPSCVersionID","ProdID","CommodityCode")
+  "IsDefault" integer
 );
-CREATE INDEX "idx_cds_UNSPSC_Versioned_Links1" ON cds_unspsc_versioned_links ("ProdID");
-CREATE INDEX "idx_cds_UNSPSC_Versioned_Links2" ON cds_unspsc_versioned_links ("CommodityCode");
+CREATE UNIQUE INDEX "idx_cds_unspsc_versioned_links" ON cds_unspsc_versioned_links ("UNSPSCVersionID", "ProdID", "CommodityCode");
+CREATE INDEX "idx_cds_unspsc_versioned_links_1" ON cds_unspsc_versioned_links ("ProdID");
+CREATE INDEX "idx_cds_unspsc_versioned_links_2" ON cds_unspsc_versioned_links ("CommodityCode");
 
 DROP TABLE IF EXISTS "cds_unspsc_versions";
 CREATE TABLE "cds_unspsc_versions" (
   "UNSPSCVersionID" integer NOT NULL,
   "UNSPSCVersion" varchar(80) NOT NULL,
-  "IsLatest" integer,
-  PRIMARY KEY ("UNSPSCVersionID")
+  "IsLatest" integer
 );
+CREATE UNIQUE INDEX "idx_cds_unspsc_versions" ON cds_unspsc_versions ("UNSPSCVersionID");
 
 DROP TABLE IF EXISTS "cds_unspsccommodity";
 CREATE TABLE "cds_unspsccommodity" (
   "CommodityCode" varchar(8) NOT NULL,
-  "CommodityName" varchar(255) NOT NULL,
-  PRIMARY KEY ("CommodityCode")
+  "CommodityName" varchar(255) NOT NULL
 );
+CREATE UNIQUE INDEX "idx_cds_unspsccommodity" ON cds_unspsccommodity ("CommodityCode");
 
 DROP TABLE IF EXISTS "cds_unspscversion";
 CREATE TABLE "cds_unspscversion" (
-  "UNSPSCVersion" varchar(10) NOT NULL,
-  PRIMARY KEY ("UNSPSCVersion")
+  "UNSPSCVersion" varchar(10) NOT NULL
 );
+CREATE UNIQUE INDEX "idx_cds_unspscversion" ON cds_unspscversion ("UNSPSCVersion");
 
 DROP TABLE IF EXISTS "cds_vocde";
 CREATE TABLE "cds_vocde" (
   "ID" varchar(10) NOT NULL,
-  "Text" varchar(255) DEFAULT NULL,
-  PRIMARY KEY ("ID")
+  "Text" varchar(255) DEFAULT NULL
 );
+CREATE UNIQUE INDEX "idx_cds_vocde" ON cds_vocde ("ID");
 
 DROP TABLE IF EXISTS "cds_vocee";
 CREATE TABLE "cds_vocee" (
   "ID" varchar(10) NOT NULL,
-  "Text" varchar(255) DEFAULT NULL,
-  PRIMARY KEY ("ID")
+  "Text" varchar(255) DEFAULT NULL
 );
+CREATE UNIQUE INDEX "idx_cds_vocee" ON cds_vocee ("ID");

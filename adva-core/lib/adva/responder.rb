@@ -1,3 +1,4 @@
+require 'action_controller'
 require 'responders'
 
 module Adva
