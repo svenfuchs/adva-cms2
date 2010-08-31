@@ -38,7 +38,7 @@ Feature: Asset Management
     And I should see a table "assets" with the following entries:
       | Title      | Description           |
       | Image1     | Image 1 description   |
-    When I press "Delete" in the row where "Title" is "Image1"
+    When I press "delete" in the row where "Title" is "Image1"
     Then I should see "No assets given."
 
 #

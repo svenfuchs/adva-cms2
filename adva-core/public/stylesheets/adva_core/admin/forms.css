@@ -117,3 +117,17 @@ div.double-label label:first-child {
   background-color: #ddd;
   text-decoration: none;
 }
+input[type=submit].delete {
+  padding: 0;
+  margin: 0;
+  border: 0px;
+  background: url(/images/icons/delete.png);
+  background-repeat:no-repeat;
+  background-position: 0px 0px;
+  width: 20px;
+  heigth: 20px;
+}
+.left-floating-field {
+  float:left;
+  margin-right: 7px;
+}
