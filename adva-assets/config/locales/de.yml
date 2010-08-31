@@ -13,6 +13,8 @@ de:
         no_assets: "Keine Dateien vorhanden."
         delete_confirmation: "Möchten Sie wirklich die Datei löschen?"
   assets:
+    validation:
+      duplicate: "Die Datei '%{asset}' wurde bereits zu '%{obj}' hinzugefügt."
     columns:
       title: "Titel"
       description: "Beschreibung"

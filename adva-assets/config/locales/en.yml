@@ -13,6 +13,8 @@ en:
         no_assets: "No assets given."
         delete_confirmation: "Do you really want to delete this asset?"
   assets:
+    validation:
+      duplicate: "'%{asset}' is already assigned to '%{obj}'."
     columns:
       title: "Title"
       description: "Description"
