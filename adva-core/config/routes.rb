@@ -3,7 +3,7 @@ require 'adva/routing_filters/section_root'
 require 'adva/routing_filters/section_path'
 
 Rails.application.routes.draw do
-  filter :section_root, :section_path
+  filter :section_path, :section_root
 
   namespace :admin do
     resources :sites do

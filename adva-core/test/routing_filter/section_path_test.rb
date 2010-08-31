@@ -5,16 +5,17 @@ require 'page'
 
 module AdvaCoreTests
   class SectionPathTest < Test::Unit::TestCase
-    attr_reader :filter, :site, :home, :docs, :api
+    attr_reader :filter, :site, :home, :docs, :api, :pages
 
     def setup
       @site   = Site.create!(:name => 'site', :title => 'site', :host => 'www.example.com', :sections_attributes => [{ :title => 'home' }])
       @home   = site.sections.first
       @docs   = site.sections.create!(:title => 'docs')
       @api    = site.sections.create!(:title => 'api', :parent => docs)
+      @pages  = site.sections.create!(:title => 'pages')
       @filter = RoutingFilter::SectionPath.new
 
-      [home, docs, api].map(&:reload)
+      [home, docs, api, pages].map(&:reload)
       site.sections.reset
     end
 
