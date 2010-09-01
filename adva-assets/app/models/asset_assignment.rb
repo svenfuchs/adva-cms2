@@ -3,7 +3,7 @@ class AssetAssignment < ActiveRecord::Base
   belongs_to :asset
 
   validates :obj_id, :asset_id, :presence => true
-  validate_on_create :check_for_dupe_content_and_asset
+  validate :check_for_dupe_content_and_asset, :on => :create
 
   protected
     def check_for_dupe_content_and_asset

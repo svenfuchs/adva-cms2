@@ -185,7 +185,7 @@ GEM
     warden (0.10.7)
       rack (>= 1.0.0)
     watchr (0.7)
-    webrat (0.7.1)
+    webrat (0.7.0)
       nokogiri (>= 1.2.0)
       rack (>= 1.0)
       rack-test (>= 0.5.3)
@@ -212,4 +212,4 @@ DEPENDENCIES
   test_declarative
   thor
   tidy_ffi
-  webrat (= 0.7.1)
+  webrat (= 0.7.0)

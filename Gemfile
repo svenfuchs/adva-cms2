@@ -18,7 +18,7 @@ group :test do
   gem 'sqlite3-ruby', '1.2.5'
   gem 'cucumber'
   gem 'cucumber-rails'
-  gem 'webrat', '0.7.1'
+  gem 'webrat', '0.7.0' # '0.7.2.beta.1'
   gem 'thor'
   gem 'ruby-debug'
   gem 'mocha'

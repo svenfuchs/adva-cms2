@@ -1,0 +1,35 @@
+<% simple_form_for(resources, :html => { :multipart => true }) do |f| %>
+  <%= f.input :name %>
+  <%= f.input :number %>
+  <%= f.input :description %>
+  <%= f.input :price %>
+  <%= f.hidden_field :id %>
+  
+  <br/>
+  <p>Add Image</p>
+  <%= f.file_field :file, :id => 'product_assets_attributes_0_file', :name => "product[assets_attributes][0][file]" %>
+  <div><%= label_tag 'product[assets_attributes][0][title]', 'Title' %>
+  <%= text_field_tag "product[assets_attributes][0][title]" %></div>
+
+  <%# f.simple_fields_for :assets do |assets_form| %>
+    <%#= assets_form.file_field :file %>
+    <%#= assets_form.input :title %>
+  <%# end %>
+
+  <br/><br/>
+  <%= f.button :submit %>
+  <br/><br/>
+<% end %>
+
+<%# if params[:edit] %>
+  <%# content_for :head do %>
+    <%#= javascript_include_tag 'jquery.form', 'jquery.remotipart' %>
+  <%# end %>
+
+  <%#= simple_form_for [catalog, resource], :html => { :multipart => true }, :remote => true do |f| %>
+  <%#= simple_form_for [:new, :admin, site, :asset], :html => { :multipart => true } do |f| %>
+    <%#= f.file_field :file %>
+    <%#= f.input :title %>
+    <%#= f.button :submit %>
+  <%# end %>
+<%# end %>

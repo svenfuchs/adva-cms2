@@ -6,7 +6,9 @@ class Product < ActiveRecord::Base
 
   has_many :asset_assignments, :foreign_key => :obj_id, :dependent => :destroy
   has_many :assets, :through => :asset_assignments
-
+  
+  accepts_nested_attributes_for :assets
+  
   has_slug :scope => :account_id
 
   def price
@@ -19,5 +21,10 @@ class Product < ActiveRecord::Base
 
   def to_param(name)
     name == :slug ? slug : super()
+  end
+
+  def title
+  end
+  def file
   end
 end
