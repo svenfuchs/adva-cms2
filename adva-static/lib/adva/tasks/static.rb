@@ -9,7 +9,11 @@ module Adva
       class Setup < Thor::Group
         namespace 'adva:static:setup'
         desc 'Setup a static version of your site'
-        class_option :target, :required => false
+        class_option :source, :required => false, :banner => 'source directory (defaults to import)'
+        class_option :target, :required => false, :banner => 'source directory (defaults to export)'
+        class_option :host,   :required => false, :banner => 'hostname of your site (defaults to example.org)'
+        class_option :title,  :required => false, :banner => 'title of your site (defaults to the hostname)'
+        class_option :remote, :required => false, :banner => 'github repository url (defaults to none)'
 
         def export
           require 'config/environment'
@@ -26,7 +30,7 @@ module Adva
           require 'config/environment'
           # require 'adva/static/import/directory'
           source = symbolized_options[:source] || 'import'
-          Adva::Static::Import::Directory.new(source).import_all!
+          Adva::Static::Import::Directory.new(source).run
         end
       end
 

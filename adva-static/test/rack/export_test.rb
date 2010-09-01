@@ -9,7 +9,7 @@ module AdvaStatic
     attr_reader :app
     
     def setup
-      ::Site.create!(:host => 'rails-i18n.org', :name => 'name', :title => 'title', :sections_attributes => [
+      ::Site.create!(:host => 'ruby-i18n.org', :name => 'name', :title => 'title', :sections_attributes => [
         { :type => 'Page', :title => 'Home' }
       ])
       super

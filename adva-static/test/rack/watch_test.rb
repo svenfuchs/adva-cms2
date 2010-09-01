@@ -22,10 +22,10 @@ module AdvaStatic
       @import_dir = dir('/tmp/adva-static-test/import')
 
       File.open(import_dir.join('site.yml'), 'w') do |f|
-        f.write(YAML.dump(:host => 'rails-i18n.org', :name => 'name', :title => 'title'))
+        f.write(YAML.dump(:host => 'ruby-i18n.org', :name => 'name', :title => 'title'))
       end
 
-      Site.create!(:host => 'rails-i18n.org', :name => 'name', :title => 'title', :sections_attributes => [
+      Site.create!(:host => 'ruby-i18n.org', :name => 'name', :title => 'title', :sections_attributes => [
         { :type => 'Page', :title => 'Home' }
       ])
       super

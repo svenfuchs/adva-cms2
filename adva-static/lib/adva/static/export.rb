@@ -54,7 +54,7 @@ module Adva
             Adva.out.puts "#{bench.total.to_s[0..3]}s: exporting #{path}"
             Page.new(path, response[2])
           else
-            puts "can not export #{path} (status: #{status})"
+            Adva.out.puts "can not export #{path} (status: #{status})"
           end
         end
 

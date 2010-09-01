@@ -17,7 +17,7 @@ module Tests
             post = blog.posts.first
 
             assert site.valid?
-            assert_equal 'rails-i18n.org', site.host
+            assert_equal 'ruby-i18n.org', site.host
             assert_equal 'Blog', blog.class.name
             assert_equal 'Home', blog.title
             assert_equal 'Welcome To The Future Of I18n In Ruby On Rails', post.title
@@ -34,7 +34,7 @@ module Tests
             post = blog.posts.first
 
             assert site.valid?
-            assert_equal 'rails-i18n.org', site.host
+            assert_equal 'ruby-i18n.org', site.host
             assert_equal 'Blog', blog.class.name
             assert_equal 'Home', blog.title
             assert_equal 'Welcome To The Future Of I18n In Ruby On Rails', post.title
@@ -51,7 +51,7 @@ module Tests
             post_2 = blog.posts.second
 
             assert site.valid?
-            assert_equal 'rails-i18n.org', site.host
+            assert_equal 'ruby-i18n.org', site.host
             assert_equal 'Blog', blog.class.name
             assert_equal 'Blog', blog.title
             assert_equal 'Welcome To The Future Of I18n In Ruby On Rails', post_1.title
@@ -70,7 +70,7 @@ module Tests
             post_2 = blog.posts.second
           
             assert site.valid?
-            assert_equal 'rails-i18n.org', site.host
+            assert_equal 'ruby-i18n.org', site.host
             assert_equal 'Blog', blog.class.name
             assert_equal 'Blog', blog.title
             assert_equal 'Welcome To The Future Of I18n In Ruby On Rails', post_1.title
@@ -91,7 +91,7 @@ module Tests
             page = site.sections.third
 
             assert site.valid?
-            assert_equal 'rails-i18n.org', site.host
+            assert_equal 'ruby-i18n.org', site.host
             assert_equal 'Blog', blog.class.name
             assert_equal 'Blog', blog.title
             assert_equal 'Welcome To The Future Of I18n In Ruby On Rails', post.title
