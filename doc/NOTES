@@ -1,10 +1,3 @@
-Importer:
-  create parent sections implicitely
-  why is level a string
-  generate slug from filename (?)
-
-
-
 ActiveSupport.on_load(:action_view) do
   # can we use this for slices?
 end

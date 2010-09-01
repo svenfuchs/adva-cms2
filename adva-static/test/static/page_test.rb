@@ -2,10 +2,8 @@ require File.expand_path('../../test_helper', __FILE__)
 
 module AdvaStatic
   class PageTest < Test::Unit::TestCase
-    attr_reader :page
-
-    def setup
-      @page = Adva::Static::Page.new '/foo/bar', <<-html
+    test "urls" do
+      page = Adva::Static::Page.new '/foo/bar', <<-html
         <html>
           <head>
             <script src="/script.js"/>
@@ -16,10 +14,15 @@ module AdvaStatic
           </body>
         </html>
       html
-    end
-
-    test "urls" do
       assert_equal %w(/foo.html /styles.css /script.js), page.urls
     end
+    
+    # test "can cope with weird/broken urls in the content" do
+    #   page = Adva::Static::Page.new '/foo/bar', <<-html
+    #     <a href="http://localhost:3000">http://localhost:3000</a>
+    #     <a href="http://localhost:3xxx">http://localhost:3xxx</a>
+    #   html
+    #   assert_equal [], page.urls
+    # end
   end
 end
