@@ -45,61 +45,61 @@ module Tests
           @site ||= ::Site.first
         end
 
-        test "import_all! with an empty database" do
+        test "run with an empty database" do
           setup_root_blog
-          Adva::Static::Import::Directory.new(root).import_all!
+          Adva::Static::Import::Directory.new(root).run
 
           site = Site.first
           blog = site.sections.first
           post = blog.posts.first
 
-          assert_equal 'rails-i18n.org', site.host
+          assert_equal 'ruby-i18n.org', site.host
           assert_equal 'Home', blog.title
           assert_equal 'Welcome To The Future Of I18n In Ruby On Rails', post.title
         end
 
-        test "import_all! with an existing site and root blog" do
+        test "run with an existing site and root blog" do
           setup_site_record
           Page.first.destroy
           setup_root_blog
-          Adva::Static::Import::Directory.new(root).import_all!
+          Adva::Static::Import::Directory.new(root).run
 
           blog = site.sections.first
           post = blog.posts.first
 
-          assert_equal 'rails-i18n.org', site.host
+          assert_equal 'ruby-i18n.org', site.host
           assert_equal 'Home', blog.title
           assert_equal 'Welcome To The Future Of I18n In Ruby On Rails', post.title
         end
 
-        test "import_all! with a root page, a blog and another page" do
+        test "run with a root page, a blog and another page" do
           setup_root_page
           setup_non_root_blog
           setup_non_root_page
-          Adva::Static::Import::Directory.new(root).import_all!
+          Adva::Static::Import::Directory.new(root).run
 
           site = Site.first
           page = site.sections.first
           blog = site.sections[1]
           post = blog.posts.first
 
-          assert_equal 'rails-i18n.org', site.host
+          assert_equal 'ruby-i18n.org', site.host
           assert_equal 'Home', page.title
           assert_equal 'Blog', blog.title
           assert_equal 'Welcome To The Future Of I18n In Ruby On Rails', post.title
         end
 
-        test "import_all! with a root page and a nested page (implicit creation)" do
+        test "run with a root page and a nested page (implicit creation)" do
           setup_root_page
           setup_nested_page
-          Adva::Static::Import::Directory.new(root).import_all!
+          Adva::Static::Import::Directory.new(root).run
 
           site    = Site.first
           page    = site.sections.first
           contact = site.sections.second
           mailer  = site.sections.third
 
-          assert_equal 'rails-i18n.org', site.host
+          assert_equal 'ruby-i18n.org', site.host
           assert_equal 'Home', page.title
           assert_equal 'Contact', contact.title
           assert_equal 'Mailer', mailer.title

@@ -20,7 +20,7 @@ module Tests
           attr_reader :root
 
           def setup
-            @root = Adva::Static::Import::Directory::Path.new('/tmp/adva-static-test/import/rails-i18n.org')
+            @root = Adva::Static::Import::Directory::Path.new('/tmp/adva-static-test/import/ruby-i18n.org')
             setup_import_directory
             super
           end
@@ -31,7 +31,7 @@ module Tests
           end
 
           def setup_site_record
-            ::Site.create!(:host => 'rails-i18n.org', :name => 'name', :title => 'title', :sections_attributes => [
+            ::Site.create!(:host => 'ruby-i18n.org', :name => 'name', :title => 'title', :sections_attributes => [
               { :type => 'Page', :title => 'Home' }
             ])
           end
@@ -60,7 +60,7 @@ module Tests
           def setup_import_directory
             FileUtils.mkdir_p(root)
             setup_dirs(%w(images javascripts stylesheets))
-            setup_files(['config.ru', 'foo'], ['site.yml', YAML.dump(:host => 'rails-i18n.org', :name => 'name', :title => 'title')])
+            setup_files(['config.ru', 'foo'], ['site.yml', YAML.dump(:host => 'ruby-i18n.org', :name => 'name', :title => 'title')])
           end
 
           def setup_root_blog

@@ -23,6 +23,9 @@ module Adva
           @dir = Pathname.new(options[:dir] || File.expand_path('import'))
           FileUtils.mkdir_p(dir)
 
+          # FIXME gets reset'ed in dev mode
+          Admin::BaseController.allow_forgery_protection = false
+
           @watcher = fork { watch!(Adva.out) }
           at_exit { kill_watcher }
         end
