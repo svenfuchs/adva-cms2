@@ -89,6 +89,22 @@ module Tests
           assert_equal 'Welcome To The Future Of I18n In Ruby On Rails', post.title
         end
 
+        test "import_all! with a root page and a nested page (implicit creation)" do
+          setup_root_page
+          setup_nested_page
+          Adva::Importers::Directory.new(root).import_all!
+
+          site    = Site.first
+          page    = site.sections.first
+          contact = site.sections.second
+          mailer  = site.sections.third
+
+          assert_equal 'rails-i18n.org', site.host
+          assert_equal 'Home', page.title
+          assert_equal 'Contact', contact.title
+          assert_equal 'Mailer', mailer.title
+        end
+
         test "import!(path) syncs changes to /index.yml (existing root page)" do
           setup_site_record
           setup_root_page

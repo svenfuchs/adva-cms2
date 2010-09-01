@@ -1,4 +1,3 @@
-* split public sections_controller (aka, implement blogs_controller etc)
 * Question: Is it ok to require files in a test_helper ? Don't we lose the
   ability to test how classes require the fiels they need themselves then?
-  => Wut? (Sv)
+  => Hu? (Sv)

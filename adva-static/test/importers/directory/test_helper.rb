@@ -89,6 +89,12 @@ module Tests
             )
           end
 
+          def setup_nested_page
+            setup_files(
+              ['contact/mailer.yml', YAML.dump(:body => 'contact mailer')]
+            )
+          end
+
           def setup_dirs(paths)
             paths.each do |path|
               FileUtils.mkdir_p(root.join(path))
