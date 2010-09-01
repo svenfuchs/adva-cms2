@@ -30,7 +30,7 @@ module Adva
         def update(path, event_type = nil)
           if event_type == :modified
             Adva.out.puts "\nmodified: #{path}"
-            request = Adva::Importers::Directory.new(dir).request_for(path)
+            request = Adva::Static::Import::Directory.new(dir).request_for(path)
             request('POST', request.path, request.params)
           end
         end

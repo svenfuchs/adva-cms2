@@ -1,3 +1,2 @@
 - read an optional manifest of starting urls
-- importer does not implicitely create parent sections
 - importer: generate slug from filename (?)
