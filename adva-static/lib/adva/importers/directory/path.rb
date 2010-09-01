@@ -19,6 +19,14 @@ module Adva
           Path.new(local.gsub(File.extname(local), ''))
         end
 
+        def self_and_parents
+          parents << self
+        end
+
+        def parents
+          local.to_s.split('/')[0..-2].map { |path| Path.new("#{root.join(path)}.yml", root) }
+        end
+
         def path
           local == 'index' ? '/' : "/#{local}"
         end
