@@ -1,2 +1,3 @@
 - read an optional manifest of starting urls
 - importer: generate slug from filename (?)
+- watcher does not recognize created and deleted files
