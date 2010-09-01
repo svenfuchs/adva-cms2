@@ -1,2 +1,6 @@
 - read an optional manifest of starting urls
 - generally output status messages, use an injectable IO for tests (same for directory imports)
+
+Importer:
+  does not implicitely create parent sections
+  generate slug from filename (?)
