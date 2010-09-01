@@ -3,7 +3,7 @@
 
 require 'gem_patching'
 
-Gem.patching('webrat', '0.7.1') do
+Gem.patching('webrat', '0.7.0') do
   require "action_controller"
   # require "action_controller/integration"
   require 'action_dispatch/testing/integration'
