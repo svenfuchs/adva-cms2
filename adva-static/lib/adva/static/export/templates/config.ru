@@ -6,7 +6,7 @@ Rails::Application.configure do
   ActionController::Base.allow_forgery_protection = false
 end
 
-use Adva::Static::Rack::Monitor
+use Adva::Static::Rack::Watch
 use Adva::Static::Rack::Export
 use Adva::Static::Rack::Static, ::File.expand_path('../export', __FILE__)
 
