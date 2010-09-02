@@ -82,10 +82,22 @@ module Tests
               ['index.yml', YAML.dump(:body => 'home')]
             )
           end
+          
+          def setup_root_nested_page
+            setup_files(
+              ['home/nested.yml', YAML.dump(:body => 'nested under home')]
+            )
+          end
 
           def setup_non_root_page
             setup_files(
               ['contact.yml', YAML.dump(:body => 'contact')]
+            )
+          end
+          
+          def setup_non_root_nested_page
+            setup_files(
+              ['contact/nested.yml', YAML.dump(:body => 'nested under contact')]
             )
           end
 
