@@ -14,7 +14,7 @@ module Adva
       @engines ||= constants.map do |name|
         constant = const_get(name)
         constant if constant.is_a?(Class) && constant < ::Rails::Engine
-      end.compact
+      end.compact.sort { |lft, rgt| lft.name <=> rgt.name }
     end
 
     def engine_names
