@@ -14,3 +14,4 @@ require File.expand_path('../test_helper/setup_database', __FILE__)
 #   `unzip #{File.expand_path('../fixtures/download.zip', __FILE__)} -d #{fixtures_path}`
 # end
 # CNET_FIXTURES_PATH = fixtures_path
+

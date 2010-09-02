@@ -17,7 +17,6 @@ databases = postgres.select_values('SELECT datname FROM pg_database')
 %w(cnet_origin cnet_import cnet_tmp).each do |name|
   config = default_config.merge(:database => name)
   ActiveRecord::Base.configurations[name] = config
-  # postgres.drop_database(name)
   postgres.create_database(name, config) unless databases.include?(name)
 end
 
@@ -26,3 +25,6 @@ origin = Adva::Cnet::Connections.origin
 origin.load('origin.schema.postgres.sql') if origin.tables.empty?
 origin.prepare('origin.full.zip') unless origin.count('cds_prod') > 0
 Adva.out = out
+
+import = Adva::Cnet::Connections.import
+import.load('import.schema.sql') if import.tables.empty?

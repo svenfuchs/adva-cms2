@@ -5,11 +5,17 @@ module Adva
       
       def initialize(connection, options = {})
         @connection = connection
-        # set up link if options[:with_link]
+        link(options[:with_link]) if options[:with_link]
       end
       
       def config
         connection.instance_variable_get(:@config)
+      end
+      
+      def link(name)
+        load_dblink unless dblink_loaded?
+        config = ActiveRecord::Base.configurations[name]
+        execute("SELECT dblink_connect('#{name}', 'dbname=#{name} user=#{config[:username]} password=#{config[:password]}');")
       end
 
       def load(path, options = {})
@@ -66,6 +72,15 @@ module Adva
 
         def quote(values)
           values.map { |value| "'#{value}'" }
+        end
+        
+        def load_dblink
+          puts "Loading dblink functions to #{config[:database]}"
+          system("psql -d #{config[:database]} -f `pg_config --sharedir`/contrib/dblink.sql > /dev/null")
+        end
+
+        def dblink_loaded?
+          select_value("SELECT proname FROM pg_catalog.pg_proc WHERE proname = 'dblink'")
         end
     end
   end

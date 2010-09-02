@@ -15,22 +15,44 @@ module Adva
 
         def insert_statement
           <<-sql
-            INSERT INTO import.#{table_name} (product_number, manufacturer_part_number,
-              status, cat_id, mf_id, mkt_id, img_id, created_at, updated_at)
-              SELECT
-                origin.cds_prod.ProdID,
-                origin.cds_prod.MfPN,
+            INSERT INTO #{table_name} (
+              product_number, 
+              manufacturer_part_number,
+              status, 
+              cat_id, 
+              mf_id, 
+              mkt_id, 
+              img_id, 
+              created_at, 
+              updated_at
+            )
+            SELECT * FROM dblink('cnet_origin', 
+              'SELECT
+                cds_prod."ProdID",
+                cds_prod."MfPN",
                 (
-                  SELECT origin.cds_catalog.StatusCode
-                  FROM origin.cds_catalog
-                  WHERE origin.cds_catalog.ProdID = origin.cds_prod.ProdID
-                  ORDER BY timestamp DESC
-                  LIMIT 1
+                  SELECT cds_catalog."StatusCode"
+                  FROM cds_catalog
+                  WHERE cds_catalog."ProdID" = cds_prod."ProdID"
                 ),
-                origin.cds_prod.CatID, origin.cds_prod.MfID,
-                origin.cds_prod.MktID, origin.cds_prod.ImgID,
-                '#{Time.now.to_s(:db)}', '#{Time.now.to_s(:db)}'
-              FROM origin.cds_prod
+                cds_prod."CatID", 
+                cds_prod."MfID",
+                cds_prod."MktID", 
+                cds_prod."ImgID", 
+                NOW(), NOW()
+              FROM cds_prod'
+            ) 
+            AS t1(
+              product_number varchar(255), 
+              manufacturer_part_number varchar(255),
+              status varchar(255), 
+              cat_id varchar(255), 
+              mf_id varchar(255), 
+              mkt_id varchar(255),
+              img_id varchar(255), 
+              created_at timestamp, 
+              updated_at timestamp
+            )
           sql
         end
       end

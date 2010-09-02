@@ -62,9 +62,13 @@ module Tests
           setup_root_page
           setup_non_root_blog
           setup_non_root_page
-          Adva::Static::Import::Directory.new(:source => root).run
+          setup_non_root_nested_page
+          Adva::Importers::Directory.new(:source => root).run
 
           site = Site.first
+          assert 4, site.sections.count
+          assert_equal ['', 'blog', 'contact', 'contact/nested'], site.sections.map(&:path)
+          
           page = site.sections.first
           blog = site.sections[1]
           post = blog.posts.first

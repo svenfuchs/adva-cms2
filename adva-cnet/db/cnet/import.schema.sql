@@ -1,5 +1,5 @@
-create table products (
-  id                        INTEGER PRIMARY KEY ASC,
+CREATE TABLE products (
+  id                        SERIAL PRIMARY KEY UNIQUE,
   product_id                INTEGER,
   category_id               INTEGER,
   manufacturer_id           INTEGER,
@@ -10,6 +10,6 @@ create table products (
   mkt_id                    VARCHAR(10),
   img_id                    VARCHAR(10),
   mf_id                     VARCHAR(10),
-  created_at                VARCHAR(20),
-  updated_at                VARCHAR(20)
+  created_at                TIMESTAMP,
+  updated_at                TIMESTAMP
 );
