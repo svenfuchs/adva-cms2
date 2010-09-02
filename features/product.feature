@@ -34,6 +34,7 @@ Feature: Managing products
     And I fill in "Description" with "Brand new product's body"
     And I fill in "product_assets_attributes_0_file" with "rails.png"
     And I fill in "Title" with "Rails Logo"
+    And I fill in "Weight" with "1000"
     And I press "Create Product"
     Then I should see a product form
     And the "Name" field should contain "Brand new product"
@@ -42,6 +43,7 @@ Feature: Managing products
     And I fill in "Description" with "Updated product's body"
     And I fill in "product_assets_attributes_0_file" with "rails.png"
     And I fill in "Title" with "Rails Logo 2"
+    And I fill in "Weight" with "900"
     And I press "Update Product"
     Then I should see a product form
     And the "Name" field should contain "Updated product"
