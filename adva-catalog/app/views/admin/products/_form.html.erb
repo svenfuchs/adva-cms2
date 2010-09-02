@@ -10,6 +10,8 @@
   <%= f.file_field :file, :id => 'product_assets_attributes_0_file', :name => "product[assets_attributes][0][file]" %>
   <div><%= label_tag 'product[assets_attributes][0][title]', 'Title' %>
   <%= text_field_tag "product[assets_attributes][0][title]" %></div>
+  <div><%= label_tag 'asset_assignment[weight]', 'Weight' %>
+  <%= text_field_tag "asset_assignment[weight]" %></div>
 
   <%# f.simple_fields_for :assets do |assets_form| %>
     <%#= assets_form.file_field :file %>

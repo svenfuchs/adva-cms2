@@ -23,6 +23,10 @@ class Product < ActiveRecord::Base
     name == :slug ? slug : super()
   end
 
+  def main_image
+    self.asset_assignments.order('weight DESC').first.asset
+  end
+
   def title
   end
   def file

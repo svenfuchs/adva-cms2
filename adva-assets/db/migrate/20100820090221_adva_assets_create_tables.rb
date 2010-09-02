@@ -21,9 +21,11 @@ class AdvaAssetsCreateTables < ActiveRecord::Migration
       t.string   :label
       t.datetime :created_at
       t.boolean  :active
+      t.integer  :weight
     end
 
     add_index :asset_assignments, [:obj_id, :asset_id], :unique => true
+    add_index :asset_assignments, [:obj_id, :weight], :unique => true
 
   end
 

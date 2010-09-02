@@ -63,10 +63,10 @@ module AdvaAssets
 
     test "objs can have different assigned assets" do
       @asset2 = Asset.create!(:file => File.open(@asset_path), :site => @site,
-                             :title => "Rails Logo 2", :description => 'This is a Rails Logo 2.')
+                              :title => "Rails Logo 2", :description => 'This is a Rails Logo 2.')
       product1 = Product.create(:account => @site.account, :number => '12345', :name => "Kaffeetasse", :description => "Kaffeetasse mit Unterteller")
-      @asset.objs << product1
-      product1.assets << @asset2
+      AssetAssignment.create!(:product => product1, :asset => @asset, :weight => 1000)
+      AssetAssignment.create!(:product => product1, :asset => @asset2, :weight => 1100)
       assert_equal Product.first.assets.count, 2
       assert Product.first.assets.include? @asset
       assert Product.first.assets.include? @asset2
@@ -74,22 +74,22 @@ module AdvaAssets
 
     test "is assigend to many products" do
       product1 = Product.create(:account => @site.account, :number => '12345', :name => "Kaffeetasse", :description => "Kaffeetasse mit Unterteller")
-      @asset.objs << product1
+      AssetAssignment.create!(:product => product1, :asset => @asset, :weight => 1000)
       assert_equal Asset.first.objs.count, 1
       assert_equal Asset.first.objs.first, product1
       product2 = Product.create(:account => @site.account, :number => '23456', :name => "Teekanne", :description => "Blaue Tekanne")
-      @asset.objs << product2
+      AssetAssignment.create!(:product => product2, :asset => @asset, :weight => 1100)
       assert_equal Asset.first.objs.count, 2
       assert_equal Asset.first.objs.last, product2
     end
 
     test "assign an asset to a product only one time" do
       product1 = Product.create(:account => @site.account, :number => '12345', :name => "Kaffeetasse", :description => "Kaffeetasse mit Unterteller")
-      @asset.objs << product1
+      AssetAssignment.create!(:product => product1, :asset => @asset, :weight => 1000)
       assert_equal Asset.first.objs.count, 1
       assert_equal Asset.first.objs.first, product1
       assert_raises ActiveRecord::RecordInvalid do
-        @asset.objs << product1
+        AssetAssignment.create!(:product => product1, :asset => @asset, :weight => 1100)
       end
     end
 
