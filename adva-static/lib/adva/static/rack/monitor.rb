@@ -25,18 +25,18 @@ module Adva
         end
 
         def update(path, event_type = nil)
-          if [:created, :modified, :deleted].include?(event_type)
-            Adva.out.puts "\n#{event_type}: #{path}"
-            request = Adva::Static::Import::Directory.new(dir).request_for(path)
-            request('POST', request.path, request.params)
-          end
+          Adva.out.puts "\n#{event_type}: #{path}"
+          request = Adva::Static::Import::Directory.new(dir).request_for(path)
+          params  = request.params
+          params.merge!('_method' => 'delete') if event_type == :deleted
+          request('POST', request.path, params)
         end
 
         protected
 
           def monitor!(out)
             Adva.out.puts "monitoring #{dir} for changes"
-            Dir.chdir(dir) { handler.listen(dir, '**/*.yml') }
+            Dir.chdir(dir) { handler.listen }
           rescue SignalException, SystemExit
           rescue Exception => e
             p e
@@ -57,8 +57,7 @@ module Adva
           end
 
           def handler
-            @handler ||= Adva::Static::Monitor::Handler.new.tap { |handler| handler.add_observer(self) }
-            # @handler ||= Adva::Static::Monitor::Handler.new(self, dir)
+            @handler ||= Adva::Static::Monitor::Handler.new(self, dir.join('**/*.yml'))
           end
 
           def kill_monitor

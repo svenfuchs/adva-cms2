@@ -3,4 +3,9 @@ class Admin::PagesController < Admin::SectionsController
     response.headers[Adva::Static::Rack::PURGE_HEADER] = polymorphic_path([resource])
     super
   end
+
+  def destroy
+    response.headers[Adva::Static::Rack::PURGE_HEADER] = polymorphic_path([resource])
+    super
+  end
 end
