@@ -23,12 +23,11 @@ module Adva
       
       class Import < Thor::Group
         namespace 'adva:static:import'
-        desc 'Import adva site'
+        desc 'Import a site from a directory'
         class_option :source, :required => false
 
         def import
           require 'config/environment'
-          # require 'adva/static/import/directory'
           source = symbolized_options[:source] || 'import'
           Adva::Static::Import::Directory.new(source).run
         end
@@ -36,11 +35,25 @@ module Adva
 
       class Export < Thor::Group
         namespace 'adva:static:export'
-        desc 'Export a static version of your site'
+        desc 'Export a static version of a site'
         class_option :target, :required => false
 
         def export
           require 'config/environment'
+          Adva::Static::Export.new(Rails.application, symbolized_options).run
+        end
+      end
+
+      class Update < Thor::Group
+        namespace 'adva:static:update'
+        desc 'Import and export a static version of a site'
+        class_option :source, :required => false
+        class_option :target, :required => false
+
+        def export
+          require 'config/environment'
+          source = symbolized_options[:source] || 'import'
+          Adva::Static::Import::Directory.new(source).run
           Adva::Static::Export.new(Rails.application, symbolized_options).run
         end
       end
