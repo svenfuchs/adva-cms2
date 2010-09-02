@@ -13,9 +13,9 @@ module Adva
       class_option :target,   :required => false
       class_option :engines,  :required => false, :type => :array
       class_option :install,  :required => false, :type => :boolean
-      class_option :migrate,  :required => false, :type => :boolean
+      class_option :migrate,  :required => false, :type => :boolean, :default => true
       class_option :template, :required => false
-      class_option :force,    :required => false, :type => :boolean
+      class_option :force,    :required => false, :type => :boolean, :default => true
 
       def perform
         require 'adva/generators/app'

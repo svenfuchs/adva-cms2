@@ -1,22 +1,6 @@
-Importer:
-  create parent sections implicitely
-  why is level a string
-  generate slug from filename (?)
-
-
-
 ActiveSupport.on_load(:action_view) do
   # can we use this for slices?
 end
-
-
-
-Account
-  has_many :products
-  
-Site
-  Catalog
-    scope :products # uses dynamic filters
 
 
 
@@ -37,34 +21,5 @@ ourselves
 
 - controller: responders, redirect_to/return_to/registry
 - resource abstraction/reflection vs hardcoded url_helpers
-
-
-
-
-adva
-  admin
-    site
-      section
-
-adva_admin_site_sections_path
-
-adva
-  site
-  section
-  
-url_for([site, section, photo])
-
-/posts/1
-/admin/posts/i
-
-url_for(:admin, post)
-
-
-form_for [site, section]
-resource(:adva_admin_site_section).url_for(site, section)
-
-destroy_adva_admin_site_section(site, section)
-
-<%= udpate_adva_admin_site_section(site) do |form|
 
 
