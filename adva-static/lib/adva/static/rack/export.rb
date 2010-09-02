@@ -11,7 +11,7 @@ module Adva
         def initialize(app, options = {})
           @app = app
           @target = Pathname.new(options[:target] || File.expand_path('./export'))
-          @store  = Adva::Static::Store.new(target)
+          @store  = Adva::Static::Export::Store.new(target)
         end
 
         def call(env)
@@ -35,14 +35,14 @@ module Adva
           end
 
           def export(path, body)
-            page = Page.new(path, body)
+            page = Adva::Static::Export::Page.new(path, body)
             Adva.out.puts "  storing #{page.url.filename}"
             store.write(page.url, page.body)
           end
 
           def purge(path)
             Adva.out.puts "  purging #{path}"
-            store.purge(Path.new(path))
+            store.purge(Adva::Static::Export::Path.new(path))
           end
 
           def normalize_paths(paths)

@@ -1,2 +1,3 @@
 - read an optional manifest of starting urls
-- generally output status messages, use an injectable IO for tests (same for directory imports)
+- importer: generate slug from filename (?)
+- watcher does not recognize created and deleted files

@@ -1,4 +1,4 @@
-rails-i18n.org
+ruby-i18n.org
   # site.yml
   # section.yml (type: blog)
   index.yml
