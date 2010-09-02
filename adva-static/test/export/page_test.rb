@@ -16,13 +16,5 @@ module AdvaStatic
       html
       assert_equal %w(/foo.html /styles.css /script.js), page.urls
     end
-    
-    # test "can cope with weird/broken urls in the content" do
-    #   page = Adva::Static::Page.new '/foo/bar', <<-html
-    #     <a href="http://localhost:3000">http://localhost:3000</a>
-    #     <a href="http://localhost:3xxx">http://localhost:3xxx</a>
-    #   html
-    #   assert_equal [], page.urls
-    # end
   end
 end
