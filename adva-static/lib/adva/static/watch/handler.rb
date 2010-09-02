@@ -4,7 +4,7 @@ require 'watchr/event_handlers/portable'
 
 module Adva
   class Static
-    module Monitor
+    module Watch
       class Handler
         include Observable
 

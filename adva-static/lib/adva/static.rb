@@ -4,7 +4,7 @@ module Adva
   class Static < ::Rails::Engine
     autoload :Export,  'adva/static/export'
     autoload :Import,  'adva/static/import'
-    autoload :Monitor, 'adva/static/monitor'
+    autoload :Watch, 'adva/static/watch'
     autoload :Rack,    'adva/static/rack'
     autoload :Setup,   'adva/static/setup'
 

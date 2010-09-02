@@ -3,12 +3,12 @@ require 'watchr'
 module Adva
   class Static
     module Rack
-      class Monitor
-        autoload :Handler, 'adva/static/monitor/handler'
+      class Watch
+        autoload :Handler, 'adva/static/watch/handler'
         
         include Request
 
-        attr_reader :app, :dir, :monitor
+        attr_reader :app, :dir, :watch
 
         delegate :call, :to => :app
 
@@ -17,11 +17,11 @@ module Adva
           @dir = Pathname.new(options[:dir] || File.expand_path('import'))
           dir.mkpath
 
-          @monitor = fork { monitor!(Adva.out) }
-          at_exit { kill_monitor }
+          @watch = fork { watch!(Adva.out) }
+          at_exit { kill_watch }
 
           # trap_interrupt
-          # Signal.trap('QUIT') { handler.refresh(monitored_paths) }
+          # Signal.trap('QUIT') { handler.refresh(watched_paths) }
         end
 
         def update(path, event_type = nil)
@@ -34,8 +34,8 @@ module Adva
 
         protected
 
-          def monitor!(out)
-            Adva.out.puts "monitoring #{dir} for changes"
+          def watch!(out)
+            Adva.out.puts "watching #{dir} for changes"
             Dir.chdir(dir) { handler.listen }
           rescue SignalException, SystemExit
           rescue Exception => e
@@ -48,8 +48,8 @@ module Adva
               if Time.now - @interrupt < 1
                 exit
               else
-                STDERR.puts "\nReloading monitored paths ... interrupt again to exit."
-                handler.refresh(monitored_paths)
+                STDERR.puts "\nReloading watched paths ... interrupt again to exit."
+                handler.refresh(watched_paths)
               end
               @interrupt = Time.now
             end
@@ -57,14 +57,14 @@ module Adva
           end
 
           def handler
-            @handler ||= Adva::Static::Monitor::Handler.new(self, dir.join('**/*.yml'))
+            @handler ||= Adva::Static::Watch::Handler.new(self, dir.join('**/*.yml'))
           end
 
-          def kill_monitor
-            Process.kill('TERM', monitor)
+          def kill_watch
+            Process.kill('TERM', watch)
           end
 
-          def monitored_paths
+          def watched_paths
             paths = Dir[dir.join('**/*')].map {|path| Pathname(path).expand_path }
             paths << Pathname.new(__FILE__) if paths.empty?
             paths
