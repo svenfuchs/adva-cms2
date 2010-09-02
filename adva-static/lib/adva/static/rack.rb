@@ -9,7 +9,7 @@ module Adva
       autoload :Request, 'adva/static/rack/request'
       autoload :Export,  'adva/static/rack/export'
       autoload :Static,  'adva/static/rack/static'
-      autoload :Watch,   'adva/static/rack/watch'
+      autoload :Monitor, 'adva/static/rack/monitor'
     end
   end
 end
