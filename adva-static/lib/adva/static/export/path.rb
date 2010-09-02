@@ -31,7 +31,7 @@ module Adva
         protected
 
           def normalize_path(path)
-            path = URI.parse(path.to_s).path rescue '/'               # extract path
+            path = URI.parse(path.to_s).path || '/' rescue '/'        # extract path
             path = path[0..-2] if path[-1, 1] == '/'                  # remove trailing slash
             path = "/#{path}" unless path[0, 1] == '/'                # add leading slash
             path
