@@ -47,7 +47,7 @@ module Tests
 
         test "run with an empty database" do
           setup_root_blog
-          Adva::Static::Import::Directory.new(root).run
+          Adva::Static::Import::Directory.new(:source => root).run
 
           site = Site.first
           blog = site.sections.first
@@ -62,7 +62,7 @@ module Tests
           setup_site_record
           Page.first.destroy
           setup_root_blog
-          Adva::Static::Import::Directory.new(root).run
+          Adva::Static::Import::Directory.new(:source => root).run
 
           blog = site.sections.first
           post = blog.posts.first
@@ -76,7 +76,7 @@ module Tests
           setup_root_page
           setup_non_root_blog
           setup_non_root_page
-          Adva::Static::Import::Directory.new(root).run
+          Adva::Static::Import::Directory.new(:source => root).run
 
           site = Site.first
           page = site.sections.first
@@ -92,7 +92,7 @@ module Tests
         test "run with a root page and a nested page (implicit creation)" do
           setup_root_page
           setup_nested_page
-          Adva::Static::Import::Directory.new(root).run
+          Adva::Static::Import::Directory.new(:source => root).run
 
           site    = Site.first
           page    = site.sections.first
@@ -116,7 +116,7 @@ module Tests
           assert_equal 'will be overwritten', section.article.reload.body
 
           path = 'index.yml'
-          Adva::Static::Import::Directory.new(root).import!(path)
+          Adva::Static::Import::Directory.new(:source => root).import!(path)
 
           assert_equal 'Home', section.reload.title
           assert_equal 'home', section.article.reload.body
@@ -133,7 +133,7 @@ module Tests
           assert_equal 'will be overwritten', section.article.reload.body
 
           path = 'contact.yml'
-          Adva::Static::Import::Directory.new(root).import!(path)
+          Adva::Static::Import::Directory.new(:source => root).import!(path)
 
           assert_equal 'Contact', section.reload.title
           assert_equal 'contact', section.article.reload.body
@@ -144,7 +144,7 @@ module Tests
           setup_non_root_page
 
           path = 'contact.yml'
-          Adva::Static::Import::Directory.new(root).import!(path)
+          Adva::Static::Import::Directory.new(:source => root).import!(path)
 
           section = Page.find_by_slug('contact')
           assert_equal 'Contact', section.reload.title
@@ -160,7 +160,7 @@ module Tests
           assert_equal 'will be overwritten', section.posts.first.reload.body
 
           path = 'blog/2008/07/31/welcome-to-the-future-of-i18n-in-ruby-on-rails.yml'
-          Adva::Static::Import::Directory.new(root).import!(path)
+          Adva::Static::Import::Directory.new(:source => root).import!(path)
 
           assert_not_equal 'will be overwritten', section.posts.first.reload.body
         end
@@ -174,7 +174,7 @@ module Tests
           assert_equal 'will be overwritten', section.posts.first.reload.body
 
           path = '2008/07/31/welcome-to-the-future-of-i18n-in-ruby-on-rails.yml'
-          Adva::Static::Import::Directory.new(root).import!(path)
+          Adva::Static::Import::Directory.new(:source => root).import!(path)
 
           assert_not_equal 'will be overwritten', section.posts.first.reload.body
         end
@@ -187,7 +187,7 @@ module Tests
           page_id = Page.first.id.to_s
           article_id = Page.first.article.id.to_s
 
-          request = Adva::Static::Import::Directory.new(root).request_for('/index.yml')
+          request = Adva::Static::Import::Directory.new(:source => root).request_for('/index.yml')
           input   = ::Rack::Utils.build_nested_query(request.params)
           request = Rack::Request.new(Rack::MockRequest.env_for(request.path, :method => 'POST', :input => input))
 
