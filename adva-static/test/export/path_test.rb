@@ -53,9 +53,13 @@ module AdvaStatic
     test "filename uses index.html for a single slash" do
       assert_equal 'index.html', path('/').filename
     end
-    
-    test "can cope with broken remote urls" do
+
+    test "can deal with broken urls (1)" do
       assert path('http://localhost:3xxx').remote?
+    end
+
+    test "can deal with broken urls (2)" do
+      assert path('http://').remote?
     end
   end
 end
