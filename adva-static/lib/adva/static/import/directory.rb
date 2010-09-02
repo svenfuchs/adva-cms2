@@ -18,8 +18,8 @@ module Adva
 
         attr_reader :root, :routes
 
-        def initialize(root)
-          @root = Path.new(File.expand_path(root))
+        def initialize(options)
+          @root = Path.new(File.expand_path(options[:source] || 'import'))
         end
 
         def run

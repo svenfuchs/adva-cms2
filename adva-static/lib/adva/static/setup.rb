@@ -33,7 +33,7 @@ module Adva
       end
 
       def initial_import_and_export
-        Import::Directory.new(source).run
+        Import::Directory.new(:source => source).run
         Export.new(app, :target => target).run
       end
       

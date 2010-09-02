@@ -26,7 +26,7 @@ module Adva
 
         def update(path, event_type = nil)
           Adva.out.puts "\n#{event_type}: #{path}"
-          request = Adva::Static::Import::Directory.new(dir).request_for(path)
+          request = Adva::Static::Import::Directory.new(:source => dir).request_for(path)
           params  = request.params
           params.merge!('_method' => 'delete') if event_type == :deleted
           request('POST', request.path, params)
