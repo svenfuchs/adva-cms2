@@ -45,7 +45,7 @@ PATH
       routing-filter (= 0.1.6)
       simple_form
       simple_nested_set (= 0.0.11)
-      simple_slugs (= 0.0.4)
+      simple_slugs (= 0.0.7)
       simple_table (= 0.0.5)
 
 PATH
@@ -175,7 +175,7 @@ GEM
     simple_nested_set (0.0.11)
       activerecord (>= 3.0.0.beta4)
       activesupport
-    simple_slugs (0.0.4)
+    simple_slugs (0.0.7)
     simple_table (0.0.5)
       actionpack (~> 3.0.0.rc)
       activesupport (~> 3.0.0.rc)
