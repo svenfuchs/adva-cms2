@@ -5,7 +5,7 @@ require 'adva/routing_filters/section_root'
 require 'adva/routing_filters/section_path'
 
 module AdvaStatic
-  class RackWatchTest < Test::Unit::TestCase
+  class RackMonitorTest < Test::Unit::TestCase
     include Adva::Static::Rack
 
     attr_reader :app, :export_dir, :import_dir
@@ -34,10 +34,10 @@ module AdvaStatic
     def teardown
       Rails.application = nil
 
-      watch.send(:kill_watcher)
+      monitor.send(:kill_monitor)
       FileUtils.rm_r(import_dir)
       FileUtils.rm_r(export_dir)
-      @watch = nil
+      @monitor = nil
 
       super
     end
@@ -52,7 +52,7 @@ module AdvaStatic
         end
       end
 
-      watch.call(env_for('/').merge(STORE_HEADER => true))
+      monitor.call(env_for('/').merge(STORE_HEADER => true))
 
       assert export_dir.join('index.html').file?
       assert export_dir.join('bar.html').file?
@@ -75,7 +75,7 @@ module AdvaStatic
       FileUtils.touch(index)
       assert !export_dir.join('index.html').file?
 
-      watch
+      monitor
       index.open('w') { |f| f.write('title: modified title') }
       File.utime(index.mtime, future, index)
       # sleep(2)
@@ -97,8 +97,8 @@ module AdvaStatic
         end
       end
 
-      def watch
-        @watch ||= Watch.new(Export.new(@app, :target => export_dir), :dir => import_dir, :routes => routes)
+      def monitor
+        @monitor ||= Monitor.new(Export.new(@app, :target => export_dir), :dir => import_dir, :routes => routes)
       end
 
       def dir(path)
