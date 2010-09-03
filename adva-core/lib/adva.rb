@@ -1,9 +1,10 @@
 require 'rails/engine'
 
 module Adva
-  autoload :Engine,    'adva/engine'
-  autoload :Responder, 'adva/responder'
-  autoload :Registry,  'adva/registry'
+  autoload :Engine,     'adva/engine'
+  autoload :References, 'adva/references'
+  autoload :Registry,   'adva/registry'
+  autoload :Responder,  'adva/responder'
 
   mattr_accessor :out
   self.out = $stdout
