@@ -17,6 +17,8 @@ module Adva
 
     config.autoload_paths << paths.app.views.to_a.first
 
+    config.track_references = true
+
     initializer 'adva-core.beautify_html' do
       # if Rails.env.development?
       #   require 'minimal/template/beautify_html'
@@ -36,6 +38,10 @@ module Adva
       Dir[File.expand_path("#{root}/lib/patches/**/*.rb", __FILE__)].each do |file|
         require_dependency file
       end
+    end
+    
+    initializer 'adva-core.setup_reference_tracking' do
+      ReferenceTracking.setup
     end
 
     initializer 'adva-core.setup_minimal' do

@@ -64,6 +64,11 @@ PATH
       adva-core
       devise (= 1.1.2)
 
+PATH
+  remote: /Volumes/Users/sven/Development/projects/reference_tracking
+  specs:
+    reference_tracking (0.0.1)
+
 GEM
   remote: http://rubygems.org/
   specs:
@@ -216,6 +221,7 @@ DEPENDENCIES
   fakefs
   mocha
   rails (= 3.0.0)
+  reference_tracking!
   ruby-debug
   sqlite3-ruby (= 1.2.5)
   test_declarative

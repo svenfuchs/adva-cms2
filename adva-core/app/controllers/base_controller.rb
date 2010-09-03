@@ -10,6 +10,8 @@ class BaseController < InheritedResources::Base
     end
   end
   
+  tracks :resource, :resources, :current_site => %w(.title .name)
+
   layout 'default'
   helper_method :current_account, :current_site, :resources
   
