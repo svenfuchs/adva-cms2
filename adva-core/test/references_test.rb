@@ -11,23 +11,21 @@ module AdvaCoreTests
         match 'admin/sites/:site_id/pages/:id', :to => 'admin/pages#show', :as => 'admin_site_page'
       end
       setup_controller(:pages)
+      ActionController::Base.skip_before_filter(:authenticate_user!)
+      super
 
       @site = Site.create!(:name => 'site', :title => 'site', :host => 'example.org', :sections_attributes => [{ :type => 'Page', :title => 'home' }])
       @page = site.pages.first
-
-      super
     end
     
-    test 'pages#show adds tags for site.title, site.name and page to response headers' do
+    test 'tracks references to site.title, site.name and resource and adds tags to response headers' do
       process_action_rendering(:show, :id => page.id) do
         current_site.name
         current_site.title
         resource.title
       end
-
-      expected = %W(site-#{site.id}:name site-#{site.id}:title page-#{page.id})
-      actual   = controller.response.headers[ReferenceTracking::TAGS_HEADER]
-      assert_equal expected, actual
+      tags = controller.response.headers[ReferenceTracking::TAGS_HEADER]
+      assert_equal %W(site-#{site.id}:name site-#{site.id}:title page-#{page.id}), tags
     end
   end
 end

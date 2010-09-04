@@ -4,7 +4,7 @@ module Adva
   module References
     class << self
       def setup
-        if config.track_references
+        if Adva::Core.config.track_references
           ActionController::Base.send(:include, ReferenceTracking::ActionController::ActMacro)
         else
           ActionController::Base.send(:include, Stubs)

@@ -6,39 +6,29 @@ require 'adva/routing_filters/section_path'
 
 module AdvaStatic
   class RackWatchTest < Test::Unit::TestCase
-    include Adva::Static::Rack
+    include TestHelper::Application, Adva::Static::Rack
 
     attr_reader :app, :export_dir, :import_dir
 
     def setup
       # Adva.out = $stdout
+      setup_application
 
-      # TODO fix devise to be able to load up w/o a Rails.application being present
-      Rails.application = Rails::Application.send(:new)
-      Rails.application.singleton_class.send(:include, Rails::Application::Configurable)
-      Devise.warden_config = Rails.application.config
-
-      @export_dir = dir('/tmp/adva-static-test/export')
       @import_dir = dir('/tmp/adva-static-test/import')
-
+      @export_dir = dir('/tmp/adva-static-test/export')
       File.open(import_dir.join('site.yml'), 'w') do |f|
         f.write(YAML.dump(:host => 'ruby-i18n.org', :name => 'name', :title => 'title'))
       end
 
-      Site.create!(:host => 'ruby-i18n.org', :name => 'name', :title => 'title', :sections_attributes => [
-        { :type => 'Page', :title => 'Home' }
-      ])
+      Site.create!(:host => 'ruby-i18n.org', :name => 'name', :title => 'title', :sections_attributes => [{ :type => 'Page', :title => 'Home' }])
       super
     end
 
     def teardown
-      Rails.application = nil
-
       watch.send(:kill_watch)
       FileUtils.rm_r(import_dir)
       FileUtils.rm_r(export_dir)
       @watch = nil
-
       super
     end
 

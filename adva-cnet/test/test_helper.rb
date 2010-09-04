@@ -2,7 +2,6 @@ require File.expand_path('../../../adva-core/test/test_helper', __FILE__)
 
 $: << File.expand_path('../../../adva-cnet/lib', __FILE__)
 
-require 'adva-cnet'
 require 'adva/cnet/downloader'
 require 'adva/cnet/origin'
 require 'adva/tasks/cnet'

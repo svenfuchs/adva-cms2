@@ -8,6 +8,8 @@ module Tests
   module Core
     module Import
       class DirectoryTest < Test::Unit::TestCase
+        include TestHelper::Application
+
         class PostController < ActionController::Base; end
         class PagesController < ActionController::Base; end
         class BlogsController < ActionController::Base; end
@@ -15,29 +17,13 @@ module Tests
         include Tests::Core::Import::Directory::Setup
 
         def setup
-          # TODO fix devise to be able to load up w/o a Rails.application being present
-          Rails.application = Rails::Application.send(:new)
-          Rails.application.singleton_class.send(:include, Rails::Application::Configurable)
-          Devise.warden_config = Rails.application.config
-
-          Admin::BaseController.send(:include, routes.url_helpers)
-          super
-        end
-
-        def routes
-          @routes ||= ActionDispatch::Routing::RouteSet.new.tap do |routes|
-            routes.draw do
-              filter :section_root, :section_path
-              match 'pages/:id', :to => "#{PagesController.controller_path}#show"
-              match 'blogs/:id', :to => "#{BlogsController.controller_path}#show"
-              match 'blogs/:blog_id/:year/:month/:day/:slug', :to => "#{PostController.controller_path}#show"
-              match 'admin/sites/:site_id/pages/:id', :to => 'admin/pages#update', :as => 'admin_site_page'
-            end
+          setup_application do
+            filter :section_root, :section_path
+            match 'pages/:id', :to => "#{PagesController.controller_path}#show"
+            match 'blogs/:id', :to => "#{BlogsController.controller_path}#show"
+            match 'blogs/:blog_id/:year/:month/:day/:slug', :to => "#{PostController.controller_path}#show"
+            match 'admin/sites/:site_id/pages/:id', :to => 'admin/pages#update', :as => 'admin_site_page'
           end
-        end
-
-        def teardown
-          Rails.application = nil
           super
         end
 

@@ -1,74 +1,22 @@
-$: << File.expand_path('../../../adva-blog/app/models', __FILE__)
-$: << File.expand_path('../../../adva-cart/app/models', __FILE__)
-$: << File.expand_path('../../../adva-catalog/app/models', __FILE__)
-$: << File.expand_path('../../../adva-contacts/app/models', __FILE__)
-$: << File.expand_path('../../../adva-core/app/models', __FILE__)
-$: << File.expand_path('../../../adva-user/app/models', __FILE__)
-
 require 'rubygems'
-require 'bundler'
-
-Bundler.setup
-
-require 'rails'
-require 'active_record'
-require 'action_controller'
+require 'bundler/setup'
 require 'test/unit'
 require 'test_declarative'
 require 'database_cleaner'
 require 'ruby-debug'
 require 'mocha'
 require 'fakefs/safe'
-
-require 'adva-core'
-require 'devise'
-
 require 'stringio'
+
+Bundler.require(:default)
+
 Adva.out = StringIO.new('')
-
-log = '/tmp/adva-cms_test.log'
-FileUtils.touch(log) unless File.exists?(log)
-ActiveRecord::Base.logger = Logger.new(log)
-ActiveRecord::LogSubscriber.attach_to(:active_record)
-ActiveRecord::Base.establish_connection(:adapter => 'sqlite3', :database => ':memory:')
-
-ActiveRecord::Migration.verbose = false
-ActiveRecord::Migrator.up(File.expand_path('../../../adva-blog/db/migrate', __FILE__))
-ActiveRecord::Migrator.up(File.expand_path('../../../adva-core/db/migrate', __FILE__))
-ActiveRecord::Migrator.up(File.expand_path('../../../adva-cart/db/migrate', __FILE__))
-ActiveRecord::Migrator.up(File.expand_path('../../../adva-catalog/db/migrate', __FILE__))
-ActiveRecord::Migrator.up(File.expand_path('../../../adva-contacts/db/migrate', __FILE__))
-ActiveRecord::Migrator.up(File.expand_path('../../../adva-user/db/migrate', __FILE__))
-
-DatabaseCleaner.strategy = :truncation
-
-DIRS = { :fixtures => Pathname.new(File.expand_path('../fixtures', __FILE__)) }
-
-require 'adva-core'
-require 'adva-blog'
-require 'adva-catalog'
-
-Adva.engines.each do |engine|
-  engine.paths.app.each { |path| $:.unshift(path) if File.directory?(path) }
-  ActiveSupport::Dependencies.autoload_paths.unshift(*engine.paths.app)
-end
-
+TEST_LOG = '/tmp/adva-cms_test.log'
 class ApplicationController < ActionController::Base ; end
 
-# TODO instead of requiring everthing manually, set up autoload paths
-
-require 'user'
-require 'account'
-require 'site'
-require 'section'
-require 'page'
-require 'content'
-require 'article'
-require 'blog'
-require 'post'
-require 'catalog'
-
-Dir[Adva::Core.root.join('lib/patches/**/*.rb')].each { |patch| require patch }
+Dir[File.expand_path('../test_{helpers/*,setup}.rb', __FILE__)].each do |helper|
+  require helper
+end
 
 class Test::Unit::TestCase
   def setup
