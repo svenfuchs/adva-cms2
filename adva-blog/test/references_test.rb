@@ -1,7 +1,5 @@
 require File.expand_path('../test_helper', __FILE__)
 
-Adva::Blog.preload_sliced_models unless Site.new.respond_to?(:blogs)
-
 module AdvaBlogTests
   class ReferencesTest < Test::Unit::TestCase
     include TestHelper::Application

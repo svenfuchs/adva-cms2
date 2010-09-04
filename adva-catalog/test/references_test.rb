@@ -1,7 +1,5 @@
 require File.expand_path('../test_helper', __FILE__)
 
-Adva::Catalog.preload_sliced_models unless Account.new.respond_to?(:products)
-
 module AdvaCatalogTests
   class ReferencesTest < Test::Unit::TestCase
     include TestHelper::Application
