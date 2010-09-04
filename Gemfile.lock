@@ -42,6 +42,7 @@ PATH
       minimal (= 0.0.14)
       nbrew-country_select
       rails (= 3.0.0)
+      reference_tracking (= 0.0.1)
       routing-filter (= 0.1.6)
       simple_form
       simple_nested_set (= 0.0.11)
@@ -63,11 +64,6 @@ PATH
     adva-user (0.0.1)
       adva-core
       devise (= 1.1.2)
-
-PATH
-  remote: /Volumes/Users/sven/Development/projects/reference_tracking
-  specs:
-    reference_tracking (0.0.1)
 
 GEM
   remote: http://rubygems.org/
@@ -168,6 +164,7 @@ GEM
       rake (>= 0.8.4)
       thor (~> 0.14.0)
     rake (0.8.7)
+    reference_tracking (0.0.1)
     responders (0.6.2)
     routing-filter (0.1.6)
       actionpack
@@ -221,7 +218,6 @@ DEPENDENCIES
   fakefs
   mocha
   rails (= 3.0.0)
-  reference_tracking!
   ruby-debug
   sqlite3-ruby (= 1.2.5)
   test_declarative
