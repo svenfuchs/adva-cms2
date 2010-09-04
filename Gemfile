@@ -14,6 +14,7 @@ gem 'adva-user',     :path => File.expand_path('../adva-user', __FILE__)
 
 # gem 'reference_tracking', :path => '~/Development/projects/reference_tracking'
 # gem 'simple_nested_set', :path => '/Volumes/Users/sven/Development/projects/simple_nested_set'
+# gem 'minimal', :path => '~/Development/projects/minimal'
 
 group :development do
   gem 'tidy_ffi'

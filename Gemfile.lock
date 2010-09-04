@@ -39,7 +39,7 @@ PATH
     adva-core (0.0.1)
       gem_patching
       inherited_resources (= 1.1.2)
-      minimal (= 0.0.14)
+      minimal (= 0.0.15)
       nbrew-country_select
       rails (= 3.0.0)
       reference_tracking (= 0.0.1)
@@ -135,7 +135,7 @@ GEM
       mime-types
       treetop (>= 1.4.5)
     mime-types (1.16)
-    minimal (0.0.14)
+    minimal (0.0.15)
       actionpack (>= 3.0.0.beta2)
     mocha (0.9.8)
       rake
