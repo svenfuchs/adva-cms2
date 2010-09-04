@@ -41,7 +41,7 @@ module Adva
     end
     
     initializer 'adva-core.setup_reference_tracking' do
-      ReferenceTracking.setup
+      References.setup
     end
 
     initializer 'adva-core.setup_minimal' do

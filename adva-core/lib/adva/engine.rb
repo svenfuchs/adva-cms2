@@ -9,6 +9,10 @@ module Adva
           engine_name = base.name.underscore.split('/').last
 
           paths.lib.tasks = Dir[root.join('lib/adva/tasks/*.*')]
+          
+          initializer "adva-#{engine_name}.require_patches" do |app|
+            require_patches
+          end
 
           initializer "adva-#{engine_name}.load_redirects" do |app|
             load_redirects
@@ -54,6 +58,10 @@ module Adva
       def engine_name
         name = is_a?(Class) ? self.name : self.class.name # ughugh.
         name.underscore.split('/').last
+      end
+      
+      def require_patches
+        Dir[root.join('lib/patches/**/*.rb')].each { |patch| require patch }
       end
 
       def load_redirects
