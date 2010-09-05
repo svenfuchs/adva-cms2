@@ -1,0 +1,25 @@
+<ul class="menu top left">
+  <li><a href="admin/sites/1">Sites</a></li>
+  <li>
+    <a href="admin/sites/1">Sections</a>
+    <ul>
+      <li><a href="admin/sites/1/blogs/1">Blog</a></li>
+      <li><a href="admin/sites/1/pages/1">Page</a></li>
+    </ul>
+  </li>
+</ul>
+
+<ul class="menu top right">
+  <li><a href="admin/sites/1">Assets</a></li>
+  <li><a href="admin/sites/1">Settings</a></li>
+</ul>
+
+<ul class="menu action left">
+  <li>Blog</li>
+  <li><a href="admin/sites/1/blogs/1/posts">Posts</a></li>
+  <li><a href="admin/sites/1/blogs/1/edit">Settings</a></li>
+</ul>
+
+<ul class="menu action right">
+  <li><a href="admin/sites/1/blogs/1/posts/new">New Post</a></li>
+</ul>

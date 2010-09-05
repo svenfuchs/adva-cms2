@@ -26,7 +26,7 @@ Feature: Managing pages
     When I follow "Brand new page"
     Then I should see an edit page form
 
-    # When I follow "Settings"
+    # When I follow "Settings" within "#actions"
     # Then I should see an edit page form
     
     When I press "Delete"

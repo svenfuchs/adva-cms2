@@ -36,30 +36,30 @@
   font-size: 9pt;
 }
 
-#main_menu {
+#actions {
   display: table;
   width: 100%;
   height: 28px;
   margin-top: -28px;
   white-space: nowrap;
 }
-#main_menu ul {
+#actions ul {
   list-style-type: none;
   display: table-cell;
 }
-#main_menu li {
+#actions li {
   display: inline-block;
 }
-#main_menu ul.left li:first-child {
+#actions ul.left li:first-child {
   margin-left: -16px;
 }
-#main_menu h4 {
+#actions h4 {
   display: inline;
   margin-top: 0;
   padding: 6px 16px 0 16px;
   font-weight: normal;
 }
-#main_menu .left li a {
+#actions .left li a {
   padding: 6px 16px 7px 16px;
   outline: none;
   -webkit-border-top-left-radius: 4px;
@@ -67,21 +67,21 @@
   -moz-border-top-left-radius: 4px;
   -moz-border-top-right-radius: 4px;
 }
-#main_menu .left li a:hover {
+#actions .left li a:hover {
   background-color: #fff;
   text-decoration: none;
 }
-#main_menu .left li.active > a {
+#actions .left li.active > a {
   background: #ddd url(/images/adva_cms/admin/tab_main_active.png) repeat-x;
 }
-#main_menu ul.actions {
+#actions ul.right {
   text-align: right;
   margin-left: 8px;
 }
-#main_menu ul.actions li {
+#actions ul.right li {
   margin-left: 8px;
 }
-#main_menu ul.actions li a {
+#actions ul.right li a {
   display: block;
   padding: 0 10px;
   height: 21px;
@@ -91,11 +91,11 @@
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
 }
-#main_menu ul.actions li a:hover {
+#actions ul.right li a:hover {
   background: #fff;
   text-decoration: none;
 }
-#main_menu ul.actions li.active a {
+#actions ul.right li.active a {
   background: #ddd;
 }
 #search {

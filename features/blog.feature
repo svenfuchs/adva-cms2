@@ -17,7 +17,7 @@ Feature: Managing blogs
      And I press "Create blog"
     Then I should be on the admin posts list page of the "Brand new blog" blog
      But I should not see any posts
-    When I follow "Settings"
+    When I follow "Settings" within "#actions"
      And I fill in "Title" with "Updated blog"
     When I press "Update blog"
     Then I should see an edit blog form
@@ -29,7 +29,7 @@ Feature: Managing blogs
     When I go to the admin site sections page
     Then I should see "Updated blog"
     When I follow "Updated blog"
-     And I follow "New"
+     And I follow "New Post"
     Then I should see a new post form
     
     When I fill in "Title" with "Brand new blog post"

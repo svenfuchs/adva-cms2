@@ -6,15 +6,18 @@ class Layouts::Admin < Minimal::Template
         head
       end
       content_tag :body do
-        render :partial => 'layouts/admin/header'
+        render :partial => 'admin/shared/top'
+        render :partial => 'admin/shared/header'
 
         div :id => 'page' do
           # self << yield(:form) if @content_for_form
           div :class => 'main' do
+            render :partial => "admin/#{controller_name.gsub('_controller', '')}/menu" rescue ActionView::Template::Error
+            
             div :id => 'content' do
               content
             end
-            div :id => 'sidebar' do
+            div :id => 'sidebar', :class => 'right' do
               sidebar
             end
           end

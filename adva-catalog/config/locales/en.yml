@@ -7,6 +7,10 @@ en:
     catalogs:
       new:
         title: Create a New Catalog
+      menu:
+        new: New
+        edit: Settings
+        delete: Delete
     products:
       edit:
         title: Edit product
