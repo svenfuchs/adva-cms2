@@ -33,12 +33,6 @@ module Adva
       config.to_prepare { require_dependency 'page' } # TODO is there a concept of "reloadable" initializers?
     end
 
-    initializer 'adva-core.patches' do
-      Dir[File.expand_path("#{root}/lib/patches/**/*.rb", __FILE__)].each do |file|
-        require_dependency file
-      end
-    end
-
     initializer 'adva-core.setup_minimal' do
       Minimal::Template::FormBuilderProxy::PROXY_TAGS << :simple_form_for << :simple_fields_for
       Minimal::Template.class_eval do
