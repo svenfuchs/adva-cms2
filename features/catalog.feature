@@ -20,7 +20,7 @@ Feature: Managing catalogs
      And I press "Create catalog"
     Then I should be on the admin products list page of the "Brand new catalog" catalog
      But I should not see any products
-    When I follow "Settings"
+    When I follow "Settings" within "#actions"
     Then I should see an edit catalog form
     
     When I fill in "Title" with "Updated catalog"

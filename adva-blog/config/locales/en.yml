@@ -6,6 +6,19 @@ en:
     blogs:
       new:
         title: Create a new blog
+      edit:
+        title: Edit blog
+      menu:
+        show: Posts
+        edit: Settings
+        delete: Delete
+        new_item: New Post
     posts:
       new:
-        title: Create a new blog post
+        title: Write a new blog post
+      edit:
+        title: Edit blog post
+      menu:
+        new: New
+        edit: Edit
+        delete: Delete

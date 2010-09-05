@@ -24,6 +24,10 @@ en:
         site:
           new: New Site
         sections: All Sections
+      menu:
+        new: New
+        edit: Edit
+        delete: Delete
     sections:
       index:
         title: Sections
@@ -33,14 +37,15 @@ en:
         title: Choose the Type of the New Section
       show:
         title: Edit Section
-    articles:
-      edit:
-        title: Edit Article
     pages:
       new:
         title: Create a New Page
       edit:
         title: Edit Page
+      menu:
+        new: New
+        edit: Edit
+        delete: Delete
     posts:
       edit:
         title: Edit Post
@@ -50,6 +55,16 @@ en:
     registrations:
       new:
         title: Sign up
+    shared:
+      top:
+        sites: Sites
+        sections: Sections
+        settings: Settings
+      header:
+        sign_in: "Sign in"
+        sign_out: "Sign out %{user}"
+        change_language: "Change language:"
+        website: "Website »"
 
   section:
     types:
@@ -60,9 +75,3 @@ en:
   installations:
     new:
       title: Title
-
-  layouts:
-    admin:
-      header:
-        change_language: "Change language:"
-        website: Website
