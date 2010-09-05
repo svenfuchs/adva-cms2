@@ -4,9 +4,12 @@ module Adva
   class Responder < ActionController::Responder
     autoload :Redirect, 'adva/responder/redirect'
 
-    include Adva::Responder::Redirect
-    include Responders::FlashResponder
-    include Responders::HttpCacheResponder
+    module Base
+      include Adva::Responder::Redirect
+      include Responders::FlashResponder
+      include Responders::HttpCacheResponder
+    end
+    include Base
 
     def params
       controller.params
