@@ -10,14 +10,13 @@ require 'minimal'
 require 'routing_filter'
 require 'adva/routing_filters/section_path'
 require 'adva/routing_filters/section_root'
+require 'adva/references'
 
 module Adva
   class Core < ::Rails::Engine
     include Adva::Engine
 
     config.autoload_paths << paths.app.views.to_a.first
-
-    config.track_references = true
 
     initializer 'adva-core.beautify_html' do
       # if Rails.env.development?
@@ -38,10 +37,6 @@ module Adva
       Dir[File.expand_path("#{root}/lib/patches/**/*.rb", __FILE__)].each do |file|
         require_dependency file
       end
-    end
-    
-    initializer 'adva-core.setup_reference_tracking' do
-      References.setup
     end
 
     initializer 'adva-core.setup_minimal' do
