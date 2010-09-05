@@ -25,7 +25,12 @@ module Adva
           end
 
           def parents
-            local.to_s.split('/')[0..-2].map { |path| Path.new("#{root.join(path)}.yml", root) }
+            parts = local.to_s.split('/')[0..-2]
+            parts.reverse.dup.inject([]) do |parents, part|
+              parents.unshift(Path.new("#{root.join(parts.join('/'))}.yml", root)).tap do
+                parts.delete(part)
+              end
+            end
           end
 
           def path
