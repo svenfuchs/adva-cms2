@@ -11,7 +11,7 @@ PATH
     adva-cache (0.0.1)
       adva-core
       rack-cache-purge (= 0.0.1)
-      rack-cache-tags (= 0.0.2)
+      rack-cache-tags (= 0.0.3)
       reference_tracking (= 0.0.2)
 
 PATH
@@ -154,7 +154,7 @@ GEM
       rack (>= 0.4)
     rack-cache-purge (0.0.1)
       rack-cache (~> 0.5)
-    rack-cache-tags (0.0.2)
+    rack-cache-tags (0.0.3)
     rack-mount (0.6.13)
       rack (>= 1.0.0)
     rack-test (0.5.4)
