@@ -25,6 +25,8 @@ en:
       "page[article_attributes]":
         new:
           title: Heading
+        edit:
+          title: Heading
       article:
         edit:
           title: Heading

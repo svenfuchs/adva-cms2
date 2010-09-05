@@ -8,9 +8,7 @@ Rails.application.routes.draw do
   namespace :admin do
     resources :sites do
       resources :sections, :only => [:index, :new, :create]
-      resources :pages do
-        resource :article
-      end
+      resources :pages
     end
   end
 
