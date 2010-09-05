@@ -1,4 +1,4 @@
-class Admin::Sections::Menu < Minimal::Template
+class Admin::Products::Menu < Minimal::Template
   def to_html
     div :id => 'actions' do
       ul :class => 'menu left' do

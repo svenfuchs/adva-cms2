@@ -12,7 +12,7 @@ class Layouts::Admin < Minimal::Template
         div :id => 'page' do
           # self << yield(:form) if @content_for_form
           div :class => 'main' do
-            render :partial => "admin/#{controller_name.gsub('_controller', '')}/menu" rescue ActionView::Template::Error
+            render :partial => "admin/#{controller_name.gsub('_controller', '')}/menu"
             
             div :id => 'content' do
               content

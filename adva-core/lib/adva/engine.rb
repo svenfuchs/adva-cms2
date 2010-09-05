@@ -8,6 +8,8 @@ module Adva
 
           engine_name = base.name.underscore.split('/').last
 
+          config.autoload_paths << paths.app.views.to_a.first
+
           paths.lib.tasks = Dir[root.join('lib/adva/tasks/*.*')]
           
           initializer "adva-#{engine_name}.require_patches" do |app|
