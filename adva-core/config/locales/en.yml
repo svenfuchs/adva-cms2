@@ -34,15 +34,11 @@ en:
       show:
         title: Edit Section
     articles:
-      form:
-        heading_label: Heading
       edit:
         title: Edit Article
     pages:
       new:
         title: Create a New Page
-      form:
-        heading_label: Heading
       edit:
         title: Edit Page
     posts:

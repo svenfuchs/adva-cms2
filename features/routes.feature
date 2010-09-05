@@ -53,13 +53,6 @@ Feature: Routes
       | POST   | /admin/sites/1/sections                   | admin/sections      | create  | site_id: 1                                          |
       | GET    | /admin/sites/1/sections/new               | admin/sections      | new     | site_id: 1                                          |
 
-      | GET    | /admin/sites/1/pages/1/article            | admin/articles      | show    | site_id: 1, page_id: 1                              |
-      | POST   | /admin/sites/1/pages/1/article            | admin/articles      | create  | site_id: 1, page_id: 1                              |
-      | GET    | /admin/sites/1/pages/1/article/new        | admin/articles      | new     | site_id: 1, page_id: 1                              |
-      | PUT    | /admin/sites/1/pages/1/article            | admin/articles      | update  | site_id: 1, page_id: 1                              |
-      | DELETE | /admin/sites/1/pages/1/article            | admin/articles      | destroy | site_id: 1, page_id: 1                              |
-      | GET    | /admin/sites/1/pages/1/article/edit       | admin/articles      | edit    | site_id: 1, page_id: 1                              |
-
       # adva-user
       | POST   | /users                                    | admin/registrations | create  |                                                     |
       | PUT    | /users                                    | admin/registrations | update  |                                                     |
