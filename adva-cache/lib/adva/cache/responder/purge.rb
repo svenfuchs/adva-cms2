@@ -4,11 +4,17 @@ module Adva
       module Purge
         delegate :purge,  :to => :controller
         delegate :purge?, :to => :'controller.class'
-        
+
         def to_html
-          purge(controller.resources.reject { |r| !r.respond_to?(:new_record?) }) if purge?(params[:action])
-          super
+          super.tap { purge(purge_resources) if purge?(params[:action]) }
         end
+
+        protected
+
+          def purge_resources
+            # TODO this is way to greedy. should check which resources actually have changes
+            resources.reject { |r| !r.respond_to?(:new_record?) }
+          end
       end
     end
   end

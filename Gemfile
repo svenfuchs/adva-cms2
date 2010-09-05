@@ -4,7 +4,6 @@ gem 'rails', '3.0.0'
 gem 'adva-core',     :path => File.expand_path('../adva-core', __FILE__)
 gem 'adva-blog',     :path => File.expand_path('../adva-blog', __FILE__)
 gem 'adva-cache',    :path => File.expand_path('../adva-cache', __FILE__)
-
 gem 'adva-static',   :path => File.expand_path('../adva-static', __FILE__)
 gem 'adva-user',     :path => File.expand_path('../adva-user', __FILE__)
 
