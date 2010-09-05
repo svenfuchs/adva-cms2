@@ -11,13 +11,7 @@ module Adva
     end
     include Base
 
-    def params
-      controller.params
-    end
-
-    def controller_path
-      controller.controller_path
-    end
+    delegate :params, :controller_path, :resource, :resources, :to => :controller
 
     def action
       controller.params[:action]

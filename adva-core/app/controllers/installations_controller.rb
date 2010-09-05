@@ -1,4 +1,5 @@
 class InstallationsController < BaseController
+  defaults :resource_class => Site
   # defaults :resource_class => Site, :collection_name => 'sites', :instance_name => 'site'
   # belongs_to :account
   
