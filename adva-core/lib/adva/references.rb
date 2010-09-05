@@ -1,24 +1,22 @@
-require 'reference_tracking'
+require 'action_controller'
 
-# TODO somehow move to adva-cache
+begin
+  require 'reference_tracking'
+rescue LoadError
+end
 
 module Adva
   module References
-    class << self
-      def setup
-        if defined?(ReferenceTracking)
-          ActionController::Base.send(:include, ReferenceTracking::ActionController::ActMacro)
-        else
-          ActionController::Base.send(:include, Stubs)
+    module Stubs
+      def self.included(base)
+        base.class_eval do
+          def self.tracks(*); end
+          def self.purges(*); end
         end
       end
-    end
-    
-    module Stubs
-      def tracks(*); end
-      def purges(*); end
+      def purge?(*); end
     end
   end
 end
 
-Adva::References.setup
+ActionController::Base.send(:include, Adva::References::Stubs) unless defined?(ReferenceTracking)
