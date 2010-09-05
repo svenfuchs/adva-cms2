@@ -18,7 +18,7 @@ Gem::Specification.new do |s|
   s.rubyforge_project = '[none]'
   
   s.add_dependency 'adva-core'
-  # s.add_dependency 'rack-cache-purge', '0.0.1'
-  # s.add_dependency 'rack-cache-tags', '0.0.1'
-  # s.add_dependency 'reference_tracking', '0.0.1'
+  s.add_dependency 'rack-cache-purge', '0.0.1'
+  s.add_dependency 'rack-cache-tags', '0.0.2'
+  s.add_dependency 'reference_tracking', '0.0.2'
 end
