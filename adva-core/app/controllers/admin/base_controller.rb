@@ -9,8 +9,7 @@ class Admin::BaseController < InheritedResources::Base
   respond_to :html
   layout 'admin'
 
-  helper :admin
-  helper_method :resources, :site
+  helper_method :resources, :site, :public_url_for
 
   def self.responder
     Adva::Responder
@@ -32,6 +31,11 @@ class Admin::BaseController < InheritedResources::Base
     elsif controller_name == "site"
       Site.find(params[:id]) rescue nil
     end
+  end
+
+  def public_url_for(site, resources)
+    resources -= [:admin, site]
+    resources.empty? ? "http://#{site.host}" : polymorphic_url(resources, :host => site.host)
   end
 
   def with_chain(object)
