@@ -13,6 +13,7 @@ module Adva
                 paths = Array(paths)
                 pages = paths.select { |path| path.to_s =~ PATTERN }
                 paths.replace(paths - pages)
+
                 pages = pages.map { |path| path.self_and_parents.map { |parent| parent } }.flatten.uniq
                 pages = pages.map { |path| new(path) }
                 pages
