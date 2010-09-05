@@ -16,8 +16,6 @@ module Adva
   class Core < ::Rails::Engine
     include Adva::Engine
 
-    config.autoload_paths << paths.app.views.to_a.first
-
     initializer 'adva-core.beautify_html' do
       # if Rails.env.development?
       #   require 'minimal/template/beautify_html'
