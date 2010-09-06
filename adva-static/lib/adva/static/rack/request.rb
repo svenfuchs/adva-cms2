@@ -19,18 +19,18 @@ module Adva
             ::Rack::MockRequest.env_for("http://#{site.host}#{path}", :method => method,
               :input => ::Rack::Utils.build_nested_query(params),
               'CONTENT_TYPE' => 'application/x-www-form-urlencoded',
-              'HTTP_AUTHORIZATION' => 'Basic ' + ["#{username}:#{password}"].pack('m*'),
+              # 'HTTP_AUTHORIZATION' => 'Basic ' + ["#{username}:#{password}"].pack('m*'),
               STORE_HEADER => params[STORE_HEADER]
             )
           end
 
-          def username
-            'admin@admin.org' # TODO read from conf/auth.yml or something
-          end
-
-          def password
-            'admin'
-          end
+          # def username
+          #   'admin@admin.org' # TODO read from conf/auth.yml or something
+          # end
+          # 
+          # def password
+          #   'admin'
+          # end
 
           def site
             @site ||= Site.first || raise('could not find any site') # FIXME
