@@ -25,8 +25,7 @@ class InstallationsController < BaseController
   end
 
   def create
-    account = Account.create!
-    account.users.create!(:email => 'admin@admin.org', :password => 'admin')
+    account = Account.create!(params[:account])
     site = account.sites.create!(params[:site])
 
     # TODO sign the in, redirect to admin/sites/1
@@ -50,6 +49,7 @@ class InstallationsController < BaseController
     end
 
     def normalize_install_params
+      params[:account] ||= {}
       params[:site] ||= {}
       params[:site].merge!(:host => request.host_with_port)
       params[:site][:title] ||= params[:site][:name]

@@ -2,15 +2,22 @@ class Admin::Shared::Header < Minimal::Template
   def to_html
     div :id => 'header' do
       div :class => 'left' do
-        # breadcrumbs
+        left
       end
-      
       div :class => 'right' do
-        login_status
-        link_to_website
-        # language_select
+        right
       end
     end
+  end
+  
+  def left
+    # breadcrumbs
+  end
+  
+  def right
+    # login_status
+    link_to_website
+    # language_select
   end
         
   def login_status

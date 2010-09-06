@@ -1,5 +1,5 @@
 require 'site'
-require 'user'
+# require 'user'
 
 module Adva
   class Static
@@ -38,7 +38,8 @@ module Adva
             end
 
             def account
-              ::Account.new(:users => [::User.new(:email => 'admin@admin.org', :password => 'admin')]) # TODO
+              @account ||= Account.first || ::Account.new
+              # (:users => [::User.new(:email => 'admin@admin.org', :password => 'admin')]) # TODO
             end
 
             def sections_attributes

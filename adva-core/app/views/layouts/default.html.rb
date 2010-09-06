@@ -7,7 +7,6 @@ class Layouts::Default < Minimal::Template
         div :id => 'header', :class => 'clearing' do
           h1 current_site.title
           # h2 current_site.subtitle
-          login_links
           section_links
           # self << Menus::Sections.new.build(self).root.render(:id => 'sections')
           # yield :header
@@ -55,21 +54,10 @@ class Layouts::Default < Minimal::Template
     resource.class.name.singularize.underscore if resource
   end
   
-  def login_links
-    p :id => 'login_links', :class => 'navigation' do
-      link_to :'.sign_in', new_user_session_path(:return_to => request.fullpath), :id => 'login_link'
-      link_to :'.sign_up', new_user_registration_path, :id => 'signup_link'
-    end
-    p :id => 'logout_links', :class => 'navigation', :style => 'display: none;' do
-      self << t(:'.logged_in_as', :user => '<span class="user_name"></span>')
-      link_to :'.sign_out', destroy_user_session_path(:return_to => request.fullpath), :id => 'logout_link'
-    end
-  end
-  
   def section_links
     ul :id => 'sections' do
       current_site.sections.each do |section|
-        li link_to(section.title, section)
+        li { link_to(section.title, section) }
       end
     end
   end
