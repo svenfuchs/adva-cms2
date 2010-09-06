@@ -13,17 +13,12 @@ Given /^an? (.*) (name|title)d "([^"]+)"$/ do |model, attribute, value|
   model.create!(attributes)
 end
 
-Given /^the following (products):$/ do |model, table|
-  model = model.classify.constantize
-  table.hashes.each do |attributes|
-    attributes[:site]    = current_site    if model.column_names.include?('site_id')
-    attributes[:account] = current_account if model.column_names.include?('account_id')
-    model.create!(attributes)
-  end
-end
-
 Then /^I should not see any (\w*)$/ do |type|
   assert_select(".#{type},.#{type.singularize}", :count => 0)
+end
+
+Then /^I should see an? (\w*)$/ do |type|
+  assert_select(".#{type}")
 end
 
 Then /^I should see an? (\w*) (?:titled|named) "([^"]*)"$/ do |type, text|

@@ -63,7 +63,7 @@ module Tests
           setup_non_root_blog
           setup_non_root_page
           setup_non_root_nested_page
-          Adva::Importers::Directory.new(:source => root).run
+          Adva::Static::Import::Directory.new(:source => root).run
 
           site = Site.first
           assert 4, site.sections.count

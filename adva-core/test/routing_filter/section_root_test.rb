@@ -2,25 +2,22 @@ require File.expand_path('../../test_helper', __FILE__)
 
 require 'adva/routing_filters/section_root'
 require 'blog'
-require 'catalog'
 require 'page'
 
 Site.has_many :blogs
-Site.has_many :catalogs
 
 module AdvaCoreTests
   class SectionRootTest < Test::Unit::TestCase
-    attr_reader :filter, :site, :root, :page, :blog, :catalog
+    attr_reader :filter, :site, :root, :page, :blog
 
     def setup
       @site    = Site.create!(:name => 'site', :title => 'site', :host => 'www.example.com')
       @root    = site.pages.create!(:title => 'root')
       @page    = site.pages.create!(:title => 'page')
       @blog    = site.blogs.create!(:title => 'blog')
-      @catalog = site.catalogs.create!(:title => 'products')
       @filter  = RoutingFilter::SectionRoot.new
 
-      [root, page, blog, catalog].map(&:reload)
+      [root, page, blog].map(&:reload)
       site.sections.reset
     end
 
