@@ -1,9 +1,0 @@
-<%= form.input :email %>
-<%= form.simple_fields_for(:shipping_address) do |address_form| %>
-	<%= address_form.input :name %>
-	<%= address_form.input :street %>
-	<%= address_form.input :zipcode %>
-	<%= address_form.input :city %>
-	<%= address_form.input :country %>
-<% end %>
-<%= form.input :delivery_method, :collection => Adva::Cart::DELIVERY_METHODS %>

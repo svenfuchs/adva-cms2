@@ -1,7 +1,0 @@
-<%= render :partial => 'cart/navigation', :locals => { :current => :cart } %>
-
-˜<h2><%= t('.title') %></h2>
-
-<%= render :partial => 'cart/cart', :locals => { :cart => resource, :updatable => true } %>
-
-<%= t('a_or_b', :a => link_to(t('.checkout'), new_cart_addresses_path), :b => link_to(t('.continue_shopping'), params[:return_to])).html_safe  %>

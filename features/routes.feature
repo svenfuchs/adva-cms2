@@ -19,22 +19,6 @@ Feature: Routes
       | DELETE | /admin/sites/1/blogs/1/posts/1            | admin/posts         | destroy | site_id: 1, blog_id: 1, id: 1                       |
       | GET    | /admin/sites/1/blogs/1/posts/1/edit       | admin/posts         | edit    | site_id: 1, blog_id: 1, id: 1                       |
 
-      # adva-cart
-      | POST   | /cart/items                               | cart_items          | create  |                                                     |
-      | PUT    | /cart/items/1                             | cart_items          | update  | id: 1                                               |
-      | DELETE | /cart/items/1                             | cart_items          | destroy | id: 1                                               |
-      | GET    | /cart                                     | cart                | show    |                                                     |
-
-      # adva-catalog
-      | GET    | /catalogs/1/products/foo                  | products            | show    | catalog_id: 1, slug: foo                            |
-      | GET    | /admin/sites/1/catalogs/1/products        | admin/products      | index   | site_id: 1, catalog_id: 1                           |
-      | POST   | /admin/sites/1/catalogs/1/products        | admin/products      | create  | site_id: 1, catalog_id: 1                           |
-      | GET    | /admin/sites/1/catalogs/1/products/new    | admin/products      | new     | site_id: 1, catalog_id: 1                           |
-      | GET    | /admin/sites/1/catalogs/1/products/1      | admin/products      | show    | site_id: 1, catalog_id: 1, id: 1                    |
-      | PUT    | /admin/sites/1/catalogs/1/products/1      | admin/products      | update  | site_id: 1, catalog_id: 1, id: 1                    |
-      | DELETE | /admin/sites/1/catalogs/1/products/1      | admin/products      | destroy | site_id: 1, catalog_id: 1, id: 1                    |
-      | GET    | /admin/sites/1/catalogs/1/products/1/edit | admin/products      | edit    | site_id: 1, catalog_id: 1, id: 1                    |
-
       # adva-core
       | POST   | /installations                            | installations       | create  |                                                     |
       | GET    | /installations/new                        | installations       | new     |                                                     |

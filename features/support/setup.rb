@@ -27,10 +27,6 @@ module GlobalsHelpers
   def current_account
     Account.first
   end
-  
-  def current_cart
-    Cart.first
-  end
 end
 
 World(GlobalsHelpers)

@@ -1,9 +1,0 @@
-<h2><%= resource.title %></h2>
-
-<% unless resource.products.empty? %>
-  <ul class="products">
-    <% resource.products.each do |product| %>
-      <li><%= link_to product.name, resources.push(product) %></li>
-    <% end %>
-  </ul>
-<% end %>

@@ -1,6 +1,0 @@
-<h2><%= t('.title') %></h2>
-
-<%= simple_form_for(current_cart, :url => cart_addresses_path, :as => :addresses, :html => { :method => :post }) do |form| %>
-  <%= render :partial => 'fields', :locals => { :form => form } %>
-  <%= form.button :submit, t('.submit') %>
-<% end %>
