@@ -1,4 +1,6 @@
-class Admin::Sites::Menu < Minimal::Template
+require 'adva/views/menu'
+
+class Admin::Sites::Menu < Adva::Views::Menu
   def to_html
     div :id => 'actions' do
       ul :class => 'menu left' do
@@ -15,9 +17,9 @@ class Admin::Sites::Menu < Minimal::Template
   end
   
   def right
-    li { link_to(:'.new', new_admin_site_path) }
+    item(:'.new', new_admin_site_path)
     if resource.try(:persisted?)
-      li { link_to(:'.delete', url_for(resources), :method => :delete) }
+      item(:'.delete', url_for(resources), :method => :delete)
     end
   end
 end
