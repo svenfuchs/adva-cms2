@@ -1,4 +1,6 @@
-class Admin::Shared::Top < Minimal::Template
+require 'adva/views/menu'
+
+class Admin::Shared::Top < Adva::Views::Menu
   def to_html
     div :id => 'top' do
       ul :class => 'menu left' do
@@ -11,12 +13,12 @@ class Admin::Shared::Top < Minimal::Template
   end
   
   def left
-    li { link_to(:'.sites', url_for([:admin, :sites])) }
+    item(:'.sites', url_for([:admin, :sites]))
     sections unless site.new_record?
   end
   
   def right
-    li { link_to(:'.settings', url_for([:edit, :admin, site])) } unless site.new_record?
+    item(:'.settings', url_for([:edit, :admin, site])) unless site.new_record?
   end
   
   def sections
@@ -24,7 +26,7 @@ class Admin::Shared::Top < Minimal::Template
       link_to(:'.sections', url_for([:admin, site, :sections]))
       ul do
         site.sections.each do |section|
-          li { link_to(section.title, url_for([:admin, site, section])) }
+          item(section.title, url_for([:admin, site, section]))
         end
       end
     end

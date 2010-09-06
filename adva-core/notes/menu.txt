@@ -1,3 +1,13 @@
+How to derive a breadcrumb hierarchie?
+
+posts#new      http://localhost:3000/admin/sites/1/blogs/2/posts/new
+[-]            http://localhost:3000/admin/sites/1/blogs/2/posts
+blogs#show     http://localhost:3000/admin/sites/1/blogs/2
+[-]            http://localhost:3000/admin/sites/1/blogs
+sections#index http://localhost:3000/admin/sites/1/sections
+sites#show     http://localhost:3000/admin/sites/1
+
+
 <ul class="menu top left">
   <li><a href="admin/sites/1">Sites</a></li>
   <li>
