@@ -7,7 +7,7 @@ Feature: Managing sites
     And I fill in "Name" with "Site 2"
     And I fill in "Title" with "Brand new site"
     And I fill in "Host" with "localhost:3000"
-    And I select "Page" from "Type"
+    And I choose "Page"
     And I fill in "Section title" with "Welcome to this Site"
     And I press "Create"
     Then I should be on the admin dashboard page for the site on "localhost:3000"

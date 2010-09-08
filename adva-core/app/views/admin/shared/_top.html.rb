@@ -1,34 +1,39 @@
-require 'adva/views/menu'
+class Admin::Shared::Top < Adva::Views::Menu::Admin::Top
+  def left
+    item(:'.sites', url_for([:admin, :sites]))
+    if site.persisted?
+      item(:'.site',  url_for([:admin, site]))
+      sections unless site.new_record?
+    end
+  end
 
-class Admin::Shared::Top < Adva::Views::Menu
-  def to_html
-    div :id => 'top' do
-      ul :class => 'menu left' do
-        left
-      end
-      ul :class => 'menu right' do
-        right
-      end
+  def right
+    if site.persisted?
+      item(:'.settings', url_for([:edit, :admin, site]))
     end
   end
   
-  def left
-    item(:'.sites', url_for([:admin, :sites]))
-    sections unless site.new_record?
-  end
-  
-  def right
-    item(:'.settings', url_for([:edit, :admin, site])) unless site.new_record?
-  end
-  
-  def sections
-    li do
-      link_to(:'.sections', url_for([:admin, site, :sections]))
-      ul do
-        site.sections.each do |section|
-          item(section.title, url_for([:admin, site, section]))
+  protected
+
+    def sections
+      item(:'.sections', url_for([:admin, site, :sections])) do
+        ul do
+          site.sections.each do |section|
+            # TODO hu? inherited_resources seems to use build_section, so there's a new section in the collection??
+            item(section.title, url_for([:admin, site, section])) unless section.new_record?
+          end
         end
       end
     end
-  end
+
+    def active?(url, options)
+      return false if url =~ %r(/admin/sites(/\d+)?$) && request.path != url
+      super
+    end
+
+    def path_and_parents(path)
+      paths = super
+      paths.detect { |path| path.gsub!(/(#{Section.types.map(&:tableize).join('|')})$/) { 'sections' } }
+      paths
+    end
 end

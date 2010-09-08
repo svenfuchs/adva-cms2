@@ -17,7 +17,7 @@ module Adva
     include Adva::Engine
 
     initializer 'adva-core.beautify_html' do
-      # if Rails.env.development?
+      # if Rails.env.test?
       #   require 'minimal/template/beautify_html'
       #   ApplicationController.after_filter(Minimal::Template::BeautifyHtml)
       # end

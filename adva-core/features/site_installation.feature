@@ -6,7 +6,7 @@ Feature: Installing a Site, creating a section with an article
     Given I go to the homepage
      Then I should see a new site form
      When I fill in "Name" with "Site 1"
-      And I select "Page" from "Type"
+      And I choose "Page"
       And I fill in "Title" with "Home"
       And I press "Create"
      Then I should be on the home section page

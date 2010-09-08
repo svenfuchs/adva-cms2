@@ -3,11 +3,11 @@
 class Admin::Shared::DeviseLinks < Minimal::Template
   def to_html
     ul do
-      li(sign_in_link)             if sign_in?
-      li(sign_up_link)             if sign_up?
-      li(forgot_password_link)     if forgot_password?
-      li(resend_confirmation_link) if resend_confirmation?
-      li(resend_unlock_link)       if resend_unlock?
+      li { sign_in_link }             if sign_in?
+      li { sign_up_link }             if sign_up?
+      li { forgot_password_link }     if forgot_password?
+      li { resend_confirmation_link } if resend_confirmation?
+      li { resend_unlock_link }       if resend_unlock?
     end
   end
 

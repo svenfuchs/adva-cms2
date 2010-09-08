@@ -18,7 +18,10 @@ en:
         title: Write a new blog post
       edit:
         title: Edit blog post
+        delete: Delete
       menu:
+        show: Posts
         new: New
+        view: View
         edit: Edit
         delete: Delete
