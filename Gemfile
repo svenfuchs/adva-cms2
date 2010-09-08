@@ -24,4 +24,5 @@ group :test do
   gem 'fakefs', :require => 'fakefs/safe'
   gem 'test_declarative'
   gem 'database_cleaner'
+  gem 'launchy'
 end

@@ -5,6 +5,7 @@ module Adva
   autoload :References, 'adva/references'
   autoload :Registry,   'adva/registry'
   autoload :Responder,  'adva/responder'
+  autoload :Views,      'adva/views'
 
   mattr_accessor :out
   self.out = $stdout

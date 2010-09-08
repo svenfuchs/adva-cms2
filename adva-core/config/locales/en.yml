@@ -25,7 +25,7 @@ en:
           new: New Site
         sections: All Sections
       menu:
-        new: New
+        new: New site
         edit: Edit
         delete: Delete
     sections:
@@ -37,14 +37,21 @@ en:
         title: Choose the Type of the New Section
       show:
         title: Edit Section
+      menu:
+        sections: Sections
+        new: New
+        reorder: Reorder
     pages:
       new:
         title: Create a New Page
       edit:
         title: Edit Page
+        delete: Delete
       menu:
         new: New
-        edit: Edit
+        content: Content
+        edit: Settings
+        view: View
         delete: Delete
     posts:
       edit:
@@ -58,6 +65,7 @@ en:
     shared:
       top:
         sites: Sites
+        site: Overview
         sections: Sections
         settings: Settings
       header:

@@ -4,12 +4,12 @@ body {
 body > div {
   display: table;
 }
-.main, .right {
+.left, .right {
   position: relative;
   display: table-cell;
   vertical-align: top;
 }
-.main {
+.main, .left {
   padding: 0 3%;
   width: 75%;
 }

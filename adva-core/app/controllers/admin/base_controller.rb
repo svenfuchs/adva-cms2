@@ -31,7 +31,7 @@ class Admin::BaseController < InheritedResources::Base
     end
   end
 
-  def public_url_for(site, resources)
+  def public_url_for(resources)
     resources -= [:admin, site]
     resources.empty? ? "http://#{site.host}" : polymorphic_url(resources, :host => site.host)
   end
