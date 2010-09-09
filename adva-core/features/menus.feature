@@ -11,10 +11,10 @@ Feature: Menus
     And I am on the admin dashboard page
     Then the menu should contain the following items:
       | text     | url                       | active | menu        |
-      | Sites    | /admin/sites              |        | #top .left  |
-      | Overview | /admin/sites/1            | yes    | #top .left  |
-      | Sections | /admin/sites/1/sections   |        | #top .left  |
-      | Home     | /admin/sites/1/pages/1    |        | #top .left  |
+      | Sites    | /admin/sites              |        | #top .main  |
+      | Overview | /admin/sites/1            | yes    | #top .main  |
+      | Sections | /admin/sites/1/sections   |        | #top .main  |
+      | Home     | /admin/sites/1/pages/1    |        | #top .main  |
       | Settings | /admin/sites/1/edit       |        | #top .right |
 
   Scenario: Admin Sections
@@ -22,12 +22,12 @@ Feature: Menus
     And I am on the admin site sections page
     Then the menu should contain the following items:
       | text     | url                         | active | menu            |
-      | Sites    | /admin/sites                |        | #top .left      |
-      | Overview | /admin/sites/1              |        | #top .left  |
-      | Sections | /admin/sites/1/sections     | yes    | #top .left      |
-      | Home     | /admin/sites/1/pages/1      |        | #top .left      |
+      | Sites    | /admin/sites                |        | #top .main      |
+      | Overview | /admin/sites/1              |        | #top .main  |
+      | Sections | /admin/sites/1/sections     | yes    | #top .main      |
+      | Home     | /admin/sites/1/pages/1      |        | #top .main      |
       | Settings | /admin/sites/1/edit         |        | #top .right     |
-      | Sections |                             |        | #actions .left  |
+      | Sections |                             |        | #actions .main  |
       | New      | /admin/sites/1/sections/new |        | #actions .right |
       | Reorder  | /admin/sites/1/sections     |        | #actions .right |
 
@@ -36,13 +36,13 @@ Feature: Menus
     And I am on the admin "Home" section page
     Then the menu should contain the following items:
       | text     | url                         | active | menu            |
-      | Sites    | /admin/sites                |        | #top .left      |
-      | Overview | /admin/sites/1              |        | #top .left  |
-      | Sections | /admin/sites/1/sections     | yes    | #top .left      |
-      | Home     | /admin/sites/1/pages/1      | yes    | #top .left      |
+      | Sites    | /admin/sites                |        | #top .main      |
+      | Overview | /admin/sites/1              |        | #top .main  |
+      | Sections | /admin/sites/1/sections     | yes    | #top .main      |
+      | Home     | /admin/sites/1/pages/1      | yes    | #top .main      |
       | Settings | /admin/sites/1/edit         |        | #top .right     |
-      | Home:    |                             |        | #actions .left  |
-      | Page     | /admin/sites/1/pages/1      | yes    | #actions .left  |
-      | Settings | /admin/sites/1/pages/1/edit |        | #actions .left  |
+      | Home:    |                             |        | #actions .main  |
+      | Page     | /admin/sites/1/pages/1      | yes    | #actions .main  |
+      | Settings | /admin/sites/1/pages/1/edit |        | #actions .main  |
       | View     | http://www.example.com/     |        | #actions .right |
       | Delete   | /admin/sites/1/pages/1      |        | #actions .right |

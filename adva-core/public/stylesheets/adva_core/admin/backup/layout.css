@@ -1,0 +1,22 @@
+#left {
+  position: absolute;
+  left: 0;
+  width: 250px;
+}
+#left.collapsed {
+  display: none;
+}
+#search {
+  position: absolute;
+  right: 6%;
+  bottom: 5px;
+  padding: 0;
+}
+#search input {
+  color: #888;
+  width: 100px;
+  background: white url(/images/adva_cms/admin/new/buttons/search.png) no-repeat right center;
+  font-size: 0.9em;
+  padding: 3px 18px 3px 6px;
+  border: 1px solid #aaa;
+}

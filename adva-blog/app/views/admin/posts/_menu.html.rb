@@ -1,5 +1,5 @@
 class Admin::Posts::Menu < Adva::Views::Menu::Admin::Actions
-  def left
+  def main
     label("#{resource.section.title}:")
     item(:'.show', admin_site_blog_path(site, resource.section))
     item(:'.edit_parent', edit_admin_site_blog_path(site, resource.section))

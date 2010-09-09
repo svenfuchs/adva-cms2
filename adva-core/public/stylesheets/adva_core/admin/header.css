@@ -1,3 +1,97 @@
+.menu {
+  list-style-type: none;
+  white-space: nowrap;
+}
+.menu li {
+  list-style-type: none;
+  position: relative;
+  display: inline-block;
+}
+.menu li a {
+  display: block;
+  padding: 4px 16px 4px 16px;
+  outline: none;
+  text-decoration: none;
+}
+
+
+#top {
+  background-color: black;
+  border-bottom: 5px solid #c22222;
+}
+#top .menu {
+  padding-top: 5px;
+}
+#top .right {
+  padding-right: 3%;
+  text-align: right;
+}
+#top .main > li:first-child {
+  margin-left: -16px;
+}
+#top .right > li:last-child {
+  margin-right: -16px;
+}
+#top a {
+  color: #fff;
+}
+#top > .menu > li > a {
+  -webkit-border-top-left-radius: 4px;
+  -webkit-border-top-right-radius: 4px;
+  -moz-border-top-left-radius: 4px;
+  -moz-border-top-right-radius: 4px;
+}
+#top .menu > .active > a {
+  color: #fff;
+  background: #c22222 url(/images/adva_core/admin/tab_top_active.png) repeat-x;
+}
+#top .menu > li:hover a {
+  color: #222;
+  background-color: #fff;
+}
+#top .menu > li.active:hover > a {
+  color: #fff;
+}
+#top li > .sections {
+  display: none;
+  position: absolute;
+  z-index: 99;
+  top: 27px;
+  min-width: 100%;
+  border-bottom: 1px solid #ddd;
+  background-color: #fff !important;
+  -webkit-box-shadow: 3px 3px 6px #aaa;
+  -moz-box-shadow: 3px 3px 6px #aaa;
+}
+#top li:hover .sections {
+  display: block;
+}
+#top .sections li {
+  float: none;
+  display: block;
+  border-left: 1px solid #ddd;
+  border-right: 1px solid #ddd;
+}
+#top .sections li a {
+  color: #000;
+}
+#top .sections li a {
+  background-color: #fff;
+}
+#top .sections li a:hover {
+  background-color: #eee;
+}
+#top .sections li.active a {
+  background-color: #fbf7e4;
+}
+#top .sections .level_0 { padding-left: 16px; }
+#top .sections .level_1 { padding-left: 32px; }
+#top .sections .level_2 { padding-left: 48px; }
+#top .sections .level_3 { padding-left: 64px; }
+#top .sections .level_4 { padding-left: 80px; }
+#top .sections .level_5 { padding-left: 96px; }
+#top .sections .level_6 { padding-left: 112px; }
+
 #breadcrumbs {
   position: absolute;
   height: 18px;
@@ -14,10 +108,10 @@
   float: left;
   padding: 0 0 0 0px;
 }
-#breadcrumbs li:after { 
+#breadcrumbs li:after {
   content: "\0020 \0020 \0020 \00BB \0020";
 }
-#breadcrumbs li.last:after { 
+#breadcrumbs li.last:after {
   content: " ";
 }
 #breadcrumbs li,
@@ -26,32 +120,11 @@
   font-size: 9pt;
 }
 
-#header .right {
-  padding: 15px 3% 0 0;
-  text-align: right;
-}
-#header .right,
-#header .right a {
-  color: #999;
-  font-size: 9pt;
-}
-
-#actions {
-  display: table;
-  width: 100%;
-  height: 28px;
-  margin-top: -28px;
-  white-space: nowrap;
-}
-#actions ul {
-  list-style-type: none;
-  display: table-cell;
-}
-#actions li {
-  display: inline-block;
-}
-#actions ul.left li:first-child {
+#actions .main li:first-child {
   margin-left: -16px;
+}
+#actions .right li:last-child {
+  margin-right: -16px;
 }
 #actions h4 {
   display: inline;
@@ -59,27 +132,21 @@
   padding: 6px 16px 0 16px;
   font-weight: normal;
 }
-#actions .left li a {
-  padding: 6px 16px 7px 16px;
-  outline: none;
+#actions .main li a {
+  padding: 6px 16px 6px 16px;
   -webkit-border-top-left-radius: 4px;
   -webkit-border-top-right-radius: 4px;
   -moz-border-top-left-radius: 4px;
   -moz-border-top-right-radius: 4px;
 }
-#actions .left li a:hover {
+#actions .main li a:hover {
   background-color: #fff;
-  text-decoration: none;
 }
-#actions .left li.active > a {
+#actions .main li.active > a {
   background: #ddd url(/images/adva_cms/admin/tab_main_active.png) repeat-x;
 }
-#actions ul.right {
-  text-align: right;
-  margin-left: 8px;
-}
 #actions ul.right li {
-  margin-left: 8px;
+  /* margin-left: 8px;*/
 }
 #actions ul.right li a {
   display: block;
@@ -93,22 +160,17 @@
 }
 #actions ul.right li a:hover {
   background: #fff;
-  text-decoration: none;
 }
 #actions ul.right li.active a {
   background: #ddd;
 }
-#search {
-  position: absolute;
-  right: 6%;
-  bottom: 5px;
-  padding: 0;
+
+.header .right {
+  padding: 15px 3% 0 0;
+  text-align: right;
 }
-#search input {
-  color: #888;
-  width: 100px;
-  background: white url(/images/adva_cms/admin/new/buttons/search.png) no-repeat right center;
-  font-size: 0.9em;
-  padding: 3px 18px 3px 6px;
-  border: 1px solid #aaa;
+.header .right,
+.header .right a {
+  color: #999;
+  font-size: 9pt;
 }

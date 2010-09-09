@@ -1,5 +1,5 @@
 class Admin::Sections::Menu < Adva::Views::Menu::Admin::Actions
-  def left
+  def main
     label(:'.sections')
   end
   

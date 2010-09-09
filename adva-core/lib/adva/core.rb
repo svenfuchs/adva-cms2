@@ -69,23 +69,22 @@ module Adva
         #                 adva_core/jquery/qtip/jquery.qtip.bgiframe.js adva_core/jquery/qtip/jquery.qtip.imagemap.js )
 
       ActionView::Helpers::AssetTagHelper.register_stylesheet_expansion \
-        :admin   => %w( adva_core/admin/reset
-                        adva_core/admin/layout
-                        adva_core/admin/common
+        :admin   => %w( adva_core/admin/layout
                         adva_core/admin/header
-                        adva_core/admin/top
                         adva_core/admin/sidebar
+                        adva_core/admin/common
                         adva_core/admin/forms
-                        adva_core/admin/lists
-                        adva_core/admin/content
-                        adva_core/admin/themes
-                        adva_core/admin/helptip
-                        adva_core/admin/users
-                        adva_core/jquery/jquery-ui.css
-                        adva_core/jquery/jquery.tooltip.css ),
+                        ),
+                        # adva_core/admin/lists
+                        # adva_core/admin/themes
+                        # adva_core/admin/helptip
+                        # adva_core/admin/users
+                        # adva_core/jquery/jquery-ui.css
+                        # adva_core/jquery/jquery.tooltip.css 
         :default => %w( adva_core/default
                         adva_core/common
-                        adva_core/forms )
+                        adva_core/forms 
+                        )
         # :login   => %w( adva_core/admin/reset adva_core/admin/common adva_core/admin/forms
         #                 adva_core/layout/login ),
         # :simple  => %w( adva_core/reset adva_core/admin/common adva_core/admin/forms

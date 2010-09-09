@@ -1,5 +1,5 @@
 class Admin::Pages::Menu < Adva::Views::Menu::Admin::Actions
-  def left
+  def main
     if resource.try(:persisted?)
       label("#{resource.title}:")
       item(:'.show', url_for(resources))
