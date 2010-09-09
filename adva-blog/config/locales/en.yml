@@ -7,7 +7,7 @@ en:
       new:
         title: Create a new blog
       edit:
-        title: Edit blog
+        title: Settings
       menu:
         show: Posts
         edit: Settings
@@ -17,10 +17,11 @@ en:
       new:
         title: Write a new blog post
       edit:
-        title: Edit blog post
+        title: Edit Post
         delete: Delete
       menu:
         show: Posts
+        edit_parent: Settings
         new: New
         view: View
         edit: Edit

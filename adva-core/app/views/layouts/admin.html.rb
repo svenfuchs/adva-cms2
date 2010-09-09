@@ -6,14 +6,13 @@ class Layouts::Admin < Minimal::Template
         head
       end
       content_tag :body do
-        render :partial => 'admin/shared/top'
-        render :partial => 'admin/shared/header'
+        render :partial => 'layouts/admin/top'
+        render :partial => 'layouts/admin/header'
 
         div :id => 'page' do
-          # self << yield(:form) if @content_for_form
+          # wrapping_main do |content|
           div :class => 'main' do
             render :partial => "admin/#{controller_name.gsub('_controller', '')}/menu"
-            
             div :id => 'content' do
               content
             end
@@ -21,7 +20,6 @@ class Layouts::Admin < Minimal::Template
               sidebar
             end
           end
-          # self<< '</form>'.html_safe if @content_for_form
         end
       end
     end
@@ -49,10 +47,27 @@ class Layouts::Admin < Minimal::Template
   def javascripts
     javascript_include_tag :common, :admin
   end
-
+  
   def content
     block.call
   end
+  
+  # def wrapping_main
+  #   open, content, close = self.content
+  #   self << open
+  #   div(:class => 'main') { yield content }
+  #   self << close
+  # end
+  # 
+  # def content
+  #   content = capture { block.call }
+  #   if content =~ %r(^(<form[^>]+>))
+  #     # TODO how to do this w/ just one regex? also, allow additional chars at the end
+  #     [$1, content.gsub(%r(^<form[^>]+>|</form>$), ''), '</form>'.html_safe]
+  #   else
+  #     ['<div>'.html_safe, content, '</div>'.html_safe]
+  #   end
+  # end
 
   def sidebar
     block.call :sidebar

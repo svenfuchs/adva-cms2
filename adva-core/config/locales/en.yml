@@ -36,33 +36,36 @@ en:
       select_type:
         title: Choose the Type of the New Section
       show:
-        title: Edit Section
+        title: Settings
       menu:
         sections: Sections
         new: New
         reorder: Reorder
     pages:
+      show:
+        title: Edit Page
       new:
         title: Create a New Page
       edit:
-        title: Edit Page
+        title: Settings
         delete: Delete
       menu:
         new: New
-        content: Content
+        show: Page
         edit: Settings
         view: View
         delete: Delete
     posts:
       edit:
-        title: Edit Post
+        title: Settings
     session:
       new:
         title: Sign in
     registrations:
       new:
         title: Sign up
-    shared:
+  layouts:
+    admin:
       top:
         sites: Sites
         site: Overview

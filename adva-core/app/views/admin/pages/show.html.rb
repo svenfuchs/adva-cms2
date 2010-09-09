@@ -1,8 +1,7 @@
-class Admin::Pages::Form < Minimal::Template
+class Admin::Pages::Show < Minimal::Template
   def to_html
+    h2 :'.title'
     simple_form_for(resources) do |f|
-      f.hidden_field :type
-      f.input :title
       f.simple_fields_for(:article) do |a|
         a.input :title
         a.input :body

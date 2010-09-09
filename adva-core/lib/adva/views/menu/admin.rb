@@ -4,7 +4,6 @@ module Adva
       class Admin < Menu
         class_inheritable_accessor :id
 
-        class Top < Admin; self.id = 'top' end
         class Actions < Admin; self.id = 'actions' end
 
         def to_html

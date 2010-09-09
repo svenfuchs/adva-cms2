@@ -13,4 +13,13 @@ class Admin::Blogs::Menu < Adva::Views::Menu::Admin::Actions
       item(:'.delete', admin_site_blog_path(site, resource), :method => :delete)
     end
   end
+
+  protected
+
+    def active?(url, options)
+      # hmmm ...
+      types = Section.types.map { |type| type.underscore.pluralize }.join('|')
+      return false if url =~ %r(/admin/sites/\d+/#{types}/\d+$) && request.path != url
+      super
+    end
 end

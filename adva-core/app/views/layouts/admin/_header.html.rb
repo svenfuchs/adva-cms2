@@ -1,4 +1,4 @@
-class Admin::Shared::Header < Minimal::Template
+class Layouts::Admin::Header < Minimal::Template
   def to_html
     div :id => 'header' do
       div :class => 'left' do
@@ -30,7 +30,6 @@ class Admin::Shared::Header < Minimal::Template
   
   def link_to_website
     if try(:site) && resources.last.try(:persisted?)
-      self << ' &middot; '.html_safe
       link_to(t('.website'), public_url_for(resources), :id => 'go_to_website')
     end
   end

@@ -1,3 +1,3 @@
 class Admin::PagesController < Admin::SectionsController
-  purges :create, :destroy
+  purges :create, :update, :destroy
 end

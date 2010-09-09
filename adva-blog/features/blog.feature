@@ -53,7 +53,7 @@ Feature: Managing blogs
      And I follow "Updated blog post"
     Then I should see an edit post form
 
-    When I press "Delete"
+    When I follow "Delete"
     Then I should see "Updated blog"
      And I should not see any posts
      And I should not see "Updated blog post"
