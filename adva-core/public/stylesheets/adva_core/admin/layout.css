@@ -3,60 +3,43 @@ body {
 }
 body > div {
   display: table;
+  width: 100%;
+  border-collapse: collapse; 
 }
-.left, .right {
+body > div > div {
+  display: table-row;
+}
+.header {
+  background-color: #fbf7e4;
+}
+.header #actions {
   position: relative;
-  display: table-cell;
-  vertical-align: top;
+  margin-top: 15px;
+  width: 100%;
 }
-.main, .left {
+.header #actions .menu {
+  padding: 0;
+}
+.header #actions .main {
+  width: 65%;
+}
+.header #actions .right {
+  width: 35%;
+  text-align: right;
+  padding: 0;
+}
+.main, .right {
+  display: table-cell;
   padding: 0 3%;
-  width: 75%;
 }
 .right {
   width: 344px;
   min-width: 344px;
-}	
-
-#top {
-  padding-top: 5px;
-  background-color: black;
-  border-bottom: 5px solid #c22222;
-  white-space: nowrap;
-  width: 100%;
 }
 #page {
-  width: 100%;
-}
-
-#header {
-  height: 75px;
-  /*background: #fbf7e4 url(/images/adva_cms/admin/header_bg.png) bottom left;*/
-  background-color: #fbf7e4;
-  border-bottom: 4px solid #ddd;
-  width: 100%;
-}
-#page > form {
-  display: table-row;
-  width: 100%;
-}
-#page .main {
-}
-#content {
-  width: 100%;
-  clear: both;
-  position: relative;
-  margin: 20px 0;
-  padding-bottom: 20px;
-}
-#left {
-  position: absolute;
-  left: 0;
-  width: 250px;
-}
-#left.collapsed {
-  display: none;
+  border-top: 4px solid #ddd;
 }
 #sidebar {
-	background-color: #f6f6f6;
+  background-color: #f6f6f6;
+  padding-bottom: 35px;
 }

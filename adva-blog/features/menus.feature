@@ -5,12 +5,12 @@ Feature: Menus
     And I am on the admin "Blog" section page
     Then the menu should contain the following items:
       | text     | url                              | active | menu            |
-      | Sites    | /admin/sites                     |        | #top .left      |
-      | Sections | /admin/sites/1/sections          | yes    | #top .left      |
-      | Blog     | /admin/sites/1/blogs/1           | yes    | #top .left      |
+      | Sites    | /admin/sites                     |        | #top .main      |
+      | Sections | /admin/sites/1/sections          | yes    | #top .main      |
+      | Blog     | /admin/sites/1/blogs/1           | yes    | #top .main      |
       | Settings | /admin/sites/1/edit              |        | #top .right     |
-      | Blog:    |                                  |        | #actions .left  |
-      | Posts    | /admin/sites/1/blogs/1           | yes    | #actions .left  |
+      | Blog:    |                                  |        | #actions .main  |
+      | Posts    | /admin/sites/1/blogs/1           | yes    | #actions .main  |
       | New Post | /admin/sites/1/blogs/1/posts/new |        | #actions .right |
       | Delete   | /admin/sites/1/blogs/1           |        | #actions .right |
 
@@ -21,12 +21,12 @@ Feature: Menus
     And I am on the admin edit post page for the post "Post"
     Then the menu should contain the following items:
       | text     | url                                         | active | menu            |
-      | Sites    | /admin/sites                                |        | #top .left      |
-      | Sections | /admin/sites/1/sections                     | yes    | #top .left      |
-      | Blog     | /admin/sites/1/blogs/1                      | yes    | #top .left      |
+      | Sites    | /admin/sites                                |        | #top .main      |
+      | Sections | /admin/sites/1/sections                     | yes    | #top .main      |
+      | Blog     | /admin/sites/1/blogs/1                      | yes    | #top .main      |
       | Settings | /admin/sites/1/edit                         |        | #top .right     |
-      | Blog:    |                                             |        | #actions .left  |
-      | Posts    | /admin/sites/1/blogs/1                      | yes    | #actions .left  |
+      | Blog:    |                                             |        | #actions .main  |
+      | Posts    | /admin/sites/1/blogs/1                      | yes    | #actions .main  |
       | New      | /admin/sites/1/blogs/1/posts/new            |        | #actions .right |
       | View     | http://www.example.com/blog/2010/09/08/post |        | #actions .right |
       | Edit     | /admin/sites/1/blogs/1/posts/1/edit         | yes    | #actions .right |

@@ -1,5 +1,5 @@
 class Admin::Blogs::Menu < Adva::Views::Menu::Admin::Actions
-  def left
+  def main
     if persisted?
       label("#{resource.title}:")
       item(:'.show', admin_site_blog_path(site, resource))

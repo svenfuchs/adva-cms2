@@ -6,18 +6,18 @@ class Layouts::Admin < Minimal::Template
         head
       end
       content_tag :body do
-        render :partial => 'layouts/admin/top'
-        render :partial => 'layouts/admin/header'
+        div do
+          render :partial => 'layouts/admin/header'
 
-        div :id => 'page' do
-          # wrapping_main do |content|
-          div :class => 'main' do
-            render :partial => "admin/#{controller_name.gsub('_controller', '')}/menu"
-            div :id => 'content' do
-              content
+          div :id => 'page' do
+            div :class => 'main' do
+              div :id => 'content' do
+                content
+              end
             end
             div :id => 'sidebar', :class => 'right' do
               sidebar
+              self << 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
             end
           end
         end
@@ -51,23 +51,6 @@ class Layouts::Admin < Minimal::Template
   def content
     block.call
   end
-  
-  # def wrapping_main
-  #   open, content, close = self.content
-  #   self << open
-  #   div(:class => 'main') { yield content }
-  #   self << close
-  # end
-  # 
-  # def content
-  #   content = capture { block.call }
-  #   if content =~ %r(^(<form[^>]+>))
-  #     # TODO how to do this w/ just one regex? also, allow additional chars at the end
-  #     [$1, content.gsub(%r(^<form[^>]+>|</form>$), ''), '</form>'.html_safe]
-  #   else
-  #     ['<div>'.html_safe, content, '</div>'.html_safe]
-  #   end
-  # end
 
   def sidebar
     block.call :sidebar

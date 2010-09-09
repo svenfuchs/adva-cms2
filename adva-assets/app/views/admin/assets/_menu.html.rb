@@ -1,5 +1,5 @@
 class Admin::Assets::Menu < Adva::Views::Menu::Admin::Actions
-  def left
+  def main
     label("#{resource.title}:")
     item(:'.show', admin_site_assets_path(site))
   end

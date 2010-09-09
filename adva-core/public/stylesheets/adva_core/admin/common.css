@@ -1,3 +1,34 @@
+html, body, div, span, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, code,
+del, dfn, em, img, q, dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-weight: inherit;
+  font-style: inherit;
+  font-size: 100%;
+  font-family: inherit;
+  vertical-align: baseline;
+}
+body { 
+  line-height: 1.5; 
+}
+table { 
+  border-collapse: separate; border-spacing: 0;
+}
+caption, th, td {
+  text-align: left; font-weight: normal;
+}
+table, td, th {
+  vertical-align: top;
+}
+a img {
+  border: none;
+}
+
 body {
   font-size: 10pt;
   color: #222; 
@@ -14,9 +45,6 @@ a:hover {
 h2 {
   margin-top: 1.2em;
   font-size: 16pt;
-}
-h2:first-of-type {
-  margin-top: 0.3em;
 }
 h3 {
   margin-top: 1.2em;

@@ -12,10 +12,10 @@ class Admin::Sites::New < Minimal::Template
       f.text_field :host
 
       f.fields_for(:sections) do |s|
-        s.label :type, :class => 'block'
+        s.label :type
         section_types_option_values.each do |name, value|
           s.radio_button :type, value
-          s.label "type_#{value.underscore}", name
+          s.label "type_#{value.underscore}", name, :class => :inline
         end
 
         s.label :title, "Section title"
