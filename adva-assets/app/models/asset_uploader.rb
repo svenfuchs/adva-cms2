@@ -29,7 +29,11 @@ class AssetUploader < CarrierWave::Uploader::Base
   end
 
   def base_dir
-    "#{root_dir}/sites/site-#{model.site_id}/assets" if model.site_id.present?
+    if Rails.env=="development"
+      "/tmp/sites/site-#{model.site_id}/assets" if model.site_id.present?
+    else
+      "#{root_dir}/sites/site-#{model.site_id}/assets" if model.site_id.present?
+    end
   end
     
   def basename
