@@ -10,7 +10,7 @@ class Asset < ActiveRecord::Base
   mount_uploader :file, AssetUploader
 
   has_many :asset_assignments, :order => 'position', :dependent => :destroy
-  #has_many :objs, :through => :asset_assignments
+  # has_many :objs, :through => :asset_assignments
   has_many :objs, :through => :asset_assignments, :source => :product
 
   belongs_to :site
@@ -22,6 +22,6 @@ class Asset < ActiveRecord::Base
   validates :title, :presence => true
   validates :site_id, :presence => true
 
-  #todo in assigned classes: accepts_nested_attributes_for :assets, :allow_destroy => true
+  # todo in assigned classes: accepts_nested_attributes_for :assets, :allow_destroy => true
 
 end
