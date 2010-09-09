@@ -1,7 +1,6 @@
 require 'carrierwave'
 require 'carrierwave/orm/activerecord'
 require 'asset_uploader'
-require 'asset_assignment'
 
 class Asset < ActiveRecord::Base
 
@@ -9,9 +8,7 @@ class Asset < ActiveRecord::Base
 
   mount_uploader :file, AssetUploader
 
-  has_many :asset_assignments, :order => 'position', :dependent => :destroy
-  # has_many :objs, :through => :asset_assignments
-  has_many :objs, :through => :asset_assignments, :source => :product
+  belongs_to :attachable, :polymorphic => true
 
   belongs_to :site
 

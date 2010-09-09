@@ -2,10 +2,16 @@ require File.expand_path('../../test_helper', __FILE__)
 
 require 'asset'
 
+# assert a user has many assets, this could be moved to a test-model
+User.class_eval do
+  has_many :assets, :as => :attachable
+end
+
 module AdvaAssets
   class AssetTest < Test::Unit::TestCase
 
     def setup
+      super
       @site = Site.new(:account => Account.create!,
                        :name => 'TestSite', :title => 'Home', :host => "www.siewert-kau.de")
       @section = Section.new(:title => "Section1", :type => 'Page')
@@ -58,39 +64,29 @@ module AdvaAssets
     end
 
     test "have_permissions(0600)" do
-      assert_equal (File.stat(@asset.path).mode & 0777), 0600
+      assert_equal File.stat(@asset.path).mode & 0777, 0600
     end
 
     test "objs can have different assigned assets" do
       @asset2 = Asset.create!(:file => File.open(@asset_path), :site => @site,
                               :title => "Rails Logo 2", :description => 'This is a Rails Logo 2.')
-      product1 = Product.create(:account => @site.account, :number => '12345', :name => "Kaffeetasse", :description => "Kaffeetasse mit Unterteller")
-      AssetAssignment.create!(:product => product1, :asset => @asset, :weight => 1000)
-      AssetAssignment.create!(:product => product1, :asset => @asset2, :weight => 1100)
-      assert_equal Product.first.assets.count, 2
-      assert Product.first.assets.include? @asset
-      assert Product.first.assets.include? @asset2
+      user = User.create(:account_id => @site.account.id)
+      user.assets << @asset
+      user.assets << @asset2
+      assert_equal user.assets.count, 2
+      assert user.assets.include? @asset
+      assert user.assets.include? @asset2
     end
 
-    test "is assigend to many products" do
-      product1 = Product.create(:account => @site.account, :number => '12345', :name => "Kaffeetasse", :description => "Kaffeetasse mit Unterteller")
-      AssetAssignment.create!(:product => product1, :asset => @asset, :weight => 1000)
-      assert_equal Asset.first.objs.count, 1
-      assert_equal Asset.first.objs.first, product1
-      product2 = Product.create(:account => @site.account, :number => '23456', :name => "Teekanne", :description => "Blaue Tekanne")
-      AssetAssignment.create!(:product => product2, :asset => @asset, :weight => 1100)
-      assert_equal Asset.first.objs.count, 2
-      assert_equal Asset.first.objs.last, product2
-    end
 
-    test "assign an asset to a product only one time" do
-      product1 = Product.create(:account => @site.account, :number => '12345', :name => "Kaffeetasse", :description => "Kaffeetasse mit Unterteller")
-      AssetAssignment.create!(:product => product1, :asset => @asset, :weight => 1000)
-      assert_equal Asset.first.objs.count, 1
-      assert_equal Asset.first.objs.first, product1
-      assert_raises ActiveRecord::RecordInvalid do
-        AssetAssignment.create!(:product => product1, :asset => @asset, :weight => 1100)
-      end
+    test "An asset belongs only to one object at a time" do
+      user1 = User.create(:account_id => @site.account.id)
+      user2 = User.create(:account_id => @site.account.id)
+      user1.assets << @asset
+      assert_equal @asset.attachable, user1
+      user2.assets << @asset
+      @asset.reload
+      assert_equal @asset.attachable, user2
     end
 
   end

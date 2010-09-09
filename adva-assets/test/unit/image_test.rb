@@ -6,7 +6,7 @@ require 'image'
 require 'carrierwave/test/matchers'
 
 module AdvaAssets
-  class AssetTest < Test::Unit::TestCase
+  class ImageTest < Test::Unit::TestCase
 
     def setup
       @site = Site.new(:account => Account.create!,
