@@ -3,11 +3,13 @@ require 'inherited_resources'
 
 class Admin::BaseController < InheritedResources::Base
   include Adva::InternalRedirect
-  
+
   respond_to :html
   layout 'admin'
 
   helper_method :resources, :site, :public_url_for
+
+  delegate :account, :to => :site
 
   def self.responder
     Adva::Responder
@@ -22,7 +24,7 @@ class Admin::BaseController < InheritedResources::Base
   def resources
     with_chain(resource)
   end
-  
+
   def site
     @site ||= if params[:site_id]
       Site.find(params[:site_id])
