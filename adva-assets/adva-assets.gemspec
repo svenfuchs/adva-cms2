@@ -6,7 +6,7 @@
 Gem::Specification.new do |s|
   s.name         = "adva-assets"
   s.version      = '0.0.1'
-  s.authors      = ["Ingo Weiss", "Sven Fuchs"]
+  s.authors      = ["Michael Schiller", "Sven Fuchs"]
   s.email        = "nobody@adva-cms.org"
   s.homepage     = "http://github.com/svenfuchs/adva-cms2"
   s.summary      = "[summary]"
@@ -19,8 +19,7 @@ Gem::Specification.new do |s|
   
   s.add_dependency 'adva-core'
   s.add_dependency 'carrierwave-rails3'
-  #s.add_dependency 'rmagick'
+  # s.add_dependency 'rmagick'
   s.add_dependency 'mini_magick'
   # s.add_dependency 'remotipart'
-
 end

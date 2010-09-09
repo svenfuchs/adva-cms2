@@ -9,6 +9,7 @@
   table.column t('action'), :class => 'action'
 
   table.row do |row, asset|
+    row.options[:id] = "asset_#{asset.id}"
     row.cell asset.title, :headers => :title_header
     row.cell asset.description, :headers => :description_header
     row.cell asset.path, :headers => :path_header

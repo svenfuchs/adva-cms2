@@ -69,6 +69,7 @@ en:
       top:
         sites: Sites
         site: Overview
+        assets: Assets
         sections: Sections
         settings: Settings
       header:

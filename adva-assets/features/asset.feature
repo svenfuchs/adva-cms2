@@ -5,11 +5,6 @@ Feature: Asset Management
   In order to manage all assets
 
   Background:
-    Given the following products:
-      | name   | number | price |
-      | Kamera | 11111  | 90000 |
-      | Tasche | 22222  | 15000 |
-      | Objektiv | 33333  | 10000 |
     Given I am signed in
     And I am on the admin dashboard page
 
@@ -17,13 +12,13 @@ Feature: Asset Management
     Given the following images:
       | title      | description           |
       | Rails Logo | This is a Rails Logo. |
-    When I follow "Dateien"
+    When I follow "Assets"
     Then I should see a table "assets" with the following entries:
       | Title      | Description           |
       | Rails Logo | This is a Rails Logo. |
 
   Scenario: Create, update and delete a new Asset with uploading a picture file
-    When I follow "Dateien"
+    When I follow "Assets"
     Then I should see the "Assets" page
     Then I should see "No assets given."
     When I follow "New Asset"
@@ -33,7 +28,6 @@ Feature: Asset Management
     And I fill in "asset_file" with "rails.png"
     And I press "Create Asset"
     Then I should see the "Assets" page
-    #Then I should see a flash notice "Asset 'Image1' created successfully."
     And I should see a table "assets" with the following entries:
       | Title      | Description           |
       | Image1     | Image 1 description   |
