@@ -1,4 +1,6 @@
-class Admin::Shared::Top < Adva::Views::Menu::Admin::Top
+class Layouts::Admin::Top < Adva::Views::Menu::Admin
+  self.id = 'top'
+
   def left
     item(:'.sites', url_for([:admin, :sites]))
     if site.persisted?
@@ -12,7 +14,7 @@ class Admin::Shared::Top < Adva::Views::Menu::Admin::Top
       item(:'.settings', url_for([:edit, :admin, site]))
     end
   end
-  
+
   protected
 
     def sections

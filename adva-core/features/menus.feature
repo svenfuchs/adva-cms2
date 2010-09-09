@@ -42,7 +42,7 @@ Feature: Menus
       | Home     | /admin/sites/1/pages/1      | yes    | #top .left      |
       | Settings | /admin/sites/1/edit         |        | #top .right     |
       | Home:    |                             |        | #actions .left  |
-      | Content  | /admin/sites/1/pages/1/edit | yes    | #actions .left  |
-      | Settings | /admin/sites/1/pages/1/edit | yes    | #actions .left  |
+      | Page     | /admin/sites/1/pages/1      | yes    | #actions .left  |
+      | Settings | /admin/sites/1/pages/1/edit |        | #actions .left  |
       | View     | http://www.example.com/     |        | #actions .right |
       | Delete   | /admin/sites/1/pages/1      |        | #actions .right |
