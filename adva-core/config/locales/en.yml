@@ -9,8 +9,8 @@ en:
         notice: '%{resource_name} successfully updated.'
         alert:  '%{resource_name} could not be updated.'
       destroy:
-        notice: '%{resource_name} successfully destroyed.'
-        alert:  '%{resource_name} could not be destroyed.'
+        notice: '%{resource_name} successfully deleted.'
+        alert:  '%{resource_name} could not be deleted.'
 
   admin:
     sites:
