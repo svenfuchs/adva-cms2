@@ -6,6 +6,7 @@ class Layouts::Admin::Top < Adva::Views::Menu::Admin
     if site.persisted?
       item(:'.site',  url_for([:admin, site]))
       sections unless site.new_record?
+      item(:'.assets', url_for([:admin, site, :assets]))
     end
   end
 

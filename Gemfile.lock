@@ -124,6 +124,8 @@ GEM
       mime-types
       treetop (>= 1.4.5)
     mime-types (1.16)
+    mini_magick (2.1)
+      subexec (~> 0.0.4)
     minimal (0.0.15)
       actionpack (>= 3.0.0.beta2)
     mocha (0.9.8)
@@ -211,5 +213,4 @@ DEPENDENCIES
   sqlite3-ruby (= 1.2.5)
   test_declarative
   thor
-  tidy_ffi
   webrat (= 0.7.0)
