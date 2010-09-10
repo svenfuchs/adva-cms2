@@ -9,12 +9,12 @@ Feature: Managing pages
      And I should see a new page form
 
     When I fill in "Title" with "Brand new page"
-     And I fill in "Heading" with "The brand new page's heading"
+     # And I fill in "Heading" with "The brand new page's heading"
      And I fill in "Body" with "The brand new page's body"
      And I press "Create page"
     Then I should see an edit page form
 
-    When I fill in "Heading" with "Updated page's heading"
+    # When I fill in "Heading" with "Updated page's heading"
     When I fill in "Body" with "Updated page's body"
     When I press "Update page"
     Then I should see an edit page form
