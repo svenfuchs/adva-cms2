@@ -2,21 +2,17 @@ class Layouts::Admin::Header < Minimal::Template
   def to_html
     render :partial => 'layouts/admin/top'
 
-    div :class => 'header' do
+    div :id => 'header' do
       div :class => 'main' do
-        # breadcrumbs
+        div :id => 'breadcrumbs' do
+          # breadcrumbs
+        end
+        render :partial => "admin/#{controller_name.gsub('_controller', '')}/menu"
       end
       div :class => 'right' do
         # login_status
         link_to_website
         # language_select
-      end
-    end
-    div :class => 'header' do
-      div :class => 'main' do
-        render :partial => "admin/#{controller_name.gsub('_controller', '')}/menu"
-      end
-      div :class => 'right' do
       end
     end
   end

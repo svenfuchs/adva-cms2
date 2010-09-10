@@ -8,7 +8,6 @@ Before do
       :type  => 'Page',
       :title => 'Home',
       :article_attributes => {
-        :title => 'Heading',
         :body  => 'Body'
       }
     }]

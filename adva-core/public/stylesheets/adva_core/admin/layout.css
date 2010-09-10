@@ -1,33 +1,34 @@
-body {
-  min-width: 775px;
-}
 body > div {
   display: table;
   width: 100%;
+  min-width: 775px;
   border-collapse: collapse; 
 }
 body > div > div {
   display: table-row;
 }
-.header {
+
+#header {
+  height: 75px;
   background-color: #fbf7e4;
 }
-.header #actions {
+#header #actions {
   position: relative;
   margin-top: 15px;
   width: 100%;
 }
-.header #actions .menu {
+#header #actions .menu {
   padding: 0;
 }
-.header #actions .main {
+#header #actions .main {
   width: 65%;
 }
-.header #actions .right {
+#header #actions .right {
   width: 35%;
   text-align: right;
   padding: 0;
 }
+
 .main, .right {
   display: table-cell;
   padding: 0 3%;
@@ -36,6 +37,7 @@ body > div > div {
   width: 344px;
   min-width: 344px;
 }
+
 #page {
   border-top: 4px solid #ddd;
 }
