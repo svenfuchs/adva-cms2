@@ -19,7 +19,6 @@ Gem::Specification.new do |s|
   
   s.add_dependency 'adva-core'
   s.add_dependency 'carrierwave-rails3'
-  # s.add_dependency 'rmagick'
   s.add_dependency 'mini_magick'
-  # s.add_dependency 'remotipart'
+  # s.add_dependency 'has_many_polymorphs'
 end

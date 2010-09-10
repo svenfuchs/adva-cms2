@@ -15,17 +15,19 @@ class AdvaAssetsCreateTables < ActiveRecord::Migration
     end
 
     create_table :asset_assignments, :force => true do |t|
-      t.integer  :obj_id
-      t.integer  :asset_id
-      t.integer  :position
-      t.string   :label
-      t.datetime :created_at
-      t.boolean  :active
+      t.references :assetable, :polymorphic => true
+      t.references :asset
+
       t.integer  :weight
+      # t.integer  :position
+      t.string   :label
+      t.boolean  :active
+
+      t.timestamps
     end
 
-    add_index :asset_assignments, [:obj_id, :asset_id], :unique => true
-    add_index :asset_assignments, [:obj_id, :weight], :unique => true
+    add_index :asset_assignments, [:assetable_id, :assetable_type, :asset_id], :unique => true
+    add_index :asset_assignments, [:assetable_id, :weight], :unique => true
 
   end
 
