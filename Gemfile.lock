@@ -1,3 +1,11 @@
+GIT
+  remote: git://github.com/jystewart/has_many_polymorphs.git
+  revision: 5b1a86a
+  ref: 5b1a86
+  specs:
+    has_many_polymorphs (3.0.0.beta1)
+      activerecord
+
 PATH
   remote: adva-assets
   specs:
@@ -206,6 +214,7 @@ DEPENDENCIES
   cucumber-rails
   database_cleaner
   fakefs
+  has_many_polymorphs!
   launchy
   mocha
   rails (= 3.0.0)
