@@ -26,8 +26,12 @@ module Adva
       value, last_key = args.pop, args.pop.to_sym
       target = args.inject(self) { |result, key| result[key.to_sym] }
 
-      if value.is_a?(Hash)
+      case value
+      when Hash
         target[last_key].merge!(to_registry(value))
+      when Array
+        target[last_key] = Array(target[last_key]) unless target[last_key].is_a?(Array)
+        target[last_key] += value
       else
         target.merge!(last_key => value)
       end
