@@ -70,7 +70,7 @@ module Adva
 
       ActionView::Helpers::AssetTagHelper.register_stylesheet_expansion \
         :admin   => %w( adva_core/admin/layout
-                        adva_core/admin/header
+                        adva_core/admin/navigation
                         adva_core/admin/sidebar
                         adva_core/admin/common
                         adva_core/admin/forms

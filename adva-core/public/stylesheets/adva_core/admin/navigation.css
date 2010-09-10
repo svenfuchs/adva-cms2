@@ -93,11 +93,8 @@
 #top .sections .level_6 { padding-left: 112px; }
 
 #breadcrumbs {
-  position: absolute;
   height: 18px;
   margin-top: 15px;
-  list-style-type: none;
-  white-space: nowrap;
 }
 #breadcrumbs li {
   display: inline-block;
@@ -124,7 +121,7 @@
   margin-left: -16px;
 }
 #actions .right li:last-child {
-  margin-right: -16px;
+  margin-right: -12px;
 }
 #actions h4 {
   display: inline;
@@ -145,9 +142,6 @@
 #actions .main li.active > a {
   background: #ddd url(/images/adva_cms/admin/tab_main_active.png) repeat-x;
 }
-#actions ul.right li {
-  /* margin-left: 8px;*/
-}
 #actions ul.right li a {
   display: block;
   padding: 0 10px;
@@ -165,12 +159,12 @@
   background: #ddd;
 }
 
-.header .right {
+#header .right {
   padding: 15px 3% 0 0;
   text-align: right;
 }
-.header .right,
-.header .right a {
+#header .right,
+#header .right a {
   color: #999;
   font-size: 9pt;
 }

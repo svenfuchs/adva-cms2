@@ -1,23 +1,22 @@
 #content fieldset {
-  clear: both;
+  display: table;
   margin: 0 9px 0px 0px;
-}
-#content .col {
-  width: 46%;
-}
-#content .col:last-child {
-  float: right;
-}
-#content .col:first-child {
-  float: left;
-}
-#content .col:only-child {
   width: 100%;
 }
-#content .col > * {
-  /*margin-left: -4px;*/
+form .column {
+  display: table-cell;
+  padding: 0 20px;
 }
-#content .col > .inline {
+form .column:first-child {
+  padding-left: 0;
+}
+form .column:last-child {
+  padding-right: 0;
+}
+form .column:only-child {
+  display: block;
+}
+form .column > .inline {
   margin-left: 0;
 }
 

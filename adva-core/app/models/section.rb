@@ -2,7 +2,7 @@ class Section < ActiveRecord::Base
   extend ActiveSupport::Memoizable
 
   belongs_to :site, :inverse_of => :sections
-  validates_presence_of :site, :title
+  validates_presence_of :site, :title, :slug
 
   has_slug :scope => :site_id
   acts_as_nested_set # FIXME scope to site_id
