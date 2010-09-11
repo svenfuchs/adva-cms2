@@ -12,7 +12,10 @@ module AdvaStatic
 
     def setup
       # Adva.out = $stdout
-      setup_application
+      setup_application do
+        match 'admin/sites/:site_id/pages', :to => 'admin/pages#index', :as => 'admin_site_pages'
+        match 'admin/sites/:site_id/pages/:id', :to => 'admin/pages#show', :as => 'admin_site_page'
+      end
 
       @import_dir = dir('/tmp/adva-static-test/import')
       @export_dir = dir('/tmp/adva-static-test/export')
