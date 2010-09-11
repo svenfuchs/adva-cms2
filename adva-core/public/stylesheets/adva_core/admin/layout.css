@@ -41,6 +41,10 @@ body > div > div {
 #page {
   border-top: 4px solid #ddd;
 }
+#content {
+  margin: 20px 0;
+  padding-bottom: 20px;
+}
 #sidebar {
   background-color: #f6f6f6;
   padding-bottom: 35px;

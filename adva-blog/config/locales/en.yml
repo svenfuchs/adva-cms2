@@ -1,15 +1,24 @@
 en:
   time:
     formats:
-      post: "%A, %d %B %Y"
+      post: "%a, %d % %Y"
   section:
     types:
       blog: Blog
   posts:
     meta: 
       info: "posted on %{date}"
+    columns:
+      post: Post
+      comments: Comments
+      published: Published
+      author: Author
+      actions: ""
   admin:
     blogs:
+      show:
+        edit: Edit
+        published: Published
       new:
         title: Create a new blog
       edit:

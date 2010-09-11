@@ -22,6 +22,5 @@ Feature: Managing sites
     When I go to the admin sites page
     Then I should see "An updated site"
     When I follow "An updated site"
-    Then I should see "All Sections"
-    When I follow "All Sections"
+    When I follow "Sections"
     Then I should see "Welcome to this Site"

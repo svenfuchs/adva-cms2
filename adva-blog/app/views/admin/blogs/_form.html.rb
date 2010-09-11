@@ -9,7 +9,7 @@ class Admin::Blogs::Form < Minimal::Template
         end
         column do
           f.input :slug
-        end
+        end unless params[:action] == 'new'
       end
 
       buttons do
