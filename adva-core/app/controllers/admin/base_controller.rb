@@ -10,20 +10,12 @@ class Admin::BaseController < InheritedResources::Base
   respond_to :html
   layout 'admin'
 
-  helper_method :site, :public_url, :public_url_for
-
   delegate :account, :to => :site
+
+  helper_method :account, :public_url, :public_url_for
 
   def self.responder
     Adva::Responder
-  end
-
-  def site
-    @site ||= if params[:site_id]
-      Site.find(params[:site_id])
-    elsif controller_name == "site"
-      Site.find(params[:id]) rescue nil
-    end
   end
   
   def public_url

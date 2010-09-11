@@ -36,7 +36,7 @@ PATH
     adva-core (0.0.1)
       gem_patching
       inherited_resources (= 1.1.2)
-      inherited_resources_helpers (= 0.0.3)
+      inherited_resources_helpers (= 0.0.5)
       minimal (= 0.0.15)
       nbrew-country_select
       rails (= 3.0.0)
@@ -123,7 +123,7 @@ GEM
     inherited_resources (1.1.2)
       has_scope (~> 0.5.0)
       responders (~> 0.6.0)
-    inherited_resources_helpers (0.0.3)
+    inherited_resources_helpers (0.0.5)
     json_pure (1.4.6)
     launchy (0.3.7)
       configuration (>= 0.0.5)
