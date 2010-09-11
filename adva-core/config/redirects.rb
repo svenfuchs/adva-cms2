@@ -1,5 +1,6 @@
 Adva::Registry.set :redirect, {
-  # 'admin/pages#show'      => lambda { |responder| responder.resources.unshift(:edit) },
+  'admin/sites#update'    => lambda { |responder| responder.resources.unshift(:edit) },
+
   'admin/pages#update'    => lambda { |responder| responder.resources },
   'admin/pages#destroy'   => lambda { |responder| [*(responder.resources[0..-2] << :sections)] },
 
