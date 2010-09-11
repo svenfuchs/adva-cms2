@@ -20,8 +20,8 @@ module AdvaCoreTests
     
     test 'tracks references to site.title, site.name and resource and adds tags to response headers' do
       process_action_rendering(:show, :id => page.id) do
-        current_site.name
-        current_site.title
+        site.name
+        site.title
         resource.title
       end
       tags = controller.response.headers[ReferenceTracking::TAGS_HEADER]

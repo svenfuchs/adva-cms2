@@ -9,8 +9,8 @@ end
 Given /^an? (.*) (name|title)d "([^"]+)"$/ do |model, attribute, value|
   model = model.classify.constantize
   attributes = { attribute => value }
-  attributes[:site_id]    = current_site.id    if model.column_names.include?('site_id')
-  attributes[:account_id] = current_account.id if model.column_names.include?('account_id')
+  attributes[:site_id]    = site.id    if model.column_names.include?('site_id')
+  attributes[:account_id] = account.id if model.column_names.include?('account_id')
   model.find(:first, :conditions => attributes) || model.create!(attributes)
 end
 
