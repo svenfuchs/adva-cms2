@@ -16,13 +16,6 @@ module Adva
   class Core < ::Rails::Engine
     include Adva::Engine
 
-    initializer 'adva-core.beautify_html' do
-      # if Rails.env.test?
-      #   require 'minimal/template/beautify_html'
-      #   ApplicationController.after_filter(Minimal::Template::BeautifyHtml)
-      # end
-    end
-
     initializer 'adva-core.require_country_select' do
       config.to_prepare { require_dependency 'country_select' }
     end
@@ -36,6 +29,7 @@ module Adva
       Minimal::Template.class_eval do
         include Minimal::Template::FormBuilderProxy
         include Minimal::Template::TranslatedTags
+        include FormHelpers
       end
       ActionView::Template.register_template_handler('rb', Minimal::Template::Handler)
     end

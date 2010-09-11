@@ -1,6 +1,4 @@
 class Admin::Pages::New < Minimal::Template
-  include BaseHelper
-
   def to_html
     render 'admin/sections/select_type'
     h2 :'.title'

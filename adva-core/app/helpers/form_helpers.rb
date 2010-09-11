@@ -1,4 +1,4 @@
-module BaseHelper
+module FormHelpers
   def fieldset(&block)
     content_tag(:fieldset, &block)
   end
