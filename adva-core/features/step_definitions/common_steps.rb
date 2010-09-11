@@ -59,7 +59,7 @@ end
 
 Then /^I should see an? ([a-z ]+) form$/ do |type|
   type = type.gsub(' ', '_') #.gsub(/edit_/, '')
-  assert_select("form.#{type},form##{type}")
+  assert_select("form.#{type}, form##{type}")
 end
 
 
