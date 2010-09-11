@@ -19,11 +19,11 @@ Before do
 end
 
 module GlobalsHelpers
-  def current_site
+  def site
     Site.first
   end
 
-  def current_account
+  def account
     Account.first
   end
 end

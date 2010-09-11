@@ -25,8 +25,8 @@ module AdvaBlogTests
     test 'blogs#show adds tags for site.title, site.name, blog and posts to response headers' do
       setup_controller(:blogs)
       process_action_rendering(:show, :id => blog.id) do
-        current_site.name
-        current_site.title
+        site.name
+        site.title
         resource.posts.each { |post| post.title; post.body }
       end
 

@@ -5,8 +5,8 @@ class Layouts::Default < Minimal::Template
       content_tag(:head) { head }
       content_tag :body, :class => body_class do
         div :id => 'header', :class => 'clearing' do
-          h1 current_site.title
-          # h2 current_site.subtitle
+          h1 site.title
+          # h2 site.subtitle
           section_links
           # self << Menus::Sections.new.build(self).root.render(:id => 'sections')
           # yield :header
@@ -39,7 +39,7 @@ class Layouts::Default < Minimal::Template
   end
 
   def title
-    super(current_site.title)
+    super(site.title)
   end
 
   def stylesheets
@@ -56,7 +56,7 @@ class Layouts::Default < Minimal::Template
   
   def section_links
     ul :id => 'sections' do
-      current_site.sections.each do |section|
+      site.sections.each do |section|
         li { link_to(section.title, section) }
       end
     end
