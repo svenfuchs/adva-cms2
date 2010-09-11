@@ -1,7 +1,13 @@
 en:
+  time:
+    formats:
+      post: "%A, %d %B %Y"
   section:
     types:
       blog: Blog
+  posts:
+    meta: 
+      info: "posted on %{date}"
   admin:
     blogs:
       new:
