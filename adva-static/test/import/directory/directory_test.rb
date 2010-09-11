@@ -22,6 +22,7 @@ module Tests
             match 'pages/:id', :to => "#{PagesController.controller_path}#show"
             match 'blogs/:id', :to => "#{BlogsController.controller_path}#show"
             match 'blogs/:blog_id/:year/:month/:day/:slug', :to => "#{PostController.controller_path}#show"
+            match 'admin/sites/:site_id/pages', :to => 'admin/pages#index', :as => 'admin_site_pages'
             match 'admin/sites/:site_id/pages/:id', :to => 'admin/pages#update', :as => 'admin_site_page'
           end
           super
@@ -68,7 +69,7 @@ module Tests
           site = Site.first
           assert 4, site.sections.count
           assert_equal ['', 'blog', 'contact', 'contact/nested'], site.sections.map(&:path)
-          
+
           page = site.sections.first
           blog = site.sections[1]
           post = blog.posts.first
@@ -181,10 +182,21 @@ module Tests
           input   = ::Rack::Utils.build_nested_query(request.params)
           request = Rack::Request.new(Rack::MockRequest.env_for(request.path, :method => 'POST', :input => input))
 
-          params  = { '_method' => 'put', 'page' => {
-            'id' => page_id, 'site_id' => site_id, 'type' => 'Page', 'title' => 'Home',  'path' => 'home',
-            'article_attributes' => { 'id' => article_id, 'title' => 'Home', 'body' => 'home' }
-          } }
+          params  = {
+            '_method' => 'put',
+            'page' => {
+              'id' => page_id,
+              'site_id' => site_id,
+              'type' => 'Page',
+              'title' => 'Home',
+              'path' => 'home',
+              'article_attributes' => {
+                'id' => article_id,
+                'title' => 'Home',
+                'body' => 'home'
+              }
+            }
+          }
           assert_equal params, request.params
           assert_equal "/admin/sites/#{site_id}/pages/#{page_id}", request.path
         end

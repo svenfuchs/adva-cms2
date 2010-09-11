@@ -25,32 +25,34 @@ module Adva
           protected
 
             def controller
-              @controller ||= init_controller(controller_name.constantize.new)
-            end
-
-            def init_controller(controller)
-              controller.request = ActionDispatch::TestRequest.new
-
-              symbols = controller.send(:symbols_for_association_chain).map { |name| :"#{name}_id" }
-              symbols << :id unless record.new_record?
-              controller.params = symbols.inject({}) do |params, name|
-                # umm. admin blog routes use :blog_id, but Post has a section_id
-                params.merge(name => attributes[section_ids.include?(name) ? :section_id : name].to_s)
+              @controller ||= controller_name.constantize.new.tap do |controller|
+                controller.request = ActionDispatch::TestRequest.new
+                controller.params = params_for(controller)
               end
-
-              controller
             end
 
             def section_ids
               @section_ids ||= Section.types.map { |type| :"#{type.underscore}_id" }
             end
 
+            def model_name
+              record.class.name
+            end
+
             def controller_name
               "Admin::#{model_name.pluralize}Controller"
             end
 
-            def model_name
-              record.class.name
+            def params_for(controller)
+              names = controller.send(:symbols_for_association_chain).dup
+              names.map! { |name| :"#{name}_id" }
+              names << :id unless record.new_record?
+
+              names.inject(:action => record.new_record? ? :index : :show) do |params, name|
+                # umm. admin blog routes use :blog_id, but Post has a section_id
+                value = attributes[section_ids.include?(name) ? :section_id : name].to_s
+                params.merge(name => value)
+              end
             end
         end
       end
