@@ -34,10 +34,6 @@ class InstallationsController < BaseController
   end
 
   protected
-    # def build_resource
-    #   get_resource_ivar || set_resource_ivar(Account.create.sites.create(params[:site]))
-    # end
-
     def resources
       [:admin, site]
     end
