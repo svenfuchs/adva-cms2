@@ -25,10 +25,13 @@ module Adva
     end
 
     initializer 'adva-core.setup_minimal' do
+      require 'inherited_resources/helpers'
+
       Minimal::Template::FormBuilderProxy::PROXY_TAGS << :simple_form_for << :simple_fields_for
       Minimal::Template.class_eval do
         include Minimal::Template::FormBuilderProxy
         include Minimal::Template::TranslatedTags
+        include InheritedResources::Helpers::LinkTo
         include FormHelpers
       end
       ActionView::Template.register_template_handler('rb', Minimal::Template::Handler)
@@ -74,10 +77,10 @@ module Adva
                         # adva_core/admin/helptip
                         # adva_core/admin/users
                         # adva_core/jquery/jquery-ui.css
-                        # adva_core/jquery/jquery.tooltip.css 
+                        # adva_core/jquery/jquery.tooltip.css
         :default => %w( adva_core/default
                         adva_core/common
-                        adva_core/forms 
+                        adva_core/forms
                         )
         # :login   => %w( adva_core/admin/reset adva_core/admin/common adva_core/admin/forms
         #                 adva_core/layout/login ),

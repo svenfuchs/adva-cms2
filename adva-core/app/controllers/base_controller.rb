@@ -1,4 +1,5 @@
 require 'inherited_resources'
+require 'inherited_resources/helpers'
 require 'simple_table'
 
 ActionView::Base.send :include, SimpleTable
@@ -13,7 +14,7 @@ class BaseController < InheritedResources::Base
   tracks :resource, :resources, :current_site => %w(.title .name)
 
   layout 'default'
-  helper_method :current_account, :current_site, :resources
+  helper_method :current_account, :current_site
   
   def current_account
     Account.first # TODO
@@ -21,15 +22,5 @@ class BaseController < InheritedResources::Base
 
   def current_site
     Site.first # TODO
-  end
-
-  def resource
-    super
-  rescue ActiveRecord::RecordNotFound => e
-    %w(new create).include?(params[:action]) ? build_resource : raise(e)
-  end
-
-  def resources
-    with_chain(resource)
   end
 end

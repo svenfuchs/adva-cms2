@@ -2,15 +2,15 @@ class Admin::Pages::Menu < Adva::Views::Menu::Admin::Actions
   def main
     if resource.try(:persisted?)
       label("#{resource.title}:")
-      item(:'.show', url_for(resources))
-      item(:'.edit', url_for(resources.unshift(:edit)))
+      item(:'.show', show_path)
+      item(:'.edit', edit_path)
     end
   end
   
   def right
     if resource.try(:persisted?)
-      item(:'.view', public_url_for(resources))
-      item(:'.delete', url_for(resources), :method => :delete)
+      item(:'.view', public_url)
+      item(:'.delete', resource_path, :method => :delete)
     end
   end
 

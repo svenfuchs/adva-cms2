@@ -1,0 +1,38 @@
+# routing-filter
+
+Routing filter allows for friendly public URLs. It basically
+
+* wraps around the Rails routing system (i.e. both URL recognition and generation) and 
+* allows the application to use standard rails url helpers and routes internally but
+* shows friendly, readable URLs to the user
+
+# simple_form
+
+A fantastic form generation helper framework by Jose Valim which makes form generation
+a snap. Similar to formtastic but way more clean and straightforward.
+
+# inherited_resources
+
+Another gem by Jose Valim which provides controller abstraction.
+
+# minimal
+
+Pure Ruby object-oriented views. Nuff said.
+
+# simple_nested_set
+
+Simplest-thing-possible nested set functionality. I.e. less configurable than
+others but more feature complete (e.g. provides automatic materialized path
+updates) and easier to use.
+
+# simple_slugs
+
+Simplest-thing-possible slugging functionality (for permalink generation).
+
+# simple_table
+
+Simple table view builder.
+
+# rack-cache-purge
+# rack-cache-tags
+# reference_tracking

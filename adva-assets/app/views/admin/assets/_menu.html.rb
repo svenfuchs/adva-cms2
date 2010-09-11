@@ -1,14 +1,14 @@
 class Admin::Assets::Menu < Adva::Views::Menu::Admin::Actions
   def main
     label("#{resource.title}:")
-    item(:'.show', admin_site_assets_path(site))
+    item(:'.show', index_path)
   end
 
   def right
     if persisted?
-      item(:'.new', new_admin_site_asset_path(site, resource))
-      item(:'.edit', edit_admin_site_asset_path(site, resource))
-      item(:'.delete', admin_site_asset_path(site, resource), :method => :delete)
+      item(:'.new', new_path)
+      item(:'.edit', edit_path)
+      item(:'.delete', resource_path, :method => :delete)
     end
   end
 

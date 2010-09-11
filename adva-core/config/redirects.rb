@@ -1,9 +1,8 @@
 Adva::Registry.set :redirect, {
-  'admin/sites#update'    => lambda { |responder| responder.resources.unshift(:edit) },
+  'installations#create'  => lambda { |r| '/'                          },
+  'articles#show'         => lambda { |r| r.controller.parent_show_url },
 
-  'admin/pages#update'    => lambda { |responder| responder.resources },
-  'admin/pages#destroy'   => lambda { |responder| [*(responder.resources[0..-2] << :sections)] },
-
-  'installations#create'  => lambda { |responder| '/' },
-  'articles#show'         => lambda { |responder| responder.resource.section }
+  'admin/sites#update'    => lambda { |r| r.controller.edit_url        },
+  'admin/pages#update'    => lambda { |r| r.controller.show_url        },
+  'admin/pages#destroy'   => lambda { |r| r.controller.index_url       }
 }
