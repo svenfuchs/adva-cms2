@@ -1,17 +1,16 @@
-class Admin::Pages::Edit < Minimal::Template
+class Admin::Sites::Edit < Minimal::Template
   def to_html
     h2 :'.title'
 
     simple_form_for(resources) do |f|
-      hidden_field_tag :return_to, request.url
-      f.hidden_field :type
-
       fieldset do
         column do
-          f.input :title
+          f.input :name
+          f.input :host
         end
+
         column do
-          f.input :slug
+          f.input :title
         end
       end
 

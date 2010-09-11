@@ -145,10 +145,9 @@
 #actions ul.right li a {
   display: block;
   padding: 0 10px;
-  height: 21px;
+  height: 20px;
   line-height: 20px;
   font-size: 12px;
-  outline: none;
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
 }
