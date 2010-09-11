@@ -23,11 +23,11 @@ form .column > .inline {
 input[type=text],
 input[type=password],
 textarea {
-  width: 98%;
   padding: 5px 8px;
   font-size: 14px;
   border: 1px solid #999;
   font-family: "Helvetica Neue", "Helvetica", "Arial", Verdana;
+  width: 98%;
 }
 input[disabled] {
   background: #DDD;
@@ -60,12 +60,22 @@ label {
 label.inline {
   position: relative;
   display: inline;
+  margin-right: 15px;
   top: -2px;
   vertical-align: baseline;
 }
 label.light {
   font-weight: normal;
 }
+.radio_group {
+  padding-top: 6px;
+}
+.buttons {
+  padding-top: 8px;
+  /* border-top: 4px solid #ddd;*/
+  /* background-color: #E3FFE3;*/
+}
+
 
 #content form h2 {
   font-size: 12pt;

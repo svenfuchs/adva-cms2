@@ -18,6 +18,8 @@ en:
         title: Sites
       new:
         title: Create a New Site
+      edit:
+        title: Site Settings
       show:
         section:
           new: New Section
