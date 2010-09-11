@@ -36,6 +36,7 @@ PATH
     adva-core (0.0.1)
       gem_patching
       inherited_resources (= 1.1.2)
+      inherited_resources_helpers (= 0.0.2)
       minimal (= 0.0.15)
       nbrew-country_select
       rails (= 3.0.0)
@@ -60,6 +61,11 @@ PATH
     adva-user (0.0.1)
       adva-core
       devise (= 1.1.2)
+
+PATH
+  remote: /Volumes/Users/sven/Development/projects/inherited_resources_helpers
+  specs:
+    inherited_resources_helpers (0.0.2)
 
 GEM
   remote: http://rubygems.org/
@@ -215,6 +221,7 @@ DEPENDENCIES
   database_cleaner
   fakefs
   has_many_polymorphs!
+  inherited_resources_helpers!
   launchy
   mocha
   rails (= 3.0.0)

@@ -1,0 +1,38 @@
+Based on InheritedResources
+
+# controller#resource
+
+Always returns the current resource instance which depends on the controller
+and the current action:
+
+  posts#index   => Post.new (?)
+  posts#show    => post
+  posts#new     => Post.new (?)
+  posts#create  => Post.new (?)
+  posts#edit    => post
+  posts#update  => post
+  posts#destroy => post
+  
+# controller#resources
+
+Returns an array containing the current resource and all of its inherited 
+resources as defined by the controller through InheritedResources.
+
+E.g. on admin/sites/1/blogs/1/posts/1 the resources array equals [:admin, site, blog, post]
+
+# resource url helpers
+
+Defined for each get-able action, basically delegates to polymorphic_path with
+the current resources array:
+
+  index_url, alias: collection_url
+  new_url
+  edit_url
+  show_url, aliased resource_url
+  
+# resource link helpers
+
+  link_to_index, alias: link_to_collection
+  link_to_new
+  link_to_edit
+  link_to_show

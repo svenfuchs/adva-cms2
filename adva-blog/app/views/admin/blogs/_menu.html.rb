@@ -2,15 +2,15 @@ class Admin::Blogs::Menu < Adva::Views::Menu::Admin::Actions
   def main
     if persisted?
       label("#{resource.title}:")
-      item(:'.show', admin_site_blog_path(site, resource))
-      item(:'.edit', edit_admin_site_blog_path(site, resource))
+      item(:'.show', show_path)
+      item(:'.edit', edit_path)
     end
   end
 
   def right
     if persisted?
-      item(:'.new_item', new_admin_site_blog_post_path(site, resource))
-      item(:'.delete', admin_site_blog_path(site, resource), :method => :delete)
+      item(:'.new_item', children_new_path(:posts))
+      item(:'.delete', resource_path, :method => :delete)
     end
   end
 

@@ -1,9 +1,9 @@
 class Admin::Sites::Menu < Adva::Views::Menu::Admin::Actions
   def right
-    item(:'.new', new_admin_site_path)
+    item(:'.new', new_path)
     if persisted?
-      item(:'.new_item', new_admin_site_section_path(site))
-      item(:'.delete', url_for(resources), :method => :delete)
+      item(:'.new_item', children_new_path(:sections))
+      item(:'.delete', resource_path, :method => :delete)
     end
   end
 end

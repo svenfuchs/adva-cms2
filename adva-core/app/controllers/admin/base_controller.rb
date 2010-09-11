@@ -1,28 +1,21 @@
 require 'adva/internal_redirect'
 require 'inherited_resources'
+require 'inherited_resources/helpers'
 
 class Admin::BaseController < InheritedResources::Base
+  include InheritedResources::Helpers::Resources
+  include InheritedResources::Helpers::UrlFor
   include Adva::InternalRedirect
 
   respond_to :html
   layout 'admin'
 
-  helper_method :resources, :site, :public_url_for
+  helper_method :site, :public_url, :public_url_for
 
   delegate :account, :to => :site
 
   def self.responder
     Adva::Responder
-  end
-
-  def resource
-    super
-  rescue ActiveRecord::RecordNotFound
-    build_resource
-  end
-
-  def resources
-    with_chain(resource)
   end
 
   def site
@@ -32,13 +25,13 @@ class Admin::BaseController < InheritedResources::Base
       Site.find(params[:id]) rescue nil
     end
   end
+  
+  def public_url
+    public_url_for(resources)
+  end
 
   def public_url_for(resources)
     resources -= [:admin, site]
     resources.empty? ? "http://#{site.host}" : polymorphic_url(resources, :host => site.host)
-  end
-
-  def with_chain(object)
-    super.unshift(:admin)
   end
 end

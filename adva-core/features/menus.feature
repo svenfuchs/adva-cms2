@@ -27,7 +27,7 @@ Feature: Menus
       | Sections | /admin/sites/1/sections     | yes    | #top .main      |
       | Home     | /admin/sites/1/pages/1      |        | #top .main      |
       | Settings | /admin/sites/1/edit         |        | #top .right     |
-      | Sections |                             |        | #actions .main  |
+      | Sections | /admin/sites/1/sections     | yes    | #actions .main  |
       | New      | /admin/sites/1/sections/new |        | #actions .right |
       | Reorder  | /admin/sites/1/sections     |        | #actions .right |
 
