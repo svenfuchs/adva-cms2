@@ -1,7 +1,7 @@
 class Posts::Meta < Minimal::Template
   def to_html
     div :class => :meta do
-      self << t(:'.info', :date => date, :author => nil) # TODO 
+      self << t(:'.info', :date => date, :author => nil).html_safe # TODO 
     end
   end
   

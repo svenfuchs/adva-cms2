@@ -68,8 +68,8 @@ module Adva
                         adva_core/admin/sidebar
                         adva_core/admin/common
                         adva_core/admin/forms
+                        adva_core/admin/lists
                         ),
-                        # adva_core/admin/lists
                         # adva_core/admin/themes
                         # adva_core/admin/helptip
                         # adva_core/admin/users

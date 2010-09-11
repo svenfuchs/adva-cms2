@@ -1,6 +1,6 @@
 class Admin::Sections::Menu < Adva::Views::Menu::Admin::Actions
   def main
-    label(:'.sections')
+    item(:'.sections', admin_site_sections_path(site))
   end
   
   def right

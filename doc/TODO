@@ -1,10 +1,7 @@
+* resource url and link helpers
 * content filters
 * authorship
 * publishing
 * translation
 
 
-
-* Question: Is it ok to require files in a test_helper ? Don't we lose the
-  ability to test how classes require the fiels they need themselves then?
-  => Hu? (Sv)

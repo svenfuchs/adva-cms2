@@ -140,7 +140,7 @@
   background-color: #fff;
 }
 #actions .main li.active > a {
-  background: #ddd url(/images/adva_cms/admin/tab_main_active.png) repeat-x;
+  background: #ddd url(/images/adva_core/admin/tab_main_active.png) repeat-x;
 }
 #actions ul.right li a {
   display: block;
