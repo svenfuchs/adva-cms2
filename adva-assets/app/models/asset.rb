@@ -3,8 +3,6 @@ require 'carrierwave/orm/activerecord'
 require 'asset_uploader'
 
 class Asset < ActiveRecord::Base
-  self.abstract_class = true
-
   mount_uploader :file, AssetUploader
 
   # belongs_to :attachable, :polymorphic => true

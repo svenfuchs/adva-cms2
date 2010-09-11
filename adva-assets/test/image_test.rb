@@ -11,8 +11,9 @@ module AdvaAssets
     attr_reader :site, :file, :fixtures
     
     def setup
-      @site = Site.create!(:account => Account.create!, :name => 'TestSite', :title => 'Home', :host => "www.siewert-kau.de",
-        :sections_attributes => [{ :title => "Section1", :type => 'Page' }])
+      super
+      @site = Site.create!(:account => Account.create!, :name => 'site', :title => 'site',
+        :host => 'www.siewert-kau.de', :sections_attributes => [{ :title => 'title', :type => 'Page' }])
       @fixtures = Pathname.new(File.expand_path('../fixtures', __FILE__))
       @file = fixtures.join('rails.png')
     end

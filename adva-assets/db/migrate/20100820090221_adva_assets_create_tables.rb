@@ -1,15 +1,13 @@
 class AdvaAssetsCreateTables < ActiveRecord::Migration
   def self.up
     create_table :assets, :force => true do |t|
+      t.references :site
+      t.references :user
+      t.string :type
+
       t.string :file
       t.string :title
       t.string :description
-
-      t.references :site
-      t.references :user
-      t.datetime   :created_at
-
-      t.string :type
 
       t.timestamps
     end

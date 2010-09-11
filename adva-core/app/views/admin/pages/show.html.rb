@@ -5,7 +5,9 @@ class Admin::Pages::Show < Minimal::Template
       f.simple_fields_for(:article) do |a|
         a.input :body
       end
-      f.button :submit
+      buttons do
+        f.button :submit
+      end
     end
   end
 end
