@@ -11,8 +11,8 @@ Feature: Menus
     And I am on the admin dashboard page
     Then the menu should contain the following items:
       | text     | url                       | active | menu        |
-      | Sites    | /admin/sites              |        | #top .main  |
-      | Overview | /admin/sites/1            | yes    | #top .main  |
+      | adva-cms |                           |        | #top .main  |
+      | adva-cms | /admin/sites/1            | yes    | #top .main  |
       | Sections | /admin/sites/1/sections   |        | #top .main  |
       | Home     | /admin/sites/1/pages/1    |        | #top .main  |
       | Settings | /admin/sites/1/edit       |        | #top .right |
@@ -22,8 +22,8 @@ Feature: Menus
     And I am on the admin site sections page
     Then the menu should contain the following items:
       | text     | url                         | active | menu            |
-      | Sites    | /admin/sites                |        | #top .main      |
-      | Overview | /admin/sites/1              |        | #top .main  |
+      | adva-cms |                             |        | #top .main  |
+      | adva-cms | /admin/sites/1              |        | #top .main  |
       | Sections | /admin/sites/1/sections     | yes    | #top .main      |
       | Home     | /admin/sites/1/pages/1      |        | #top .main      |
       | Settings | /admin/sites/1/edit         |        | #top .right     |
@@ -36,8 +36,8 @@ Feature: Menus
     And I am on the admin "Home" section page
     Then the menu should contain the following items:
       | text     | url                         | active | menu            |
-      | Sites    | /admin/sites                |        | #top .main      |
-      | Overview | /admin/sites/1              |        | #top .main  |
+      | adva-cms |                             |        | #top .main  |
+      | adva-cms | /admin/sites/1              |        | #top .main  |
       | Sections | /admin/sites/1/sections     | yes    | #top .main      |
       | Home     | /admin/sites/1/pages/1      | yes    | #top .main      |
       | Settings | /admin/sites/1/edit         |        | #top .right     |

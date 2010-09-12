@@ -5,7 +5,8 @@ Feature: Menus
     And I am on the admin "Blog" section page
     Then the menu should contain the following items:
       | text     | url                              | active | menu            |
-      | Sites    | /admin/sites                     |        | #top .main      |
+      | adva-cms |                                  |        | #top .main      |
+      | adva-cms | /admin/sites/1                   | yes    | #top .main  |
       | Sections | /admin/sites/1/sections          | yes    | #top .main      |
       | Blog     | /admin/sites/1/blogs/1           | yes    | #top .main      |
       | Settings | /admin/sites/1/edit              |        | #top .right     |
@@ -21,7 +22,8 @@ Feature: Menus
     And I am on the admin edit post page for the post "Post"
     Then the menu should contain the following items:
       | text     | url                                         | active | menu            |
-      | Sites    | /admin/sites                                |        | #top .main      |
+      | adva-cms |                                             |        | #top .main      |
+      | adva-cms | /admin/sites/1                              | yes    | #top .main  |
       | Sections | /admin/sites/1/sections                     | yes    | #top .main      |
       | Blog     | /admin/sites/1/blogs/1                      | yes    | #top .main      |
       | Settings | /admin/sites/1/edit                         |        | #top .right     |

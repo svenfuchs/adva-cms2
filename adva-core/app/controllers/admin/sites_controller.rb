@@ -11,6 +11,6 @@ class Admin::SitesController < Admin::BaseController
     end
 
     def set_account
-      params[:site][:account_id] = account.id
+      params[:site][:account_id] = Account.first.id # TODO
     end
 end

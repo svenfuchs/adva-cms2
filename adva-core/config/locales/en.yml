@@ -32,7 +32,7 @@ en:
           new: New Site
         sections: All Sections
       menu:
-        new: New site
+        new: New Site
         edit: Edit
         delete: Delete
         new_item: New Section
@@ -79,10 +79,12 @@ en:
     admin:
       top:
         sites: Sites
+        new_site: New Site
         site: Overview
-        assets: Assets
         sections: Sections
+        new_section: New Section
         settings: Settings
+        assets: Assets
       header:
         sign_in: "Sign in"
         sign_out: "Sign out %{user}"

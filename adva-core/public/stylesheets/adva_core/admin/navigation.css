@@ -1,19 +1,23 @@
+/* COMMON MENU */
+
 .menu {
   list-style-type: none;
   white-space: nowrap;
 }
 .menu li {
-  list-style-type: none;
   position: relative;
   display: inline-block;
 }
+.menu li h4,
 .menu li a {
   display: block;
-  padding: 4px 16px 4px 16px;
+  padding: 4px 16px;
   outline: none;
   text-decoration: none;
 }
 
+
+/* TOP MENU */
 
 #top {
   background-color: black;
@@ -35,62 +39,85 @@
 #top a {
   color: #fff;
 }
+#top h4 {
+  font-weight: normal;
+  color: #fff;
+  margin: 0;
+  cursor: default;
+}
+#top > .menu > li > h4,
 #top > .menu > li > a {
   -webkit-border-top-left-radius: 4px;
   -webkit-border-top-right-radius: 4px;
   -moz-border-top-left-radius: 4px;
   -moz-border-top-right-radius: 4px;
 }
+#top .menu > .active > h4,
 #top .menu > .active > a {
   color: #fff;
   background: #c22222 url(/images/adva_core/admin/tab_top_active.png) repeat-x;
 }
-#top .menu > li:hover a {
+#top .menu > li:hover > h4,
+#top .menu > li:hover > a {
   color: #222;
   background-color: #fff;
 }
+#top .menu > li.active:hover > h4,
 #top .menu > li.active:hover > a {
   color: #fff;
 }
-#top li > .sections {
+
+/* TOP DROP DOWN MENUS */
+
+#top .menu li > ul {
   display: none;
   position: absolute;
   z-index: 99;
   top: 27px;
   min-width: 100%;
-  border-bottom: 1px solid #ddd;
+  border-top: 1px solid #ddd;
   background-color: #fff !important;
-  -webkit-box-shadow: 3px 3px 6px #aaa;
-  -moz-box-shadow: 3px 3px 6px #aaa;
+  -webkit-box-shadow: 5px 5px 5px #aaa;
+  -moz-box-shadow: 5px 5px 5px #aaa;
 }
-#top li:hover .sections {
+#top .menu li:hover > ul {
   display: block;
 }
-#top .sections li {
-  float: none;
+#top .menu li > ul li {
   display: block;
-  border-left: 1px solid #ddd;
-  border-right: 1px solid #ddd;
-}
-#top .sections li a {
-  color: #000;
-}
-#top .sections li a {
   background-color: #fff;
 }
-#top .sections li a:hover {
-  background-color: #eee;
+#top .menu li > ul li h4 {
+  font-weight: normal;
+  color: #000;
+  padding: 4px 16px;
+  margin: 0;
 }
-#top .sections li.active a {
-  background-color: #fbf7e4;
+#top .menu li > ul li a {
+  color: #000;
+  padding: 4px 32px;
 }
-#top .sections .level_0 { padding-left: 16px; }
-#top .sections .level_1 { padding-left: 32px; }
-#top .sections .level_2 { padding-left: 48px; }
-#top .sections .level_3 { padding-left: 64px; }
-#top .sections .level_4 { padding-left: 80px; }
-#top .sections .level_5 { padding-left: 96px; }
-#top .sections .level_6 { padding-left: 112px; }
+#top .menu li > ul li:last-child {
+  border-top: 1px dotted #ddd;
+}
+#top .menu li > ul li:last-child a {
+  padding: 4px 16px;
+}
+#top .menu li > ul li:hover {
+   background-color: #f9f9f9 !important;
+}
+#top .menu li > ul li.active {
+  background: transparent url(/images/adva_core/admin/menu_checkmark.png) no-repeat 16px 7px;
+}
+#top .menu li > ul .level_0 { padding-left: 16px; }
+#top .menu li > ul .level_1 { padding-left: 32px; }
+#top .menu li > ul .level_2 { padding-left: 48px; }
+#top .menu li > ul .level_3 { padding-left: 64px; }
+#top .menu li > ul .level_4 { padding-left: 80px; }
+#top .menu li > ul .level_5 { padding-left: 96px; }
+#top .menu li > ul .level_6 { padding-left: 112px; }
+
+/* BREADCRUMBS */
 
 #breadcrumbs {
   height: 18px;
@@ -114,8 +141,10 @@
 #breadcrumbs li,
 #breadcrumbs li a {
   color: #999;
-  font-size: 9pt;
+  font-size: 10pt;
 }
+
+/* ACTION MENU */
 
 #actions .main li:first-child {
   margin-left: -16px;
@@ -147,7 +176,7 @@
   padding: 0 10px;
   height: 20px;
   line-height: 20px;
-  font-size: 12px;
+  font-size: 10pt;
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
 }
@@ -158,6 +187,8 @@
   background: #ddd;
 }
 
+/* HEADER RIGHT */
+
 #header .right {
   padding: 15px 3% 0 0;
   text-align: right;
@@ -165,5 +196,5 @@
 #header .right,
 #header .right a {
   color: #999;
-  font-size: 9pt;
+  font-size: 10pt;
 }
