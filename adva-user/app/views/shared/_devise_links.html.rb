@@ -2,7 +2,7 @@
 
 class Admin::Shared::DeviseLinks < Minimal::Template
   def to_html
-    ul do
+    ul :class => :links do
       li { sign_in_link }             if sign_in?
       li { sign_up_link }             if sign_up?
       li { forgot_password_link }     if forgot_password?
@@ -12,7 +12,7 @@ class Admin::Shared::DeviseLinks < Minimal::Template
   end
 
   def sign_in?
-    controller_name != 'sessions'
+    controller_name != 'session'
   end
 
   def sign_in_link

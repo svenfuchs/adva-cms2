@@ -6,13 +6,14 @@ module Adva
     class Menu < Minimal::Template
       autoload :Admin, 'adva/view/menu/admin'
       
-      def label(text, options = {}, &block)
-        li do
+      def label(text, url = nil, options = {}, &block)
+        li(:class => active?(url, options) ? "active" : nil) do
           h4(text)
+          yield if block_given?
         end
       end
       
-      def item(text, url, options = {}, &block)
+      def item(text, url = '#', options = {}, &block)
         li(:class => active?(url, options) ? "active" : nil) do
           link_to(text, url, options)
           yield if block_given?

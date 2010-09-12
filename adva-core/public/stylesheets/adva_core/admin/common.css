@@ -67,6 +67,15 @@ th, td {
   display:none;
 }
 
+ul.links {
+  margin-top: 15px;
+  list-style-type: none;
+}
+ul.links li {
+  float: left;
+  margin-right: 15px;
+}
+
 /* flash, errors, notices */
 
 p.flash {
