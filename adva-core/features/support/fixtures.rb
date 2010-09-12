@@ -1,3 +1,5 @@
+require Adva::Core.root.join('lib/testing/skip_callbacks')
+
 Before do
   Site.create!(
     :account => Account.create!,
@@ -12,10 +14,11 @@ Before do
       }
     }]
   )
-  User.create!(
+  user = User.without_callbacks.create!(
     :email    => 'admin@admin.org', 
     :password => 'admin'
   )
+  user.confirm!
 end
 
 module GlobalsHelpers
