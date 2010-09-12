@@ -10,7 +10,8 @@ require 'minimal'
 require 'routing_filter'
 require 'adva/routing_filters/section_path'
 require 'adva/routing_filters/section_root'
-require 'adva/references'
+require 'adva/controller/abstract_actions'
+require 'adva/controller/references'
 
 module Adva
   class Core < ::Rails::Engine
@@ -32,7 +33,7 @@ module Adva
         include Minimal::Template::FormBuilderProxy
         include Minimal::Template::TranslatedTags
         include InheritedResources::Helpers::LinkTo
-        include FormHelpers
+        include FormHelper
       end
       ActionView::Template.register_template_handler('rb', Minimal::Template::Handler)
     end

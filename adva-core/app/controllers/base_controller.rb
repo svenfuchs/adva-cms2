@@ -15,10 +15,7 @@ class BaseController < InheritedResources::Base
 
   layout 'default'
   helper_method :account, :site
-  
-  def account
-    Account.first # TODO
-  end
+  delegate :account, :to => :site
 
   def site
     Site.first # TODO

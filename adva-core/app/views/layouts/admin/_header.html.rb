@@ -26,9 +26,8 @@ class Layouts::Admin::Header < Minimal::Template
   end
   
   def link_to_website
-    if try(:site) && resources.last.try(:persisted?)
-      link_to(t('.website'), public_url_for(resources), :id => 'go_to_website')
-    end
+    site = try(:site)
+    link_to(t('.website'), public_url, :id => 'go_to_website') if site && site.persisted?
   end
   
   def language_select
