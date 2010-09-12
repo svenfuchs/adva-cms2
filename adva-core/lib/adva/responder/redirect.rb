@@ -1,3 +1,6 @@
+# Common redirect responder. Redirects to a :return_to param if present or an
+# entry in the Registry for the current controller/action (e.g. pages#update).
+
 module Adva
   class Responder
     module Redirect

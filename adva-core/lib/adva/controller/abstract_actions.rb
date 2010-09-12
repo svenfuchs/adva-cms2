@@ -1,5 +1,10 @@
 require 'action_controller'
 
+# abstract_actions makes a base controller transparently use a concrete controller
+# for certain actions. E.g. with an sti base model like Section and concrete model
+# like Page if the route points to the SectionsController it still will use a
+# PagesController if the current resource is a Page.
+
 module Adva
   module Controller
     module AbstractActions

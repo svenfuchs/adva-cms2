@@ -1,3 +1,6 @@
+# Base class for Menus. Adds the label and item methods and activates items
+# that match the current url (unless overwritten by child classes).
+
 module Adva
   module View
     class Menu < Minimal::Template

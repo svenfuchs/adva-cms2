@@ -5,6 +5,9 @@ begin
 rescue LoadError
 end
 
+# Stub methods for ReferenceTracking. Will only be used if ReferenceTracking
+# (which is only required by adva-cache) is not available.
+
 module Adva
   module Controller
     module References

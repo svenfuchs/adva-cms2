@@ -1,3 +1,5 @@
+# Common behaviour that we want included in all adva engines
+
 module Adva
   module Engine
     class << self

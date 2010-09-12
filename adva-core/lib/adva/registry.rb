@@ -1,3 +1,5 @@
+# Global registry for storing common configuration.
+
 module Adva
   class Registry < Hash
     class << self
