@@ -1,4 +1,4 @@
-class Admin::Sites::Menu < Adva::Views::Menu::Admin::Actions
+class Admin::Sites::Menu < Adva::View::Menu::Admin::Actions
   def right
     item(:'.new', new_path)
     if persisted?

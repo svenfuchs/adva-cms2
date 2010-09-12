@@ -1,4 +1,4 @@
-class Admin::Pages::Menu < Adva::Views::Menu::Admin::Actions
+class Admin::Pages::Menu < Adva::View::Menu::Admin::Actions
   def main
     if resource.try(:persisted?)
       label("#{resource.title}:")

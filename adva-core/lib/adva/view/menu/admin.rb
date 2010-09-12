@@ -1,5 +1,5 @@
 module Adva
-  module Views
+  module View
     class Menu
       class Admin < Menu
         class_inheritable_accessor :id
