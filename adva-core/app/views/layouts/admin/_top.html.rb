@@ -1,4 +1,4 @@
-class Layouts::Admin::Top < Adva::Views::Menu::Admin
+class Layouts::Admin::Top < Adva::View::Menu::Admin
   self.id = 'top'
 
   def main

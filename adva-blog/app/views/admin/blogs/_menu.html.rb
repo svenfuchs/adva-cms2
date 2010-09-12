@@ -1,4 +1,4 @@
-class Admin::Blogs::Menu < Adva::Views::Menu::Admin::Actions
+class Admin::Blogs::Menu < Adva::View::Menu::Admin::Actions
   def main
     if persisted?
       label("#{resource.title}:")

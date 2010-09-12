@@ -1,4 +1,4 @@
-class Admin::Posts::Menu < Adva::Views::Menu::Admin::Actions
+class Admin::Posts::Menu < Adva::View::Menu::Admin::Actions
   def main
     label("#{resource.section.title}:") # TODO can we use css for the colon?
     item(:'.show', parent_show_path)

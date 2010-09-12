@@ -1,7 +1,7 @@
 module Adva
-  module Views
+  module View
     class Menu < Minimal::Template
-      autoload :Admin, 'adva/views/menu/admin'
+      autoload :Admin, 'adva/view/menu/admin'
       
       def label(text, options = {}, &block)
         li do

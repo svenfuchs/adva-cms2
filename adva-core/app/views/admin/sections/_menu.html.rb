@@ -1,4 +1,4 @@
-class Admin::Sections::Menu < Adva::Views::Menu::Admin::Actions
+class Admin::Sections::Menu < Adva::View::Menu::Admin::Actions
   def main
     item(:'.sections', index_path)
   end

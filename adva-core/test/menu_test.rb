@@ -1,6 +1,6 @@
 require File.expand_path('../test_helper', __FILE__)
 
-require 'adva/views/menu'
+require 'adva/view/menu'
 
 module AdvaCoreTests
   class MenuTest < Test::Unit::TestCase
@@ -12,7 +12,7 @@ module AdvaCoreTests
       @controller = Admin::PostsController.new
       @controller.request = request_for('/admin/sites/1/blogs/1/posts/new')
       
-      @menu = Adva::Views::Menu.new
+      @menu = Adva::View::Menu.new
       @menu.locals = { :controller => @controller }
       
       super
