@@ -25,10 +25,13 @@ class InstallationsController < BaseController
   end
 
   def create
-    account = Account.create!(params[:account])
-    site = account.sites.create!(params[:site])
+    User.skip_callbacks do # TODO
+      account = Account.create!(params[:account])
+      account.users.first.confirm!
+      site = account.sites.create!(params[:site])
+    end
 
-    # TODO sign the in, redirect to admin/sites/1
+    # TODO sign in, redirect to admin/sites/1
 
     respond_with site
   end

@@ -70,7 +70,7 @@ module AdvaAssets
       asset1 = create_asset
       asset2 = create_asset
       
-      user = User.create!(:account_id => site.account.id, :email => 'john@doe.com', :password => 'password')
+      user = User.without_callbacks.create!(:account_id => site.account.id, :email => 'john@doe.com', :password => 'password')
       user.assets << asset1
       user.assets << asset2
 
@@ -79,8 +79,8 @@ module AdvaAssets
     end
     
     test 'An asset belongs to many polymorphic assetables' do
-      user1 = User.create!(:account_id => site.account.id, :email => 'john@doe.com', :password => 'password')
-      user2 = User.create!(:account_id => site.account.id, :email => 'jane@doe.com', :password => 'password')
+      user1 = User.without_callbacks.create!(:account_id => site.account.id, :email => 'john@doe.com', :password => 'password')
+      user2 = User.without_callbacks.create!(:account_id => site.account.id, :email => 'jane@doe.com', :password => 'password')
       post  = Post.create!(:title => 'title')
       
       user1.assets << asset
