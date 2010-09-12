@@ -3,6 +3,8 @@ class Session::New < Minimal::Template
     h2 :'.title'
 
     simple_form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f|
+      hidden_field_tag :return_to, params[:return_to]
+
       f.input :email
       f.input :password
 
