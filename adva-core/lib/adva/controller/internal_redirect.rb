@@ -1,3 +1,6 @@
+# Internally redirects a request to another controller. This is used by the
+# abstract_actions module.
+
 module Adva
   module Controller
     module InternalRedirect

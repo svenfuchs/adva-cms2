@@ -1,3 +1,5 @@
+# Base class for admin menus. Encapsulates assumptions made by the admin layout.
+
 module Adva
   module View
     class Menu
