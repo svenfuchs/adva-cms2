@@ -8,6 +8,6 @@ module FormHelper
   end
 
   def buttons(&block)
-    content_tag(:p, :class => 'buttons', &block)
+    content_tag(:div, :class => 'buttons', &block)
   end
 end

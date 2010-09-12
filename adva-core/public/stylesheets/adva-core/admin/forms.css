@@ -22,6 +22,7 @@ form .column > .inline {
 
 input[type=text],
 input[type=password],
+input[type=email],
 textarea {
   padding: 5px 8px;
   font-size: 14px;
@@ -67,11 +68,13 @@ label.inline {
 label.light {
   font-weight: normal;
 }
-.radio_group {
-  padding-top: 6px;
+.checkbox_group, .radio_group {
+  margin-top: 15px;
+  margin-bottom: 6px;
 }
 .buttons {
-  padding-top: 8px;
+  margin-top: 15px;
+  margin-bottom: 6px;
   /* border-top: 4px solid #ddd;*/
   /* background-color: #E3FFE3;*/
 }

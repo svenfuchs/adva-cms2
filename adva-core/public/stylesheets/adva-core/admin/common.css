@@ -68,12 +68,14 @@ th, td {
 }
 
 ul.links {
-  margin-top: 15px;
+  display: inline;
   list-style-type: none;
 }
 ul.links li {
-  float: left;
-  margin-right: 15px;
+  display: inline;
+}
+ul.links li:before {
+  content: "· ";
 }
 
 /* flash, errors, notices */
