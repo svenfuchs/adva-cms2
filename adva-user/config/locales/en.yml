@@ -2,9 +2,30 @@ en:
   session:
     new:
       title: Sign in
+      submit: Sign in
   registrations:
     new:
       title: Sign up
+      submit: Sign up
+    edit:
+      title: Edit account
+      submit: Update account
+      current_password_required: "We need your current password to confirm your changes."
+  confirmations:
+    new:
+      title: Resend confirmation instructions
+      submit: Resend confirmation instructions
+  passwords:
+    new:
+      title: Forgot your password?
+      submit: Send me reset password instructions
+    edit:
+      title: Change your password
+      submit: Change password
+  unlocks:
+    new:
+      title: Resend unlock instructions
+      submit: Send instructions
 
   devise:
     session:

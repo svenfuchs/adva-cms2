@@ -37,7 +37,7 @@ PATH
       gem_patching
       inherited_resources (= 1.1.2)
       inherited_resources_helpers (= 0.0.6)
-      minimal (= 0.0.17)
+      minimal (= 0.0.18)
       nbrew-country_select
       rails (= 3.0.0)
       routing-filter (= 0.1.6)
@@ -136,7 +136,7 @@ GEM
     mime-types (1.16)
     mini_magick (2.1)
       subexec (~> 0.0.4)
-    minimal (0.0.17)
+    minimal (0.0.18)
       actionpack (>= 3.0.0.beta2)
     mocha (0.9.8)
       rake

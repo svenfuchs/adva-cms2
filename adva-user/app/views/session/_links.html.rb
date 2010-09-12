@@ -1,6 +1,6 @@
 # TODO i18n
 
-class Admin::Shared::DeviseLinks < Minimal::Template
+class Session::Links < Minimal::Template
   def to_html
     ul :class => :links do
       li { sign_in_link }             if sign_in?
@@ -15,39 +15,39 @@ class Admin::Shared::DeviseLinks < Minimal::Template
     controller_name != 'session'
   end
 
-  def sign_in_link
-    link_to "Sign in", new_session_path(resource_name)
-  end
-
   def sign_up?
     devise_mapping.registerable? && controller_name != 'registrations'
-  end
-
-  def sign_up_link
-    link_to "Sign up", new_registration_path(resource_name)
   end
 
   def forgot_password?
     devise_mapping.recoverable? && controller_name != 'passwords'
   end
 
-  def forgot_password_link
-    link_to "Forgot your password?", new_password_path(resource_name)
-  end
-
   def resend_confirmation?
     devise_mapping.confirmable? && controller_name != 'confirmations'
-  end
-
-  def resend_confirmation_link
-    link_to "Resend confirmation email", new_confirmation_path(resource_name)
   end
 
   def resend_unlock?
     devise_mapping.lockable? && resource_class.unlock_strategy_enabled?(:email) && controller_name != 'unlocks'
   end
 
+  def sign_in_link
+    capture { link_to("Sign in", new_session_path(resource_name)) }
+  end
+
+  def sign_up_link
+    capture { link_to("Sign up", new_registration_path(resource_name)) }
+  end
+
+  def forgot_password_link
+    capture { link_to("Forgot your password?", new_password_path(resource_name)) }
+  end
+
+  def resend_confirmation_link
+    capture { link_to("Resend confirmation email", new_confirmation_path(resource_name)) }
+  end
+
   def resend_unlock_link
-    link_to "Resend unlock email", new_unlock_path(resource_name)
+    capture { link_to("Resend unlock email", new_unlock_path(resource_name)) }
   end
 end
