@@ -44,11 +44,11 @@ table.list span.status {
 }
 
 table.list span.published {
-  background: url(/images/adva_core/icons/tick.png) no-repeat;
+  background: url(/images/adva-core/icons/tick.png) no-repeat;
 }
 table.list span.draft,
 table.list span.hold,
 table.list span.queued,
 table.list span.pending {
-  background: url(/images/adva_core/icons/hourglass.png) no-repeat;
+  background: url(/images/adva-core/icons/hourglass.png) no-repeat;
 }

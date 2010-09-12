@@ -55,7 +55,7 @@
 #top .menu > .active > h4,
 #top .menu > .active > a {
   color: #fff;
-  background: #c22222 url(/images/adva_core/admin/tab_top_active.png) repeat-x;
+  background: #c22222 url(/images/adva-core/admin/tab_top_active.png) repeat-x;
 }
 #top .menu > li:hover > h4,
 #top .menu > li:hover > a {
@@ -107,7 +107,7 @@
    background-color: #f9f9f9 !important;
 }
 #top .menu li > ul li.active {
-  background: transparent url(/images/adva_core/admin/menu_checkmark.png) no-repeat 16px 7px;
+  background: transparent url(/images/adva-core/admin/menu_checkmark.png) no-repeat 16px 7px;
 }
 #top .menu li > ul .level_0 { padding-left: 16px; }
 #top .menu li > ul .level_1 { padding-left: 32px; }
@@ -169,7 +169,7 @@
   background-color: #fff;
 }
 #actions .main li.active > a {
-  background: #ddd url(/images/adva_core/admin/tab_main_active.png) repeat-x;
+  background: #ddd url(/images/adva-core/admin/tab_main_active.png) repeat-x;
 }
 #actions ul.right li a {
   display: block;

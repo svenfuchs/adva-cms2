@@ -1,4 +1,11 @@
 en:
+  session:
+    new:
+      title: Sign in
+  registrations:
+    new:
+      title: Sign up
+
   devise:
     session:
       user:

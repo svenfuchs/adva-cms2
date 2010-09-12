@@ -2,11 +2,14 @@ Feature: Routes
   Scenario: Routes
     Given the routes are loaded
     Then the following routes should be recognized:
-      | method | path                                      | controller          | action  | params                                              |
+      | method | path            | controller    | action  | params |
 
-      # adva-user
-      | POST   | /users                                    | admin/registrations | create  |                                                     |
-      | PUT    | /users                                    | admin/registrations | update  |                                                     |
-      | DELETE | /users                                    | admin/registrations | destroy |                                                     |
-      | GET    | /users/sign_up                            | admin/registrations | new     |                                                     |
-      | GET    | /users/edit                               | admin/registrations | edit    |                                                     |
+      | GET    | /users/sign_in  | session       | new     |        |
+      | POST   | /users/sign_in  | session       | create  |        |
+      | GET    | /users/sign_out | session       | destroy |        |
+
+      | POST   | /users          | registrations | create  |        |
+      | PUT    | /users          | registrations | update  |        |
+      | DELETE | /users          | registrations | destroy |        |
+      | GET    | /users/sign_up  | registrations | new     |        |
+      | GET    | /users/edit     | registrations | edit    |        |
