@@ -3,7 +3,7 @@ class InstallationsController < BaseController
   # defaults :resource_class => Site, :collection_name => 'sites', :instance_name => 'site'
   # belongs_to :account
   
-  layout 'login'
+  layout 'simple'
 
   respond_to :html
 

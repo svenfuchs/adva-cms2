@@ -1,4 +1,7 @@
-#main {
+#page {
+  border-top: 5px solid #c22222;
+}
+.main {
   width: 30%;
 	margin-left: 35%;
 	padding-top: 0px;

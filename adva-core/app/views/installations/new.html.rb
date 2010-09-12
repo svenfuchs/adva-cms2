@@ -1,5 +1,8 @@
 class Installations::New < Minimal::Template
   def to_html
+    h2 :'.title'
+    p :'.welcome'
+
     form_for(site, :url => installations_path) do |f|
       f.label :name
       f.text_field :name
@@ -15,7 +18,9 @@ class Installations::New < Minimal::Template
         s.text_field :title
       end
 
-      f.submit 'Create'
+      buttons do
+        f.submit 'Create'
+      end
     end
   end
 end

@@ -117,13 +117,13 @@ p.flash.error {
 }
 .actions a.show,
 .actions a.view {
-  background: url(/images/adva_core/icons/page_white_magnify.png) no-repeat;
+  background: url(/images/adva-core/icons/page_white_magnify.png) no-repeat;
 }
 .actions a.edit {
-  background: url(/images/adva_core/icons/pencil.png) no-repeat;
+  background: url(/images/adva-core/icons/pencil.png) no-repeat;
 }
 .actions a.delete {
-  background: url(/images/adva_core/icons/bin_closed.png) no-repeat -5px top;
+  background: url(/images/adva-core/icons/bin_closed.png) no-repeat -5px top;
 }
 
 /* pagination, taken from WillPaginate, slightly modified */
