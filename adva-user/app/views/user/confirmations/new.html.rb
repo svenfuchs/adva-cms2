@@ -9,7 +9,7 @@ class Confirmations::New < Minimal::Template
 
       buttons do
         f.submit t(:'.submit')
-        render :partial => 'session/links'
+        render :partial => 'user/links'
       end
     end
   end

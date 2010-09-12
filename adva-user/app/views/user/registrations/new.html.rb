@@ -1,4 +1,4 @@
-class Registrations::New < Minimal::Template
+class User::Registrations::New < Minimal::Template
   def to_html
     h2 :'.title'
 
@@ -11,7 +11,7 @@ class Registrations::New < Minimal::Template
 
       buttons do
         f.button :submit
-        render :partial => 'session/links'
+        render :partial => 'user/links'
       end
     end
   end

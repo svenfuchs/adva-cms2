@@ -5,11 +5,6 @@ require 'ruby-debug'
 
 # require 'adva/static/import/directory'
 
-Devise.setup do |config|
-  require 'devise/orm/active_record'
-  config.encryptor = :bcrypt
-end
-
 Site.has_many :blogs
 
 module Tests

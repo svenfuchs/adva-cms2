@@ -1,4 +1,4 @@
-class Passwords::New < Minimal::Template
+class User::Passwords::New < Minimal::Template
   def to_html
     h2 :'.title'
 
@@ -9,7 +9,7 @@ class Passwords::New < Minimal::Template
 
       buttons do
         f.submit t(:'.submit')
-        render :partial => 'session/links'
+        render :partial => 'user/links'
       end
     end
   end

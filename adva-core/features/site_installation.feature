@@ -1,6 +1,6 @@
 Feature: Installing a Site, creating a section with an article
   Background:
-    Given no site
+    Given no site or account
 
   Scenario: Installing a Site
     Given I go to the homepage

@@ -1,6 +1,6 @@
 # TODO i18n
 
-class Session::Links < Minimal::Template
+class User::Links < Minimal::Template
   def to_html
     ul :class => :links do
       li { sign_in_link }             if sign_in?
