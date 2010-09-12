@@ -13,6 +13,13 @@ module Adva
         config.mailer_sender = 'please-change-me@config-initializers-devise.com'
         config.encryptor     = :bcrypt
       end
+
+      Devise::FailureApp.class_eval do
+        def redirect
+          flash[:alert] = i18n_message unless flash[:notice]
+          redirect_to send(:"new_#{scope}_session_path", :return_to => attempted_path)
+        end
+      end
     end
 
     initializer 'adva-user.register_asset_expansions' do
