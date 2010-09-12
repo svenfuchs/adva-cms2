@@ -22,23 +22,8 @@ Given /^an? (.*) with the (\w+) "([^"]+)" for the (\w+) "([^"]+)"$/ do |model, a
   collection.find(:first, :conditions => attributes) || collection.create!(attributes)
 end
 
-Given(/^I am signed in$/) do
-  @user = User.find_or_create_by_email(:email => 'bob@domain.com', :password => 'bobpass')
-  get new_user_session_path
-  fill_in 'Email', :with => @user.email
-  fill_in 'Password', :with => 'bobpass'
-  click_button 'Sign in'
-end
-
-Given(/^I am signed in as user "([^"]+)" with password "([^"]+)"$/) do |email, password|
-  get new_user_session_path
-  fill_in 'Email', :with => email
-  fill_in 'Password', :with => password
-  click_button 'Sign in'
-end
-
 Given(/^no site or account$/) do
-  [Site,Section,Account,User].map(&:delete_all)
+  [Account, User, Site, Section].map(&:delete_all)
 end
 
 Then /^I should not see any (\w*)$/ do |type|

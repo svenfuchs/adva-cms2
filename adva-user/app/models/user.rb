@@ -1,7 +1,8 @@
 require 'devise'
 
 class User < ActiveRecord::Base
-  devise :database_authenticatable, :registerable, :rememberable #, :validatable, :confirmable, :recoverable , :trackable
+  devise :database_authenticatable, :registerable, :rememberable, # :confirmable,
+    :recoverable, :validatable, :trackable
   
   serialize :roles, Array
   

@@ -12,7 +12,7 @@ Before do
       }
     }]
   )
-  User.create(
+  User.create!(
     :email    => 'admin@admin.org', 
     :password => 'admin'
   )

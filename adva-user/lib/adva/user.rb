@@ -10,8 +10,9 @@ module Adva
     initializer 'adva-user.devise_setup' do
       Devise.setup do |config|
         require 'devise/orm/active_record'
-        config.mailer_sender = 'please-change-me@config-initializers-devise.com'
-        config.encryptor     = :bcrypt
+        config.mailer_sender   = 'please-change-me@config-initializers-devise.com'
+        config.encryptor       = :bcrypt
+        config.password_length = 5..20
       end
 
       Devise::FailureApp.class_eval do
@@ -24,13 +25,13 @@ module Adva
 
     initializer 'adva-user.register_asset_expansions' do
       ActionView::Helpers::AssetTagHelper.register_javascript_expansion(
-        :session => %w()
+        :user => %w()
       )
 
       ActionView::Helpers::AssetTagHelper.register_stylesheet_expansion(
-        :session => %w( adva-user/session
-                        adva-core/admin/common
-                        adva-core/admin/forms )
+        :user => %w( adva-user/user
+                     adva-core/admin/common
+                     adva-core/admin/forms )
       )
     end
   end

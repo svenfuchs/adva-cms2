@@ -18,6 +18,12 @@ Dir[File.expand_path('../test_{helpers/*,setup}.rb', __FILE__)].each do |helper|
   require helper
 end
 
+# gawd, devise ...
+Devise.setup do |config|
+  require 'devise/orm/active_record'
+  config.encryptor = :bcrypt
+end
+
 class Test::Unit::TestCase
   def setup
     DatabaseCleaner.start

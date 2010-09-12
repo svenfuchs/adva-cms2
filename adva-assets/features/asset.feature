@@ -5,7 +5,7 @@ Feature: Asset Management
   In order to manage all assets
 
   Background:
-    Given I am signed in
+    Given I am signed in with "admin@admin.org" and "admin"
     And I am on the admin dashboard page
 
   Scenario: I want to see all assets on the assets page

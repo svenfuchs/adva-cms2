@@ -70,18 +70,18 @@ module AdvaAssets
       asset1 = create_asset
       asset2 = create_asset
       
-      user = User.create(:account_id => site.account.id)
+      user = User.create!(:account_id => site.account.id, :email => 'john@doe.com', :password => 'password')
       user.assets << asset1
       user.assets << asset2
 
-      assert_equal user.assets.count, 2
+      assert_equal 2, user.assets.count
       assert [asset1, asset2], user.assets
     end
     
     test 'An asset belongs to many polymorphic assetables' do
-      user1 = User.create(:account_id => site.account.id)
-      user2 = User.create(:account_id => site.account.id)
-      post  = Post.create(:title => 'title')
+      user1 = User.create!(:account_id => site.account.id, :email => 'john@doe.com', :password => 'password')
+      user2 = User.create!(:account_id => site.account.id, :email => 'jane@doe.com', :password => 'password')
+      post  = Post.create!(:title => 'title')
       
       user1.assets << asset
       user2.assets << asset

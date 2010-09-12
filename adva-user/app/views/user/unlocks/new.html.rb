@@ -1,4 +1,4 @@
-class Unlocks::New < Minimal::Template
+class User::Unlocks::New < Minimal::Template
   def to_html
     h2 :'.title'
 
@@ -9,7 +9,7 @@ class Unlocks::New < Minimal::Template
 
       buttons do
         f.submit t(:'.submit')
-        render :partial => 'session/links'
+        render :partial => 'user/links'
       end
     end
   end
