@@ -2,7 +2,7 @@ class User::Registrations::New < Minimal::Template
   def to_html
     h2 :'.title'
 
-    simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }) do |f|
+    simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f|
       devise_error_messages!
       
       f.input :email

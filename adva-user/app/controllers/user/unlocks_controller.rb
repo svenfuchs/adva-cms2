@@ -1,3 +1,3 @@
-class User::UnlocksController < Devise::RegistrationsController
+class User::UnlocksController < Devise::UnlocksController
   layout 'user'
 end

@@ -1,4 +1,4 @@
-def assert_sent_email(attributes)
+def assert_email_sent(attributes)
   emails = ::ActionMailer::Base.deliveries
   assert !emails.empty?, "No emails were sent"
   matching_emails = emails.select do |email|
@@ -11,5 +11,9 @@ def assert_sent_email(attributes)
       end
     end
   end
-  assert !matching_emails.empty?, "None of the #{emails.size} emails matched #{attributes.inspect}."
+  assert !matching_emails.empty?, begin
+    msg = ["None of the #{emails.size} emails matched #{attributes.inspect}.\nInstead, there are the following emails:"]
+    msg += emails.map { |email| attributes.keys.map { |key| [key, email.send(key)] }.map { |key, value| "#{key}: #{value}" }.join(',') }
+    msg.join("\n")
+  end
 end

@@ -1,3 +1,3 @@
-class User::PasswordsController < Devise::RegistrationsController
+class User::PasswordsController < Devise::PasswordsController
   layout 'user'
 end
