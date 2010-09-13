@@ -10,8 +10,10 @@ module Adva::Core::Paths
     when /the "([^"]*)" section page/
       section = Section.where(:title => $1).first
       polymorphic_path(section)
-    when 'the signin page'
+    when 'the sign in page'
       new_user_session_path
+    when 'the new registration page'
+      new_user_registration_path
     when 'the admin sites page'
       polymorphic_path([:admin, :sites])
     when 'the admin dashboard page'

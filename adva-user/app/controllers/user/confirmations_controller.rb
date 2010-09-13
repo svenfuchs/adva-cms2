@@ -1,3 +1,3 @@
-class User::ConfirmationsController < Devise::RegistrationsController
+class User::ConfirmationsController < Devise::ConfirmationsController
   layout 'user'
 end
