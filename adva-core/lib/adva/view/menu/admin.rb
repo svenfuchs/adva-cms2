@@ -4,9 +4,13 @@ module Adva
   module View
     class Menu
       class Admin < Menu
-        class_inheritable_accessor :id
+        def self.id(id)
+          write_inheritable_attribute(:id, id)
+        end
 
-        class Actions < Admin; self.id = 'actions' end
+        class Actions < Admin
+          id :actions
+        end
 
         def to_html
           div :id => id, :class => 'menus' do
@@ -24,6 +28,16 @@ module Adva
 
         def right
         end
+
+        protected
+
+          def id
+            self.class.read_inheritable_attribute(:id)
+          end
+
+          def persisted?
+            resource.try(:persisted?)
+          end
       end
     end
   end
