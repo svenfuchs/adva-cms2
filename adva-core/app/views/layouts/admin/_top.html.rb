@@ -1,5 +1,5 @@
 class Layouts::Admin::Top < Adva::View::Menu::Admin
-  self.id = 'top'
+  id :top
 
   def main
     # item(:'.sites', url_for([:admin, :sites]))
