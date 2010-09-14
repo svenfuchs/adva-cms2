@@ -9,7 +9,7 @@ require 'carrierwave/test/matchers'
 module AdvaAssets
   class ImageTest < Test::Unit::TestCase
     attr_reader :site, :file, :fixtures
-    
+
     def setup
       super
       @site = Site.create!(:account => Account.create!, :name => 'site', :title => 'site',
@@ -17,7 +17,7 @@ module AdvaAssets
       @fixtures = Pathname.new(File.expand_path('../fixtures', __FILE__))
       @file = fixtures.join('rails.png')
     end
-    
+
     def create_image(options = {})
       Image.create(options.reverse_merge(:file => File.open(file), :site => site, :title => "title", :description => 'description'))
     end
@@ -25,7 +25,7 @@ module AdvaAssets
     test "creates a valid image" do
       assert create_image.valid?
     end
-    
+
     test "is not valid with a file w/ invalid file type" do
       file = fixtures.join('test.txt')
       image = create_image(:file => File.open(file))
@@ -38,7 +38,13 @@ module AdvaAssets
     test "raises an exception for invalid images" do
       file = fixtures.join('test.txt.jpg')
       assert File.exists?(file)
-      assert_raises(MiniMagick::Error) { create_image(:file => File.open(file)) }
+      exception_raised = false
+      begin
+        create_image(:file => File.open(file))
+      rescue
+        exception_raised = true
+      end
+      assert exception_raised
     end
 
     test "processes the size of image" do
