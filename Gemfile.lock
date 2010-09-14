@@ -1,7 +1,7 @@
 GIT
-  remote: git://github.com/jystewart/has_many_polymorphs.git
-  revision: 5b1a86a
-  ref: 5b1a86
+  remote: git://github.com/kronn/has_many_polymorphs.git
+  revision: 9b0913d
+  ref: 9b0913
   specs:
     has_many_polymorphs (3.0.0.beta1)
       activerecord
