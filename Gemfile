@@ -15,7 +15,7 @@ gem 'adva-user',       :path => File.expand_path('../adva-user', __FILE__)
 # gem 'rack-cache-tags',  :path => '~/Development/projects/rack-cache-tags'
 # gem 'inherited_resources_helpers', :path => '~/Development/projects/inherited_resources_helpers'
 
-gem 'has_many_polymorphs', :git => 'git://github.com/jystewart/has_many_polymorphs.git', :ref => '5b1a86'
+gem 'has_many_polymorphs', :git => 'git://github.com/kronn/has_many_polymorphs.git', :ref => '9b0913'
 
 group :test do
   gem 'sqlite3-ruby', '1.2.5'
