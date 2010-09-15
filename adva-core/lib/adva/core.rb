@@ -6,6 +6,7 @@ require 'simple_slugs'
 require 'simple_nested_set'
 require 'simple_slugs'
 require 'minimal'
+require 'silence_log_tailer'
 
 require 'routing_filter'
 require 'adva/routing_filters/section_path'
@@ -48,13 +49,11 @@ module Adva
       )
 
       ActionView::Helpers::AssetTagHelper.register_stylesheet_expansion(
-        :common  => %w( ),
+        :common  => %w( adva-core/common ),
         :simple  => %w( adva-core/simple
                         adva-core/admin/common
                         adva-core/admin/forms ),
-        :default => %w( adva-core/default
-                        adva-core/default/common
-                        adva-core/default/forms ),
+        :default => %w( adva-core/default ),
         :admin   => %w( adva-core/admin
                         adva-core/admin/navigation
                         adva-core/admin/sidebar

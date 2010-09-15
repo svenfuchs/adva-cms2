@@ -19,10 +19,11 @@ Gem::Specification.new do |s|
   s.add_dependency 'routing-filter', '0.1.6'
   s.add_dependency 'inherited_resources', '1.1.2'
   s.add_dependency 'inherited_resources_helpers', '0.0.7'
-  s.add_dependency 'minimal', '0.0.18'
+  s.add_dependency 'minimal', '0.0.19'
   s.add_dependency 'simple_form'
   s.add_dependency 'simple_slugs', '0.0.7'
   s.add_dependency 'simple_table', '0.0.5'
   s.add_dependency 'simple_nested_set', '0.0.11'
   s.add_dependency 'nbrew-country_select'
+  s.add_dependency 'silence_log_tailer'
 end

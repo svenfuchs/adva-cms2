@@ -2,6 +2,8 @@
 
 module Adva
   module Engine
+    autoload :SlicedModels, 'adva/engine/sliced_models'
+
     class << self
       def included(base)
         base.class_eval do
@@ -13,7 +15,7 @@ module Adva
           config.autoload_paths << paths.app.views.to_a.first
 
           paths.lib.tasks = Dir[root.join('lib/adva/tasks/*.*')]
-          
+
           initializer "adva-#{engine_name}.require_patches" do |app|
             require_patches
           end
@@ -34,28 +36,6 @@ module Adva
       end
     end
 
-    module SlicedModels
-      # TODO preloading seems to work fine, but slows the dev mode down quite
-      # a bit. should be replace with an approace which lazyloads sliced
-      # models in Dependencies maybe an after-load hook in Dependencies would
-      # work.
-      def preload_sliced_models
-        types = %w(controllers models)
-        paths = types.map { |type| self.paths.app.send(type).to_a.first }
-
-        Dir["{#{paths.join(',')}}/**/*_slice.rb"].each do |filename|
-          # const_name = filename =~ %r(/([^/]*)_slice.rb) && $1.camelize
-          # ActiveSupport::Dependencies.mark_for_unload(const_name)
-          # ActiveSupport::Dependencies.autoloaded_constants << const_name
-          # ActiveSupport::Dependencies.autoloaded_constants.uniq!
-          # require_dependency(const_name.underscore)
-
-          require filename.match(%r(/([^/]*)_slice.rb))[1]
-          load(filename)
-        end
-      end
-    end
-
     module Initializations
       include SlicedModels
 
@@ -63,7 +43,7 @@ module Adva
         name = is_a?(Class) ? self.name : self.class.name # ughugh.
         name.underscore.split('/').last
       end
-      
+
       def require_patches
         Dir[root.join('lib/patches/**/*.rb')].each { |patch| require patch }
       end
@@ -90,16 +70,5 @@ module Adva
         end
       end
     end
-  end
-end
-
-# TODO move this ... where?
-require 'rails'
-
-Rails::Application.class_eval do
-  include Adva::Engine::SlicedModels
-
-  initializer "application.preload_sliced_models" do |app|
-    config.to_prepare { app.preload_sliced_models }
   end
 end

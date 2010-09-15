@@ -8,14 +8,14 @@ class Installations::New < Minimal::Template
       f.text_field :name
 
       f.fields_for(:sections) do |s|
+        s.label :title, t(:'.section_title')
+        s.text_field :title
+
         s.label :type
         section_types_option_values.each do |name, value|
           s.radio_button :type, value
           s.label "type_#{value.underscore}", name, :class => :inline
         end
-
-        s.label :title
-        s.text_field :title
       end
 
       buttons do

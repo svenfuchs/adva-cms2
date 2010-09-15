@@ -2,7 +2,7 @@
 
 class User::Links < Minimal::Template
   def to_html
-    ul :class => :links do
+    ul :class => 'links user' do
       li { sign_in_link }             if sign_in?
       li { sign_up_link }             if sign_up?
       li { forgot_password_link }     if forgot_password?
@@ -12,7 +12,7 @@ class User::Links < Minimal::Template
   end
 
   def sign_in?
-    controller_name != 'session'
+    controller_name != 'sessions'
   end
 
   def sign_up?
@@ -32,22 +32,22 @@ class User::Links < Minimal::Template
   end
 
   def sign_in_link
-    capture { link_to("Sign in", new_session_path(resource_name)) }
+    capture { link_to(:'.sign_in', new_session_path(resource_name), :class => :sign_in) }
   end
 
   def sign_up_link
-    capture { link_to("Sign up", new_registration_path(resource_name)) }
+    capture { link_to(:'.sign_up', new_registration_path(resource_name), :class => :sign_up) }
   end
 
   def forgot_password_link
-    capture { link_to("Forgot your password?", new_password_path(resource_name)) }
+    capture { link_to(:'.forgot_password', new_password_path(resource_name), :class => :forgot_password) }
   end
 
   def resend_confirmation_link
-    capture { link_to("Resend confirmation email", new_confirmation_path(resource_name)) }
+    capture { link_to(:'.resend_confirmation', new_confirmation_path(resource_name), :class => :resend_confirmation) }
   end
 
   def resend_unlock_link
-    capture { link_to("Resend unlock email", new_unlock_path(resource_name)) }
+    capture { link_to(:'.resend_unlock', new_unlock_path(resource_name), :class => :resend_unlock) }
   end
 end
