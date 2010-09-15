@@ -1,9 +1,13 @@
 class Layouts::Default < Layouts::Base
+  def title
+    super(site.title)
+  end
+
   def body
     div :id => :page do
       div :id => :header do
         h1 site.title
-        # h2 site.subtitle
+        h4 site.subtitle
         render :partial => 'layouts/default/menu'
       end
       div :id => :main do

@@ -15,6 +15,23 @@ body {
 }
 #header h1 {
   float: left;
+  color: #444;
+}
+#header h4 {
+  float: left;
+  padding-top: 0;
+  font-size: 22pt;
+  font-weight: normal;
+  color: #aaa;
+}
+#header h4:before {
+  content: "\00a0\00d7\00a0";
+  content: "\00a0\2013\00a0";
+  content: "\200A\2014\200A";
+  content: "\00a0:\00a0";
+  content: "\00a0\2234\00a0";
+  content: "\00a0\00bb\00a0";
+  content: "\00a0\00b7\00a0";
 }
 #main {
   overflow: auto;
@@ -24,7 +41,6 @@ body {
 h1 {
   font-size: 22pt;
   font-weight: bold;
-  color: #888;
 }
 h2 {
   padding-top: 1em;
@@ -76,20 +92,20 @@ a {
   padding: 8px 15% 0 15%;
   font-size: 10pt;
   color: #999;
-  background-color: #f9f9f9;
+  background-color: #fafafa;
   -webkit-box-shadow: 0 0 12px rgba(0, 0, 0, 0.10);
-}
-#footer .left {
-  float: left;
-}
-#footer .right {
-  float: right;
 }
 #footer ul {
   list-style-type: none;
 }
 #footer li {
   display: inline-block;
+}
+#footer .left {
+  float: left;
+}
+#footer .right {
+  float: right;
 }
 #footer a {
   font-size: 10pt;

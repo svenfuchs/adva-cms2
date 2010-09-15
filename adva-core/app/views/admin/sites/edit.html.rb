@@ -6,11 +6,12 @@ class Admin::Sites::Edit < Minimal::Template
       fieldset do
         column do
           f.input :name
-          f.input :host
+          f.input :title
         end
 
         column do
-          f.input :title
+          f.input :host
+          f.input :subtitle
         end
       end
 
