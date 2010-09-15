@@ -16,7 +16,6 @@ class InstallationsController < BaseController
   # helper :base
 
   # before_filter :protect_install, :except => :confirmation
-  # filter_parameter_logging :password
   #
   # layout 'simple'
   # renders_with_error_proc :below_field
@@ -43,7 +42,7 @@ class InstallationsController < BaseController
   
     def site
       @site ||= Site.new(:sections_attributes => [{ 
-        :title => t(:'adva.sites.install.section_default', :default => 'Home') 
+        :type => 'Page', :title => t(:'adva.sites.install.section_default', :default => 'Home') 
       }])
     end
 

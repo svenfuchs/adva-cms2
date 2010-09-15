@@ -1,46 +1,5 @@
-html, body, div, span, object, iframe,
-h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-a, abbr, acronym, address, code,
-del, dfn, em, img, q, dl, dt, dd, ol, ul, li,
-fieldset, form, label, legend,
-table, caption, tbody, tfoot, thead, tr, th, td {
-  margin: 0;
-  padding: 0;
-  border: 0;
-  font-weight: inherit;
-  font-style: inherit;
-  font-size: 100%;
-  font-family: inherit;
-  vertical-align: baseline;
-}
-body { 
-  line-height: 1.5; 
-}
-table { 
-  border-collapse: separate; border-spacing: 0;
-}
-caption, th, td {
-  text-align: left; font-weight: normal;
-}
-table, td, th {
-  vertical-align: top;
-}
-a img {
-  border: none;
-}
-
 body {
   font-size: 10pt;
-  color: #222; 
-  background: #fff;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-}
-a {
-  color: #000;
-  text-decoration: none;
-}
-a:hover {
-  text-decoration: underline;
 }
 h2 {
   margin-top: 1.2em;
@@ -57,11 +16,8 @@ h4 {
 p {
   margin-top: 1.2em;
 }
-th, td {
-  vertical-align: top;
-}
 
-/* common classes */
+/* COMMON CLASSES */
 
 .hidden {
   display:none;
@@ -78,7 +34,7 @@ ul.links li:before {
   content: "· ";
 }
 
-/* flash, errors, notices */
+/* FLASH */
 
 p.flash {
   padding: 0.75em 0;
@@ -94,7 +50,7 @@ p.flash.error {
   color: #510;
 }
 
-/* actions */
+/* ACTIONS */
 
 .actions a {
   display: inline-block;
@@ -128,7 +84,8 @@ p.flash.error {
   background: url(/images/adva-core/icons/bin_closed.png) no-repeat -5px top;
 }
 
-/* pagination, taken from WillPaginate, slightly modified */
+/* PAGINATION, taken from WillPaginate, slightly modified */
+
 div.pagination {
   margin-top: 1em;
   background: #f6f6f6;

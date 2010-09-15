@@ -5,3 +5,9 @@
 * translation
 * list filters
 
+
+
+I18n:
+
+* fix simple_form lookup scopes
+* make :'.foo' lookup sane defaults (e.g. minimal class parents ?)

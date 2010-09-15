@@ -79,6 +79,10 @@
   background-color: #fff !important;
   -webkit-box-shadow: 5px 5px 5px #aaa;
   -moz-box-shadow: 5px 5px 5px #aaa;
+  -webkit-border-bottom-left-radius: 4px;
+  -webkit-border-bottom-right-radius: 4px;
+  -moz-border-bottom-left-radius: 4px;
+  -moz-border-bottom-right-radius: 4px;
 }
 #top .menu li:hover > ul {
   display: block;
@@ -99,16 +103,29 @@
 }
 #top .menu li > ul li:last-child {
   border-top: 1px dotted #ddd;
+  -webkit-border-bottom-left-radius: 5px;
+  -webkit-border-bottom-right-radius: 5px;
+  -moz-border-bottom-left-radius: 5px;
+  -moz-border-bottom-right-radius: 5px;
 }
 #top .menu li > ul li:last-child a {
   padding: 4px 16px;
+  -webkit-border-bottom-left-radius: 5px;
+  -webkit-border-bottom-right-radius: 5px;
+  -moz-border-bottom-left-radius: 5px;
+  -moz-border-bottom-right-radius: 5px;
 }
 #top .menu li > ul li:hover {
    background-color: #f9f9f9 !important;
 }
 #top .menu li > ul li.active {
-  background: transparent url(/images/adva-core/admin/menu_checkmark.png) no-repeat 16px 7px;
+/*  background: transparent url(/images/adva-core/admin/menu_checkmark.png) no-repeat 16px 7px;*/
 }
+#top .menu li > ul li.active a:before {
+  content: "●\2003\2003"; /* ugh */
+  margin-left: -16px;
+}
+
 #top .menu li > ul .level_0 { padding-left: 16px; }
 #top .menu li > ul .level_1 { padding-left: 32px; }
 #top .menu li > ul .level_2 { padding-left: 48px; }
@@ -146,6 +163,9 @@
 
 /* ACTION MENU */
 
+.menu li {
+  font-size: 10pt;
+}
 #actions .main li:first-child {
   margin-left: -16px;
 }
@@ -159,11 +179,11 @@
   font-weight: normal;
 }
 #actions .main li a {
-  padding: 6px 16px 6px 16px;
-  -webkit-border-top-left-radius: 4px;
-  -webkit-border-top-right-radius: 4px;
-  -moz-border-top-left-radius: 4px;
-  -moz-border-top-right-radius: 4px;
+/*  padding: 6px 16px 6px 16px;*/
+  -webkit-border-top-left-radius: 5px;
+  -webkit-border-top-right-radius: 5px;
+  -moz-border-top-left-radius: 5px;
+  -moz-border-top-right-radius: 5px;
 }
 #actions .main li a:hover {
   background-color: #fff;

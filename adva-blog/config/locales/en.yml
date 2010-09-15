@@ -5,6 +5,13 @@ en:
   section:
     types:
       blog: Blog
+  layouts:
+    blog:
+      made_with: "Made with <a href=\"http://github.com/svenfuchs/adva-cms2\">adva cms 2</a>"
+      feed: Atom Feed
+  blogs:
+    show:
+      continue: Read the rest of this post
   posts:
     meta: 
       info: "posted on %{date}"

@@ -37,10 +37,11 @@ PATH
       gem_patching
       inherited_resources (= 1.1.2)
       inherited_resources_helpers (= 0.0.7)
-      minimal (= 0.0.18)
+      minimal (= 0.0.19)
       nbrew-country_select
       rails (= 3.0.0)
       routing-filter (= 0.1.6)
+      silence_log_tailer
       simple_form
       simple_nested_set (= 0.0.11)
       simple_slugs (= 0.0.7)
@@ -136,7 +137,7 @@ GEM
     mime-types (1.16)
     mini_magick (2.1)
       subexec (~> 0.0.4)
-    minimal (0.0.18)
+    minimal (0.0.19)
       actionpack (>= 3.0.0.beta2)
     mocha (0.9.8)
       rake
@@ -176,6 +177,7 @@ GEM
       ruby-debug-base (~> 0.10.3.0)
     ruby-debug-base (0.10.3)
       linecache (>= 0.3)
+    silence_log_tailer (0.0.1)
     simple_form (1.2.2)
     simple_nested_set (0.0.11)
       activerecord (>= 3.0.0.beta4)

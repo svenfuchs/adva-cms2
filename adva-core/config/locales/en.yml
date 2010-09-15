@@ -16,10 +16,10 @@ en:
     new:
       title: adva-cms installation
       welcome: |
-        Welcome to our less-than-one-minute installation process. 
-        Just fill in the information below and you're done. 
+        Welcome to the adva-cms less-than-one-minute installation process:
+        Just fill in a name for your site below and you're done.
         Don't worry. You can always change everything later.
-
+      section_title: Section Title
   sections:
     columns:
       section: Section
@@ -78,6 +78,8 @@ en:
       edit:
         title: Settings
   layouts:
+    default:
+      made_with: "Made with <a href=\"http://github.com/svenfuchs/adva-cms2\">adva cms 2</a>"
     admin:
       top:
         sites: Sites

@@ -43,7 +43,7 @@ When /^I click on the link from the email to (.*)$/ do |to|
 end
 
 Then /^I should not see any (\w*)$/ do |type|
-  assert_select(".#{type},.#{type.singularize}", :count => 0)
+  assert_select(".#{type.singularize}", :count => 0) # .#{type},
 end
 
 Then /^I should see an? (\w*)$/ do |type|

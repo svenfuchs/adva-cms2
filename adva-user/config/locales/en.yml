@@ -1,5 +1,11 @@
 en:
   user:
+    links:
+      sign_in: Sign in
+      sign_up: Sign up
+      forgot_password: Forgot password?
+      resend_confirmation: Resend confirmation
+      resend_unlock: Resend unlock    
     sessions:
       new:
         title: Sign in
@@ -36,14 +42,13 @@ en:
 
   layouts:
     default:
-      logged_in_as: "Logged in as %{user}"
+      signed_in_as: "Signed in as %{user}"
       sign_in: Sign in
       sign_up: Sign up
       sign_out: Sign out
 
     admin:
       header:
-        logged_in_as: "Logged in as %{user}"
         sign_in: Sign in
         sign_up: Sign up
-        sign_out: Sign out
+        sign_out: Sign out %{user}

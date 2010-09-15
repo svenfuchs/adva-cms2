@@ -35,7 +35,7 @@ module Adva
         end
 
         def active_paths
-          @active_paths ||= path_and_parents(controller.request.path)
+          @active_paths ||= path_and_parents(controller.request.fullpath)
         end
 
         def path_and_parents(path)
