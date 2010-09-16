@@ -18,8 +18,5 @@ class Admin::Posts::Form < Adva::View::Form
         f.input :slug
       end
     end
-    tab :assets do
-      self << "<h4>FOOO<h4>".html_safe
-    end
   end
 end

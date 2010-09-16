@@ -7,7 +7,7 @@ class Layouts::Default < Layouts::Base
     div :id => :page do
       div :id => :header do
         h1 site.title
-        h4 site.subtitle
+        h4 site.subtitle unless site.subtitle.blank?
         render :partial => 'layouts/default/menu'
       end
       div :id => :main do

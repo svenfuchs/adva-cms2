@@ -39,7 +39,7 @@ Feature: Managing blogs
     
     When I fill in "Title" with "Updated blog post"
      And I fill in "Body" with "Updated blog post's body"
-     And I press "Save"
+     And I press "Update"
     Then I should see an edit post form
     
     When I follow "Website"
