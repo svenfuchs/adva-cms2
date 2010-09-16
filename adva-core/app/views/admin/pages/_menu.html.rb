@@ -3,7 +3,8 @@ class Admin::Pages::Menu < Adva::View::Menu::Admin::Actions
     if resource.try(:persisted?)
       label("#{resource.title}:")
       item(:'.show', show_path)
-      item(:'.edit', edit_path)
+    else
+      item(:'.sections', index_path)
     end
   end
   
@@ -11,6 +12,8 @@ class Admin::Pages::Menu < Adva::View::Menu::Admin::Actions
     if resource.try(:persisted?)
       item(:'.view', public_url)
       item(:'.delete', resource_path, :method => :delete)
+    else
+      item(:'.new', new_path)
     end
   end
 

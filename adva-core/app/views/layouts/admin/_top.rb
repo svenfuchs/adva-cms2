@@ -2,10 +2,8 @@ class Layouts::Admin::Top < Adva::View::Menu::Admin
   id :top
 
   def main
-    # item(:'.sites', url_for([:admin, :sites]))
     if site.try(:persisted?)
       sites
-      # item(:'.site',  url_for([:admin, site]))
       sections unless site.new_record?
       item(:'.assets', url_for([:admin, site, :assets])) if defined?(Asset)
     else
@@ -24,7 +22,6 @@ class Layouts::Admin::Top < Adva::View::Menu::Admin
     def sites
       label(site.name, url_for([:admin, :sites])) do
         ul(:class => 'sites') do
-          # label(:'.sites')
           account.sites.each do |site|
             item(site.name, url_for([:admin, site])) unless site.new_record?
           end
@@ -46,7 +43,6 @@ class Layouts::Admin::Top < Adva::View::Menu::Admin
     end
 
     def active?(url, options)
-      # return false if url =~ %r(/admin/sites(/\d+)?$) && request.path != url
       return false if url =~ %r(/admin/sites$) && request.path !~ %r(/admin/sites(/\d+?)?$)
       super
     end

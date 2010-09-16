@@ -31,23 +31,3 @@ body > div > div {
 .right {
   width: 280px;
 }
-
-.header #actions .menu {
-  padding: 0;
-  margin-top: 15px;
-}
-.header #actions .main {
-  display: block;
-  float: left;
-}
-.header #actions .right {
-  display: block;
-  float: right;
-  width: auto;
-  padding-top: 4px;
-  text-align: right;
-}
-.header #actions .right a {
-  font-size: 9pt;
-}
-

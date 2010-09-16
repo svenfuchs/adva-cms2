@@ -5,6 +5,7 @@
   white-space: nowrap;
 }
 .menu li {
+  font-size: 10pt;
   position: relative;
   display: inline-block;
 }
@@ -15,7 +16,6 @@
   outline: none;
   text-decoration: none;
 }
-
 
 /* TOP MENU */
 
@@ -118,9 +118,6 @@
 #top .menu li > ul li:hover {
    background-color: #f9f9f9 !important;
 }
-#top .menu li > ul li.active {
-/*  background: transparent url(/images/adva-core/admin/menu_checkmark.png) no-repeat 16px 7px;*/
-}
 #top .menu li > ul li.active a.section:before {
   content: "●\2003\2003"; /* ugh */
   margin-left: -16px;
@@ -159,8 +156,20 @@
 
 /* ACTION MENU */
 
-.menu li {
-  font-size: 10pt;
+#actions .menu {
+  padding: 0;
+  margin-top: 15px;
+}
+#actions .main {
+  display: block;
+  float: left;
+}
+#actions .right {
+  display: block;
+  float: right;
+  width: auto;
+  padding-top: 4px;
+  text-align: right;
 }
 #actions .main li:first-child {
   margin-left: -16px;
@@ -175,7 +184,6 @@
   font-weight: normal;
 }
 #actions .main li a {
-/*  padding: 6px 16px 6px 16px;*/
   -webkit-border-top-left-radius: 5px;
   -webkit-border-top-right-radius: 5px;
   -moz-border-top-left-radius: 5px;
@@ -192,7 +200,7 @@
   padding: 0 10px;
   height: 20px;
   line-height: 20px;
-  font-size: 10pt;
+  font-size: 9pt;
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
 }
@@ -212,5 +220,5 @@
 .header .right,
 .header .right a {
   color: #999;
-  font-size: 10pt;
+  font-size: 9pt;
 }

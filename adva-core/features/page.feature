@@ -16,9 +16,6 @@ Feature: Managing pages
     When I fill in "Body" with "Updated page's body"
     When I press "Update page"
     Then I should see an edit page form
-
-    When I follow "Settings" within "#actions"
-    Then I should see an edit page form
     When I fill in "Title" with "Updated page"
      And I press "Update page"
 
@@ -28,7 +25,6 @@ Feature: Managing pages
     When I go to the admin site sections page
     Then I should see "Updated page"
     When I follow "Updated page"
-    When I follow "Settings" within "#actions"
     Then I should see an edit page form
 
     When I follow "Delete"

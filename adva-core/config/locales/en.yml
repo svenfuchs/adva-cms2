@@ -52,8 +52,6 @@ en:
         published: Published
       new:
         title: Create a New Section
-      select_type:
-        title: Choose the Type of the New Section
       show:
         title: Settings
       menu:
@@ -64,14 +62,11 @@ en:
       show:
         title: Edit Page
       new:
-        title: Create a New Page
-      edit:
-        title: Settings
-        delete: Delete
+        title: Create a New Section
       menu:
+        sections: Sections
         new: New
         show: Page
-        edit: Settings
         view: View
         delete: Delete
     posts:

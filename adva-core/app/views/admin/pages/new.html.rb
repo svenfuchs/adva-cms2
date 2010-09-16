@@ -1,8 +1,9 @@
-class Admin::Pages::New < Minimal::Template
+class Admin::Pages::New < Adva::View::Form
   def to_html
-    render 'admin/sections/select_type'
     h2 :'.title'
     
+    render 'admin/sections/select_type'
+
     simple_form_for(resources) do |f|
       f.hidden_field :type
       
