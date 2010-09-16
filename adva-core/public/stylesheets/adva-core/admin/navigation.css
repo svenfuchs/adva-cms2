@@ -136,10 +136,6 @@
 
 /* BREADCRUMBS */
 
-#breadcrumbs {
-  height: 18px;
-  margin-top: 15px;
-}
 #breadcrumbs li {
   display: inline-block;
   padding: 0 0 0 4px;
@@ -209,12 +205,12 @@
 
 /* HEADER RIGHT */
 
-#header .right {
+.header .right {
   padding: 15px 3% 0 0;
   text-align: right;
 }
-#header .right,
-#header .right a {
+.header .right,
+.header .right a {
   color: #999;
   font-size: 10pt;
 }

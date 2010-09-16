@@ -14,6 +14,8 @@ require 'adva/routing_filters/section_root'
 require 'adva/controller/abstract_actions'
 require 'adva/controller/references'
 require 'adva/testing/skip_callbacks'
+require 'adva/view/tabs'
+require 'adva/view/form'
 
 module Adva
   class Core < ::Rails::Engine
@@ -44,8 +46,10 @@ module Adva
       ActionView::Helpers::AssetTagHelper.register_javascript_expansion(
         :common  => %w(),
         :simple  => %w(),
-        :default => %w(), 
+        :default => %w(),
         :admin   => %w()
+        # :admin   => %w( adva-core/admin/sidebar 
+        #                 jquery-1.4.2.min )
       )
 
       ActionView::Helpers::AssetTagHelper.register_stylesheet_expansion(

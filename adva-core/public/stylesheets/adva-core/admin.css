@@ -7,37 +7,10 @@ body > div {
 body > div > div {
   display: table-row;
 }
-
-#header {
-  height: 75px;
+.header {
+  height: 38px;
   background-color: #fbf7e4;
 }
-#header #actions {
-  position: relative;
-  margin-top: 15px;
-  width: 100%;
-}
-#header #actions .menu {
-  padding: 0;
-}
-#header #actions .main {
-  width: 65%;
-}
-#header #actions .right {
-  width: 35%;
-  text-align: right;
-  padding: 0;
-}
-
-.main, .right {
-  display: table-cell;
-  padding: 0 3%;
-}
-.right {
-  width: 344px;
-  min-width: 344px;
-}
-
 #page {
   border-top: 4px solid #ddd;
 }
@@ -46,6 +19,35 @@ body > div > div {
   padding-bottom: 20px;
 }
 #sidebar {
+  width: 280px;
   background-color: #f6f6f6;
-  padding-bottom: 35px;
+  overflow: hidden;
 }
+
+.main, .right {
+  display: table-cell;
+  padding: 0 25px;
+}
+.right {
+  width: 280px;
+}
+
+.header #actions .menu {
+  padding: 0;
+  margin-top: 15px;
+}
+.header #actions .main {
+  display: block;
+  float: left;
+}
+.header #actions .right {
+  display: block;
+  float: right;
+  width: auto;
+  padding-top: 4px;
+  text-align: right;
+}
+.header #actions .right a {
+  font-size: 9pt;
+}
+

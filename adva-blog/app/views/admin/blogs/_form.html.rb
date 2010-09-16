@@ -15,7 +15,6 @@ class Admin::Blogs::Form < Minimal::Template
       buttons do
         f.button :submit
       end
-
     end
   end
 end
