@@ -38,7 +38,7 @@ class Layouts::Admin::Top < Adva::View::Menu::Admin
         ul(:class => 'sections') do
           site.sections.each do |section|
             # TODO hu? inherited_resources seems to use build_section, so there's a new section in the collection??
-            item(section.title, url_for([:admin, site, section])) unless section.new_record?
+            item(section.title, url_for([:admin, site, section]), :class => :section) unless section.new_record?
           end
           item(:'.new_section', url_for([:new, :admin, site, :section]))
         end

@@ -121,7 +121,7 @@
 #top .menu li > ul li.active {
 /*  background: transparent url(/images/adva-core/admin/menu_checkmark.png) no-repeat 16px 7px;*/
 }
-#top .menu li > ul li.active a:before {
+#top .menu li > ul li.active a.section:before {
   content: "●\2003\2003"; /* ugh */
   margin-left: -16px;
 }
