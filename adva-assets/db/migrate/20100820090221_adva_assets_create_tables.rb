@@ -9,7 +9,7 @@ class AdvaAssetsCreateTables < ActiveRecord::Migration
       t.string :title
       t.string :description
 
-      t.string :media_type, :limit => 25
+      t.string :media_type, :limit => 30
       t.string :mime_type,  :limit => 50
 
       t.timestamps

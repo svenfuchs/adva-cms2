@@ -14,7 +14,7 @@ class Asset < ActiveRecord::Base
   delegate :path, :filename, :extname, :basename, :current_path,
            :default_url, :base_url, :store_dir, :base_dir, :to => :file
 
-  validates :file, :presence => true
-  validates :title, :presence => true
   validates :site_id, :presence => true
+  # validates :file, :presence => true
+  # validates :title, :presence => true
 end
