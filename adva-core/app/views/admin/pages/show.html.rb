@@ -1,4 +1,4 @@
-class Admin::Pages::Show < Minimal::Template
+class Admin::Pages::Show < Adva::View::Form
   def to_html
     h2 :'.title'
 
@@ -9,6 +9,15 @@ class Admin::Pages::Show < Minimal::Template
 
       buttons do
         f.button :submit
+      end
+    end
+  end
+
+  def sidebar
+    tab :options do
+      simple_fields_for(resource) do |f|
+        f.input :title
+        f.input :slug
       end
     end
   end
