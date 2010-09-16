@@ -46,9 +46,9 @@ class Layouts::Base < Minimal::Template
       block.call
     end
 
-    def sidebar
-      block.call :sidebar
-    end
+    # def sidebar
+    #   block.call :sidebar
+    # end
 
     def name
       @name ||= self.class.name.demodulize.underscore.to_sym

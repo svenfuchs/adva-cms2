@@ -1,16 +1,25 @@
-class Admin::Posts::Form < Minimal::Template
+class Admin::Posts::Form < Adva::View::Form
   def to_html
-    form_for(resources) do |f|
+    simple_form_for(resources) do |f|
       fieldset do
-        f.label :title
-        f.text_field :title
-  
-        f.label :body
-        f.text_area :body
+        f.input :title
+        f.input :body
       end
+
       buttons do
-        f.submit resource.new_record? ? 'Create' : 'Save' # TODO
+        f.button :submit
       end
+    end
+  end
+  
+  def sidebar
+    tab :options do
+      simple_fields_for(resource) do |f|
+        f.input :slug
+      end
+    end
+    tab :assets do
+      self << "<h4>FOOO<h4>".html_safe
     end
   end
 end

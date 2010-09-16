@@ -33,14 +33,14 @@ textarea {
 input[disabled] {
   background: #DDD;
 }
-textarea {
-  height: 100px;
-}
-textarea.big {
-  height: 400px;
-}
 select {
   margin: 3px 0;
+}
+textarea {
+  height: 200px;
+}
+textarea.medium {
+  height: 100px;
 }
 input.big[type=text],
 input.big[type=password] {
