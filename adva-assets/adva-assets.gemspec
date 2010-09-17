@@ -16,9 +16,9 @@ Gem::Specification.new do |s|
   s.platform     = Gem::Platform::RUBY
   s.require_path = 'lib'
   s.rubyforge_project = '[none]'
-  
+
   s.add_dependency 'adva-core'
-  s.add_dependency 'carrierwave-rails3'
+  #s.add_dependency 'carrierwave-rails3'
   s.add_dependency 'mini_magick'
   # s.add_dependency 'has_many_polymorphs'
 end
