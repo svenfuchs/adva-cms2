@@ -38,11 +38,11 @@ module AdvaAssets
       assert asset.filename == 'rails.png'
     end
 
-    test 'asset must have a file' do
-      invalid_asset = create_asset(:file => nil)
-      assert !invalid_asset.valid?
-      assert_equal "can't be blank", invalid_asset.errors.first[1]
-    end
+    # test 'asset must have a file' do
+    #   invalid_asset = create_asset(:file => nil)
+    #   assert !invalid_asset.valid?
+    #   assert_equal "can't be blank", invalid_asset.errors.first[1]
+    # end
     
     test 'asset must have a site assignment' do
       invalid_asset = create_asset(:site => nil)
