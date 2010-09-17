@@ -16,6 +16,7 @@ gem 'adva-user',       :path => File.expand_path('../adva-user', __FILE__)
 # gem 'inherited_resources_helpers', :path => '~/Development/projects/inherited_resources_helpers'
 
 gem 'has_many_polymorphs', :git => 'git://github.com/kronn/has_many_polymorphs.git', :ref => '9b0913'
+gem 'carrierwave', :git => 'git://github.com/jnicklas/carrierwave.git', :ref => '60314c375783'
 
 group :test do
   gem 'sqlite3-ruby', '1.2.5'
