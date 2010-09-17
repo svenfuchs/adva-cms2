@@ -5,7 +5,7 @@ class Admin::Sections::SelectType < Minimal::Template
         f.label :type
         div :class => :radio_group do
           section_types_option_values.each do |name, value|
-            f.radio_button :type, value
+            f.radio_button :type, value, :class => :section_type
             f.label "type_#{value.underscore}", name, :class => :inline
           end
           f.submit 'Select', :class => :inline

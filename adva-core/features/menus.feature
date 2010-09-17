@@ -43,6 +43,5 @@ Feature: Menus
       | Settings | /admin/sites/1/edit         |        | #top .right     |
       | Home:    |                             |        | #actions .main  |
       | Page     | /admin/sites/1/pages/1      | yes    | #actions .main  |
-      | Settings | /admin/sites/1/pages/1/edit |        | #actions .main  |
       | View     | http://www.example.com/     |        | #actions .right |
       | Delete   | /admin/sites/1/pages/1      |        | #actions .right |

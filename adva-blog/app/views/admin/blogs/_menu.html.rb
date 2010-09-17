@@ -4,6 +4,8 @@ class Admin::Blogs::Menu < Adva::View::Menu::Admin::Actions
       label("#{resource.title}:")
       item(:'.show', show_path)
       item(:'.edit', edit_path)
+    else
+      item(:'.sections', index_path)
     end
   end
 
@@ -11,6 +13,8 @@ class Admin::Blogs::Menu < Adva::View::Menu::Admin::Actions
     if persisted?
       item(:'.new_item', children_new_path(:posts))
       item(:'.delete', resource_path, :method => :delete)
+    else
+      item(:'.new', new_path)
     end
   end
 
