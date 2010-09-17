@@ -118,9 +118,13 @@
 #top .menu li > ul li:hover {
    background-color: #f9f9f9 !important;
 }
-#top .menu li > ul li.active a.section:before {
+#top .menu li > ul li.active a:before {
   content: "●\2003\2003"; /* ugh */
   margin-left: -16px;
+}
+#top .menu li > ul li:last-child.active a:before {
+  content: "";
+  margin-left: 0;
 }
 
 #top .menu li > ul .level_0 { padding-left: 16px; }
@@ -172,7 +176,7 @@
   text-align: right;
 }
 #actions .main li:first-child {
-  margin-left: -16px;
+  /* margin-left: -16px;*/
 }
 #actions .right li:last-child {
   margin-right: -12px;

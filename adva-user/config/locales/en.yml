@@ -21,11 +21,11 @@ en:
     confirmations:
       new:
         title: Resend confirmation instructions
-        submit: Resend confirmation instructions
+        submit: Resend instructions
     passwords:
       new:
         title: Forgot your password?
-        submit: Send me reset password instructions
+        submit: Send instructions
       edit:
         title: Change your password
         submit: Change password

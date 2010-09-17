@@ -47,9 +47,8 @@ module Adva
         :common  => %w(),
         :simple  => %w(),
         :default => %w(),
-        :admin   => %w()
-        # :admin   => %w( adva-core/admin/sidebar 
-        #                 jquery-1.4.2.min )
+        :admin   => %w( adva-core/jquery-1.4.2.min.js
+                        adva-core/admin )
       )
 
       ActionView::Helpers::AssetTagHelper.register_stylesheet_expansion(

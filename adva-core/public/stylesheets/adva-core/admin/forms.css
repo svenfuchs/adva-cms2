@@ -127,6 +127,10 @@ input[type=submit].delete {
   margin-right: 7px;
 }
 
+#section_submit {
+  display: none;
+}
+
 
 /*button {
    border: 1px solid #8ec1da;

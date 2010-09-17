@@ -1,4 +1,4 @@
-class Confirmations::New < Minimal::Template
+class User::Confirmations::New < Minimal::Template
   def to_html
     h2 :'.title'
 

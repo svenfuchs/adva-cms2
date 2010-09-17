@@ -31,7 +31,9 @@ en:
       edit:
         title: Settings
       menu:
+        sections: Sections
         show: Posts
+        new: New
         edit: Settings
         delete: Delete
         new_item: New Post
