@@ -1,7 +1,4 @@
-gem_root = config[:gem_root]
-gemfile = File.read("#{gem_root}/Gemfile")
-gemfile = gemfile.gsub('../', '').gsub('__FILE__', "'#{gem_root}'")
+Adva::Generators::Gemfile.new("#{app_path}/Gemfile", config[:gemfile]).write
 
-create_file 'Gemfile', gemfile
 remove_file 'public/index.html'
 

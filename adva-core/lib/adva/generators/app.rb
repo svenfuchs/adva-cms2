@@ -12,17 +12,15 @@ module Adva
   module Generators
     class App
       DEFAULT_OPTIONS = {
-        :gem_root => File.expand_path('../../../../..', __FILE__),
-        :target   => File.expand_path('.'),
-        :template => File.expand_path('../templates/app/app_template.rb', __FILE__),
-        :engines  => [:all],
-        :migrate  => false,
-        :install  => false,
-        :force    => false
+        :gem_root  => File.expand_path('../../../../..', __FILE__),
+        :target    => File.expand_path('.'),
+        :template  => File.expand_path('../templates/app/app_template.rb', __FILE__),
+        :engines   => [:all],
+        :resources => false,
+        :migrate   => false,
+        :bundle    => false,
+        :force     => false
       }
-
-      attr_reader :name
-      option_reader :gem_root, :target, :template, :resources, :migrate, :install, :force
 
       def initialize(name, options = {}, &block)
         @options = options.reverse_merge!(DEFAULT_OPTIONS)
@@ -34,7 +32,7 @@ module Adva
         if force? || build?
           build
           generate_resources  if generate_resources?
-          install_bundle      if install?
+          bundle              if bundle?
           load_environment    if block_given? || migrate?
           exec(&block)        if block_given?
           install
@@ -44,53 +42,56 @@ module Adva
         end
       end
 
-      def root
-        "#{target}/#{name}"
-      end
-
-      def build
-        puts "Building application ..."
-        FileUtils.rm_r(root) if File.exists?(root)
-        in_root do
-          options = force? || ENV.key?('REGENERATE_APP') ? ['-f'] : []
-          generator = Rails::Generators::AppGenerator.new([root], options, :shell => shell)
-          generator.invoke_all
-          generator.apply(template, :gem_root => gem_root)
-          FileUtils.cp("#{gem_root}/Thorfile", "#{root}/Thorfile")
-        end
-      end
-
-      def install
-        puts "Installing adva engines ..."
-        in_root { Adva::Tasks::Install.start }
-      end
-
-      def migrate
-        puts "Migrating database ..."
-        in_root { ActiveRecord::Migrator.migrate('db/migrate/') }
-      end
-
-      def install_bundle
-        puts "Installing bundle ..."
-        in_root { run 'bundle install' }
-      end
-
-      def load_environment
-        puts "Loading environment ..."
-        in_root { require "config/environment" }
-      end
-
-      def generate_resources
-        puts "Generating resources ..."
-        FileUtils.cp(resources, "#{root}/config/resource_layout.rb")
-        run "rails generate resource_layout --generator=ingoweiss:scaffold"
-      end
-
-      def exec(&block)
-        in_root { self.instance_exec(&block) }
-      end
-
       protected
+
+        attr_reader :name
+        option_reader :gem_root, :target, :template, :engines, :resources, :migrate, :bundle, :force
+
+        def root
+          "#{target}/#{name}"
+        end
+
+        def build
+          puts "Building application ..."
+          FileUtils.rm_r(root) if File.exists?(root)
+          in_root do
+            options = force? || ENV.key?('REGENERATE_APP') ? ['-f'] : []
+            generator = Rails::Generators::AppGenerator.new([root], options, :shell => shell)
+            generator.invoke_all
+            generator.apply(template, :gemfile => { :source => "#{gem_root}/Gemfile", :engines => engines })
+            FileUtils.cp("#{gem_root}/Thorfile", "#{root}/Thorfile")
+          end
+        end
+
+        def install
+          puts "Installing adva engines ..."
+          in_root { Adva::Generators::Install.new(engines).invoke }
+        end
+
+        def migrate
+          puts "Migrating database ..."
+          in_root { ActiveRecord::Migrator.migrate('db/migrate/') }
+        end
+
+        def bundle
+          puts "Bundling gems ..."
+          in_root { run 'bundle install' }
+        end
+
+        def load_environment
+          puts "Loading environment ..."
+          in_root { require "config/environment" }
+        end
+
+        def generate_resources
+          puts "Generating resources ..."
+          FileUtils.cp(resources, "#{root}/config/resource_layout.rb")
+          run "rails generate resource_layout --generator=ingoweiss:scaffold"
+        end
+
+        def exec(&block)
+          in_root { self.instance_exec(&block) }
+        end
 
         def build?
           ENV.key?('REGENERATE_APP') || !exists?

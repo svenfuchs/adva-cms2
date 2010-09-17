@@ -6,9 +6,7 @@ ActiveRecord::Migration.verbose = false
 
 DatabaseCleaner.strategy = :truncation
 
-engines = Adva.engines
-engines.delete(Adva::Core)
-([Adva::Core] + engines).each do |engine|
+Adva.engines.each do |engine|
   engine.paths.app.each { |path| $:.unshift(path) if File.directory?(path) }
   ActiveSupport::Dependencies.autoload_paths.unshift(*engine.paths.app)
   engine.require_patches

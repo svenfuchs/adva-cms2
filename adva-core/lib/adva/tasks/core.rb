@@ -18,7 +18,6 @@ module Adva
       class_option :force,    :required => false, :type => :boolean, :default => true
 
       def perform
-        require 'adva/generators/app'
         Adva::Generators::App.new(name, symbolized_options).invoke
       end
     end
@@ -37,13 +36,10 @@ module Adva
     class Install < Thor::Group
       namespace 'adva:install'
       desc 'Install adva engines'
+      class_option :engines, :required => false, :type => :array
 
       def install
-        Adva.engines.each do |engine|
-          engine.copy_migrations.each do |path|
-            say_status 'copy migration', File.basename(path)
-          end
-        end
+        Adva::Generators::Install.new(symbolized_options(:engines)).invoke
       end
     end
   end

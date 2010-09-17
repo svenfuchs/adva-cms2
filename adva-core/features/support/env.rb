@@ -1,10 +1,9 @@
 ENV["RAILS_ENV"] = "test"
 require 'rubygems'
-require 'bundler'
-Bundler.setup
+require 'bundler/setup'
+Bundler.require
 
-require 'adva/generators/app'
-app = Adva::Generators::App.new('adva-cms2-test', :target => '/tmp', :install => true, :migrate => true)
+app = Adva::Generators::App.new('adva-cms2-test', :target => '/tmp', :migrate => true)
 app.invoke
 
 Gem.patching('webrat', '0.7.0') do
