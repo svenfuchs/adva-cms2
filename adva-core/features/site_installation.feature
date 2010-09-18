@@ -9,5 +9,7 @@ Feature: Installing a Site, creating a section with an article
       And I choose "Page"
       And I fill in "Section name" with "Home"
       And I press "Create"
-     Then I should be on the home section page
-      And I should see "Home"
+     Then I should be on the site installation confirmation page
+      And I should see "Success!"
+     When I follow "Manage your new site"
+     # TODO then I should be on the admin site edit page

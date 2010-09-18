@@ -3,6 +3,8 @@ module Adva::Core::Paths
     case page_name
     when 'the site installation page'
       new_installation_path
+    when 'the site installation confirmation page'
+      installation_path(Site.last)
     when /the home\s?page/
       '/'
     when 'the home section page'

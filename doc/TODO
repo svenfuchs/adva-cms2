@@ -6,6 +6,7 @@
 - make adva-user optional through http_auth
 - custom error pages
 - thor engine migration generator
+- figure out how to remove set_params_for_nested_resources controller filters
 
 - content filters
 - authorship

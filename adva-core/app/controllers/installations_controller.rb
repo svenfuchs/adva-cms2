@@ -1,55 +1,28 @@
 class InstallationsController < BaseController
-  defaults :resource_class => Site
-  # defaults :resource_class => Site, :collection_name => 'sites', :instance_name => 'site'
-  # belongs_to :account
+  defaults :resource_class => Site, :instance_name => 'site'
   
   layout 'simple'
-
-  respond_to :html
-
   helper :sections
-  helper_method :resources, :site
 
-  before_filter :normalize_install_params, :only => :create
-
-  # include CacheableFlash
-  # helper :base
-
-  # before_filter :protect_install, :except => :confirmation
-  #
-  # layout 'simple'
-  # renders_with_error_proc :below_field
-
-  def new
-  end
+  before_filter :set_params_for_nested_resources, :only => [:new, :create]
+  before_filter :protect_install,  :only => [:new, :create]
 
   def create
-    User.skip_callbacks do # TODO
-      account = Account.create!(params[:account])
-      account.users.first.confirm!
-      site = account.sites.create!(params[:site])
-    end
-
-    # TODO sign in, redirect to admin/sites/1
-
-    respond_with site
+    @site = Site.install(params)
+    respond_with resource
   end
 
   protected
-    def resources
-      [:admin, site]
-    end
-  
-    def site
-      @site ||= Site.new(:sections_attributes => [{ 
-        :type => 'Page', :name => t(:'adva.sites.install.section_default', :default => 'Home') 
-      }])
-    end
-
-    def normalize_install_params
-      params[:account] ||= {}
+    def set_params_for_nested_resources
       params[:site] ||= {}
-      params[:site].merge!(:host => request.host_with_port)
-      params[:site][:title] ||= params[:site][:name]
+      params[:site].reverse_merge!(:host => request.host_with_port, :title => params[:site][:name], :account_attributes => {})
+      params[:site][:sections_attributes] ||= [{ :type => 'Page' }]
+    end
+    
+    def protect_install
+      if Account.first
+        flash[:error] = t(:'flash.installation.protected')
+        redirect_to admin_sites_url
+      end
     end
 end
