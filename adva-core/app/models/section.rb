@@ -47,5 +47,6 @@ class Section < ActiveRecord::Base
 
     def set_default_name
       self.name = I18n.t(:'section.default_name', :default => 'Home') if name.blank?
+    rescue ActiveModel::MissingAttributeError # TODO seems to happen after reload in simple_nested_set
     end
 end

@@ -23,7 +23,10 @@ module AdvaCoreTests
     end
 
     test "section validates presence of :name" do
-      assert_equal ["can't be blank"], site.sections.create.errors[:name]
+      section = site.sections.create
+      section.name = ''
+      section.valid?
+      assert_equal ["can't be blank"], section.errors[:name]
     end
 
     test "sections act as a nested set" do
