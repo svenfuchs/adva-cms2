@@ -1,6 +1,6 @@
 class Admin::Assets::Menu < Adva::View::Menu::Admin::Actions
   def main
-    label("#{resource.title}:")
+    label(resource.title)
     item(:'.show', index_path)
   end
 

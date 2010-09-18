@@ -2,7 +2,7 @@ class Admin::Blogs::Menu < Adva::View::Menu::Admin::Actions
   include do
     def main
       if persisted?
-        label("#{resource.name}:")
+        label(resource.name)
         item(:'.show', show_path)
         item(:'.edit', edit_path)
       else
