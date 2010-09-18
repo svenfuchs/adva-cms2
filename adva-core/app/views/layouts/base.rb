@@ -1,5 +1,5 @@
 class Layouts::Base < Minimal::Template
-  module Base
+  include do
     def to_html
       self << doctype
       html do
@@ -54,6 +54,4 @@ class Layouts::Base < Minimal::Template
       @name ||= self.class.name.demodulize.underscore.to_sym
     end
   end
-
-  include Base
 end

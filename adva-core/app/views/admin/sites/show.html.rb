@@ -1,5 +1,7 @@
 class Admin::Sites::Show < Minimal::Template
-  def to_html
-    # dashboard
+  include do
+    def to_html
+      # dashboard
+    end
   end
 end

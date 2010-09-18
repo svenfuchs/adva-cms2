@@ -1,5 +1,7 @@
 class Pages::Show < Minimal::Template
-  def to_html
-    self << resource.article.body.html_safe
+  include do
+    def to_html
+      self << resource.article.body.html_safe
+    end
   end
 end
