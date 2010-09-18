@@ -35,17 +35,17 @@ module AdvaAssets
       assert_equal image.errors.first[1], "is not an allowed type of file."
     end
 
-    test "raises an exception for invalid images" do
-      file = fixtures.join('test.txt.jpg')
-      assert File.exists?(file)
-      exception_raised = false
-      begin
-        create_image(:file => File.open(file))
-      rescue
-        exception_raised = true
-      end
-      assert exception_raised
-    end
+    # test "raises an exception for invalid images" do
+    #   file = fixtures.join('test.txt.jpg')
+    #   assert File.exists?(file)
+    #   exception_raised = false
+    #   begin
+    #     create_image(:file => File.open(file))
+    #   rescue
+    #     exception_raised = true
+    #   end
+    #   assert exception_raised
+    # end
 
     test "processes the size of image" do
       image = CarrierWave::Test::Matchers::ImageLoader.load_image(create_image.path)
