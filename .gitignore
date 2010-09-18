@@ -5,3 +5,4 @@ tmp
 .bundle/*
 *.zip
 *.sqlite3
+public/sites

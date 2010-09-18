@@ -36,16 +36,20 @@ ul.links li:before {
 
 /* FLASH */
 
-.flash {
-  padding: 0.75em 0;
-  margin: 0 -10% 0 -10%;
+p.flash {
   text-align: center;
+  padding: 10px;
 }
-.flash.notice {
+#flash_notice {
   background: #cfc;
   color: #051;
 }
-.flash.error {
+#flash_error {
+  background: #e6acb6;
+  color: #510;
+}
+
+#flash_alert {
   background: #e6acb6;
   color: #510;
 }
@@ -55,7 +59,7 @@ ul.links li:before {
 .actions a {
   display: inline-block;
   width: 16px;
-  height: 16px; 
+  height: 16px;
   margin-left: 4px;
   text-indent: 16px;
   overflow: hidden;

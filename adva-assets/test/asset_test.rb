@@ -29,7 +29,6 @@ module AdvaAssets
       assert asset.valid?
       assert File.exists?(asset.path)
       assert File.exists?(asset.current_path)
-      # assert asset.file_url == asset.base_url + '/rails.png'
       assert asset.title == 'title'
       assert asset.description == 'description'
       assert asset.basename == 'rails'
