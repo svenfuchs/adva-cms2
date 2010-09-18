@@ -20,7 +20,7 @@ class Admin::Sites::New < Adva::View::Form
       fieldset do
         form.simple_fields_for(:sections) do |s|
           column do
-            s.input :name, :label => "Section name" # TODO i18n
+            s.input :name, :label => t(:'.section_name')
           end
 
           column do

@@ -15,7 +15,7 @@ Rails.application.routes.draw do
   match 'pages/:id',              :to => 'pages#show',    :as => :page
   match 'pages/:page_id/article', :to => 'articles#show', :as => :page_article
 
-  resources :installations, :only => [:new, :create]
+  resources :installations, :only => [:new, :create, :show]
 
   root :to => redirect('/installations/new') # should only match if no root section is present
 end

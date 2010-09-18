@@ -5,6 +5,7 @@ class Layouts::Simple < Layouts::Base
         div :id => 'page' do
           div :class => 'main' do
             div :id => 'content' do
+              render :partial => 'layouts/flash'
               content
             end
           end

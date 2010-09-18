@@ -11,6 +11,8 @@ en:
       destroy:
         notice: '%{resource_name} successfully deleted.'
         alert:  '%{resource_name} could not be deleted.'
+    installation:
+      protected: Installation is already complete. Please log in with your admin account.
 
   installations:
     new:
@@ -20,6 +22,11 @@ en:
         Just fill in a name for your site below and you're done.
         Don't worry. You can always change everything later.
       section_name: Section Name
+    show:
+      title: Success!
+      confirm: You have successfully created your site. Enjoy!
+      link_to_admin: "Manage your new site &raquo;"
+
   sections:
     columns:
       section: Section
@@ -31,6 +38,7 @@ en:
         title: Sites
       new:
         title: Create a New Site
+        section_name: Section Name
       edit:
         title: Site Settings
       show:
@@ -98,8 +106,7 @@ en:
   section:
     types:
       page: Page
-    titles:
-      behaviour: Behaviour
+    default_name: Home
 
   simple_form:
     "yes": 'Yes'

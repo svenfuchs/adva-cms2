@@ -7,11 +7,9 @@ class Section < ActiveRecord::Base
   has_slug :scope => :site_id
   acts_as_nested_set # FIXME scope to site_id
 
-  # has_option :contents_per_page, :default => 15
-  # validates_uniqueness_of :slug, :scope => [:site_id, :parent_id]
+  after_initialize :set_default_name
 
-  # after_move :update_path
-  # after_move :update_paths
+  # validates_uniqueness_of :slug, :scope => [:site_id, :parent_id]
 
   mattr_accessor :types
   self.types = []
@@ -45,5 +43,9 @@ class Section < ActiveRecord::Base
 
     def _path
       read_attribute(:path)
+    end
+
+    def set_default_name
+      self.name = I18n.t(:'section.default_name', :default => 'Home') if name.blank?
     end
 end
