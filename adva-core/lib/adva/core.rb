@@ -17,6 +17,8 @@ require 'adva/testing/skip_callbacks'
 require 'adva/view/tabs'
 require 'adva/view/form'
 
+require 'core_ext/ruby/module/include_anonymous'
+
 module Adva
   class Core < ::Rails::Engine
     include Adva::Engine
