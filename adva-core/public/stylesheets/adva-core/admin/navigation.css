@@ -187,6 +187,9 @@
   padding: 6px 16px 0 16px;
   font-weight: normal;
 }
+#actions h4:after {
+  content: ':';
+}
 #actions .main li a {
   -webkit-border-top-left-radius: 5px;
   -webkit-border-top-right-radius: 5px;
