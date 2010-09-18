@@ -1,4 +1,6 @@
 + resource url and link helpers
++ improve view/form extensibility by using a base module
++ rename Section#title to Section#name
 
 - fix installation controller and view, add admin user, add safeguard
 - make adva-user optional through http_auth
