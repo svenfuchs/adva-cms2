@@ -13,7 +13,7 @@ module AdvaAssets
     def setup
       super
       @site = Site.create!(:account => Account.create!, :name => 'site', :title => 'site',
-        :host => 'www.siewert-kau.de', :sections_attributes => [{ :title => 'title', :type => 'Page' }])
+        :host => 'www.siewert-kau.de', :sections_attributes => [{ :name => 'title', :type => 'Page' }])
       @fixtures = Pathname.new(File.expand_path('../fixtures', __FILE__))
       @file = fixtures.join('rails.png')
     end

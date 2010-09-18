@@ -9,27 +9,27 @@ module AdvaCoreTests
         :name  => 'Site 1',
         :title => 'Site title',
         :host  => 'localhost:3000',
-        :sections_attributes => [ { :type => 'Page', :title => 'Home' } ]
+        :sections_attributes => [ { :type => 'Page', :name => 'Home' } ]
       )
     end
 
     def section
-      @section ||= site.sections.create(:title => 'Section title')
+      @section ||= site.sections.create(:name => 'Section name')
     end
 
     test "section creation" do
-      section = site.sections.create(:title => 'Section title')
+      section = site.sections.create(:name => 'Section name')
       assert section.valid?
     end
 
-    test "section validates presence of :title" do
-      assert_equal ["can't be blank"], site.sections.create.errors[:title]
+    test "section validates presence of :name" do
+      assert_equal ["can't be blank"], site.sections.create.errors[:name]
     end
 
     test "sections act as a nested set" do
       root = site.sections.first
-      node_1 = site.sections.create!(:title => 'node 1', :parent_id => root.id)
-      node_2 = site.sections.create!(:title => 'node 2', :parent_id => node_1.id)
+      node_1 = site.sections.create!(:name => 'node 1', :parent_id => root.id)
+      node_2 = site.sections.create!(:name => 'node 2', :parent_id => node_1.id)
 
       [node_1, node_2].map(&:reload)
 
@@ -44,12 +44,12 @@ module AdvaCoreTests
 
     test "a section has its path denormalized (happens in simple_nested_set) and strips the home section path off (on read)" do
       root_1 = site.sections.first
-      node_1 = site.sections.create!(:title => 'node 1', :parent => root_1)
-      node_2 = site.sections.create!(:title => 'node 2', :parent => node_1)
+      node_1 = site.sections.create!(:name => 'node 1', :parent => root_1)
+      node_2 = site.sections.create!(:name => 'node 2', :parent => node_1)
 
-      root_2 = site.sections.create!(:title => 'root 2')
-      node_3 = site.sections.create!(:title => 'node 3', :parent => root_2)
-      node_4 = site.sections.create!(:title => 'node 4', :parent => node_3)
+      root_2 = site.sections.create!(:name => 'root 2')
+      node_3 = site.sections.create!(:name => 'node 3', :parent => root_2)
+      node_4 = site.sections.create!(:name => 'node 4', :parent => node_3)
 
       assert_equal 'home',                 root_1.reload.read_attribute(:path)
       assert_equal 'home/node-1',          node_1.reload.read_attribute(:path)
@@ -62,12 +62,12 @@ module AdvaCoreTests
 
     # test "Section.paths returns all paths w/ home section path stripped off" do
     #   root_1 = site.sections.first
-    #   node_1 = site.sections.create!(:title => 'node 1', :parent => root_1)
-    #   node_2 = site.sections.create!(:title => 'node 2', :parent => node_1)
+    #   node_1 = site.sections.create!(:name => 'node 1', :parent => root_1)
+    #   node_2 = site.sections.create!(:name => 'node 2', :parent => node_1)
     #
-    #   root_2 = site.sections.create!(:title => 'root 2')
-    #   node_3 = site.sections.create!(:title => 'node 3', :parent => root_2)
-    #   node_4 = site.sections.create!(:title => 'node 4', :parent => node_3)
+    #   root_2 = site.sections.create!(:name => 'root 2')
+    #   node_3 = site.sections.create!(:name => 'node 3', :parent => root_2)
+    #   node_4 = site.sections.create!(:name => 'node 4', :parent => node_3)
     #
     #   paths = ['', 'node-1', 'node-1/node-2', 'root-2', 'root-2/node-3', 'root-2/node-3/node-4']
     #   assert_equal paths, site.sections.paths

@@ -1,7 +1,7 @@
 Feature: Menus
   Scenario: Admin Blogs
     Given I am signed in with "admin@admin.org" and "admin"
-    And a blog titled "Blog"
+    And a blog named "Blog"
     And I am on the admin "Blog" section page
     Then the menu should contain the following items:
       | text     | url                              | active | menu            |
@@ -17,7 +17,7 @@ Feature: Menus
 
   Scenario: Admin Posts
     Given I am signed in with "admin@admin.org" and "admin"
-    And a blog titled "Blog"
+    And a blog named "Blog"
     And a post with the title "Post" for the blog "Blog"
     And I am on the admin edit post page for the post "Post"
     Then the menu should contain the following items:

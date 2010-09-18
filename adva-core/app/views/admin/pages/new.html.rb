@@ -9,7 +9,7 @@ class Admin::Pages::New < Adva::View::Form
     def fields
       fieldset do
         form.hidden_field :type
-        form.input :title
+        form.input :name
         form.simple_fields_for(:article) do |a|
           a.input :body
         end

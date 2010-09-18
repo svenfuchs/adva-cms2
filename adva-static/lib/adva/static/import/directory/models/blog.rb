@@ -27,7 +27,7 @@ module Adva
             end
 
             def attribute_names
-              [:type, :path, :title, :posts_attributes]
+              [:type, :path, :name, :posts_attributes]
             end
 
             def model

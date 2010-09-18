@@ -9,8 +9,8 @@ class Installations::New < Minimal::Template
         f.text_field :name
 
         f.fields_for(:sections) do |s|
-          s.label :title, t(:'.section_title')
-          s.text_field :title
+          s.label :name, t(:'.section_name')
+          s.text_field :name
 
           s.label :type
           section_types_option_values.each do |name, value|

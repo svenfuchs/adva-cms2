@@ -8,7 +8,7 @@ Feature: Managing pages
      And the "Page" radio button should be checked
      And I should see a new page form
 
-    When I fill in "Title" with "Brand new page"
+    When I fill in "Name" with "Brand new page"
      And I fill in "Body" with "The brand new page's body"
      And I press "Create page"
     Then I should see an edit page form
@@ -16,7 +16,7 @@ Feature: Managing pages
     When I fill in "Body" with "Updated page's body"
     When I press "Update page"
     Then I should see an edit page form
-    When I fill in "Title" with "Updated page"
+    When I fill in "Name" with "Updated page"
      And I press "Update page"
 
     When I follow "Website"

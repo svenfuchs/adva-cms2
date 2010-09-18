@@ -41,7 +41,7 @@ module Tests
           post = blog.posts.first
 
           assert_equal 'ruby-i18n.org', site.host
-          assert_equal 'Home', blog.title
+          assert_equal 'Home', blog.name
           assert_equal 'Welcome To The Future Of I18n In Ruby On Rails', post.title
         end
 
@@ -55,7 +55,7 @@ module Tests
           post = blog.posts.first
 
           assert_equal 'ruby-i18n.org', site.host
-          assert_equal 'Home', blog.title
+          assert_equal 'Home', blog.name
           assert_equal 'Welcome To The Future Of I18n In Ruby On Rails', post.title
         end
 
@@ -75,8 +75,8 @@ module Tests
           post = blog.posts.first
 
           assert_equal 'ruby-i18n.org', site.host
-          assert_equal 'Home', page.title
-          assert_equal 'Blog', blog.title
+          assert_equal 'Home', page.name
+          assert_equal 'Blog', blog.name
           assert_equal 'Welcome To The Future Of I18n In Ruby On Rails', post.title
         end
 
@@ -91,9 +91,9 @@ module Tests
           mailer  = site.sections.third
 
           assert_equal 'ruby-i18n.org', site.host
-          assert_equal 'Home', page.title
-          assert_equal 'Contact', contact.title
-          assert_equal 'Mailer', mailer.title
+          assert_equal 'Home', page.name
+          assert_equal 'Contact', contact.name
+          assert_equal 'Mailer', mailer.name
         end
 
         test "import!(path) syncs changes to /index.yml (existing root page)" do
@@ -101,15 +101,15 @@ module Tests
           setup_root_page
 
           section = Page.find_by_slug('home')
-          section.update_attributes!(:title => 'will be overwritten')
+          section.update_attributes!(:name => 'will be overwritten')
           section.article.update_attributes!(:body => 'will be overwritten')
-          assert_equal 'will be overwritten', section.reload.title
+          assert_equal 'will be overwritten', section.reload.name
           assert_equal 'will be overwritten', section.article.reload.body
 
           path = 'index.yml'
           Adva::Static::Import::Directory.new(:source => root).import!(path)
 
-          assert_equal 'Home', section.reload.title
+          assert_equal 'Home', section.reload.name
           assert_equal 'home', section.article.reload.body
         end
 
@@ -118,15 +118,15 @@ module Tests
           setup_non_root_page
 
           section = Page.find_by_slug('contact')
-          section.update_attributes!(:title => 'will be overwritten')
+          section.update_attributes!(:name => 'will be overwritten')
           section.article.update_attributes!(:body => 'will be overwritten')
-          assert_equal 'will be overwritten', section.reload.title
+          assert_equal 'will be overwritten', section.reload.name
           assert_equal 'will be overwritten', section.article.reload.body
 
           path = 'contact.yml'
           Adva::Static::Import::Directory.new(:source => root).import!(path)
 
-          assert_equal 'Contact', section.reload.title
+          assert_equal 'Contact', section.reload.name
           assert_equal 'contact', section.article.reload.body
         end
 
@@ -138,7 +138,7 @@ module Tests
           Adva::Static::Import::Directory.new(:source => root).import!(path)
 
           section = Page.find_by_slug('contact')
-          assert_equal 'Contact', section.reload.title
+          assert_equal 'Contact', section.reload.name
           assert_equal 'contact', section.article.reload.body
         end
 
@@ -188,7 +188,7 @@ module Tests
               'id' => page_id,
               'site_id' => site_id,
               'type' => 'Page',
-              'title' => 'Home',
+              'name' => 'Home',
               'path' => 'home',
               'article_attributes' => {
                 'id' => article_id,

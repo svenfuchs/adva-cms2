@@ -7,10 +7,10 @@ Before do
     :host  => 'www.example.com',
     :title => "adva-cms",
     :sections_attributes => [{
-      :type  => 'Page',
-      :title => 'Home',
+      :type => 'Page',
+      :name => 'Home',
       :article_attributes => {
-        :body  => 'Body'
+        :body => 'Body'
       }
     }]
   )

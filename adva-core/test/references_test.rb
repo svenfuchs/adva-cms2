@@ -14,7 +14,7 @@ module AdvaCoreTests
       ActionController::Base.skip_before_filter(:authenticate_user!)
       super
 
-      @site = Site.create!(:name => 'site', :title => 'site', :host => 'example.org', :sections_attributes => [{ :type => 'Page', :title => 'home' }])
+      @site = Site.create!(:name => 'site', :title => 'site', :host => 'example.org', :sections_attributes => [{ :type => 'Page', :name => 'home' }])
       @page = site.pages.first
     end
     
@@ -22,7 +22,7 @@ module AdvaCoreTests
       process_action_rendering(:show, :id => page.id) do
         site.name
         site.title
-        resource.title
+        resource.name
       end
       tags = controller.response.headers[ReferenceTracking::TAGS_HEADER]
       assert_equal %W(site-#{site.id}:name site-#{site.id}:title page-#{page.id}), tags

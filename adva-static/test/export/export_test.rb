@@ -22,7 +22,7 @@ module AdvaStatic
         :host => 'localhost:3000',
         :title => 'Site Title',
         :name => 'Site Name',
-        :sections_attributes => [{ :title => 'Home' }]
+        :sections_attributes => [{ :name => 'Home' }]
       )
       @exporter = Adva::Static::Export.new(Application.new, :target => '/tmp/adva-static-test/export')
     end

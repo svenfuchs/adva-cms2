@@ -2,7 +2,7 @@ class Admin::Pages::Menu < Adva::View::Menu::Admin::Actions
   include do
     def main
       if resource.try(:persisted?)
-        label("#{resource.title}:")
+        label("#{resource.name}:")
         item(:'.show', show_path)
       else
         item(:'.sections', index_path)
