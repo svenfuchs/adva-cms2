@@ -8,7 +8,7 @@ module Adva::Core::Paths
     when 'the home section page'
       '/'
     when /the "([^"]*)" section page/
-      section = Section.where(:title => $1).first
+      section = Section.where(:name => $1).first
       polymorphic_path(section)
     when 'the sign in page'
       new_user_session_path
@@ -24,10 +24,10 @@ module Adva::Core::Paths
     when 'the admin site sections page'
       polymorphic_path([:admin, Site.first, :sections])
     when /the admin "([^"]*)" section page/
-      section = Section.where(:title => $1).first || raise("could not find section named #{$1}")
+      section = Section.where(:name => $1).first || raise("could not find section named #{$1}")
       polymorphic_path([:admin, Site.first, section])
     when /the admin posts list page of the "([^"]*)" blog/
-      section = Blog.find_by_title($1) || raise("could not find blog #{$1.inspect}")
+      section = Blog.find_by_name($1) || raise("could not find blog #{$1.inspect}")
       polymorphic_path([:admin, section.site, section])
     when /the admin edit post page for the post "([^"]*)"/
       post = Post.find_by_title($1) || raise("could not find post #{$1.inspect}")

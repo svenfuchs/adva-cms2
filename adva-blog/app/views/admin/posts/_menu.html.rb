@@ -1,7 +1,7 @@
 class Admin::Posts::Menu < Adva::View::Menu::Admin::Actions
   include do
     def main
-      label("#{resource.section.title}:") # TODO can we use css for the colon?
+      label("#{resource.section.name}:") # TODO can we use css for the colon?
       item(:'.show', parent_show_path)
       item(:'.edit_parent', parent_edit_path)
     end

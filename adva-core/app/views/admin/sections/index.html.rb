@@ -15,7 +15,7 @@ class Admin::Sections::Index < Minimal::Template
     end
   
     def link_to_section(section)
-      status(section) + capture { link_to(section.title, url_for([:admin, site, section])) } # :class => section.state
+      status(section) + capture { link_to(section.name, url_for([:admin, site, section])) } # :class => section.state
     end
   
     def link_to_edit(section)

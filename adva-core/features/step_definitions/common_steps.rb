@@ -9,7 +9,7 @@ Given /^I am signed in with "([^"]*)" and "([^"]*)"$/ do |email, password|
   click_button 'Sign in'
 end
 
-# e.g. a blog titled "Blog"
+# e.g. a blog named "Blog"
 Given /^an? (.*) (name|title)d "([^"]+)"$/ do |model, attribute, value|
   model = model.classify.constantize
   attributes = { attribute => value }
@@ -19,8 +19,8 @@ Given /^an? (.*) (name|title)d "([^"]+)"$/ do |model, attribute, value|
 end
 
 # e.g. a post with the title "Post" for the blog "Blog"
-Given /^an? (.*) with the (\w+) "([^"]+)" for the (\w+) "([^"]+)"$/ do |model, attribute, value, section, title|
-  section = Given(%(a #{section} titled "#{title}"))
+Given /^an? (.*) with the (\w+) "([^"]+)" for the (\w+) "([^"]+)"$/ do |model, attribute, value, section, name|
+  section = Given(%(a #{section} named "#{name}"))
   collection = section.send(model.underscore.pluralize)
   attributes = { attribute => value }
   collection.find(:first, :conditions => attributes) || collection.create!(attributes)
@@ -73,8 +73,8 @@ Then /^I should see a table "(.*)" with the following entries:$/ do |table_id, e
   end
 end
 
-Then(/^I should see the "([^"]+)" page$/) do |title|
-  assert_select('h2', title)
+Then(/^I should see the "([^"]+)" page$/) do |name|
+  assert_select('h2', name)
 end
 
 Then(/(?:\$|eval) (.*)$/) do |code|

@@ -12,9 +12,9 @@ module AdvaCoreTests
 
     def setup
       @site    = Site.create!(:name => 'site', :title => 'site', :host => 'www.example.com')
-      @root    = site.pages.create!(:title => 'root')
-      @page    = site.pages.create!(:title => 'page')
-      @blog    = site.blogs.create!(:title => 'blog')
+      @root    = site.pages.create!(:name => 'root')
+      @page    = site.pages.create!(:name => 'page')
+      @blog    = site.blogs.create!(:name => 'blog')
       @filter  = RoutingFilter::SectionRoot.new
 
       [root, page, blog].map(&:reload)

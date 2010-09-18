@@ -27,27 +27,27 @@ module Tests
 
           def setup_site_record
             ::Site.create!(:host => 'ruby-i18n.org', :name => 'name', :title => 'title', :sections_attributes => [
-              { :type => 'Page', :title => 'Home' }
+              { :type => 'Page', :name => 'Home' }
             ])
           end
 
           def setup_non_root_page_record
             site = setup_site_record
-            site.pages.create!(:title => 'Contact')
+            site.pages.create!(:name => 'Contact')
           end
 
           def setup_root_blog_record
             site = setup_site_record
             site.pages.first.destroy
 
-            site.blogs.create!(:title => 'Home', :posts_attributes => [
+            site.blogs.create!(:name => 'Home', :posts_attributes => [
               { :title => 'Welcome to the future of I18n in Ruby on Rails', :body => 'Welcome to the future!', :created_at => '2008-07-31' }
             ])
           end
 
           def setup_non_root_blog_record
             site = setup_site_record
-            site.blogs.create!(:title => 'Blog', :posts_attributes => [
+            site.blogs.create!(:name => 'Blog', :posts_attributes => [
               { :title => 'Welcome to the future of I18n in Ruby on Rails', :body => 'Welcome to the future!', :created_at => '2008-07-31' }
             ])
           end

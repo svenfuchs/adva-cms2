@@ -26,7 +26,7 @@ module Adva
             end
           
             def attribute_names
-              [:site_id, :type, :path, :title, :article_attributes]
+              [:site_id, :type, :path, :name, :article_attributes]
             end
           
             def model
@@ -34,7 +34,7 @@ module Adva
             end
         
             def article_attributes
-              attributes = { :title => title, :body => body }
+              attributes = { :title => name, :body => body }
               record.article && record.id ? attributes.merge(:id => record.article.id.to_s) : attributes
             end
           end

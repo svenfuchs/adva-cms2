@@ -17,7 +17,7 @@ class Admin::Pages::Show < Adva::View::Form
 
     def sidebar
       tab :options do
-        form.input :title
+        form.input :name
         form.input :slug
       end
     end

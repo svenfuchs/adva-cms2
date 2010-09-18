@@ -30,8 +30,8 @@ module Adva
               model.name
             end
 
-            def title
-              @title ||= source.root? ? 'Home' : File.basename(source.local).to_s.titleize
+            def name
+              @name ||= source.root? ? 'Home' : File.basename(source.local).to_s.titleize
             end
 
             def path

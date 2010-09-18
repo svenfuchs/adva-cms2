@@ -19,7 +19,7 @@ module Tests
             assert site.valid?
             assert_equal 'ruby-i18n.org', site.host
             assert_equal 'Blog', blog.class.name
-            assert_equal 'Home', blog.title
+            assert_equal 'Home', blog.name
             assert_equal 'Welcome To The Future Of I18n In Ruby On Rails', post.title
           end
 
@@ -36,7 +36,7 @@ module Tests
             assert site.valid?
             assert_equal 'ruby-i18n.org', site.host
             assert_equal 'Blog', blog.class.name
-            assert_equal 'Home', blog.title
+            assert_equal 'Home', blog.name
             assert_equal 'Welcome To The Future Of I18n In Ruby On Rails', post.title
           end
 
@@ -53,7 +53,7 @@ module Tests
             assert site.valid?
             assert_equal 'ruby-i18n.org', site.host
             assert_equal 'Blog', blog.class.name
-            assert_equal 'Blog', blog.title
+            assert_equal 'Blog', blog.name
             assert_equal 'Welcome To The Future Of I18n In Ruby On Rails', post_1.title
             assert_equal 'Ruby I18n Gem Hits 0 2 0', post_2.title
           end
@@ -72,7 +72,7 @@ module Tests
             assert site.valid?
             assert_equal 'ruby-i18n.org', site.host
             assert_equal 'Blog', blog.class.name
-            assert_equal 'Blog', blog.title
+            assert_equal 'Blog', blog.name
             assert_equal 'Welcome To The Future Of I18n In Ruby On Rails', post_1.title
             assert_equal 'Ruby I18n Gem Hits 0 2 0', post_2.title
           end
@@ -93,7 +93,7 @@ module Tests
             assert site.valid?
             assert_equal 'ruby-i18n.org', site.host
             assert_equal 'Blog', blog.class.name
-            assert_equal 'Blog', blog.title
+            assert_equal 'Blog', blog.name
             assert_equal 'Welcome To The Future Of I18n In Ruby On Rails', post.title
           end
         end

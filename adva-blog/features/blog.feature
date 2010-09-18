@@ -13,12 +13,12 @@ Feature: Managing blogs
     Then I should see a new blog form
      And the "Page" radio button should not be checked
      And the "Blog" radio button should be checked
-     And I fill in "Title" with "Brand new blog"
+     And I fill in "Name" with "Brand new blog"
      And I press "Create blog"
     Then I should be on the admin posts list page of the "Brand new blog" blog
      But I should not see any posts
     When I follow "Settings" within "#actions"
-     And I fill in "Title" with "Updated blog"
+     And I fill in "Name" with "Updated blog"
     When I press "Update blog"
     Then I should see an edit blog form
     

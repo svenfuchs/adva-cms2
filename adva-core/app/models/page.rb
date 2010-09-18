@@ -4,6 +4,6 @@ class Page < Section
   accepts_nested_attributes_for :article
 
   before_validation do
-    build_article(:site => site, :section => self, :title => title) unless article.present?
+    build_article(:site => site, :section => self, :title => name) unless article.present?
   end
 end

@@ -14,7 +14,7 @@ module AdvaBlogTests
       end
 
       @site = Site.create!(:name => 'site', :title => 'site', :host => 'example.org', :sections_attributes => [{ 
-        :type => 'Blog', :title => 'home', :posts_attributes => [{ :title => 'first post' }, { :title => 'second post' }]
+        :type => 'Blog', :name => 'home', :posts_attributes => [{ :title => 'first post' }, { :title => 'second post' }]
       }])
       @blog  = site.blogs.first
       @posts = blog.posts

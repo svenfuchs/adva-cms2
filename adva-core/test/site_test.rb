@@ -11,7 +11,7 @@ module AdvaCoreTests
         :name  => 'Site 1',
         :title => 'Site title',
         :host  => 'localhost:3000',
-        :sections_attributes => [ { :type => 'Page', :title => 'Home' } ]
+        :sections_attributes => [ { :type => 'Page', :name => 'Home' } ]
       }
     end
   
@@ -43,9 +43,9 @@ module AdvaCoreTests
     end
   
     # test "site has one home section" do
-    #   site_params[:sections_attributes] << { :type => 'Page', :title => 'Contact' }
+    #   site_params[:sections_attributes] << { :type => 'Page', :name => 'Contact' }
     #   site = Site.create(site_params)
-    #   assert_equal 'Home', site.home_section.title
+    #   assert_equal 'Home', site.home_section.name
     # end
   
     # test "site validates presence of the home section" do

@@ -19,8 +19,8 @@ module Tests
     
           test "Blog loads index.yml if present" do
             setup_root_blog
-            setup_files(['index.yml', YAML.dump('title' => 'the blog')])
-            assert_equal 'the blog', Blog.new(root).title
+            setup_files(['index.yml', YAML.dump('name' => 'the blog')])
+            assert_equal 'the blog', Blog.new(root).name
           end
         end
       end

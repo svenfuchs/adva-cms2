@@ -5,7 +5,7 @@ class Admin::Blogs::Form < Adva::View::Form
 
       fieldset do
         column do
-          form.input :title
+          form.input :name
         end
 
         column do

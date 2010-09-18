@@ -19,7 +19,7 @@ en:
         Welcome to the adva-cms less-than-one-minute installation process:
         Just fill in a name for your site below and you're done.
         Don't worry. You can always change everything later.
-      section_title: Section Title
+      section_name: Section Name
   sections:
     columns:
       section: Section

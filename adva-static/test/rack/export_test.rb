@@ -10,7 +10,7 @@ module AdvaStatic
     
     def setup
       ::Site.create!(:host => 'ruby-i18n.org', :name => 'name', :title => 'title', :sections_attributes => [
-        { :type => 'Page', :title => 'Home' }
+        { :type => 'Page', :name => 'Home' }
       ])
       super
     end

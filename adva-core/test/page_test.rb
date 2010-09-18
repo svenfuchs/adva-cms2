@@ -9,10 +9,10 @@
 #         :host => 'localhost:3000',
 #         :title => 'Site Title',
 #         :name => 'Site Name',
-#         :sections_attributes => [{ :title => 'Home' }]
+#         :sections_attributes => [{ :name => 'Home' }]
 #       )
 #       @page_params = {
-#         :title => 'Page title',
+#         :name => 'Page name',
 #         :site_id => @site.id,
 #         :article_attributes => { :title => 'Article Title', :body => 'Body' }
 #       }

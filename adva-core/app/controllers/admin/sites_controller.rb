@@ -7,7 +7,7 @@ class Admin::SitesController < Admin::BaseController
   protected
 
     def set_params_for_nested_resources
-      params[:site] ||= { :host => request.host, :sections_attributes => [{ :title => '' }] }
+      params[:site] ||= { :host => request.host, :sections_attributes => [{ :name => '' }] }
     end
 
     def set_account

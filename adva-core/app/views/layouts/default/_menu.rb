@@ -3,7 +3,7 @@ class Layouts::Default::Menu < Adva::View::Menu
     def to_html
       ul(:id => :menu) do
         site.sections.each do |section|
-          item(section.title, url_for(section))
+          item(section.name, url_for(section))
         end
       end
     end

@@ -42,7 +42,7 @@ class InstallationsController < BaseController
   
     def site
       @site ||= Site.new(:sections_attributes => [{ 
-        :type => 'Page', :title => t(:'adva.sites.install.section_default', :default => 'Home') 
+        :type => 'Page', :name => t(:'adva.sites.install.section_default', :default => 'Home') 
       }])
     end
 
