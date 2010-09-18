@@ -28,7 +28,7 @@ module Adva
     end
 
     initializer 'adva-core.require_section_types' do
-      config.to_prepare { require_dependency 'page' } # TODO is there a concept of "reloadable" initializers?
+      config.to_prepare { require_dependency 'page' }
     end
 
     initializer 'adva-core.setup_minimal' do
