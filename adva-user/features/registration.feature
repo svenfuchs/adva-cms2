@@ -5,7 +5,7 @@ Feature: Registration
      When I fill in "Email" with "john@doe.com"
       And I fill in "Password" with "password"
       And I fill in "Password confirmation" with "password"
-      And I press "Create User"
+      And I press "Sign up"
      Then I should be on the sign in page
       And the following emails should have been sent:
         | to              | subject                   | body                 |

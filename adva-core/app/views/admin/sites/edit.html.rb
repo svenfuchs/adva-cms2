@@ -1,22 +1,19 @@
-class Admin::Sites::Edit < Minimal::Template
+class Admin::Sites::Edit < Adva::View::Form
   def to_html
     h2 :'.title'
+    super
+  end
 
-    simple_form_for(resources) do |f|
-      fieldset do
-        column do
-          f.input :name
-          f.input :title
-        end
-
-        column do
-          f.input :host
-          f.input :subtitle
-        end
+  def fields
+    fieldset do
+      column do
+        form.input :name
+        form.input :title
       end
 
-      buttons do
-        f.button :submit
+      column do
+        form.input :host
+        form.input :subtitle
       end
     end
   end

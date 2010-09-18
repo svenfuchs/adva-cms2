@@ -12,17 +12,17 @@ module AdvaCoreTests
     
     test 'with_engines' do
       gemfile = Adva::Generators::Gemfile.new('/tmp', :source => source, :engines => [:core])
-      assert_match %r('adva-core'.*'../adva-core'), gemfile.send(:with_engines)
-      assert_no_match %r('adva-blog'.*'../adva-blog'), gemfile.send(:with_engines)
+      assert_match %r('adva-core'.*adva-cms2/adva-core'), gemfile.send(:with_engines)
+      assert_no_match %r('adva-blog'.*adva-cms2/adva-blog'), gemfile.send(:with_engines)
 
       gemfile = Adva::Generators::Gemfile.new('/tmp', :source => source, :engines => [:core, :blog])
-      assert_match %r('adva-core'.*'../adva-core'), gemfile.send(:with_engines)
-      assert_match %r('adva-blog'.*'../adva-blog'), gemfile.send(:with_engines)
+      assert_match %r('adva-core'.*adva-cms2/adva-core'), gemfile.send(:with_engines)
+      assert_match %r('adva-blog'.*adva-cms2/adva-blog'), gemfile.send(:with_engines)
     end
     
     test 'engine_lines' do
       gemfile = Adva::Generators::Gemfile.new('/tmp', :source => source, :engines => [:core])
-      assert_match %r('adva-core'.*'../adva-core'), gemfile.send(:engine_lines).first
+      assert_match %r('adva-core'.*adva-cms2/adva-core'), gemfile.send(:engine_lines).first
     end
     
     test 'engines w/ [:blog] inserts :core' do

@@ -7,7 +7,7 @@ module FormHelper
     content_tag(:div, :class => 'column', &block)
   end
 
-  def buttons(&block)
+  def button_group(&block)
     content_tag(:div, :class => 'buttons', &block)
   end
 end

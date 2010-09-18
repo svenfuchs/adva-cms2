@@ -1,13 +1,17 @@
-* resource url and link helpers
-* content filters
-* authorship
-* publishing
-* translation
-* list filters
++ resource url and link helpers
 
+- fix installation controller and view, add admin user, add safeguard
+- make adva-user optional through http_auth
+- custom error pages
+- thor engine migration generator
 
+- content filters
+- authorship
+- publishing
+- content translation
+- list filters
 
 I18n:
 
-* fix simple_form lookup scopes
-* make :'.foo' lookup sane defaults (e.g. minimal class parents ?)
+- fix simple_form lookup scopes
+- make :'.foo' additionally lookup sane defaults (e.g. minimal class parents?)

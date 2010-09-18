@@ -58,12 +58,12 @@ module Adva
       class All < Thor::Group
         namespace 'test:all'
         desc 'run all features and tests'
-        class_option :rebuild, :required => false
+        class_option :rebuild, :aliases => '-r', :required => false
 
         include Cucumber
 
         def all
-          ENV['REGENERATE_APP'] = 1 if rebuild
+          ENV['REGENERATE_APP'] = true if rebuild
           Rails.env = 'test'
           cucumber.run
           Dir['**/test/**/*_test.rb'].each { |file| require file }
@@ -73,21 +73,21 @@ module Adva
       class Features < Thor::Group
         namespace 'test:features'
         desc 'run cucumber features'
-        argument     :pattern,   :required => false, :default => '**/features'
-        class_option :rebuild,   :required => false, :default => false
-        class_option :format,    :required => false, :default => 'pretty'
-        class_option :tags,      :required => false, :default => '~@wip'
-        class_option :name,      :required => false
-        class_option :exclude,   :required => false
-        class_option :backtrace, :required => false, :default => true
-        class_option :wip,       :required => false
+        argument :pattern, :required => false, :default => '**/features'
+        class_option :rebuild,   :aliases => '-r', :required => false, :default => false
+        class_option :format,    :aliases => '-f', :required => false, :default => 'pretty'
+        class_option :tags,      :aliases => '-t', :required => false, :default => '~@wip'
+        class_option :name,      :aliases => '-n', :required => false
+        class_option :exclude,   :aliases => '-e', :required => false
+        class_option :backtrace, :aliases => '-b', :required => false, :default => true
+        class_option :wip,       :aliases => '-w', :required => false
 
         include Cucumber
 
         def features
-          ENV['REGENERATE_APP'] = 1 if options['rebuild']
+          ENV['REGENERATE_APP'] = 'true' if options['rebuild'] # TODO cucumber pukes on --regenerate
           Rails.env = 'test'
-          cucumber.run
+          cucumber.run # TODO pass various options
         end
       end
 

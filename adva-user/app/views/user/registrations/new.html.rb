@@ -1,18 +1,16 @@
-class User::Registrations::New < Minimal::Template
+class User::Registrations::New < User::Form
   def to_html
     h2 :'.title'
+    super
+  end
 
-    simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f|
-      devise_error_messages!
-      
-      f.input :email
-      f.input :password
-      f.input :password_confirmation
+  def fields
+    form.input :email
+    form.input :password
+    form.input :password_confirmation
+  end
 
-      buttons do
-        f.button :submit
-        render :partial => 'user/links'
-      end
-    end
+  def form_arguments
+    [resource, { :as => resource_name, :url => registration_path(resource_name) }]
   end
 end
