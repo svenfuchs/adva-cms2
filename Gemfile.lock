@@ -1,4 +1,12 @@
 GIT
+  remote: git://github.com/jnicklas/carrierwave.git
+  revision: 60314c3
+  ref: 60314c375783
+  specs:
+    carrierwave (0.5.0.beta2)
+      activesupport (>= 3.0.0.rc)
+
+GIT
   remote: git://github.com/kronn/has_many_polymorphs.git
   revision: 9b0913d
   ref: 9b0913
@@ -11,7 +19,6 @@ PATH
   specs:
     adva-assets (0.0.1)
       adva-core
-      carrierwave-rails3
       mini_magick
 
 PATH
@@ -97,7 +104,6 @@ GEM
       activesupport (~> 3.0.0)
     bcrypt-ruby (2.1.2)
     builder (2.1.2)
-    carrierwave-rails3 (0.4.5)
     columnize (0.3.1)
     configuration (1.1.0)
     cucumber (0.8.5)
@@ -214,6 +220,7 @@ DEPENDENCIES
   adva-core!
   adva-static!
   adva-user!
+  carrierwave!
   cucumber
   cucumber-rails
   database_cleaner
