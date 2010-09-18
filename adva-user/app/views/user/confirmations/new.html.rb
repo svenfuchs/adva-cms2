@@ -1,16 +1,14 @@
-class User::Confirmations::New < Minimal::Template
+class User::Confirmations::New < User::Form
   def to_html
     h2 :'.title'
+    super
+  end
 
-    simple_form_for(resource, :as => resource_name, :url => confirmation_path(resource_name)) do |f|
-      devise_error_messages!
-      
-      f.input :email
+  def fields
+    form.input :email
+  end
 
-      buttons do
-        f.submit t(:'.submit')
-        render :partial => 'user/links'
-      end
-    end
+  def form_arguments
+    [resource, { :as => resource_name, :url => confirmation_path(resource_name) }]
   end
 end

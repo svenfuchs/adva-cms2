@@ -18,7 +18,7 @@ class Installations::New < Minimal::Template
         end
       end
 
-      buttons do
+      button_group do
         f.submit 'Create'
       end
     end

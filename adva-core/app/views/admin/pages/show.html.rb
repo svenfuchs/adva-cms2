@@ -1,24 +1,23 @@
 class Admin::Pages::Show < Adva::View::Form
   def to_html
     h2 :'.title'
+    super
+  end
 
-    simple_form_for(resources) do |f|
-      f.simple_fields_for(:article) do |a|
-        a.input :body
-      end
-
-      buttons do
-        f.button :submit
-      end
+  def fields
+    form.simple_fields_for(:article) do |a|
+      a.input :body
     end
+  end
+  
+  def buttons
+    form.button :submit
   end
 
   def sidebar
     tab :options do
-      simple_fields_for(resource) do |f|
-        f.input :title
-        f.input :slug
-      end
+      form.input :title
+      form.input :slug
     end
   end
 end

@@ -1,34 +1,47 @@
 module Adva
   module View
     class Form < Minimal::Template
-      def form_for(*args, &block)
-        super(*args, &with_sidebar_rendering(block))
+      autoload :Sidebar, 'adva/view/form/sidebar'
+      include Sidebar
+
+      attr_reader :form
+      
+      def to_html
+        form_tag
       end
-  
-      def simple_form_for(*args, &block)
-        super(*args, &with_sidebar_rendering(block))
-      end
-  
-      def with_sidebar_rendering(block)
-        if respond_to?(:sidebar)
-          lambda do |*args|
-            block.call(*args)
-            sidebar
-            div :class => :tabs do
-              controller.sidebar.each do |tab|
-                div :id => tab.name, :class => "tab #{tab.active? ? :active : ''}" do
-                  tab.blocks.each { |block| block.call }
-                end
-              end
-            end
-          end
-        else
-          block
+
+      def form_tag
+        simple_form_for(*form_arguments) do |form|
+          @form = form
+          fields
+          button_group
         end
       end
-  
-      def tab(*args, &block)
-        controller.sidebar.tab(*args, &block)
+      
+      def form_arguments
+        [resources]
+      end
+      
+      def fields
+        raise "no fields implemented for #{self.class}"
+      end
+      
+      def button_group
+        content_tag(:div, :class => 'buttons') do
+          buttons
+        end
+      end
+
+      def buttons
+        form.button :submit
+      end
+      
+      def return_here
+        hidden_field_tag :return_to, request.url
+      end
+      
+      def pass_return_to
+        hidden_field_tag :return_to, params[:return_to]
       end
     end
   end

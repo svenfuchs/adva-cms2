@@ -1,18 +1,16 @@
-class User::Passwords::Edit < Minimal::Template
+class User::Passwords::Edit < User::Form
   def to_html
     h2 :'.title'
+    super
+  end
 
-    simple_form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :put }) do |f|
-      devise_error_messages!
-      
-      f.hidden_field :reset_password_token
-      f.input :password
-      f.input :password_confirmation
+  def fields
+    form.hidden_field :reset_password_token
+    form.input :password
+    form.input :password_confirmation
+  end
 
-      buttons do
-        f.submit t(:'.submit')
-        render :partial => 'user/links'
-      end
-    end
+  def form_arguments
+    [resource, { :as => resource_name, :url => password_path(resource_name), :html => { :method => :put } }]
   end
 end

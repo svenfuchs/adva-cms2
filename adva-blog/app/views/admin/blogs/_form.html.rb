@@ -1,20 +1,15 @@
-class Admin::Blogs::Form < Minimal::Template
-  def to_html
-    simple_form_for(resources) do |f|
-      f.hidden_field :type
+class Admin::Blogs::Form < Adva::View::Form
+  def fields
+    form.hidden_field :type
 
-      fieldset do
-        column do
-          f.input :title
-        end
-        column do
-          f.input :slug
-        end unless params[:action] == 'new'
+    fieldset do
+      column do
+        form.input :title
       end
 
-      buttons do
-        f.button :submit
-      end
+      column do
+        form.input :slug
+      end unless params[:action] == 'new'
     end
   end
 end
