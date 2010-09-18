@@ -10,7 +10,7 @@ module AdvaCoreTests
     def setup
       @site   = Site.create!(:name => 'site', :title => 'site', :host => 'www.example.com', :sections_attributes => [{ :name => 'home' }])
       @home   = site.sections.first
-      @docs   = site.sections.create!(:name => 'docs')
+      @docs   = site.sections.create!(:name => 'docs') 
       @api    = site.sections.create!(:name => 'api', :parent => docs)
       @pages  = site.sections.create!(:name => 'pages')
       @filter = RoutingFilter::SectionPath.new
@@ -21,7 +21,7 @@ module AdvaCoreTests
 
     test "recognizes /docs" do
       assert_equal "/sections/#{docs.id}", recognize('/docs')
-    end
+    end 
 
     test "recognizes /docs/api" do
       assert_equal "/sections/#{api.id}", recognize('/docs/api')
