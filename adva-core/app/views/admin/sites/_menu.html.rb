@@ -1,4 +1,6 @@
 class Admin::Sites::Menu < Adva::View::Menu::Admin::Actions
-  def right
+  include do
+    def right
+    end
   end
 end

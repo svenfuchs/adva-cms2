@@ -1,6 +1,6 @@
 module Layouts
   class Admin < Layouts::Base
-    module Base
+    include do
       def body
         div do
           header
@@ -21,7 +21,5 @@ module Layouts
         render :partial => 'layouts/admin/header'
       end
     end
-
-    include Base
   end
 end

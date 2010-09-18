@@ -1,14 +1,16 @@
 class Admin::Posts::Form < Adva::View::Form
-  def fields
-    fieldset do
-      form.input :title
-      form.input :body
+  include do
+    def fields
+      fieldset do
+        form.input :title
+        form.input :body
+      end
     end
-  end
   
-  def sidebar
-    tab :options do
-      form.input :slug
+    def sidebar
+      tab :options do
+        form.input :slug
+      end
     end
   end
 end

@@ -1,5 +1,5 @@
 class Layouts::Admin::Header < Minimal::Template
-  module Base
+  include do
     def to_html
       render :partial => 'layouts/admin/top'
 
@@ -45,5 +45,4 @@ class Layouts::Admin::Header < Minimal::Template
       select_tag :lang, options_for_select(I18n.available_locales.map { |l| l.to_s}, I18n.locale.to_s )
     end
   end
-  include Base
 end
