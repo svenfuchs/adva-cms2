@@ -42,6 +42,67 @@ module Adva
         Adva::Generators::Install.new(symbolized_options(:engines)).invoke
       end
     end
+
+    module Test
+      module Cucumber
+        def cucumber
+          require 'cucumber'
+          require 'cucumber/rake/task'
+
+          options = self.options.map { |name, value| ["--#{name}", value.is_a?(String) ? value : nil] }.flatten.compact
+          pattern = self.pattern.include?('features') ? self.pattern : "#{self.pattern}/features"
+          ::Cucumber::Rake::Task::InProcessCucumberRunner.new([], options, Dir[pattern])
+        end
+      end
+
+      class All < Thor::Group
+        namespace 'test:all'
+        desc 'run all features and tests'
+        class_option :rebuild, :required => false
+
+        include Cucumber
+
+        def all
+          ENV['REGENERATE_APP'] = 1 if rebuild
+          Rails.env = 'test'
+          cucumber.run
+          Dir['**/test/**/*_test.rb'].each { |file| require file }
+        end
+      end
+
+      class Features < Thor::Group
+        namespace 'test:features'
+        desc 'run cucumber features'
+        argument     :pattern,   :required => false, :default => '**/features'
+        class_option :rebuild,   :required => false, :default => false
+        class_option :format,    :required => false, :default => 'pretty'
+        class_option :tags,      :required => false, :default => '~@wip'
+        class_option :name,      :required => false
+        class_option :exclude,   :required => false
+        class_option :backtrace, :required => false, :default => true
+        class_option :wip,       :required => false
+
+        include Cucumber
+
+        def features
+          ENV['REGENERATE_APP'] = 1 if options['rebuild']
+          Rails.env = 'test'
+          cucumber.run
+        end
+      end
+
+      class Unit < Thor::Group
+        namespace 'test:unit'
+        desc 'run tests'
+        argument     :pattern, :required => false, :default => '**/test/**/*_test.rb'
+        class_option :name,    :required => false, :desc => 'Runs tests matching NAME. Patterns may be used.' # Runs tests matching NAME.
+
+        def unit
+          Rails.env = 'test'
+          Dir[pattern].each { |file| require file }
+        end
+      end
+    end
   end
 end
 
