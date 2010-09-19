@@ -1,3 +1,6 @@
+body {
+  min-width: 780px;
+}
 body > div {
   display: table;
   width: 100%;
@@ -19,15 +22,18 @@ body > div > div {
   padding-bottom: 20px;
 }
 #sidebar {
-  width: 280px;
+  width: 30% !important;
   background-color: #f6f6f6;
-  overflow: hidden;
+/*  overflow: hidden;*/
 }
 
 .main, .right {
   display: table-cell;
   padding: 0 25px;
 }
+.main {
+  width: 70%;
+}
 .right {
-  width: 280px;
+  width: 30%;
 }

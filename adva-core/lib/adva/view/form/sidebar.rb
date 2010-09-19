@@ -16,6 +16,13 @@ module Adva
               block.call(*args)
               sidebar
               div :class => :tabs do
+                ul do
+                  controller.sidebar.each do |tab|
+                    li(:class => tab.active? ? :active : '') do
+                      link_to(:"admin.sidebar.tabs.#{tab.name}", "##{tab.name}")
+                    end
+                  end
+                end
                 controller.sidebar.each do |tab|
                   div :id => tab.name, :class => "tab #{tab.active? ? :active : ''}" do
                     tab.blocks.each { |block| block.call }
