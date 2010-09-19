@@ -1,4 +1,4 @@
-Given(/^no site or account$/) do
+Given /^no site or account$/ do
   [Account, User, Site, Section].map(&:delete_all)
 end
 
@@ -9,14 +9,26 @@ Given /^I am signed in with "([^"]*)" and "([^"]*)"$/ do |email, password|
   click_button 'Sign in'
 end
 
-Given /^the following (\w*)$/ do |type, table|
+Given 'a site' do
+  Factory(:site)
+  Factory(:admin)
+end
+
+Given /^the following (\w*):$/ do |type, table|
   type = type.singularize
   table.hashes.each do |attributes|
     type = attributes.delete('type').underscore if attributes.key?('type')
-    attributes['site'] = site if type == 'section' || Section.type_names.include?(type)
+    attributes['site']    = site if type.classify.constantize.column_names.include?('site_id')
     attributes['section'] = site.sections.find_by_name(attributes['section']) if attributes.key?('section')
     Factory(type, attributes)
   end
+end
+
+Given /^a site with the following sections:$/ do |table|
+  Site.delete_all
+  Given 'a site'
+  Section.delete_all
+  Given "the following sections:", table
 end
 
 # e.g. a blog named "Blog"
@@ -85,6 +97,11 @@ Then /^I should see an? ([a-z ]+) form$/ do |type|
   assert_select("form.#{type}, form##{type}")
 end
 
+Then /^I should not see an? ([a-z ]+) form$/ do |type|
+  type = type.gsub(' ', '_') #.gsub(/edit_/, '')
+  assert_select("form.#{type}, form##{type}", :count => 0)
+end
+
 Then /^I should see an? ([a-z ]+) form with the following values:$/ do |type, table|
   type = type.gsub(' ', '_') #.gsub(/edit_/, '')
   assert_select("form.#{type}, form##{type}") do |form|
@@ -95,11 +112,14 @@ Then /^I should see an? ([a-z ]+) form with the following values:$/ do |type, ta
 end
 
 Then /^I should see a "(.*)" table with the following entries$/ do |table_id, expected_table|
-  html_table = table(tableish("table##{table_id} tr", 'td,th'))
+  actual_table = table(tableish("table##{table_id} tr", 'td,th'))
   begin
-  expected_table.diff!(html_table)
+    diff_table = expected_table.dup
+    diff_table.diff!(actual_table.dup)
   rescue
-    puts expected_table
+    puts "\nActual table:#{actual_table.to_s}\n"
+    puts "Expected table:#{expected_table.to_s}\n"
+    puts "Difference:#{diff_table.to_s}\n"
     raise
   end
 end

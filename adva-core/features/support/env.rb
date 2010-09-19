@@ -19,6 +19,7 @@ require 'patches/webrat/logger'
 require 'test/unit/assertions'
 require 'action_dispatch/testing/assertions'
 require 'factory_girl'
+require Adva::Core.root.join('lib/testing/skip_callbacks')
 
 Webrat.configure do |config|
   config.mode = :rails
@@ -27,5 +28,16 @@ end
 
 ActionController::Base.allow_rescue = false
 Cucumber::Rails::World.use_transactional_fixtures = true
-
 Rails.backtrace_cleaner.remove_silencers!
+
+module GlobalsHelpers
+  def site
+    Site.first
+  end
+
+  def account
+    Account.first
+  end
+end
+
+World(GlobalsHelpers)

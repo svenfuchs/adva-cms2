@@ -1,14 +1,19 @@
 Feature: Menus
+
+  Background:
+    Given a site with the following sections:
+      | type | name |
+      | Page | Home |
+    And I am signed in with "admin@admin.org" and "admin"
+
   Scenario: Admin Sites
-    Given I am signed in with "admin@admin.org" and "admin"
-    And I am on the admin sites page
+    When I go to the admin sites page
     Then the menu should contain the following items:
       | text     | url                       | active |
       | Sites    | /admin/sites              | yes    |
 
   Scenario: Admin Site
-    Given I am signed in with "admin@admin.org" and "admin"
-    And I am on the admin dashboard page
+    When I go to the admin dashboard page
     Then the menu should contain the following items:
       | text     | url                       | active | menu        |
       | adva-cms |                           |        | #top .main  |
@@ -18,8 +23,7 @@ Feature: Menus
       | Settings | /admin/sites/1/edit       |        | #top .right |
 
   Scenario: Admin Sections
-    Given I am signed in with "admin@admin.org" and "admin"
-    And I am on the admin sections page
+    When I go to the admin sections page
     Then the menu should contain the following items:
       | text     | url                         | active | menu            |
       | adva-cms |                             |        | #top .main  |
@@ -32,8 +36,7 @@ Feature: Menus
       | Reorder  | /admin/sites/1/sections     |        | #actions .right |
 
   Scenario: Admin Pages
-    Given I am signed in with "admin@admin.org" and "admin"
-    And I am on the admin "Home" section page
+    When I go to the admin "Home" section page
     Then the menu should contain the following items:
       | text     | url                         | active | menu            |
       | adva-cms |                             |        | #top .main  |
