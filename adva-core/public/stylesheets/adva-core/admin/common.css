@@ -36,16 +36,16 @@ ul.links li:before {
 
 /* FLASH */
 
-p.flash {
+.flash {
   padding: 0.75em 0;
   margin: 0 -10% 0 -10%;
   text-align: center;
 }
-p.flash.notice {
+.flash.notice {
   background: #cfc;
   color: #051;
 }
-p.flash.error {
+.flash.error {
   background: #e6acb6;
   color: #510;
 }

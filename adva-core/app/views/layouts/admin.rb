@@ -6,12 +6,12 @@ module Layouts
           header
           div :id => 'page' do
             div :id => 'main', :class => 'main' do
+              render :partial => 'layouts/flash'
               div :id => 'content' do
                 content
               end
             end
             div :id => 'sidebar', :class => 'right' do
-              render :partial => 'layouts/admin/tabs', :locals => { :tabs => sidebar }
             end
           end
         end
