@@ -1,14 +1,3 @@
-Given /^no site or account$/ do
-  [Account, User, Site, Section].map(&:delete_all)
-end
-
-Given /^I am signed in with "([^"]*)" and "([^"]*)"$/ do |email, password|
-  get new_user_session_path
-  fill_in 'Email', :with => email
-  fill_in 'Password', :with => password
-  click_button 'Sign in'
-end
-
 Given 'a site' do
   Factory(:site)
   Factory(:admin)
@@ -68,9 +57,9 @@ Then /^the title should be "([^"]*)"$/ do |title|
   assert_select('title', title)
 end
 
-Then /^I should see $/ do
-  # do nothing
-end
+# Then /^I should see $/ do
+#   # do nothing
+# end
 
 Then /^I should not see any (\w*)$/ do |type|
   assert_select(".#{type.singularize}", :count => 0) # .#{type},
@@ -124,7 +113,7 @@ Then /^I should see a "(.*)" table with the following entries$/ do |table_id, ex
   end
 end
 
-Then(/^I should see the "([^"]+)" page$/) do |name|
+Then /^I should see the "([^"]+)" page$/ do |name|
   assert_select('h2', name)
 end
 
