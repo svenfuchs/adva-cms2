@@ -1,8 +1,8 @@
 Adva::Registry.set :redirect, {
-  'installations#create'  => lambda { |r| r.controller.installation_url(r.controller.resource) },
-  'articles#show'         => lambda { |r| r.controller.parent_show_url },
+  'installations#create'  => lambda { |c| c.installation_url(c.resource) },
+  'articles#show'         => lambda { |c| c.parent_show_url },
 
-  'admin/sites#update'    => lambda { |r| r.controller.edit_url        },
-  'admin/pages#update'    => lambda { |r| r.controller.show_url        },
-  'admin/pages#destroy'   => lambda { |r| r.controller.index_url       }
+  'admin/sites#update'    => lambda { |c| c.edit_url        },
+  'admin/pages#update'    => lambda { |c| c.show_url        },
+  'admin/pages#destroy'   => lambda { |c| c.index_url       }
 }
