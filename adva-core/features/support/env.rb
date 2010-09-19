@@ -21,6 +21,11 @@ require 'action_dispatch/testing/assertions'
 require 'factory_girl'
 require Adva::Core.root.join('lib/testing/skip_callbacks')
 
+Adva.engines.each do |engine|
+  factories = engine.root.join('test/test_factories.rb')
+  require factories if factories.exist?
+end
+
 Webrat.configure do |config|
   config.mode = :rails
   config.open_error_files = false
