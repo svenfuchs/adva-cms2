@@ -26,9 +26,7 @@ module Tests
           end
 
           def setup_site_record
-            ::Site.create!(:host => 'ruby-i18n.org', :name => 'name', :title => 'title', :sections_attributes => [
-              { :type => 'Page', :name => 'Home' }
-            ])
+            Factory(:site, :host => 'ruby-i18n.org')
           end
 
           def setup_non_root_page_record

@@ -8,7 +8,7 @@ module AdvaCoreTests
     attr_reader :filter, :site, :home, :docs, :api, :pages
 
     def setup
-      @site   = Site.create!(:name => 'site', :title => 'site', :host => 'www.example.com', :sections_attributes => [{ :name => 'home' }])
+      @site   = Factory(:site)
       @home   = site.sections.first
       @docs   = site.sections.create!(:name => 'docs') 
       @api    = site.sections.create!(:name => 'api', :parent => docs)

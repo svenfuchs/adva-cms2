@@ -23,7 +23,7 @@
 #         f.write(YAML.dump(:host => 'ruby-i18n.org', :name => 'name', :title => 'title'))
 #       end
 # 
-#       Site.create!(:host => 'ruby-i18n.org', :name => 'name', :title => 'title', :sections_attributes => [{ :type => 'Page', :name => 'Home' }])
+#       Factory(:site)
 #       super
 #     end
 # 

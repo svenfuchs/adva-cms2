@@ -5,12 +5,7 @@ module AdvaCoreTests
     attr_reader :site
 
     def setup
-      @site = Site.create(
-        :name  => 'Site 1',
-        :title => 'Site title',
-        :host  => 'localhost:3000',
-        :sections_attributes => [ { :type => 'Page', :name => 'Home' } ]
-      )
+      @site = Factory(:site)
     end
 
     def section
