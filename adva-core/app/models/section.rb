@@ -7,8 +7,6 @@ class Section < ActiveRecord::Base
   has_slug :scope => :site_id
   acts_as_nested_set # FIXME scope to site_id
 
-  after_initialize :set_default_name
-
   # validates_uniqueness_of :slug, :scope => [:site_id, :parent_id]
 
   mattr_accessor :types
@@ -18,6 +16,10 @@ class Section < ActiveRecord::Base
     def inherited(child)
       types << child.name
       super
+    end
+
+    def type_names
+      @type_names ||= types.map(&:underscore)
     end
   end
 
@@ -43,10 +45,5 @@ class Section < ActiveRecord::Base
 
     def _path
       read_attribute(:path)
-    end
-
-    def set_default_name
-      self.name = I18n.t(:'section.default_name', :default => 'Home') if name.blank?
-    rescue ActiveModel::MissingAttributeError # TODO seems to happen after reload in simple_nested_set
     end
 end

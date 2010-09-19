@@ -121,6 +121,7 @@ GEM
     diff-lcs (1.1.2)
     erubis (2.6.6)
       abstract (>= 1.0.0)
+    factory_girl (1.3.2)
     fakefs (0.2.1)
     gem_patching (0.0.2)
     gherkin (2.1.5)
@@ -221,9 +222,10 @@ DEPENDENCIES
   adva-static!
   adva-user!
   carrierwave!
-  cucumber
-  cucumber-rails
+  cucumber (= 0.8.5)
+  cucumber-rails (= 0.3.2)
   database_cleaner
+  factory_girl
   fakefs
   has_many_polymorphs!
   launchy

@@ -23,7 +23,7 @@ module Adva::Core::Paths
     when /the admin dashboard page for the site on "([^"]*)"/
       site = Site.find_by_host($1) || raise("could not find site with host #{$1}")
       polymorphic_path([:admin, site])
-    when 'the admin site sections page'
+    when 'the admin sections page'
       polymorphic_path([:admin, Site.first, :sections])
     when /the admin "([^"]*)" section page/
       section = Section.where(:name => $1).first || raise("could not find section named #{$1}")

@@ -1,16 +1,16 @@
 Feature: Managing sites
   Scenario: Creating a new site
     Given I am signed in with "admin@admin.org" and "admin"
-    And I am on the admin dashboard page
+      And I am on the admin dashboard page
 
     When I follow "New site"
     Then I should see a new site form
-    And I fill in "Name" with "A new site"
-    And I fill in "Title" with "Brand new site"
-    And I fill in "Host" with "localhost:3000"
-    And I choose "Page"
-    And I fill in "Section name" with "Welcome to this Site"
-    And I press "Create"
+     And I fill in "Name" with "A new site"
+     And I fill in "Title" with "Brand new site"
+     And I fill in "Host" with "localhost:3000"
+     And I choose "Page"
+     And I fill in "Section name" with "Welcome to this Site"
+     And I press "Create"
     Then I should be on the admin dashboard page for the site on "localhost:3000"
 
     When I follow "Settings" within "#top"

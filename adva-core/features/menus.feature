@@ -19,7 +19,7 @@ Feature: Menus
 
   Scenario: Admin Sections
     Given I am signed in with "admin@admin.org" and "admin"
-    And I am on the admin site sections page
+    And I am on the admin sections page
     Then the menu should contain the following items:
       | text     | url                         | active | menu            |
       | adva-cms |                             |        | #top .main  |

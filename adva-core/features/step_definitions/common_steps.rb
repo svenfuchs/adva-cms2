@@ -9,6 +9,16 @@ Given /^I am signed in with "([^"]*)" and "([^"]*)"$/ do |email, password|
   click_button 'Sign in'
 end
 
+Given /^the following (\w*)$/ do |type, table|
+  type = type.singularize
+  table.hashes.each do |attributes|
+    type = attributes.delete('type').underscore if attributes.key?('type')
+    attributes['site'] = site if type == 'section' || Section.type_names.include?(type)
+    attributes['section'] = site.sections.find_by_name(attributes['section']) if attributes.key?('section')
+    Factory(type, attributes)
+  end
+end
+
 # e.g. a blog named "Blog"
 Given /^an? (.*) (name|title)d "([^"]+)"$/ do |model, attribute, value|
   model = model.classify.constantize
@@ -42,6 +52,14 @@ When /^I click on the link from the email to (.*)$/ do |to|
   get link
 end
 
+Then /^the title should be "([^"]*)"$/ do |title|
+  assert_select('title', title)
+end
+
+Then /^I should see $/ do
+  # do nothing
+end
+
 Then /^I should not see any (\w*)$/ do |type|
   assert_select(".#{type.singularize}", :count => 0) # .#{type},
 end
@@ -58,12 +76,25 @@ Then /^I should see an? (\w*) containing "([^"]*)"$/ do |type, text|
   assert_select(".#{type}", /#{text}/)
 end
 
+Then /^I should see an? ([\w]*) list$/ do |type|
+  assert_select(".#{type}.list")
+end
+
 Then /^I should see an? ([a-z ]+) form$/ do |type|
   type = type.gsub(' ', '_') #.gsub(/edit_/, '')
   assert_select("form.#{type}, form##{type}")
 end
 
-Then /^I should see a table "(.*)" with the following entries:$/ do |table_id, expected_table|
+Then /^I should see an? ([a-z ]+) form with the following values:$/ do |type, table|
+  type = type.gsub(' ', '_') #.gsub(/edit_/, '')
+  assert_select("form.#{type}, form##{type}") do |form|
+    table.rows_hash.each do |name, value|
+      assert_equal value, webrat.current_scope.field_labeled(name).value
+    end
+  end
+end
+
+Then /^I should see a "(.*)" table with the following entries$/ do |table_id, expected_table|
   html_table = table(tableish("table##{table_id} tr", 'td,th'))
   begin
   expected_table.diff!(html_table)

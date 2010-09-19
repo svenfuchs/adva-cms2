@@ -13,7 +13,7 @@ Feature: Asset Management
       | title      | description           |
       | Rails Logo | This is a Rails Logo. |
     When I follow "Assets"
-    Then I should see a table "assets" with the following entries:
+    Then I should see a "assets" table with the following entries
       | Title      | Description           |
       | Rails Logo | This is a Rails Logo. |
 
@@ -28,7 +28,7 @@ Feature: Asset Management
     And I fill in "asset_file" with "rails.png"
     And I press "Create Asset"
     Then I should see the "Assets" page
-    And I should see a table "assets" with the following entries:
+    And I should see a "assets" table with the following entries
       | Title      | Description           |
       | Image1     | Image 1 description   |
     When I click "edit" in the row where "Title" is "Image1"
@@ -39,7 +39,7 @@ Feature: Asset Management
     And I fill in "Description" with "Image 2 description"
     And I press "Update Asset"
     Then I should see the "Assets" page
-    And I should see a table "assets" with the following entries:
+    And I should see a "assets" table with the following entries
       | Title      | Description           |
       | Image2     | Image 2 description   |
     When I press "delete" in the row where "Title" is "Image2"

@@ -18,6 +18,7 @@ require 'webrat/core/matchers'
 require 'patches/webrat/logger'
 require 'test/unit/assertions'
 require 'action_dispatch/testing/assertions'
+require 'factory_girl'
 
 Webrat.configure do |config|
   config.mode = :rails

@@ -1,7 +1,8 @@
 class Installations::New < Adva::View::Form
   include do
     def form_tag
-      p :'.title'
+      h2 :'.title'
+      p :'.welcome'
       super
     end
 

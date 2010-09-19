@@ -24,8 +24,12 @@ en:
   admin:
     blogs:
       show:
+        view: View
         edit: Edit
+        delete: Delete
         published: Published
+        empty: "There are no posts. %{link}"
+        create_item: "Create one now &raquo;"
       new:
         title: Create a New Section
       edit:
