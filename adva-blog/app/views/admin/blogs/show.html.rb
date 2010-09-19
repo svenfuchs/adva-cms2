@@ -17,11 +17,8 @@ class Admin::Blogs::Show < Minimal::Template
           # r.cell will_paginate(@posts), :class => :pagination, :colspan => :all
     		end
 
-    		t.empty :p, :class => 'empty' do
-          # params[:filters] ?
-          #   t(:'adva.posts.no_filtered_posts') :
-          #   t(:'adva.posts.no_posts', :post => @post.title) + "\n" +
-          #   link_to_new(:'adva.posts.links.create_now', [@post, :post])
+    		t.empty :p, :class => 'posts list empty' do
+          self.t(:'.empty', :link => capture { link_to(:'.create_item', children_new_path(:post)) }).html_safe
     		end
     	end
     end

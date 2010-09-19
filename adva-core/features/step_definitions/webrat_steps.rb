@@ -32,6 +32,12 @@ When /^(?:|I )follow "([^\"]*)" within "([^\"]*)"$/ do |link, parent|
   click_link_within(parent, link)
 end
 
+When /^I follow "([^"]*)" within the "([^"]*)" row$/ do |link, text|
+  row = webrat.dom.xpath("//tr//*[contains(text(), '#{text}')]/ancestor::tr").first
+  assert row, "could not find a row #{text.inspect}"
+  click_link_within(row.css_path, link)
+end
+
 When /^(?:|I )fill in "([^\"]*)" with "([^\"]*)"$/ do |field, value|
   fill_in(field, :with => value)
 end

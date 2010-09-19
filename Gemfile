@@ -20,8 +20,8 @@ gem 'carrierwave', :git => 'git://github.com/jnicklas/carrierwave.git', :ref => 
 
 group :test do
   gem 'sqlite3-ruby', '1.2.5'
-  gem 'cucumber'
-  gem 'cucumber-rails'
+  gem 'cucumber', '0.8.5'
+  gem 'cucumber-rails', '0.3.2'
   gem 'webrat', '0.7.0' # '0.7.2.beta.1'
   gem 'thor'
   gem 'ruby-debug'
@@ -30,4 +30,5 @@ group :test do
   gem 'test_declarative'
   gem 'database_cleaner'
   gem 'launchy'
+  gem 'factory_girl'
 end

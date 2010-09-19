@@ -16,7 +16,7 @@ class InstallationsController < BaseController
     def set_params_for_nested_resources
       params[:site] ||= {}
       params[:site].reverse_merge!(:host => request.host_with_port, :title => params[:site][:name], :account_attributes => {})
-      params[:site][:sections_attributes] ||= [{ :type => 'Page' }]
+      params[:site][:sections_attributes] ||= [{ :type => 'Page', :name => I18n.t(:'section.default_name', :default => 'Home') }]
     end
     
     def protect_install

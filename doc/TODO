@@ -1,12 +1,20 @@
+Done:
+
 + resource url and link helpers
 + improve view/form extensibility by using a base module
 + rename Section#title to Section#name
++ fix installation controller and view, add admin user, add safeguard
 
-- fix installation controller and view, add admin user, add safeguard
-- make adva-user optional through http_auth
-- custom error pages
-- thor engine migration generator
+Stuff:
+
+- add rails.css and fix delete links
+- style flash
+- make adva-user optional through http_auth, fix Site.install
 - figure out how to remove set_params_for_nested_resources controller filters
+- thor engine migration generator
+- custom error pages
+
+Features:
 
 - content filters
 - authorship
