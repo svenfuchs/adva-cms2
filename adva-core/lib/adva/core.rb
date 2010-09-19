@@ -13,11 +13,11 @@ require 'adva/routing_filters/section_path'
 require 'adva/routing_filters/section_root'
 require 'adva/controller/abstract_actions'
 require 'adva/controller/references'
-require 'adva/testing/skip_callbacks'
 require 'adva/view/tabs'
 require 'adva/view/form'
 
 require 'core_ext/ruby/module/include_anonymous'
+require 'core_ext/rails/active_record/skip_callbacks'
 
 module Adva
   class Core < ::Rails::Engine

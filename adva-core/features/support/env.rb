@@ -19,7 +19,7 @@ require 'patches/webrat/logger'
 require 'test/unit/assertions'
 require 'action_dispatch/testing/assertions'
 require 'factory_girl'
-require Adva::Core.root.join('lib/testing/skip_callbacks')
+require Adva::Core.root.join('lib/core_ext/rails/active_record/skip_callbacks')
 
 Adva.engines.each do |engine|
   factories = engine.root.join('test/test_factories.rb')
