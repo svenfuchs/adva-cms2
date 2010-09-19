@@ -13,3 +13,8 @@ Adva.engines.each do |engine|
   engine.preload_sliced_models
   ActiveRecord::Migrator.up(engine.root.join('db/migrate'))
 end
+
+Adva.engines.each do |engine|
+  factories = engine.root.join('test/test_factories.rb')
+  require factories if factories.exist?
+end

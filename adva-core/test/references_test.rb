@@ -14,7 +14,7 @@ module AdvaCoreTests
       ActionController::Base.skip_before_filter(:authenticate_user!)
       super
 
-      @site = Site.create!(:name => 'site', :title => 'site', :host => 'example.org', :sections_attributes => [{ :type => 'Page', :name => 'home' }])
+      @site = Factory(:site)
       @page = site.pages.first
     end
     

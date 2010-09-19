@@ -18,12 +18,7 @@ module AdvaStatic
     attr_reader :exporter
 
     def setup
-      Site.create(
-        :host => 'localhost:3000',
-        :title => 'Site Title',
-        :name => 'Site Name',
-        :sections_attributes => [{ :name => 'Home' }]
-      )
+      Factory(:site)
       @exporter = Adva::Static::Export.new(Application.new, :target => '/tmp/adva-static-test/export')
     end
 
