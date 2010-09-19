@@ -1,76 +1,76 @@
-#sidebar h4 {
+.tabs {
+  position: absolute;
+  top: 120px;
+  right: 0;
+  width: 30%;
+}
+
+.tabs > ul {
+  position: relative;
+  overflow: auto;
+  background-color: #ddd;
+  list-style-type: none;
+}
+.tabs > ul li {
+  display: inline-block;
+  margin-left: 15px;
+}
+.tabs > ul li a {
+  display: block;
+  font-size: 12px;
+  padding: 3px 15px 0 15px;
+  outline: none;
+  text-shadow: #fff 1px 1px;
+  -webkit-border-top-left-radius: 4px;
+  -webkit-border-top-right-radius: 4px;
+  -moz-border-top-left-radius: 4px;
+  -moz-border-top-right-radius: 4px;
+}
+.tabs > ul li.active a {
+  background: #f6f6f6 url(/images/adva-core/admin/tab_sidebar_active.png) repeat-x;
+}
+.tabs > ul li a:hover {
+  background-color: #fff;
+  text-decoration: none;
+}
+.tabs > ul li.active a:hover {
+  cursor: default;
+}
+
+
+.tabs .tab {
+  display: none;
+  margin-left: 20px;
+}
+.tabs .tab.active {
+  display: block;
+}
+.tabs input[type=text],
+.tabs textarea {
+  padding: 4px 8px !important;
+  font-size: 12px;
+  width: 89%;
+}
+
+
+
+/*.tabs h4 {
   clear: both;
   margin-bottom: 1em;
   font-size: 1.1em;
   font-weight: bold;
 }
-#sidebar h4 a {
+.tabs h4 a {
   font-weight: normal;
   font-size: 11px;
 }
-#sidebar ul {
-  list-style-type: none;
-}
-#sidebar #filters .set > select:first-child {
+.tabs #filters .set > select:first-child {
   margin-left: 8px;
 }
-#sidebar input[type=text],
-#sidebar textarea {
-  padding: 3px 6px !important;
+.tabs label {
   font-size: 12px;
-  width: 270px;
 }
-
-#sidebar .tabs {
-  position: relative;
-  top: -26px;
-}
-#sidebar .tabs > ul {
-  position: relative;
-  margin: 0 -25px;
-  padding: 0 12px;
-  overflow: auto;
-  background-color: #ddd;
-}
-#sidebar .tabs > ul li {
-  display: inline-block;
-}
-#sidebar .tabs > ul li a {
-  display: block;
-  font-size: 12px;
-  padding: 3px 15px 0 15px;
-  outline: none;
-  -webkit-border-top-left-radius: 4px;
-  -webkit-border-top-right-radius: 4px;
-  -moz-border-top-left-radius: 4px;
-  -moz-border-top-right-radius: 4px;*/
-}
-#sidebar .tabs > ul li.active a {
-  background: #f6f6f6 url(/images/adva-core/admin/tab_sidebar_active.png) repeat-x;
-}
-#sidebar .tabs > ul li a:hover {
-  background-color: #fff;
-  text-decoration: none;
-}
-#sidebar .tabs > ul li.active a:hover {
-  cursor: default;
-}
-
-form .tabs .tab {
-  display: none;
-}
-form .tabs .tab.active {
-  display: block;
-}
-
-form .tabs {
-  position: absolute;
-  top: 160px;
-  right: 40px;
-  width: 270px;
-}
-
-/*.filters .submit {
+.filters .submit {
   float: right;
   margin-top: 4px;
   margin-bottom: 15px;
