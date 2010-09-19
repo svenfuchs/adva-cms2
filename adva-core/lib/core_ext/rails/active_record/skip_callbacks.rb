@@ -24,14 +24,14 @@ ActiveRecord::Base.class_eval do
     end
     
     def skip_callbacks(*types)
-      types = [:save, :create, :update, :destroy, :touch] if types.empty?
-      deactivate_callbacks(types)
+      deactivate_callbacks(*types)
       yield.tap do
-        activate_callbacks(types)
+        activate_callbacks(*types)
       end
     end
     
-    def deactivate_callbacks(types)
+    def deactivate_callbacks(*types)
+      types = [:save, :create, :update, :destroy, :touch] if types.empty?
       types.each do |type|
         name = :"_run_#{type}_callbacks"
         alias_method(:"_deactivated_#{name}", name)
@@ -39,7 +39,8 @@ ActiveRecord::Base.class_eval do
       end
     end
     
-    def activate_callbacks(types)
+    def activate_callbacks(*types)
+      types = [:save, :create, :update, :destroy, :touch] if types.empty?
       types.each do |type|
         name = :"_run_#{type}_callbacks"
         alias_method(name, :"_deactivated_#{name}")
