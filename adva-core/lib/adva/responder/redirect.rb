@@ -14,7 +14,7 @@ module Adva
 
       def registry_redirect
         if !has_errors? && target = Registry.get(:redirect, controller_action_path)
-          redirect_to(target.respond_to?(:call) ? target.call(self) : target)
+          redirect_to(target.respond_to?(:call) ? target.call(controller) : target)
         end
       end
 
