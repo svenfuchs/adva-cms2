@@ -28,9 +28,7 @@ class Admin::SectionsController < Admin::BaseController
     def protect_last_section
       if site.sections.count == 1
         flash[:error] = t(:'flash.actions.destroy.alert', :resource_name => resource.class.model_name)
-        # TODO can we use the responder?
-        target = Adva::Registry.get(:redirect, "#{controller_path}##{params[:action]}")
-        redirect_to target.respond_to?(:call) ? target.call(self) : target
+        respond_with(resources)
       end
     end
 end
