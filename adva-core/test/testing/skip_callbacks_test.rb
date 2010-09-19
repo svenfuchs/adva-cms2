@@ -1,6 +1,6 @@
 require File.expand_path('../../test_helper', __FILE__)
 
-require 'testing/skip_callbacks'
+require 'core_ext/rails/active_record/skip_callbacks'
 
 module AdvaCoreTests
   module Testing

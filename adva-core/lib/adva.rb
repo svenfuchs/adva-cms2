@@ -5,6 +5,7 @@ module Adva
   autoload :Generators, 'adva/generators'
   autoload :Registry,   'adva/registry'
   autoload :Responder,  'adva/responder'
+  autoload :Testing,    'adva/testing'
   autoload :View,       'adva/view'
 
   mattr_accessor :out

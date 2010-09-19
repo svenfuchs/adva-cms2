@@ -11,13 +11,10 @@ require 'stringio'
 
 Bundler.require(:default)
 
-Adva.out = StringIO.new('')
-TEST_LOG = '/tmp/adva-cms_test.log'
 class ApplicationController < ActionController::Base ; end
 
-Dir[File.expand_path('../test_{helpers/*,setup}.rb', __FILE__)].each do |helper|
-  require helper
-end
+Adva::Testing.setup(:log => '/tmp/adva-cms_test.log')
+Dir[File.expand_path('../test_helpers/*.rb', __FILE__)].each { |file| require file }
 
 # gawd, devise ...
 Devise.setup do |config|
