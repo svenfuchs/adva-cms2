@@ -1,10 +1,10 @@
 Feature: Managing posts
 
   Background:
-    Given the following sections
+    Given a site with the following sections:
       | type | name |
       | Blog | Blog |
-    And the following posts
+    And the following posts:
       | section | title      | body      |
       | Blog    | Post title | Post body |
     And I am signed in with "admin@admin.org" and "admin"

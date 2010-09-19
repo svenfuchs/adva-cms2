@@ -1,4 +1,7 @@
 Feature: Registration
+  Background:
+    Given a site
+
   Scenario: Registering a new user account for a site
     Given I am on the new registration page
      Then I should see a user new form

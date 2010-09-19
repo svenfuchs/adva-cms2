@@ -12,7 +12,7 @@ en:
         notice: '%{resource_name} successfully deleted.'
         alert:  '%{resource_name} could not be deleted.'
     installation:
-      protected: Installation is already complete. Please log in with your admin account.
+      protected: "Installation for %{host} is already complete. Please log in with your admin account."
 
   installations:
     new:

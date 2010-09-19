@@ -20,9 +20,9 @@ class InstallationsController < BaseController
     end
     
     def protect_install
-      if Account.first
-        flash[:error] = t(:'flash.installation.protected')
-        redirect_to admin_sites_url
+      if Site.find_by_host(request.host_with_port)
+        flash[:error] = t(:'flash.installation.protected', :host => request.host_with_port)
+        redirect_to admin_sites_url # TODO figure out how to remove the user dependency
       end
     end
 end

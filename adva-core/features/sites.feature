@@ -1,7 +1,11 @@
 Feature: Managing sites
+
+  Background:
+    Given a site
+    And I am signed in with "admin@admin.org" and "admin"
+
   Scenario: Creating a new site
-    Given I am signed in with "admin@admin.org" and "admin"
-      And I am on the admin dashboard page
+    Given I am on the admin dashboard page
 
     When I follow "New site"
     Then I should see a new site form

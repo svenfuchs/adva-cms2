@@ -1,4 +1,5 @@
 Feature: Routes
+
   Scenario: Routes
     Given the routes are loaded
     Then the following routes should be recognized:

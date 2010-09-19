@@ -2,21 +2,25 @@
 
 <%= link_to(t('.new'), new_admin_site_asset_path(controller.site)) %>
 
-<%= table_for collection do |table|
-  table.column :title, :id => :title_header
-  table.column :description, :id => :description_header
-  table.column :path, :id => :path_header
-  table.column t('action'), :class => 'action'
+<%=
 
-  table.row do |row, asset|
-    row.options[:id] = "asset_#{asset.id}"
-    row.cell asset.title, :headers => :title_header
-    row.cell asset.description, :headers => :description_header
-    row.cell asset.path, :headers => :path_header
-    action_html = "<div>" + link_to(image_tag('icons/pencil.png'), edit_admin_site_asset_path(controller.site, asset), :id => "edit", :class => 'left-floating-field') +
-             button_to("", admin_site_asset_path(site, asset), :method => :delete, :class => 'delete', :id => 'delete') + "</div>"
-    row.cell action_html.html_safe
+  table_for collection, :id => 'assets' do |table|
+    table.column :title, :id => :title_header
+    table.column :description, :id => :description_header
+    table.column :path, :id => :path_header
+    table.column t('action'), :class => 'action'
+
+    table.row do |row, asset|
+      row.options[:id] = "asset_#{asset.id}"
+      row.cell asset.title, :headers => :title_header
+      row.cell asset.description, :headers => :description_header
+      row.cell asset.path, :headers => :path_header
+      action_html = "<div>" + link_to(image_tag('icons/pencil.png'), edit_admin_site_asset_path(controller.site, asset), :id => "edit", :class => 'left-floating-field') +
+               button_to("", admin_site_asset_path(site, asset), :method => :delete, :class => 'delete', :id => 'delete') + "</div>"
+      row.cell action_html.html_safe
+    end
+
+    table.empty :p, t('.no_assets'), :class => 'empty'
   end
 
-  table.empty :p, t('.no_assets'), :class => 'empty'
-end %>
+%>

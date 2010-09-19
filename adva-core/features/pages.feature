@@ -1,9 +1,9 @@
 Feature: Managing pages
 
   Background:
-    Given the following sections
+    Given a site with the following sections:
       | type | name    | body         |
-#       | Page | Home    | Home body    |
+      | Page | Home    | Home body    |
       | Page | Contact | Contact body |
     And I am signed in with "admin@admin.org" and "admin"
     And I am on the admin sections page

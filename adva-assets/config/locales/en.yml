@@ -23,3 +23,8 @@ en:
       errors:
         integrity: 'Not an image.'
         processing: 'Cannot resize image.'
+  images:
+    columns:
+      title: "Title"
+      description: "Description"
+      path: "Path"
