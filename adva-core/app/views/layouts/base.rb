@@ -25,7 +25,7 @@ class Layouts::Base < Minimal::Template
     end
 
     def title(title = nil)
-      super(title || controller.controller_name) # TODO use i18n
+      super(title || default_title)
     end
 
     def stylesheets
@@ -38,7 +38,7 @@ class Layouts::Base < Minimal::Template
 
     def header
     end
-    
+
     def body
     end
 
@@ -46,12 +46,12 @@ class Layouts::Base < Minimal::Template
       block.call
     end
 
-    # def sidebar
-    #   block.call :sidebar
-    # end
-
     def name
       @name ||= self.class.name.demodulize.underscore.to_sym
+    end
+
+    def default_title
+      "#{controller.controller_name.titleize}: #{params[:action].titleize}"
     end
   end
 end
