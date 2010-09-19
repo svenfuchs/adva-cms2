@@ -25,9 +25,3 @@ Factory.define :post do |f|
   f.title  'Title'
   f.body   'Body'
 end
-
-Factory.define :admin, :class => User do |f|
-  f.email 'admin@admin.org'
-  f.password 'admin'
-  f.after_create { |user| user.confirm! }
-end

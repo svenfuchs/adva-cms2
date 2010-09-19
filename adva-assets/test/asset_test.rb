@@ -69,7 +69,7 @@ module AdvaAssets
       asset1 = create_asset
       asset2 = create_asset
 
-      user = User.without_callbacks.create!(:account_id => site.account.id, :email => 'john@doe.com', :password => 'password')
+      user = Factory(:user)
       user.assets << asset1
       user.assets << asset2
 
@@ -78,18 +78,18 @@ module AdvaAssets
     end
 
     test 'An asset belongs to many polymorphic assetables' do
-      user1 = User.without_callbacks.create!(:account_id => site.account.id, :email => 'john@doe.com', :password => 'password')
-      user2 = User.without_callbacks.create!(:account_id => site.account.id, :email => 'jane@doe.com', :password => 'password')
-      post  = Post.create!(:title => 'title')
+      user_1 = Factory(:user)
+      user_2 = Factory(:user)
+      post   = Factory(:post)
 
-      user1.assets << asset
-      user2.assets << asset
+      user_1.assets << asset
+      user_2.assets << asset
       post.assets  << asset
-      [user1, user2, post, asset].map(&:reload)
+      [user_1, user_2, post, asset].map(&:reload)
 
-      assert_equal [user1, user2, post], asset.assetables
-      assert_equal [asset], user1.assets
-      assert_equal [asset], user2.assets
+      assert_equal [user_1, user_2, post], asset.assetables
+      assert_equal [asset], user_1.assets
+      assert_equal [asset], user_2.assets
       assert_equal [asset], post.assets
     end
   end
