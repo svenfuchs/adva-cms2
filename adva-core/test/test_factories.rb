@@ -31,8 +31,3 @@ Factory.define :admin, :class => User do |f|
   f.password 'admin'
   f.after_create { |user| user.confirm! }
 end
-
-Factory.define :image do |f|
-  f.file File.open(Adva::Assets.root.join('test/fixtures/rails.png'))
-  f.description 'description'
-end
