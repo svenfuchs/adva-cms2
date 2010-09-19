@@ -67,6 +67,15 @@ Feature: Managing pages
     When I follow "Delete" within the "Home" row
     Then the title should be "Sections: Index"
      And I should see "Page successfully deleted"
+     And I should not see "Home"
     When I follow "Delete" within the "Contact" row
     Then the title should be "Sections: Index"
      And I should see "Page could not be deleted"
+     And I should see "Contact"
+
+  Scenario: Deleting a page from the section page
+    When I follow "Contact"
+    When I follow "Delete"
+    Then the title should be "Sections: Index"
+     And I should see "Page successfully deleted"
+     And I should not see "Contact"
