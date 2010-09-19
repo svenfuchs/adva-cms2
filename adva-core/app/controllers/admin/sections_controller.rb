@@ -2,9 +2,10 @@ class Admin::SectionsController < Admin::BaseController
   belongs_to :site
 
   before_filter :set_params_for_nested_resources, :only => [:new, :create, :edit, :update]
+  before_filter :protect_last_section, :only => :destroy
 
   helper :sections
-  abstract_actions :except => :index
+  abstract_actions :except => [:index, :destroy]
 
   def create
     resource.save
@@ -21,6 +22,15 @@ class Admin::SectionsController < Admin::BaseController
         params[:section][:article_attributes] ||= { :body => '' }
       else
         params[:section].delete(:article_attributes)
+      end
+    end
+
+    def protect_last_section
+      if site.sections.count == 1
+        flash[:error] = t(:'flash.actions.destroy.alert', :resource_name => resource.class.model_name)
+        # TODO can we use the responder?
+        target = Adva::Registry.get(:redirect, "#{controller_path}##{params[:action]}")
+        redirect_to target.respond_to?(:call) ? target.call(self) : target
       end
     end
 end
