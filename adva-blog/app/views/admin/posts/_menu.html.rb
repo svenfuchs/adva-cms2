@@ -11,7 +11,7 @@ class Admin::Posts::Menu < Adva::View::Menu::Admin::Actions
       if persisted?
         item(:'.view', public_url)
         item(:'.edit', edit_path)
-        item(:'.delete', resource_path, :method => :delete, :confirm => t(:'.confirm_delete', :model_name => resource.class.human_name))
+        item(:'.delete', resource_path, :method => :delete, :confirm => t(:'.confirm_delete', :model_name => resource.class.model_name.human))
       end
     end
   end

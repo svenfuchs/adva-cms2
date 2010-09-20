@@ -44,7 +44,7 @@ class Admin::Blogs::Show < Minimal::Template
   
     def link_to_delete(post, options = {})
       capture { link_to(options[:text] || :'.delete', url_for([:admin, site, post.section, post]), :class => :delete, :method => :delete, 
-        :confirm => t(:'.confirm_delete', :model_name => post.class.human_name)) }
+        :confirm => t(:'.confirm_delete', :model_name => post.class.model_name.human)) }
     end
   
     def status(post)
