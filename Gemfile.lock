@@ -50,7 +50,7 @@ PATH
       routing-filter (= 0.1.6)
       silence_log_tailer
       simple_form
-      simple_nested_set (= 0.0.11)
+      simple_nested_set (= 0.0.12)
       simple_slugs (= 0.0.7)
       simple_table (= 0.0.5)
 
@@ -186,7 +186,7 @@ GEM
       linecache (>= 0.3)
     silence_log_tailer (0.0.1)
     simple_form (1.2.2)
-    simple_nested_set (0.0.11)
+    simple_nested_set (0.0.12)
       activerecord (>= 3.0.0.beta4)
       activesupport
     simple_slugs (0.0.7)
