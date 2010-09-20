@@ -225,7 +225,7 @@ DEPENDENCIES
   cucumber (= 0.8.5)
   cucumber-rails (= 0.3.2)
   database_cleaner
-  factory_girl
+  factory_girl (= 1.3.2)
   fakefs
   has_many_polymorphs!
   launchy
