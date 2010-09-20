@@ -129,6 +129,16 @@ Then /^I should not see a flash (error|notice) "(.*)"$/ do |message_type, messag
   assert_no_match /message/, flash_cookie[message_type].to_s
 end
 
+Then /^I should (see|not see) the error "([^"]*)" for attribute "([^"]*)" of the "([^"]*)"$/ do |should_see, error_msg, attribute, model|
+  if should_see == 'see' # ugh ...
+    assert_select "*[id*=#{model.downcase.gsub(' ', '_')}_#{attribute.downcase.gsub(' ', '_')}] + span.error",
+      :text => error_msg
+  elsif should_see == 'not see'
+    assert_select "*[id*=#{model.downcase.gsub(' ', '_')}_#{attribute.downcase.gsub(' ', '_')}] + span.error",
+      :text => error_msg, :count => 0
+  end
+end
+
 Then /^the following emails should have been sent:$/ do |expected_emails|
   expected_emails.hashes.each do |attributes|
     assert_email_sent(attributes)

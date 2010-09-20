@@ -36,11 +36,11 @@ Rails.backtrace_cleaner.remove_silencers!
 
 module GlobalsHelpers
   def site
-    Site.first
+    Site.first || raise("Could not find a site. Maybe you want to set one up in your story background?")
   end
 
   def account
-    Account.first
+    Account.first || raise("Could not find a site. Maybe you want to set one up in your story background?")
   end
 end
 
