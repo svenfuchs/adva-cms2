@@ -50,6 +50,7 @@ module Adva
         :simple  => %w(),
         :default => %w(),
         :admin   => %w( adva-core/jquery-1.4.2.min.js
+                        adva-core/rails
                         adva-core/admin )
       )
 

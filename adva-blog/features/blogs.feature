@@ -45,7 +45,7 @@ Feature: Managing blogs
      And I should see <result>
     Examples:
       | name     | message                   | result       |
-      | New name | Blog successfully created |              |
+      | New name | Blog successfully created | a posts list |
       |          | Blog could not be created | a blog form  |
 
   Scenario Outline: Updating a blog's settings

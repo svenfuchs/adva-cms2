@@ -13,6 +13,8 @@ en:
         alert:  '%{resource_name} could not be deleted.'
     installation:
       protected: "Installation for %{host} is already complete. Please log in with your admin account."
+  confirm:
+    delete: 'Do you really want to delete this %{model_name}?'
 
   installations:
     new:
@@ -52,6 +54,7 @@ en:
         edit: Edit
         delete: Delete
         new_item: New Section
+        confirm_delete: "Do you really want to delete this %{model_name}?"
     sections:
       index:
         title: Sections
@@ -59,6 +62,7 @@ en:
         edit: Edit
         delete: Delete
         published: Published
+        confirm_delete: "Do you really want to delete this %{model_name}?"
       new:
         title: Create a New Section
       show:
@@ -78,6 +82,7 @@ en:
         show: Page
         view: View
         delete: Delete
+        confirm_delete: "Do you really want to delete this %{model_name}?"
     posts:
       edit:
         title: Settings

@@ -12,7 +12,7 @@ class Admin::Pages::Menu < Adva::View::Menu::Admin::Actions
     def right
       if resource.try(:persisted?)
         item(:'.view', public_url)
-        item(:'.delete', resource_path, :method => :delete)
+        item(:'.delete', resource_path, :method => :delete, :confirm => t(:'.confirm_delete', :model_name => resource.class.human_name))
       else
         item(:'.new', new_path)
       end

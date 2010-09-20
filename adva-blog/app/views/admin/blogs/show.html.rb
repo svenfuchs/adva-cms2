@@ -9,8 +9,7 @@ class Admin::Blogs::Show < Minimal::Template
       		r.cell ''.html_safe # post.accept_comments? && post.comments.present? ? link_to(post.comments.size, admin_comments_path) : t(:"adva.common.none")
     			r.cell ''.html_safe # published_at_formatted(post)
     			r.cell link_to_author(post)
-    			r.cell link_to_view(post) +
-    			       links_to_actions([:edit, :delete], post)
+    			r.cell links_to_actions([:view, :edit, :delete], post)
     		end
 
     		t.foot.row do |r|
@@ -44,7 +43,8 @@ class Admin::Blogs::Show < Minimal::Template
     end
   
     def link_to_delete(post, options = {})
-      capture { link_to(options[:text] || :'.delete', url_for([:admin, site, post.section, post]), :class => :delete, :method => :delete) }
+      capture { link_to(options[:text] || :'.delete', url_for([:admin, site, post.section, post]), :class => :delete, :method => :delete, 
+        :confirm => t(:'.confirm_delete', :model_name => post.class.human_name)) }
     end
   
     def status(post)
