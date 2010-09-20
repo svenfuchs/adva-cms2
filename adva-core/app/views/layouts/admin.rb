@@ -8,7 +8,6 @@ module Layouts
             div :id => 'main', :class => 'main' do
               render :partial => 'layouts/flash'
               div :id => 'content' do
-                render :partial => 'layouts/flash'
                 content
               end
             end
