@@ -1,39 +1,40 @@
 module Adva::Core::Paths
-  def path_to(page_name)
-    case page_name
-    when 'the site installation page'
+  def path_to(page)
+    case page
+
+    when /^the home\s?page$/
+      '/'
+
+    when /^the site installation page$/
       new_installation_path
-    when 'the site installation confirmation page'
+
+    when /^the site installation confirmation page$/
       installation_path(Site.last)
-    when /the home\s?page/
-      '/'
-    when 'the home section page'
-      '/'
-    when /the "([^"]*)" section page/
-      section = Section.where(:name => $1).first
+
+    when /^the "([^"]*)" section page$/
+      section = Section.where(:name => $1).first || raise("could not find section named #{$1}")
       polymorphic_path(section)
-    when 'the sign in page'
-      new_user_session_path
-    when 'the new registration page'
-      new_user_registration_path
-    when 'the admin sites page'
+
+    when /^the admin sites page$/
       polymorphic_path([:admin, :sites])
-    when 'the admin dashboard page'
-      polymorphic_path([:admin, Site.first])
-    when /the admin dashboard page for the site on "([^"]*)"/
+
+    when /^the admin dashboard page$/
+      site = Site.first
+      polymorphic_path([:admin, site])
+
+    when /^the admin dashboard page for the site on "([^"]*)"$/
       site = Site.find_by_host($1) || raise("could not find site with host #{$1}")
       polymorphic_path([:admin, site])
-    when 'the admin sections page'
-      polymorphic_path([:admin, Site.first, :sections])
-    when /the admin "([^"]*)" section page/
+
+    when /^the admin sections page$/
+      site = Site.first
+      polymorphic_path([:admin, site, :sections])
+
+    when /^the admin "([^"]*)" section page$/
+      site = Site.first
       section = Section.where(:name => $1).first || raise("could not find section named #{$1}")
-      polymorphic_path([:admin, Site.first, section])
-    when /the admin posts list page of the "([^"]*)" blog/
-      section = Blog.find_by_name($1) || raise("could not find blog #{$1.inspect}")
-      polymorphic_path([:admin, section.site, section])
-    when /the admin edit post page for the post "([^"]*)"/
-      post = Post.find_by_title($1) || raise("could not find post #{$1.inspect}")
-      polymorphic_path([:edit, :admin, post.section.site, post.section, post])
+      polymorphic_path([:admin, site, section])
+
     else
       named_route_helper = page_name.gsub(/(\Athe )|( page\Z)/, '').gsub(/ +/, '_').downcase + '_path'
       raise "Can't find mapping from \"#{page_name}\" to a path.\nNow, go and add a mapping in #{__FILE__}" unless respond_to?(named_route_helper)
