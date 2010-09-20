@@ -23,7 +23,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'simple_form'
   s.add_dependency 'simple_slugs', '0.0.7'
   s.add_dependency 'simple_table', '0.0.5'
-  s.add_dependency 'simple_nested_set', '0.0.11'
+  s.add_dependency 'simple_nested_set', '0.0.12'
   s.add_dependency 'nbrew-country_select'
   s.add_dependency 'silence_log_tailer'
 end
