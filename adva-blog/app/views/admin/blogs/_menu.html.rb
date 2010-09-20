@@ -13,7 +13,7 @@ class Admin::Blogs::Menu < Adva::View::Menu::Admin::Actions
     def right
       if persisted?
         item(:'.new_item', children_new_path(:posts))
-        item(:'.delete', resource_path, :method => :delete, :confirm => t(:'.confirm_delete', :model_name => resource.class.human_name))
+        item(:'.delete', resource_path, :method => :delete, :confirm => t(:'.confirm_delete', :model_name => resource.class.model_name.human))
       else
         item(:'.new', new_path)
       end

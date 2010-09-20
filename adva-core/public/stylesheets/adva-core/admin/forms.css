@@ -130,7 +130,26 @@ input[type=submit].delete {
 #section_submit {
   display: none;
 }
+span.error {
+  color: #c00000;
+  display: block;
+  font-size: 12px;
+  margin-bottom: 10px;
+}
 
+div.medium_sized_inputs
+  input[type="text"], input[type="number"] {
+  width: 350px !important;
+}
+
+div.medium_sized_inputs input[type="number"] {
+  width: 148px !important;
+}
+
+div.medium_sized_inputs textarea {
+  width: 350px !important;
+  height: 180px !important;
+}
 
 /*button {
    border: 1px solid #8ec1da;
