@@ -28,7 +28,8 @@ class Admin::Sections::Index < Minimal::Template
     end
   
     def link_to_delete(section)
-      capture { link_to(:'.delete', url_for([:admin, site, section]), :class => :delete, :method => :delete) }
+      capture { link_to(:'.delete', url_for([:admin, site, section]), :class => :delete, :method => :delete, 
+        :confirm => t(:'.confirm_delete', :model_name => section.class.human_name)) }
     end
   
     def status(section)

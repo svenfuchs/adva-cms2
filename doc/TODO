@@ -4,25 +4,41 @@ Done:
 + improve view/form extensibility by using a base module
 + rename Section#title to Section#name
 + fix installation controller and view, add admin user, add safeguard
++ style flash
++ make cucumber support and test setup stuff more accessible to others
 
 Stuff:
 
+- fix inherited_resources/link_to to take arguments, fix destroy links, use in menus + tables
 - add rails.css and fix delete links
-- style flash
+- port svenfuchs.com and add a jekyl format
+- thor engine migration generator
 - make adva-user optional through http_auth, fix Site.install
 - figure out how to remove set_params_for_nested_resources controller filters
-- thor engine migration generator
 - custom error pages
 
 Features:
 
-- content filters
-- authorship
-- publishing
-- content translation
-- list filters
+- core: detect site from host, multiple sites
+- core: excerpts
+- core: system events, orchestration (?)
+- core: content filters
+- core: authorship
+- core: publishing
+- core: content translation
+- core: content versioning
+- core: list filters
+- core: tags
+- core: categories
+- core: optimistic lock
+- blog: rss feeds
+- caching: integration tests
+- user: integration tests (e.g. unlocking)
+- user: account/site memberships
+- rbac
+- comments
 
 I18n:
 
-- fix simple_form lookup scopes
+- fix simple_form, inherited_resources etc lookup scopes
 - make :'.foo' additionally lookup sane defaults (e.g. minimal class parents?)

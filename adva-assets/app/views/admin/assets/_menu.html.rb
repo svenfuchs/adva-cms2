@@ -8,7 +8,7 @@ class Admin::Assets::Menu < Adva::View::Menu::Admin::Actions
     if persisted?
       item(:'.new', new_path)
       item(:'.edit', edit_path)
-      item(:'.delete', resource_path, :method => :delete)
+      item(:'.delete', resource_path, :method => :delete, :confirm => t(:'.confirm_delete', :model_name => resource.class.human_name))
     end
   end
 

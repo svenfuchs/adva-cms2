@@ -30,6 +30,7 @@ en:
         published: Published
         empty: "There are no posts. %{link}"
         create_item: "Create one now &raquo;"
+        confirm_delete: "Do you really want to delete this %{model_name}?"
       new:
         title: Create a New Section
       edit:
@@ -41,6 +42,7 @@ en:
         edit: Settings
         delete: Delete
         new_item: New Post
+        confirm_delete: "Do you really want to delete this %{model_name}?"
     posts:
       new:
         title: Write a new blog post
@@ -54,3 +56,4 @@ en:
         view: View
         edit: Edit
         delete: Delete
+        confirm_delete: "Do you really want to delete this %{model_name}?"
