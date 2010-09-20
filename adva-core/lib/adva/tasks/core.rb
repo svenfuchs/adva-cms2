@@ -39,7 +39,7 @@ module Adva
       class_option :engines, :required => false, :type => :array
 
       def install
-        Adva::Generators::Install.new(symbolized_options(:engines)).invoke
+        Adva::Generators::Install.new(symbolized_options).invoke
       end
     end
 
