@@ -30,5 +30,5 @@ group :test do
   gem 'test_declarative'
   gem 'database_cleaner'
   gem 'launchy'
-  gem 'factory_girl'
+  gem 'factory_girl', '1.3.2'
 end
