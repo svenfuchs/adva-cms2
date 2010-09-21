@@ -30,15 +30,17 @@ class Admin::Blogs::Show < Minimal::Template
       ''.html_safe # link_to(post.author_name, admin_site_user_path(@site, post.author))
     end
   
-    def link_to_view(post)
-      capture { link_to(options[:text] || :'.view', public_url_for([post.section, post]), :class => :view) }
-    end
-  
     def links_to_actions(actions, *args)
       actions.map { |action| send(:"link_to_#{action}", *args) }.join("\n".html_safe).html_safe # TODO urgs
     end
   
+    def link_to_view(post)
+      # capture { link_to_show(post, options) }
+      capture { link_to(options[:text] || :'.view', public_url_for([post.section, post]), :class => :view) }
+    end
+  
     def link_to_edit(post, options = {})
+      # capture { link_to_edit(post, options) }
       capture { link_to(options[:text] || :'.edit', url_for([:edit, :admin, site, post.section, post]), :class => :edit) }
     end
   

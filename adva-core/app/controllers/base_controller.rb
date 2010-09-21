@@ -17,6 +17,6 @@ class BaseController < InheritedResources::Base
   end
 
   def site
-    Site.first # TODO
+    @site ||= Site.count == 1 ? Site.first : Site.find_by_host(request.host_with_port)
   end
 end
