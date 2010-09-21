@@ -115,3 +115,12 @@ div.pagination a {
 div.pagination a:hover, div.pagination a:focus {
   text-decoration: underline;
 }
+
+li#asset {
+  display: inline;
+  margin-right: 5px;
+}
+
+ul#uploaded_assets {
+  margin-top: 20px;
+}
