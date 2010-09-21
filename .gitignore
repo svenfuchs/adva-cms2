@@ -1,8 +1,7 @@
 .rvmrc
-tmp
+/tmp
 *.log
 .DS_Store
 .bundle/*
 *.zip
 *.sqlite3
-public/sites
