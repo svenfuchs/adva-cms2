@@ -9,8 +9,7 @@ Feature: Installation
       And I press "Create"
      Then I should be on the site installation confirmation page
       And I should see "Success!"
-      And I should see a link "Manage your new site"
-     When I follow that link
+      And I should see "Manage your new site"
      # TODO Then I should be on the admin site edit page
 
   Scenario: Trying to install a site for a port that already exist
