@@ -37,6 +37,11 @@ Given /^an? (.*) with the (\w+) "([^"]+)" for the (\w+) "([^"]+)"$/ do |model, a
   collection.find(:first, :conditions => attributes) || collection.create!(attributes)
 end
 
+When /^(.+) that link$/ do |step|
+  raise "no last link" if @last_link.blank?
+  When %(#{step} "#{@last_link}")
+end
+
 When /^I (press|click) "(.*)" in the row where "(.*)" is "(.*)"$/ do |method, link_or_button, header, cell_content|
   body = Nokogiri::HTML(response.body)
   header_id = body.xpath("//th[normalize-space(text())='#{header}']/@id").first.value
@@ -57,9 +62,10 @@ Then /^the title should be "([^"]*)"$/ do |title|
   assert_select('title', title)
 end
 
-# Then /^I should see $/ do
-#   # do nothing
-# end
+Then /^I should see a link "([^"]*)"$/ do |link|
+  @last_link = link
+  assert_select('a', link)
+end
 
 Then /^I should not see any (\w*)$/ do |type|
   assert_select(".#{type.singularize}", :count => 0) # .#{type},
