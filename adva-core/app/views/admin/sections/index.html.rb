@@ -8,9 +8,7 @@ class Admin::Sections::Index < Minimal::Template
     		t.row(:class => 'section') do |r, section|
     			r.add_class "level_#{section.level}"
     			r.cell link_to_section(section)
-    			r.cell link_to_view(section) +
-    			       link_to_edit(section) +
-    			       link_to_delete(section)
+          r.cell links_to_actions([:view, :edit, :destroy], section)
     		end
     	end
     end
@@ -21,15 +19,6 @@ class Admin::Sections::Index < Minimal::Template
 
     def link_to_view(section)
       capture { link_to(:'.view', public_url_for([section]), :class => :view) }
-    end
-
-    def link_to_edit(section)
-      capture { link_to(:'.edit', url_for([:edit, :admin, site, section]), :class => :edit) }
-    end
-
-    def link_to_delete(section)
-      capture { link_to(:'.delete', url_for([:admin, site, section]), :class => :delete, :method => :delete,
-        :confirm => t(:'.confirm_delete', :model_name => section.class.model_name.human)) }
     end
 
     def status(section)

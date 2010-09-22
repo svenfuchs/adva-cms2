@@ -60,7 +60,7 @@ en:
         title: Sections
         view: View
         edit: Edit
-        delete: Delete
+        destroy: Delete
         published: Published
         confirm_delete: "Do you really want to delete this %{model_name}?"
       new:

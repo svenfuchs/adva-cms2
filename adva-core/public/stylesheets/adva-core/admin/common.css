@@ -85,11 +85,11 @@ ul.links li:before {
 .actions a.edit {
   background: url(/images/adva-core/icons/pencil.png) no-repeat;
 }
-.actions a.delete {
+.actions a.delete,
+.actions a.destroy {
   background: url(/images/adva-core/icons/bin_closed.png) no-repeat -5px top;
 }
 
-/* PAGINATION, taken from WillPaginate, slightly modified */
 
 div.pagination {
   margin-top: 1em;
