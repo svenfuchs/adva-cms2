@@ -9,6 +9,8 @@ require 'mocha'
 require 'fakefs/safe'
 require 'stringio'
 
+ENV['RAILS_ENV'] = 'test'
+
 Bundler.require(:default)
 
 class ApplicationController < ActionController::Base ; end

@@ -9,5 +9,5 @@ Then /^I should see the image "([^"]*)"$/ do |image_title|
   # stores a file with name 'rails.png', we need to strip that suffix to be able to check if the file can be found:
   Rails.root.join('public', image_src).to_s =~ /\/(.*)\?.*/
   file_url = Rails.root.join('public', $1)
-  assert File.exists?(file_url), "file '#{file_url}' for image '#{image_title}' could not be found"
+  assert File.exists?(file_url), "file '#{file_url}' for image '#{image_title}' does not exist"
 end

@@ -21,18 +21,12 @@ module AdvaAssets
       Asset.create(options.reverse_merge(:file => File.open(image), :site => site, :title => 'title', :description => 'description'))
     end
 
-    test 'default asset meta data' do
-      assert asset.default_url == asset.file.base_url + '/default.png'
-    end
-
     test 'new valid asset' do
       assert asset.valid?
       assert File.exists?(asset.path)
       assert File.exists?(asset.current_path)
       assert asset.title == 'title'
       assert asset.description == 'description'
-      assert asset.basename == 'rails'
-      assert asset.extname == 'png'
       assert asset.filename == 'rails.png'
     end
 
@@ -41,7 +35,7 @@ module AdvaAssets
     #   assert !invalid_asset.valid?
     #   assert_equal "can't be blank", invalid_asset.errors.first[1]
     # end
-    
+
     test 'asset must have a site assignment' do
       invalid_asset = create_asset(:site => nil)
       assert !invalid_asset.valid?
