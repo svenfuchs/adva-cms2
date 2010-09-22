@@ -44,12 +44,21 @@ end
 #     | Note           | Nice guy   |
 #     | Wants Email?   |            |
 #
-# TODO: Add support for checkbox, select og option
-# based on naming conventions.
-#
 When /^(?:|I )fill in the following:$/ do |fields|
   fields.rows_hash.each do |name, value|
-    When %{I fill in "#{name}" with "#{value}"}
+    step = case webrat.field_labeled(name)
+    when Webrat::TextField, Webrat::TextareaField, Webrat::PasswordField
+      %(I fill in "#{name}" with "#{value}")
+    # when Webrat::RadioField
+    #   %(I choose "#{value}")
+    # when Webrat::CheckboxField
+    #   %(I check "#{value}")
+    when Webrat::SelectField, Webrat::MultiSelectField
+      %(I select "#{value}" from "#{name}")
+    when Webrat::FileField
+      %(I attach "#{value}" to "#{name}")
+    end
+    When step
   end
 end
 
