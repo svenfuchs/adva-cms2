@@ -1,12 +1,20 @@
+require File.expand_path('../lib/bundler/repository', __FILE__)
+
 source :rubygems
 
+workspace '~/.projects ~/projects ~/Development/{projects,work}'
+adva_cms = repository('adva-cms2', :source => :local)
+
+adva_cms.gem  'adva-assets'
+adva_cms.gem  'adva-cache'
+adva_cms.gem  'adva-blog'
+adva_cms.gem  'adva-core'
+adva_cms.gem  'adva-static'
+adva_cms.gem  'adva-user'
+
 gem 'rails', '3.0.0'
-gem 'adva-assets',     :path => File.expand_path('../adva-assets', __FILE__)
-gem 'adva-cache',      :path => File.expand_path('../adva-cache', __FILE__)
-gem 'adva-core',       :path => File.expand_path('../adva-core', __FILE__)
-gem 'adva-blog',       :path => File.expand_path('../adva-blog', __FILE__)
-gem 'adva-static',     :path => File.expand_path('../adva-static', __FILE__)
-gem 'adva-user',       :path => File.expand_path('../adva-user', __FILE__)
+gem 'has_many_polymorphs', :git => 'git://github.com/kronn/has_many_polymorphs.git', :ref => '9b0913'
+gem 'carrierwave', :git => 'git://github.com/jnicklas/carrierwave.git', :ref => '60314c375783'
 
 # gem 'simple_nested_set', :path => '~/Development/projects/simple_nested_set'
 # gem 'minimal', :path => '~/Development/projects/minimal'
@@ -15,12 +23,9 @@ gem 'adva-user',       :path => File.expand_path('../adva-user', __FILE__)
 # gem 'rack-cache-tags',  :path => '~/Development/projects/rack-cache-tags'
 # gem 'inherited_resources_helpers', :path => '~/Development/projects/inherited_resources_helpers'
 
-gem 'has_many_polymorphs', :git => 'git://github.com/kronn/has_many_polymorphs.git', :ref => '9b0913'
-gem 'carrierwave', :git => 'git://github.com/jnicklas/carrierwave.git', :ref => '60314c375783'
-
 group :test do
   gem 'sqlite3-ruby', '1.2.5'
-  gem 'cucumber', '0.8.5'
+  gem 'cucumber', '0.9.0'
   gem 'cucumber-rails', '0.3.2'
   gem 'webrat', '0.7.0' # '0.7.2.beta.1'
   gem 'thor'
