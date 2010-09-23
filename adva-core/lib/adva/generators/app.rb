@@ -6,7 +6,6 @@ require 'active_support/core_ext/hash/reverse_merge'
 require 'rails/generators'
 require 'rails/generators/rails/app/app_generator'
 require 'core_ext/ruby/module/option_reader'
-require 'adva/tasks/core'
 
 module Adva
   module Generators
@@ -27,7 +26,7 @@ module Adva
         @name    = name || File.basename(source)
         raise ArgumentError, "#{source.inspect} is not a directory" unless File.directory?(source)
       end
-      
+
       def invoke
         if force? || build?
           build
