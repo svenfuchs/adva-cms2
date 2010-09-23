@@ -11,8 +11,8 @@ module Adva
         @source = root.join(options[:source]  || 'import')
         @target = root.join(options[:target]  || 'export')
         @remote = options[:remote]
-        @host   = options[:host]   || 'example.org'
-        @title  = options[:title]  || host
+        @host   = options[:host]  || 'example.org'
+        @title  = options[:title] || host
         
         Adva.out = StringIO.new('')
       end
@@ -27,9 +27,8 @@ module Adva
       def setup_directories
         source.mkdir rescue Errno::EEXIST
         target.mkdir rescue Errno::EEXIST
-        File.open(source.join('site.yml'), 'w+') do |f|
-           f.write(YAML.dump(:host => host, :title => title))
-        end
+        site = source.join('site.yml')
+        File.open(site, 'w+') { |f| f.write(YAML.dump(:host => host, :title => title)) } unless site.exist?
       end
 
       def initial_import_and_export

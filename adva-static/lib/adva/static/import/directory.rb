@@ -4,6 +4,7 @@ module Adva
   class Static
     module Import
       class Directory
+        autoload :Format,   'adva/static/import/directory/format'
         autoload :Path,     'adva/static/import/directory/path'
         autoload :Request,  'adva/static/import/directory/request'
 

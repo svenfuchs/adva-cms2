@@ -4,8 +4,6 @@ module Adva
       class Directory
         module Models
           class Blog < Section
-            PERMALINK = %r((?:^|/)\d{4}/\d{1,2}/\d{1,2}/(.*)$)
-
             class << self
               def build(paths)
                 return [] if paths.blank?
@@ -18,11 +16,11 @@ module Adva
               end
 
               def permalink?(path)
-                path.to_s =~ PERMALINK
+                path.to_s =~ Post::PERMALINK
               end
 
               def strip_permalink(paths)
-                Array(paths).map { |path| Path.new(path.to_s.gsub!(PERMALINK) { $2 }, path.root) }
+                Array(paths).map { |path| Path.new(path.to_s.gsub!(Post::PERMALINK, ''), path.root) }
               end
             end
 

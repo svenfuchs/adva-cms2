@@ -4,17 +4,26 @@ module Adva
       class Directory
         module Models
           class Post < Base
+            PERMALINK = %r((?:^|/)(\d{4})(?:\-|\/)(\d{1,2})(?:\-|\/)(\d{1,2})(?:\-|\/)(.*)$)
+
             class << self
               def build(path)
-                posts = Dir["#{path.to_s.gsub('.yml', '')}/*/*/*/*.yml"]
-                posts << path if path.to_s =~ Blog::PERMALINK
+                posts = self.posts(path)
+                posts << path if path.to_s =~ PERMALINK
                 posts.map { |post| new(Path.new(post, path.root)) }
+              end
+              
+              def posts(path)
+                path    = path.to_s.sub(%r(\.(#{Path::TYPES.join('|')})$), '')
+                types   = Path::TYPES.join(',')
+                pattern = "#{path}/**/*.{#{types}}"
+                Dir[pattern].select { |path| path =~ PERMALINK }
               end
             end
 
             def initialize(path)
               super(path)
-              load!
+              load
             end
 
             def attribute_names
@@ -41,12 +50,16 @@ module Adva
               Blog.strip_permalink(source).first
             end
 
+            def slug
+              @slug ||= super =~ PERMALINK and $4
+            end
+
             def title
               @title ||= File.basename(source, source.extname).titleize
             end
 
             def permalink
-              source.to_s.match(%r((\d{4})/(\d{1,2})/(\d{1,2}))).to_a[1..-1] << slug
+              source.to_s.match(PERMALINK).to_a[1..-2] << slug
             end
 
             def created_at

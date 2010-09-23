@@ -1,4 +1,5 @@
 require 'core_ext/ruby/array/flatten_once'
+require 'core_ext/ruby/file/basename_multiple_extensions'
 
 module Adva
   class Static
@@ -16,7 +17,7 @@ module Adva
 
             def initialize(source)
               @source = Path.new(source)
-              load!
+              load
             end
 
             def sync!(params)
@@ -39,7 +40,7 @@ module Adva
             end
 
             def slug
-              File.basename(source, '.yml')
+              File.basename(source, Path::EXTENSIONS)
             end
 
             def body
@@ -54,13 +55,8 @@ module Adva
               source
             end
 
-            def load!
-              send(:"load_#{File.extname(loadable).gsub('.', '')}!") if File.file?(loadable)
-            end
-
-            def load_yml!
-              data = YAML.load_file(loadable)
-              data.each { |key, value| instance_variable_set(:"@#{key}", value) } if data.is_a?(Hash)
+            def load
+              Format.for(loadable).load(self) if File.file?(loadable.to_s)
             end
 
             def ==(other)

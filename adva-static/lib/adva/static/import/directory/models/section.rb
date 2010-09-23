@@ -23,7 +23,7 @@ module Adva
             end
 
             def loadable
-              source.root? ? File.join(source, 'index.yml') : source
+              source.root? ? Dir["#{source}/index.{#{Path::TYPES.join(',')}}"].first : source
             end
 
             def type

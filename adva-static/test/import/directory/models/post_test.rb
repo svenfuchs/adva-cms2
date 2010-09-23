@@ -17,7 +17,7 @@ module Tests
           test "Post loads [article].yml files" do
             setup_root_blog
 
-            path = root.join('2008/07/18/finally-ruby-on-rails-gets-internationalized.yml')
+            path = root.join('2008-07-18-finally-ruby-on-rails-gets-internationalized.yml')
             setup_files([path, YAML.dump(
               'title' => 'Finally. Ruby on Rails gets internationalized',
               'body'  => 'In hindsight we\'ve initially tried to accomplish way to much.'
