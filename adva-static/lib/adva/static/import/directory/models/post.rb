@@ -31,6 +31,8 @@ module Adva
             end
 
             def record
+              # require 'ruby-debug'
+              # debugger
               @record ||= section.posts.by_permalink(*permalink).all.first || section.posts.build
             end
 
@@ -51,7 +53,7 @@ module Adva
             end
 
             def slug
-              @slug ||= super =~ PERMALINK and $4
+              @slug ||= SimpleSlugs::Slug.new(title).to_s # (super =~ PERMALINK and $4)
             end
 
             def title
