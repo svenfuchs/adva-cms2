@@ -18,6 +18,7 @@ class Layouts::Base < Minimal::Template
       title
       stylesheets
       javascripts
+      block.call(:head)
     end
 
     def doctype

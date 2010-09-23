@@ -116,11 +116,11 @@ div.pagination a:hover, div.pagination a:focus {
   text-decoration: underline;
 }
 
-li#asset {
+li.image {
   display: inline;
   margin-right: 5px;
 }
 
-ul#uploaded_assets {
+ul#uploaded_images {
   margin-top: 20px;
 }

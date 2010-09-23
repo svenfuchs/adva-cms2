@@ -11,3 +11,12 @@ Then /^I should see the image "([^"]*)"$/ do |image_title|
   file_url = Rails.root.join('public', $1)
   assert File.exists?(file_url), "file '#{file_url}' for image '#{image_title}' does not exist"
 end
+
+Then /^I should see the video "([^"]*)"$/ do |video_title|
+  body = Nokogiri::HTML(response.body)
+  videos = body.xpath("//embed[@name='#{video_title}']")
+  assert videos.one?, "video with title '#{video_title}' could not be found"
+  video_src = videos.first.attributes["src"].value
+  file_url = Rails.root.to_s + '/public' + video_src
+  assert File.exists?(file_url), "file '#{file_url}' for video '#{video_title}' does not exist"
+end

@@ -19,6 +19,7 @@ Gem.patching('webrat', '0.7.0') do
       case Webrat.configuration.mode
       when :rails
         if content_type
+          @original_value = 'sample_video.swf' if content_type == 'swf'
           Rack::Test::UploadedFile.new(File.expand_path("../../../../../adva-assets/test/fixtures/#{@original_value}", __FILE__), content_type, false)
         else
           Rack::Test::UploadedFile.new(File.expand_path("../../../../../adva-assets/test/fixtures/#{@original_value}", __FILE__), nil, false)

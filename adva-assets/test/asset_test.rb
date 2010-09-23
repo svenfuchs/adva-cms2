@@ -1,24 +1,20 @@
 require File.expand_path('../test_helper', __FILE__)
 
 Asset.has_many_polymorphs :assetables, :through => :asset_assignments, :from => [:users, :posts]
-
-require 'asset'
-require 'post'
+Image.has_many_polymorphs :assetables, :through => :asset_assignments, :from => [:users, :posts]
+Video.has_many_polymorphs :assetables, :through => :asset_assignments, :from => [:users, :posts]
 
 module AdvaAssets
   class AssetTest < Test::Unit::TestCase
-    attr_reader :site, :image, :asset, :fixtures
+    attr_reader :site, :image, :video, :asset, :fixtures
 
     def setup
       super
       @site = Factory(:site)
       @fixtures = Pathname.new(File.expand_path('../fixtures', __FILE__))
       @image = fixtures.join('rails.png')
+      @video = fixtures.join('sample_video.swf')
       @asset = create_asset
-    end
-
-    def create_asset(options = {})
-      Asset.create(options.reverse_merge(:file => File.open(image), :site => site, :title => 'title', :description => 'description'))
     end
 
     test 'new valid asset' do
@@ -29,12 +25,6 @@ module AdvaAssets
       assert asset.description == 'description'
       assert asset.filename == 'rails.png'
     end
-
-    # test 'asset must have a file' do
-    #   invalid_asset = create_asset(:file => nil)
-    #   assert !invalid_asset.valid?
-    #   assert_equal "can't be blank", invalid_asset.errors.first[1]
-    # end
 
     test 'asset must have a site assignment' do
       invalid_asset = create_asset(:site => nil)
@@ -68,6 +58,51 @@ module AdvaAssets
 
       assert_equal 2, user.assets.count
       assert [asset1, asset2], user.assets
+
+      post = Factory(:post)
+      post.assets << asset1
+      post.assets << asset2
+
+      assert_equal 2, post.assets.count
+      assert [asset1, asset2], post.assets
+    end
+
+    test 'Assetables have many images' do
+      image1 = create_image
+      image2 = create_image
+
+      user = Factory(:user)
+      user.images << image1
+      user.images << image2
+
+      assert_equal 2, user.images.count
+      assert [image1, image2], user.images
+
+      post = Factory(:post)
+      post.images << image1
+      post.images << image2
+
+      assert_equal 2, post.images.count
+      assert [image1, image2], post.images
+    end
+
+    test 'Assetables have many videos' do
+      video1 = create_video
+      video2 = create_video
+
+      user = Factory(:user)
+      user.videos << video1
+      user.videos << video2
+
+      assert_equal 2, user.videos.count
+      assert [video1, video2], user.videos
+
+      post = Factory(:post)
+      post.videos << video1
+      post.videos << video2
+
+      assert_equal 2, post.videos.count
+      assert [video1, video2], post.videos
     end
 
     test 'An asset belongs to many polymorphic assetables' do
@@ -85,5 +120,28 @@ module AdvaAssets
       assert_equal [asset], user_2.assets
       assert_equal [asset], post.assets
     end
+
+    test "images and videos are assets" do
+      video = create_video
+      image = create_image
+      asset = create_asset
+
+      assert 1, Image.count
+      assert 1, Video.count
+      assert 3, Asset.count
+    end
+
+    def create_asset(options = {})
+      Asset.create(options.reverse_merge(:file => File.open(image), :site => site, :title => 'title', :description => 'description'))
+    end
+
+    def create_image(options = {})
+      Image.create(options.reverse_merge(:file => File.open(image), :site => site, :title => 'title', :description => 'description'))
+    end
+
+    def create_video(options = {})
+      Video.create(options.reverse_merge(:file => File.open(video), :site => site, :title => 'title', :description => 'description'))
+    end
+
   end
 end

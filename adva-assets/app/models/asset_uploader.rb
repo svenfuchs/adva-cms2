@@ -2,8 +2,6 @@ require 'carrierwave'
 
 class AssetUploader < CarrierWave::Uploader::Base
 
-  include CarrierWave::MiniMagick
-
   storage :file
   permissions 0600
 
@@ -17,16 +15,6 @@ class AssetUploader < CarrierWave::Uploader::Base
     else
       "sites/site-#{model.site_id}/assets/#{mounted_as}/#{model.id}"
     end
-  end
-
-  process :resize_to_limit => [600, 600]
-
-  version :thumb do
-    process :resize_to_fill => [64, 64]
-  end
-
-  version :small do
-    process :resize_to_fill => [200, 200]
   end
 
 end
