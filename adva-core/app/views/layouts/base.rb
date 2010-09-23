@@ -28,12 +28,12 @@ class Layouts::Base < Minimal::Template
       super(title || default_title)
     end
 
-    def stylesheets
-      stylesheet_link_tag :common, name.to_sym
+    def stylesheets(*names)
+      stylesheet_link_tag *[:common, name.to_sym].concat(names)
     end
 
-    def javascripts
-      javascript_include_tag :common, name.to_sym
+    def javascripts(*names)
+      javascript_include_tag *[:common, name.to_sym].concat(names)
     end
 
     def header
