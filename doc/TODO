@@ -8,10 +8,15 @@ Done:
 + make cucumber support and test setup stuff more accessible to others
 + fix inherited_resources/link_to to take arguments, fix destroy links, use in menus + tables
 + add rails.css and fix delete links
++ port svenfuchs.com and add a jekyl format
 
 Stuff:
 
-- port svenfuchs.com and add a jekyl format
+- cache_tagging doesn't play well with Arel scopes
+- cache_tagging (or whoever) seems to use the filtered path (apparently 
+  section_root) instead of the real request path
+- blog archive
+- don't use a blog layout, extend the default layout
 - thor engine migration generator
 - make adva-user optional through http_auth, fix Site.install
 - figure out how to remove set_params_for_nested_resources controller filters
