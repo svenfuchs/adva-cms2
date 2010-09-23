@@ -33,7 +33,7 @@ class ImageUploader < AssetUploader
   #       "something.jpg" if original_filename
   #     end
 
-  process :resize_to_fit => [600, 600]
+  process :resize_to_limit => [600, 600]
   
   #process :resize_to_fit => [600, 600]
   #process :resize_to_fill => [600, 600]
@@ -41,11 +41,11 @@ class ImageUploader < AssetUploader
   #process :convert => 'png'
 
   version :thumb do
-    process :resize_to_fit => [64, 64]
+    process :resize_to_fill => [64, 64]
   end
 
   version :small do
-    process :resize_to_fit => [200, 200]
+    process :resize_to_fill => [200, 200]
   end
 
 end

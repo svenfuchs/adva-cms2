@@ -48,20 +48,17 @@ module AdvaAssets
 
     test "processes the size of image" do
       image = CarrierWave::Test::Matchers::ImageLoader.load_image(create_image.path)
-      assert_equal 470, image.width
-      assert_equal 600, image.height
+      assert_equal [470, 600], [image.width, image.height]
     end
 
     test "processes the size of thumb" do
       image = CarrierWave::Test::Matchers::ImageLoader.load_image(create_image.thumb.path)
-      assert_equal image.width, 64
-      assert_equal image.height, 64
+      assert_equal [64, 64], [image.width, image.height]
     end
 
     test "processes the size of small image" do
       image = CarrierWave::Test::Matchers::ImageLoader.load_image(create_image.small.path)
-      assert_equal image.width, 200
-      assert_equal image.height, 200
+      assert_equal [200, 200], [image.width, image.height]
     end
 
     test "doesn't stretch medium image to default image size" do
@@ -69,8 +66,7 @@ module AdvaAssets
       image = create_image(:file => File.open(file))
 
       image = CarrierWave::Test::Matchers::ImageLoader.load_image(image.path)
-      assert_equal 446, image.width
-      assert_equal 316, image.height
+      assert_equal [446, 316], [image.width, image.height]
     end
   end
 end
