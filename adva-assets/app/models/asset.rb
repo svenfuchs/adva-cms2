@@ -5,10 +5,6 @@ require 'asset_uploader'
 class Asset < ActiveRecord::Base
   mount_uploader :file, AssetUploader
 
-  # belongs_to :attachable, :polymorphic => true
-
-  has_many_polymorphs :assetables, :through => :asset_assignments, :from => Adva::Registry.get(:assetable_types)
-
   belongs_to :site
 
   delegate :path, :filename, :extname, :basename, :current_path,

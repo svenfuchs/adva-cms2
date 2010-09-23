@@ -37,7 +37,7 @@ module Tests
             assert_equal 'ruby-i18n.org', site.host
             assert_equal 'Blog', blog.class.name
             assert_equal 'Home', blog.name
-            assert_equal 'Welcome To The Future Of I18n In Ruby On Rails', post.title
+            assert_equal 'Ruby I18n Gem Hits 0 2 0', post.title
           end
 
           test "site.site with a new non_root blog section" do
@@ -73,8 +73,8 @@ module Tests
             assert_equal 'ruby-i18n.org', site.host
             assert_equal 'Blog', blog.class.name
             assert_equal 'Blog', blog.name
-            assert_equal 'Welcome To The Future Of I18n In Ruby On Rails', post_1.title
-            assert_equal 'Ruby I18n Gem Hits 0 2 0', post_2.title
+            assert_equal 'Ruby I18n Gem Hits 0 2 0', post_1.title
+            assert_equal 'Welcome To The Future Of I18n In Ruby On Rails', post_2.title
           end
 
           test "site.site with a new root page, a new non_root blog and a new non_root page section" do

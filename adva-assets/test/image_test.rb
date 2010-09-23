@@ -1,6 +1,6 @@
 require File.expand_path('../test_helper', __FILE__)
 
-Adva::Registry.set(:assetable_types, [:users, :posts])
+Asset.has_many_polymorphs :assetables, :through => :asset_assignments, :from => [:users, :posts]
 
 require 'asset'
 require 'image'
