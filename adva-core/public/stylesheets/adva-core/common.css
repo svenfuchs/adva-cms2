@@ -15,7 +15,6 @@ table, caption, tbody, tfoot, thead, tr, th, td {
 }
 body {
   line-height: 1.5em;
-/*  font-size: 10pt;*/
   color: #222;
   background: #fff;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -30,6 +29,10 @@ a:hover {
 a img {
   border: none;
 }
+ul, ol {
+  padding-top: 1em;
+  margin-left: 22px;
+}
 table {
   border-collapse: separate;
   border-spacing: 0;
@@ -40,4 +43,14 @@ caption, th, td {
 }
 table, td, th {
   vertical-align: top;
+}
+pre {
+  display: block;
+  white-space: pre;
+  margin: 1em 0 0 0;
+  padding: 1em 1.5em;
+  border: 1px solid #AAA;
+  background: #F6F6F6;
+  line-height: 1.5em;
+  font-family: monospace;
 }
