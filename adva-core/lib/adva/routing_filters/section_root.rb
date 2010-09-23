@@ -38,8 +38,7 @@ module RoutingFilter
       memoize :excluded?
       
       def recognition(host)
-        site = Site.where(:host => host).first
-        if site and root = site.sections.root
+        if site = Site.by_host(host) and root = site.sections.root
           anchor = anchors_segments[root.class.name] || raise("undefined url anchor segment for: #{root.class.name}")
           [%r(^(/[\w]{2})?(?:\/?)(/#{anchor}|\.|\?|/?\Z)), "/#{root.type.tableize}/#{root.id}"]
         end
