@@ -42,7 +42,7 @@ module Tests
 
           assert_equal 'ruby-i18n.org', site.host
           assert_equal 'Home', blog.name
-          assert_equal 'Welcome To The Future Of I18n In Ruby On Rails', post.title
+          assert_equal 'Ruby I18n Gem Hits 0 2 0', post.title
         end
 
         test "run with an existing site and root blog" do
@@ -56,7 +56,7 @@ module Tests
 
           assert_equal 'ruby-i18n.org', site.host
           assert_equal 'Home', blog.name
-          assert_equal 'Welcome To The Future Of I18n In Ruby On Rails', post.title
+          assert_equal 'Ruby I18n Gem Hits 0 2 0', post.title
         end
 
         test "run with a root page, a blog and another page" do
@@ -77,7 +77,7 @@ module Tests
           assert_equal 'ruby-i18n.org', site.host
           assert_equal 'Home', page.name
           assert_equal 'Blog', blog.name
-          assert_equal 'Welcome To The Future Of I18n In Ruby On Rails', post.title
+          assert_equal 'Ruby I18n Gem Hits 0 2 0', post.title
         end
 
         test "run with a root page and a nested page (implicit creation)" do
@@ -150,7 +150,7 @@ module Tests
           section.posts.first.update_attributes!(:body => 'will be overwritten')
           assert_equal 'will be overwritten', section.posts.first.reload.body
 
-          path = 'blog/2008/07/31/welcome-to-the-future-of-i18n-in-ruby-on-rails.yml'
+          path = 'blog/2009/07/12/ruby-i18n-gem-hits-0-2-0.yml'
           Adva::Static::Import::Directory.new(:source => root).import!(path)
 
           assert_not_equal 'will be overwritten', section.posts.first.reload.body
@@ -164,7 +164,7 @@ module Tests
           section.posts.first.update_attributes!(:body => 'will be overwritten')
           assert_equal 'will be overwritten', section.posts.first.reload.body
 
-          path = '2008/07/31/welcome-to-the-future-of-i18n-in-ruby-on-rails.yml'
+          path = '2009/07/12/ruby-i18n-gem-hits-0-2-0.yml'
           Adva::Static::Import::Directory.new(:source => root).import!(path)
 
           assert_not_equal 'will be overwritten', section.posts.first.reload.body

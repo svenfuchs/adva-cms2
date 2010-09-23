@@ -3,6 +3,9 @@ module Adva
     module Import
       class Directory
         class Path < Pathname
+          TYPES = ['yml', 'jekyll']
+          EXTENSIONS = TYPES.map { |type| ".#{type}" }
+          
           attr_reader :root
 
           def initialize(path, root = nil)
@@ -27,6 +30,7 @@ module Adva
           def parents
             parts = local.to_s.split('/')[0..-2]
             parts.reverse.dup.inject([]) do |parents, part|
+              # FIXME remove yml dependency
               parents.unshift(Path.new("#{root.join(parts.join('/'))}.yml", root)).tap do
                 parts.delete(part)
               end
@@ -54,7 +58,7 @@ module Adva
           end
 
           def paths
-            all.reject { |path| File.extname(path) != '.yml' || File.basename(path) == 'site.yml' }.sort
+            all.reject { |path| !EXTENSIONS.include?(File.extname(path)) || File.basename(path, EXTENSIONS) == 'site' }.sort
           end
 
           def join(other)

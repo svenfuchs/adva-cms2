@@ -9,7 +9,7 @@ module Adva
           class Site < Base
             class << self
               def build(path)
-                path.to_s =~ /^site.yml$/ ? [new(path)] : []
+                path.to_s =~ /^site\.(#{Path::TYPES.join('|')})$/ ? [new(path)] : []
               end
             end
 
@@ -18,7 +18,7 @@ module Adva
             end
 
             def loadable
-              Path.new("#{source}/site.yml")
+              Dir["#{source}/site.{#{Path::TYPES.join(',')}}"].first
             end
 
             def record

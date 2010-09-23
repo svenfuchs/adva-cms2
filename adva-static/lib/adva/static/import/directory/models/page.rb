@@ -4,7 +4,7 @@ module Adva
       class Directory
         module Models
           class Page < Section
-            PATTERN = %r(/[\w-]+\.yml$)
+            PATTERN = %r(/[\w-]+\.(#{Path::TYPES.join('|')})$)
         
             class << self
               def build(paths)
