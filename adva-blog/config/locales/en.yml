@@ -1,7 +1,7 @@
 en:
   time:
     formats:
-      post: "%a, %d % %Y"
+      post: "%a, %d %b %Y"
   section:
     types:
       blog: Blog
