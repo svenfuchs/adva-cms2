@@ -13,10 +13,6 @@ module Adva
     initializer 'adva-blog.require_section_types' do
       config.to_prepare { require_dependency 'blog' }
     end
-
-    initializer 'adva-blog.register_assetable_types' do
-      Adva::Registry.set(:assetable_types, [:posts])
-    end
   end
 end
 
