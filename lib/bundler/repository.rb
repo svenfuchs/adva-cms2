@@ -53,7 +53,6 @@ class Repository
     
     def developers(developers = nil)
       @developers ||= {}
-      # developers ? @developers = developers : @developers
     end
   end
   

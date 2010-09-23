@@ -1,5 +1,4 @@
 middleware stack
-  # adva-static/rack/crawl
   adva-static/rack/watch
   adva-static/rack/export
   adva-core/rack/cache-tags
