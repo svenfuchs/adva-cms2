@@ -5,4 +5,4 @@
 .bundle/*
 *.zip
 *.sqlite3
-*.lock
+Gemfile.lock
