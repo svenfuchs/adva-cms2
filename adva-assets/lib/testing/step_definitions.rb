@@ -14,9 +14,9 @@ end
 
 Then /^I should see the video "([^"]*)"$/ do |video_title|
   body = Nokogiri::HTML(response.body)
-  videos = body.xpath("//embed[@name='#{video_title}']")
+  videos = body.xpath("//param[@name='name' and @value='#{video_title}']/parent::object/child::param[@name='movie']")
   assert videos.one?, "video with title '#{video_title}' could not be found"
-  video_src = videos.first.attributes["src"].value
+  video_src = videos.first.attributes["value"].value
   file_url = Rails.root.to_s + '/public' + video_src
   assert File.exists?(file_url), "file '#{file_url}' for video '#{video_title}' does not exist"
 end
