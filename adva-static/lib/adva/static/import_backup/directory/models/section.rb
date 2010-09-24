@@ -35,7 +35,7 @@ module Adva
             end
 
             def path
-              source.root? ? 'home' : source.local.to_s # TODO can this be in local?
+              source.root? ? 'home' : source.basename # TODO can this be in local?
             end
 
             def association

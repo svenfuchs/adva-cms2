@@ -31,8 +31,6 @@ module Adva
             end
 
             def record
-              # require 'ruby-debug'
-              # debugger
               @record ||= section.posts.by_permalink(*permalink).all.first || section.posts.build
             end
 

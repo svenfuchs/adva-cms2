@@ -7,11 +7,11 @@ module Adva
       class Directory
         module Models
           class Base
-            autoload :Base,    'adva/static/import/directory/models/base'
-            autoload :Blog,    'adva/static/import/directory/models/blog'
-            autoload :Post,    'adva/static/import/directory/models/post'
-            autoload :Section, 'adva/static/import/directory/models/section'
-            autoload :Site,    'adva/static/import/directory/models/site'
+            # autoload :Base,    'adva/static/import/directory/models/base'
+            # autoload :Blog,    'adva/static/import/directory/models/blog'
+            # autoload :Post,    'adva/static/import/directory/models/post'
+            # autoload :Section, 'adva/static/import/directory/models/section'
+            # autoload :Site,    'adva/static/import/directory/models/site'
 
             attr_reader :source, :attribute_names
 

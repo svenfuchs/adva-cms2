@@ -5,7 +5,7 @@ module Adva
         module Models
           class Page < Section
             PATTERN = %r(/[\w-]+\.(#{Path::TYPES.join('|')})$)
-        
+
             class << self
               def build(paths)
                 return [] if paths.blank?
@@ -19,20 +19,20 @@ module Adva
                 pages
               end
             end
-        
+
             def initialize(path)
               path = File.dirname(path) if File.basename(path, File.extname(path)) == 'index'
               super
             end
-          
+
             def attribute_names
               [:site_id, :type, :path, :name, :article_attributes]
             end
-          
+
             def model
               ::Page
             end
-        
+
             def article_attributes
               attributes = { :title => name, :body => body }
               record.article && record.id ? attributes.merge(:id => record.article.id.to_s) : attributes
