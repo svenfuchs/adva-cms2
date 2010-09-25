@@ -28,7 +28,7 @@ module Adva
 
         def import
           require 'config/environment'
-          Adva::Static::Import::Directory.new(symbolized_options).run
+          Adva::Static::Import.new(symbolized_options).run
         end
       end
 
@@ -51,7 +51,7 @@ module Adva
 
         def export
           require 'config/environment'
-          Adva::Static::Import::Directory.new(symbolized_options).run
+          Adva::Static::Import.new(symbolized_options).run
           Adva::Static::Export.new(Rails.application, symbolized_options).run
         end
       end

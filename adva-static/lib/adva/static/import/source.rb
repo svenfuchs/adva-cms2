@@ -1,6 +1,6 @@
 module Adva
   class Static
-    module Import
+    class Import
       class Source < Pathname
         TYPES = ['html', 'jekyll', 'yml']
         EXTENSIONS = TYPES.map { |type| ".#{type}" }
@@ -16,16 +16,42 @@ module Adva
           super(path)
         end
 
+        def find
+          file = Dir["#{root.join(path)}.{#{TYPES.join(',')}}"].first
+          file ? Source.new(file, root) : self
+        end
+
+        def all
+          @all ||= Dir[root.join(path).join("**/*.{#{TYPES.join(',')}}")].map { |path| Source.new(path, root) }
+        end
+
+        def files
+          files = path == 'index' ? directory.all : all
+          files.reject { |path| path.basename == 'site' }.sort
+        end
+
         def root?
-          self.to_s == root.to_s
+          @_root ||= path == 'index' || full_path.to_s == root.to_s
+        end
+
+        def directory
+          @directory ||= self.class.new(dirname, root)
         end
 
         def basename
           @basename ||= super.to_s.sub(/\.\w+$/, '')
         end
-        
+
+        def dirname
+          @dirname ||= super.to_s.sub(/^.$/, '')
+        end
+
         def path
-          @_path ||= dirname.join(basename).to_s
+          @_path ||= [dirname, basename].select(&:present?).join('/')
+        end
+
+        def full_path
+          @full_path ||= root.join(self)
         end
 
         def self_and_parents
@@ -34,13 +60,15 @@ module Adva
 
         def parents
           @parents ||= begin
-            parts = dirname.to_s.split('/')
-            parts.reverse.dup.inject([]) do |parents, part|
-              parents.unshift(Source.new(parts.join('/'), root)).tap do
-                parts.delete(part)
-              end
+            parts = self.to_s.split('/')[0..-2]
+            parts.inject([]) do |parents, part|
+              parents << Source.new(parts[0..parents.size].join('/'), root)
             end
           end
+        end
+
+        def <=>(other)
+          path == 'index' ? -1 : other.path == 'index' ? 1 : path <=> other.path
         end
       end
     end

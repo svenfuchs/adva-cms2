@@ -2,14 +2,14 @@ require 'core_ext/ruby/array/flatten_once'
 
 module Adva
   class Static
-    module Import
+    class Import
       module Model
         class Base
           attr_reader :source, :attribute_names
 
           def initialize(source)
             @source = source
-            # load
+            load
           end
 
           def attributes
@@ -19,8 +19,7 @@ module Adva
           end
 
           def updated_record
-            record.attributes = attributes
-            record
+            record.tap { |record| record.attributes = attributes }
           end
 
           def model
@@ -34,6 +33,10 @@ module Adva
           def slug
             source.basename
           end
+          
+          def path
+            source.path
+          end
 
           def body
             @body || ''
@@ -44,11 +47,13 @@ module Adva
           end
 
           def loadable
-            source
+            @loadable ||= source.full_path
           end
 
           def load
-            Format.for(loadable).load(self) if File.file?(loadable.to_s)
+            if loadable.exist?
+              format = Format.for(loadable) and format.load(self)
+            end
           end
 
           def ==(other)

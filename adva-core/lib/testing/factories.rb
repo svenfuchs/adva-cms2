@@ -13,5 +13,6 @@ Factory.define :site do |f|
 end
 
 Factory.define :page do |f|
+  f.site { Site.first || Factory(:site) }
   f.name 'Home'
 end
