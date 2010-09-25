@@ -1,22 +1,28 @@
 module Adva
   class Static
-    module Import
+    class Import
       module Model
         class Section < Base
-          # TYPES = [Blog, Page]
-
           class << self
-            def recognize(paths)
-              TYPES.map { |type| type.recognize(paths) }.flatten.compact.sort
+            def types
+              [Blog, Page]
+            end
+
+            def recognize(sources)
+              types.map { |type| type.recognize(sources) }.flatten.compact.sort
             end
           end
 
+          def attribute_names
+            [:site_id, :type, :name, :slug, :path]
+          end
+
           def record
-            @record ||= site.sections.find_or_initialize_by_type_and_path(model.name.underscore.pluralize, path)
+            @record ||= site.send(model.name.underscore.pluralize).find_or_initialize_by_path(path)
           end
 
           def site
-            @site ||= Site.new(Source.new('site.yml', source.root)).record
+            @site ||= Site.new(Source.new('site', source.root).find).record
           end
 
           def type
@@ -27,12 +33,16 @@ module Adva
             @name ||= source.root? ? 'Home' : source.basename.titleize
           end
 
+          def slug
+            @slug ||= source.root? ? SimpleSlugs::Slug.new(name) : super
+          end
+
           def path
-            source.root? ? 'home' : source.path
+            @path ||= source.root? ? slug : super
           end
 
           def loadable
-            # source.root? ? Dir["#{source}/index.{#{Source::TYPES.join(',')}}"].first : source
+            @loadable ||= source.root? ? Source.new('index', source.root).find.full_path : source.full_path
           end
         end
       end

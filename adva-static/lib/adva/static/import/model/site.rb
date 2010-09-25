@@ -2,49 +2,52 @@ require 'site'
 
 module Adva
   class Static
-    module Import
+    class Import
       module Model
         class Site < Base
-          # class << self
-          #   def build(path)
-          #     path.to_s =~ /^site\.(#{Path::TYPES.join('|')})$/ ? [new(path)] : []
-          #   end
-          # end
-          # 
-          # def attribute_names
-          #   [:host, :name, :title, :account, :sections_attributes]
-          # end
-          # 
-          # def loadable
-          #   Dir["#{source}/site.{#{Path::TYPES.join(',')}}"].first
-          # end
+          class << self
+            def recognize(sources)
+              sources.map { |source| new(sources.delete(source)) if source.path == 'site' }.compact
+            end
+          end
+
+          def attribute_names
+            [:account, :host, :name, :title, :sections_attributes]
+          end
 
           def record
             @record ||= model.find_or_initialize_by_host(host)
           end
 
           def host
-            @host ||= slug
+            @host ||= File.basename(source.root)
           end
-          
-          # def name
-          #   @name ||= host
-          # end
-          # 
-          # def title
-          #   @title ||= name
-          # end
-          # 
-          # def account
-          #   @account ||= Account.first || ::Account.new
-          #   # (:users => [::User.new(:email => 'admin@admin.org', :password => 'admin')]) # TODO
-          # end
-          # 
-          # def sections_attributes
-          #   sections = Section.build(source.paths)
-          #   sections << Page.new(Path.new('home', source)) if sections.empty?
-          #   sections.map(&:attributes)
-          # end
+
+          def name
+            @name ||= host
+          end
+
+          def title
+            @title ||= name
+          end
+
+          def account
+            @account ||= ::Account.first || ::Account.new
+          end
+
+          def sections_attributes
+            sections.map(&:attributes)
+          end
+
+          def sections
+            @sections ||= Section.recognize(source.files).tap do |sections|
+              sections << Page.new(Source.new('index', source.root).find) if sections.empty?
+            end
+          end
+
+          def loadable
+            @loadable ||= Source.new('site', source.root).find.full_path
+          end
         end
       end
     end

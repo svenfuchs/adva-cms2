@@ -58,6 +58,36 @@ When /^I click on the link from the email to (.*)$/ do |to|
   get link
 end
 
+Then /^there should be an? (\w*)$/ do |model|
+  assert @last_record = model.classify.constantize.first, "could not find any #{model}"
+end
+
+Then /^there should be an? (\w*) named "([^\"]*)"$/ do |model, name|
+  assert @last_record = model.classify.constantize.where(:name => name).first, "could not find any #{model} named #{name}"
+end
+
+Then /^there should be a (\w*) with the following attributes:$/ do |model, table|
+  assert @last_record = model.classify.constantize.where(table.rows_hash).first, "could not find a #{model} with #{table.rows_hash.inspect}"
+end
+
+Then /^there should be (\w*)s with the following attributes:$/ do |model, table|
+  table.hashes.each do |attributes|
+    assert model.classify.constantize.where(attributes).first, "could not find a #{model} with #{attributes.inspect}"
+  end
+end
+
+Then /^that (\w*) should have an? (\w*) with the following attributes:$/ do |last, model, table|
+  assert @last_record.is_a?(last.classify.constantize), "wrong type for last #{last}"
+  assert @last_record.send(model.pluralize).where(table.rows_hash).first, "could not find a #{model} with #{table.rows_hash.inspect}"
+end
+
+Then /^that (\w*) should have (\w*)s with the following attributes:$/ do |last, model, table|
+  assert @last_record.is_a?(last.classify.constantize), "wrong type for last #{last}"
+  table.hashes.each do |attributes|
+    assert @last_record.send(model.pluralize).where(attributes).first, "could not find a #{model} with #{attributes.inspect}"
+  end
+end
+
 Then /^the title should be "([^"]*)"$/ do |title|
   assert_select('title', title)
 end

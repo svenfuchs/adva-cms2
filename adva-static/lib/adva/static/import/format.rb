@@ -1,9 +1,10 @@
 module Adva
   class Static
-    module Import
+    class Import
       module Format
         def self.for(path)
-          const_get(File.extname(path).gsub('.', '').camelize).new(path)
+          name = File.extname(path).gsub('.', '').camelize
+          const_get(name).new(path) if name.present?
         end
         
         class Base

@@ -24,6 +24,7 @@ require Adva::Core.root.join('lib/core_ext/rails/active_record/skip_callbacks')
 Adva::Testing.load_factories
 Adva::Testing.load_cucumber_support
 Adva::Testing.load_assertions
+Adva.out = StringIO.new('')
 
 Webrat.configure do |config|
   config.mode = :rails
