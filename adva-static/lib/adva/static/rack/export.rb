@@ -20,9 +20,9 @@ module Adva
             export(path, response) if export?(env, status)
             if headers.key?(PURGE_HEADER)
               paths = normalize_paths(headers[PURGE_HEADER])
-              paths.each do |path| 
+              paths.each do |path|
                 purge(path)
-                request('GET', path, STORE_HEADER => true)
+                request(path)
               end
             end
           end
@@ -45,8 +45,12 @@ module Adva
             store.purge(Adva::Static::Export::Path.new(path))
           end
 
+          def request(path)
+            super('GET', Adva::Static::Export::Path.new(path), STORE_HEADER => true)
+          end
+
           def normalize_paths(paths)
-            paths = paths.split(',') if paths.is_a?(String)
+            paths = paths.split("\n") if paths.is_a?(String)
             Array(paths)
           end
       end
