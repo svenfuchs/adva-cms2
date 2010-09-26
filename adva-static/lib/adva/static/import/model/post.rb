@@ -17,15 +17,8 @@ module Adva
             end
 
             def strip_permalink(source)
-              path = source.to_s.gsub(Post::PERMALINK, '')
-              path = 'index' if path.blank?
-              Source.new(path, source.root)
+              Source.new(source.to_s.gsub(Post::PERMALINK, ''), source.root)
             end
-          end
-
-          def initialize(path)
-            super(path)
-            load
           end
 
           def attribute_names
@@ -36,12 +29,12 @@ module Adva
             @record ||= section.posts.by_permalink(*permalink).all.first || section.posts.build
           end
 
-          def section
-            @section ||= Blog.new(section_source).record
-          end
-
           def site_id
             section.site_id.to_s
+          end
+
+          def section
+            @section ||= Blog.new(section_source).record
           end
 
           def section_id
@@ -49,10 +42,15 @@ module Adva
           end
 
           def section_source
-            @section_path ||= begin
-              source = self.class.strip_permalink(self.source).find
-              source = Source.new(source.join('index'), source.root).find if source.path.empty?
-              source
+            @section_source ||= begin
+              source = self.class.strip_permalink(self.source)
+              if source.path.present?
+                source.find_or_self
+              # elsif root = ::Section.root
+              #   Source.new(root.slug, source.root).find_or_self
+              else
+                Source.new(source.join('index'), source.root).find_or_self
+              end
             end
           end
 

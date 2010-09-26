@@ -11,8 +11,9 @@ module Adva
               posts = sources.select { |source| Post.permalink?(source) }
               return [] if posts.blank?
 
-              blogs = posts.map { |post| Post.strip_permalink(post) }.flatten.uniq
+              blogs = posts.map { |post| Post.new(post).section_source }.flatten.uniq
               blogs = blogs.map { |blog| sources.detect { |source| blog.path == source.path } || blog }
+
               sources.replace(sources - blogs - posts)
               blogs.map { |source| new(source) }
             end

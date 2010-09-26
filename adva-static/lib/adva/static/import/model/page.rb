@@ -12,7 +12,7 @@ module Adva
               pages = sources.select { |source| source.to_s =~ PATTERN }
               sources.replace(sources - pages)
 
-              pages = pages.map { |source| source.self_and_parents.map(&:find) }.flatten.uniq
+              pages = pages.map { |source| source.self_and_parents.map(&:find_or_self) }.flatten.uniq
               pages = pages.map { |source| new(source) }
               pages
             end

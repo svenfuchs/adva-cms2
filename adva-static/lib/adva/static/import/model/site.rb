@@ -7,8 +7,12 @@ module Adva
         class Site < Base
           class << self
             def recognize(sources)
-              sources.map { |source| new(sources.delete(source)) if source.path == 'site' }.compact
+              sources.map { |source| new(sources.delete(source).root) if source.path == 'site' }.compact
             end
+          end
+          
+          def initialize(root)
+            super(Source.new('', root))
           end
 
           def attribute_names
@@ -41,12 +45,12 @@ module Adva
 
           def sections
             @sections ||= Section.recognize(source.files).tap do |sections|
-              sections << Page.new(Source.new('index', source.root).find) if sections.empty?
+              sections << Page.new(Source.new('index', source.root).find_or_self) if sections.empty?
             end
           end
 
           def loadable
-            @loadable ||= Source.new('site', source.root).find.full_path
+            @loadable ||= Source.new('site', source.root).find_or_self.full_path
           end
         end
       end

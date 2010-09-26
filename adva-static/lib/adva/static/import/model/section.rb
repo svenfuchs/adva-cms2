@@ -22,7 +22,7 @@ module Adva
           end
 
           def site
-            @site ||= Site.new(Source.new('site', source.root).find).record
+            @site ||= Site.new(source.root).record
           end
 
           def type
@@ -42,7 +42,7 @@ module Adva
           end
 
           def loadable
-            @loadable ||= source.root? ? Source.new('index', source.root).find.full_path : source.full_path
+            @loadable ||= source.root? ? Source.new('index', source.root).find_or_self.full_path : source.full_path
           end
         end
       end

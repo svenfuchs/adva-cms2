@@ -15,7 +15,7 @@ module Adva
       def run
         Adva.out.puts "importing from #{root}"
         Account.all.each(&:destroy)
-        Model::Site.new(source('')).updated_record.save!
+        Model::Site.new(root).updated_record.save!
       end
 
       def import(path)
