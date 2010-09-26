@@ -13,7 +13,7 @@ module Adva
           @params ||= begin
             params = { model_name.underscore.to_sym => attributes }
             params.merge!('_method' => 'put') unless record.new_record?
-            params
+            stringify(params)
           end
         end
 
@@ -51,6 +51,17 @@ module Adva
               # umm. admin blog routes use :blog_id, but Post has a section_id
               value = attributes[section_ids.include?(name) ? :section_id : name].to_s
               params.merge(name => value)
+            end
+          end
+
+          def stringify(object)
+            case object
+            when Hash
+              object.each { |key, value| object[key] = stringify(value) }
+            when Array
+              object.map! { |element| stringify(element) }
+            else
+              object.to_s
             end
           end
       end
