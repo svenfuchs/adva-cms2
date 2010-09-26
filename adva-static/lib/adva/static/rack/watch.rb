@@ -36,7 +36,8 @@ module Adva
 
           def watch!(out)
             Adva.out.puts "watching #{dir} for changes"
-            Dir.chdir(dir) { handler.listen }
+            Dir.chdir(dir)
+            handler.listen
           rescue SignalException, SystemExit
           rescue Exception => e
             p e

@@ -20,7 +20,7 @@ module Adva
           Adva::Static::Setup.new(symbolized_options).run
         end
       end
-      
+
       class Import < Thor::Group
         namespace 'adva:static:import'
         desc 'Import a site from a directory'
@@ -53,6 +53,19 @@ module Adva
           require 'config/environment'
           Adva::Static::Import.new(symbolized_options).run
           Adva::Static::Export.new(Rails.application, symbolized_options).run
+        end
+      end
+
+      class Server < Thor::Group
+        namespace 'adva:static:server'
+        desc 'Start the adva:static server and watcher'
+        class_option :root, :required => false, :default => 'export'
+
+        def server
+          ARGV.shift
+          Dir.chdir(symbolized_options[:root])
+          require "rack"
+          Rack::Server.start
         end
       end
     end
