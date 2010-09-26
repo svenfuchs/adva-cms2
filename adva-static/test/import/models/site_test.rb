@@ -13,7 +13,7 @@ module AdvaStatic
 
     test "has Site attributes (w/o a site.yml)" do
       root.join('site.yml').delete
-      site = Site.new(source(''))
+      site = Site.new(root)
       expected = { :host => 'ruby-i18n.org', :name => 'ruby-i18n.org', :title => 'ruby-i18n.org',
         :sections_attributes => [{ :site_id => '', :type => 'Page', :path => 'home', :slug => 'home',
           :name => 'Home', :article_attributes => { :title => 'Home', :body  => '' } }] }
@@ -21,7 +21,7 @@ module AdvaStatic
     end
 
     test "has Site attributes (w/ an existing site.yml)" do
-      site = Site.new(source(''))
+      site = Site.new(root)
       expected = { :host => 'ruby-i18n.org', :name => 'Ruby I18n', :title => 'Ruby I18n',
         :sections_attributes => [{ :site_id => '', :type => 'Page', :path => 'home', :slug => 'home',
           :name => 'Home', :article_attributes => { :title => 'Home', :body  => '' } }] }
@@ -30,14 +30,14 @@ module AdvaStatic
 
     test "finds a Site model corresponding to a Site importer" do
       setup_site_record
-      site = Site.new(source(''))
+      site = Site.new(root)
       assert_equal ::Site.find_by_host('ruby-i18n.org'), site.record
     end
 
     test "site.updated_record with a new root blog section" do
       setup_root_blog
 
-      site = Site.new(source('')).updated_record
+      site = Site.new(root).updated_record
       site.save!
 
       blog = site.sections.first
@@ -47,6 +47,7 @@ module AdvaStatic
       assert_equal 'ruby-i18n.org', site.host
       assert_equal 'Blog', blog.class.name
       assert_equal 'Home', blog.name
+      assert_equal 2, blog.posts.count
       assert_equal 'Welcome To The Future Of I18n In Ruby On Rails', post.title
     end
 
@@ -54,7 +55,7 @@ module AdvaStatic
       setup_root_blog_record
       setup_root_blog
 
-      site = Site.new(source('')).updated_record
+      site = Site.new(root).updated_record
       site.save!
 
       blog = site.sections.first
@@ -64,13 +65,14 @@ module AdvaStatic
       assert_equal 'ruby-i18n.org', site.host
       assert_equal 'Blog', blog.class.name
       assert_equal 'Home', blog.name
+      assert_equal 2, blog.posts.count
       assert_equal 'Ruby I18n Gem Hits 0 2 0', post.title
     end
 
     test "site.site with a new non_root blog section" do
       setup_non_root_blog
 
-      site = Site.new(source('')).updated_record
+      site = Site.new(root).updated_record
       site.save!
 
       blog = site.sections.first
@@ -81,6 +83,7 @@ module AdvaStatic
       assert_equal 'ruby-i18n.org', site.host
       assert_equal 'Blog', blog.class.name
       assert_equal 'Blog', blog.name
+      assert_equal 2, blog.posts.count
       assert_equal 'Welcome To The Future Of I18n In Ruby On Rails', post_1.title
       assert_equal 'Ruby I18n Gem Hits 0 2 0', post_2.title
     end
@@ -89,7 +92,7 @@ module AdvaStatic
       setup_non_root_blog_record
       setup_non_root_blog
 
-      site = Site.new(source('')).updated_record
+      site = Site.new(root).updated_record
       site.save!
 
       blog = site.sections.last
@@ -100,6 +103,7 @@ module AdvaStatic
       assert_equal 'ruby-i18n.org', site.host
       assert_equal 'Blog', blog.class.name
       assert_equal 'Blog', blog.name
+      assert_equal 2, blog.posts.count
       assert_equal 'Ruby I18n Gem Hits 0 2 0', post_1.title
       assert_equal 'Welcome To The Future Of I18n In Ruby On Rails', post_2.title
     end
@@ -109,7 +113,7 @@ module AdvaStatic
       setup_non_root_blog
       setup_non_root_page
 
-      site = Site.new(source('')).updated_record
+      site = Site.new(root).updated_record
       site.save!
 
       root = site.sections.first
@@ -121,6 +125,7 @@ module AdvaStatic
       assert_equal 'ruby-i18n.org', site.host
       assert_equal 'Blog', blog.class.name
       assert_equal 'Blog', blog.name
+      assert_equal 2, blog.posts.count
       assert_equal 'Welcome To The Future Of I18n In Ruby On Rails', post.title
     end
   end

@@ -1,3 +1,29 @@
+/2010/1/1/post.html
+=> post: { title: Post, created_at: ... }
+=> blog: { title: Home }
+
+/index.html
+/2010/1/1/post.html
+=> post: { title: Post, created_at: ... }
+=> blog: { title: TitleFromIndexHtml }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 middleware stack
   adva-static/rack/watch
   adva-static/rack/export

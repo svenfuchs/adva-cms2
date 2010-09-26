@@ -16,9 +16,13 @@ module Adva
           super(path)
         end
 
+        def find_or_self
+          find or self
+        end
+
         def find
           file = Dir["#{root.join(path)}.{#{TYPES.join(',')}}"].first
-          file ? Source.new(file, root) : self
+          Source.new(file, root) if file
         end
 
         def all

@@ -29,7 +29,7 @@ module Adva
           request = Adva::Static::Import.new(:source => dir).request_for(path)
           params  = request.params
           params.merge!('_method' => 'delete') if event_type == :deleted
-          request('POST', request.path, params)
+          self.request('POST', request.path, params)
         end
 
         protected

@@ -1,14 +1,13 @@
 Given 'a site' do
-  Factory(:site)
+  @site = Factory(:site)
   Factory(:admin)
 end
 
-Given /^the following (\w*):$/ do |type, table|
+Given /^the following (\w+):$/ do |type, table|
   type = type.singularize
   table.hashes.each do |attributes|
     type = attributes.delete('type').underscore if attributes.key?('type')
-    attributes['site']    = site if type.classify.constantize.column_names.include?('site_id')
-    attributes['section'] = site.sections.find_by_name(attributes['section']) if attributes.key?('section')
+    attributes['site'] = site if type.classify.constantize.column_names.include?('site_id')
     Factory(type, attributes)
   end
 end
@@ -20,21 +19,32 @@ Given /^a site with the following sections:$/ do |table|
   Given "the following sections:", table
 end
 
+Given /^a site with a (\w+) named "([^"]+)"$/ do |section, name|
+  Site.delete_all
+  Given 'a site'
+  Section.delete_all
+  Given %(a #{section} named "#{name}")
+end
+
 # e.g. a blog named "Blog"
-Given /^an? (.*) (name|title)d "([^"]+)"$/ do |model, attribute, value|
+Given /^an? (\w+) (name|title)d "([^"]+)"$/ do |model, attribute, value|
   model = model.classify.constantize
   attributes = { attribute => value }
   attributes[:site_id]    = site.id    if model.column_names.include?('site_id')
   attributes[:account_id] = account.id if model.column_names.include?('account_id')
-  model.find(:first, :conditions => attributes) || model.create!(attributes)
+  model.where(attributes).first || model.create!(attributes)
+end
+
+Given /^an? (\w+) with the following attributes:$/ do |model, table|
+  Factory(model, table.rows_hash)
 end
 
 # e.g. a post with the title "Post" for the blog "Blog"
-Given /^an? (.*) with the (\w+) "([^"]+)" for the (\w+) "([^"]+)"$/ do |model, attribute, value, section, name|
+Given /^an? (\w+) with the (\w+) "([^"]+)" for the (\w+) "([^"]+)"$/ do |model, attribute, value, section, name|
   section = Given(%(a #{section} named "#{name}"))
   collection = section.send(model.underscore.pluralize)
   attributes = { attribute => value }
-  collection.find(:first, :conditions => attributes) || collection.create!(attributes)
+  collection.where(attributes).first || collection.create!(attributes)
 end
 
 When /^(.+) that link$/ do |step|
@@ -58,62 +68,62 @@ When /^I click on the link from the email to (.*)$/ do |to|
   get link
 end
 
-Then /^there should be an? (\w*)$/ do |model|
+Then /^there should be an? (\w+)$/ do |model|
   assert @last_record = model.classify.constantize.first, "could not find any #{model}"
 end
 
-Then /^there should be an? (\w*) named "([^\"]*)"$/ do |model, name|
+Then /^there should be an? (\w+) named "([^\"]+)"$/ do |model, name|
   assert @last_record = model.classify.constantize.where(:name => name).first, "could not find any #{model} named #{name}"
 end
 
-Then /^there should be a (\w*) with the following attributes:$/ do |model, table|
+Then /^there should be a (\w+) with the following attributes:$/ do |model, table|
   assert @last_record = model.classify.constantize.where(table.rows_hash).first, "could not find a #{model} with #{table.rows_hash.inspect}"
 end
 
-Then /^there should be (\w*)s with the following attributes:$/ do |model, table|
+Then /^there should be (\w+)s with the following attributes:$/ do |model, table|
   table.hashes.each do |attributes|
     assert model.classify.constantize.where(attributes).first, "could not find a #{model} with #{attributes.inspect}"
   end
 end
 
-Then /^that (\w*) should have an? (\w*) with the following attributes:$/ do |last, model, table|
+Then /^that (\w+) should have an? (\w+) with the following attributes:$/ do |last, model, table|
   assert @last_record.is_a?(last.classify.constantize), "wrong type for last #{last}"
   assert @last_record.send(model.pluralize).where(table.rows_hash).first, "could not find a #{model} with #{table.rows_hash.inspect}"
 end
 
-Then /^that (\w*) should have (\w*)s with the following attributes:$/ do |last, model, table|
+Then /^that (\w+) should have (\w+)s with the following attributes:$/ do |last, model, table|
   assert @last_record.is_a?(last.classify.constantize), "wrong type for last #{last}"
   table.hashes.each do |attributes|
     assert @last_record.send(model.pluralize).where(attributes).first, "could not find a #{model} with #{attributes.inspect}"
   end
 end
 
-Then /^the title should be "([^"]*)"$/ do |title|
+Then /^the title should be "([^"]+)"$/ do |title|
   assert_select('title', title)
 end
 
-Then /^I should see a link "([^"]*)"$/ do |link|
+Then /^I should see a link "([^"]+)"$/ do |link|
   @last_link = link
   assert_select('a', link)
 end
 
-Then /^I should not see any (\w*)$/ do |type|
+Then /^I should not see any (\w+)$/ do |type|
   assert_select(".#{type.singularize}", :count => 0) # .#{type},
 end
 
-Then /^I should see an? (\w*)$/ do |type|
+Then /^I should see an? (\w+)$/ do |type|
   assert_select(".#{type}")
 end
 
-Then /^I should see an? (\w*) (?:titled|named) "([^"]*)"$/ do |type, text|
+Then /^I should see an? (\w+) (?:titled|named) "([^"]+)"$/ do |type, text|
   assert_select(".#{type} h2", text)
 end
 
-Then /^I should see an? (\w*) containing "([^"]*)"$/ do |type, text|
+Then /^I should see an? (\w+) containing "([^"]+)"$/ do |type, text|
   assert_select(".#{type}", /#{text}/)
 end
 
-Then /^I should see an? ([\w]*) list$/ do |type|
+Then /^I should see an? ([\w]+) list$/ do |type|
   assert_select(".#{type}.list")
 end
 
@@ -136,7 +146,7 @@ Then /^I should see an? ([a-z ]+) form with the following values:$/ do |type, ta
   end
 end
 
-Then /^I should see a "(.*)" table with the following entries$/ do |table_id, expected_table|
+Then /^I should see a "(.+)" table with the following entries$/ do |table_id, expected_table|
   actual_table = table(tableish("table##{table_id} tr", 'td,th'))
   begin
     diff_table = expected_table.dup
@@ -157,15 +167,15 @@ Then(/(?:\$|eval) (.*)$/) do |code|
   pp eval(code)
 end
 
-Then /^I should see a flash (error|notice|message) "(.*)"$/ do |message_type, message|
+Then /^I should see a flash (error|notice|message) "(.+)"$/ do |message_type, message|
   assert_match message, flash_cookie[message_type].to_s
 end
 
-Then /^I should not see a flash (error|notice) "(.*)"$/ do |message_type, message|
+Then /^I should not see a flash (error|notice) "(.+)"$/ do |message_type, message|
   assert_no_match /message/, flash_cookie[message_type].to_s
 end
 
-Then /^I should (see|not see) the error "([^"]*)" for attribute "([^"]*)" of the "([^"]*)"$/ do |should_see, error_msg, attribute, model|
+Then /^I should (see|not see) the error "([^"]+)" for attribute "([^"]+)" of the "([^"]+)"$/ do |should_see, error_msg, attribute, model|
   if should_see == 'see' # ugh ...
     assert_select "*[id*=#{model.downcase.gsub(' ', '_')}_#{attribute.downcase.gsub(' ', '_')}] + span.error",
       :text => error_msg
