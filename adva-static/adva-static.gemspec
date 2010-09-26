@@ -6,7 +6,7 @@
 Gem::Specification.new do |s|
   s.name         = "adva-static"
   s.version      = '0.0.1'
-  s.authors      = ["Ingo Weiss", "Sven Fuchs"]
+  s.authors      = ["Sven Fuchs"]
   s.email        = "nobody@adva-cms.org"
   s.homepage     = "http://github.com/svenfuchs/adva-cms2"
   s.summary      = "[summary]"

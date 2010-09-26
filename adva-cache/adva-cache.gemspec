@@ -6,7 +6,7 @@
 Gem::Specification.new do |s|
   s.name         = "adva-cache"
   s.version      = '0.0.1'
-  s.authors      = ["Ingo Weiss", "Sven Fuchs"]
+  s.authors      = ["Sven Fuchs"]
   s.email        = "nobody@adva-cms.org"
   s.homepage     = "http://github.com/svenfuchs/adva-cms2"
   s.summary      = "[summary]"
@@ -19,6 +19,6 @@ Gem::Specification.new do |s|
   
   s.add_dependency 'adva-core'
   s.add_dependency 'rack-cache-purge', '0.0.1'
-  s.add_dependency 'rack-cache-tags', '0.0.3'
+  s.add_dependency 'rack-cache-tags', '0.0.4'
   s.add_dependency 'reference_tracking', '0.0.2'
 end
