@@ -1,0 +1,73 @@
+h2. adva-static
+
+adva-static makes managing static site exports easy. It basically adds the
+following Thor tasks to your tool belt:
+
+    $ thor adva:static:setup  # Setup a repository for managing a static site
+    $ thor adva:static:import # Import a site from a directory
+    $ thor adva:static:export # Export a static version of your site
+    $ thor adva:static:update # Run import and export task
+    $ thor adva:static:server # Start the adva:static server and watcher
+
+Compared to other static site generator tools the cool thing with adva-static
+is that it simply uses an "adva-cms2":http://github.com/svenfuchs/adva-cms2
+application. That makes it very easy to understand, hack on and extend: it's
+just another Rails app based on some reusable and extensible engines.
+
+h3. Setup
+
+The @adva:static:setup@ task just sets a few things up that are too cumbersome to
+do them manually. It will:
+
+* create a source directory named @import@ and add a @site.yml@ file
+* create a target directory named @export@
+* run an inital import and export
+* initialize a git repository pointing to your remote in both the root directory and the export directory
+* configure the root repository to git-ignore the export directory
+* commit the contents of the root directory to a branch named @source@
+* commit the contents of the export directory to the master @branch@
+
+This setup might seem a bit unusual at the first look but it's quite
+convenient when working with static site exports: You always have the static
+export itself in your master branch, which makes it easy to review and deploy
+it to the target server. And you always have the sources in your source
+branch.
+
+h3. Import
+
+After setting up the directory structure and repositories one can add source
+files to the import directory and import them to the site (i.e. the database)
+by running the @adva:static:import@ task.
+
+Afterwards the site is available as a standard
+"adva-cms2":http://github.com/svenfuchs/adva-cms2 site. That means if you
+wanted to you could can start @rails server@ and look at it or even manage it
+through the admin interface. (Changing things through the admin interface
+currently doesn't make too much sense though because there's no way to sync
+back changes to the source files, yet.)
+
+h3. Export
+
+Once the site has been imported to the database one can run the
+@adva:static:export@ task to export a static version of the site. The export
+task will basically go to your site's homepage and crawl through all links
+pointing to local pages, saving each of them to the respective path in your
+export directory.
+
+It will also place a config.ru file into the export directory that is
+configured to work with the @adva:static:server@ task.
+
+h3. Server
+
+Once you have an export of your site you can start the @adva:static:server@
+which will do the following things:
+
+* serve static files available in your export directory
+* watch the import directory for new, changed and deleted files
+* once a file was created/changed/deleted update the import accordingly
+* purge the file from the export directory and
+* re-export it
+
+# TODO elaborate on import file structure
+
+
