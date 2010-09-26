@@ -29,8 +29,8 @@ module Adva
       end
 
       def run
-        process(queue.shift) until queue.empty?
         configure
+        process(queue.shift) until queue.empty?
       end
 
       protected
@@ -78,7 +78,10 @@ module Adva
         end
 
         def configure
-          store.write(Path.new('config.ru'), File.read(File.expand_path('../export/templates/config.ru', __FILE__)))
+          config = Path.new('config.ru')
+          unless store.exists?(config)
+            store.write(config, File.read(File.expand_path('../export/templates/config.ru', __FILE__)))
+          end
         end
     end
   end
