@@ -7,6 +7,10 @@ Given /^a source file "([^\"]*)" with the following values:$/ do |filename, hash
   setup_files([filename, YAML.dump(hash.rows_hash)]) unless filename.blank?
 end
 
+Given /^a source file "([^\"]*)"$/ do |filename|
+  setup_files([filename, '']) unless filename.blank?
+end
+
 Given /^the following source files:$/ do |table|
   table.hashes.each do |hash|
     setup_files([hash.delete('file'), YAML.dump(hash)])
@@ -22,6 +26,9 @@ Then /^the watcher should "([^\"]*)" the following "([^\"]*)" params for the fil
   request = import.request_for(file)
   params  = request.params
 
+# model = import.send(:recognize, file).first
+# debugger
+
   case method.downcase!
   when 'put'
     assert_equal 'put', params['_method'].try(:downcase)
@@ -31,6 +38,6 @@ Then /^the watcher should "([^\"]*)" the following "([^\"]*)" params for the fil
   end
 
   expected = table.rows_hash.symbolize_keys
-  actual   = request.params[key.to_sym].except(:id)
+  actual   = request.params[key.to_sym].except(:id).slice(*expected.keys)
   assert_equal expected, actual
 end
