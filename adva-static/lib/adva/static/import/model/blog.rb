@@ -9,7 +9,7 @@ module Adva
 
               sources = Array(sources)
               posts = sources.select { |source| Post.permalink?(source) }
-              return [] if posts.blank?
+              posts = sources.map(&:directory).map(&:files).flatten.select { |s| Post.permalink?(s) } if posts.blank?
 
               blogs = posts.map { |post| Post.new(post).section_source }.flatten.uniq
               blogs = blogs.map { |blog| sources.detect { |source| blog.path == source.path } || blog }
