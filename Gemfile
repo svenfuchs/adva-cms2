@@ -2,7 +2,7 @@ require File.expand_path('../lib/bundler/repository', __FILE__)
 
 source :rubygems
 
-workspace '~/.projects ~/projects ~/Development/{projects,work} ~/.repositories'
+workspace '. ~/.projects ~/projects ~/Development/{projects,work} ~/.repositories'
 adva_cms = repository('adva-cms2', :source => :local)
 
 adva_cms.gem  'adva-assets'
