@@ -46,8 +46,6 @@ module Adva
               source = self.class.strip_permalink(self.source)
               if source.path.present?
                 source.find_or_self
-              # elsif root = ::Section.root
-              #   Source.new(root.slug, source.root).find_or_self
               else
                 Source.new(source.join('index'), source.root).find_or_self
               end
@@ -55,11 +53,13 @@ module Adva
           end
 
           def slug
-            @slug ||= SimpleSlugs::Slug.new(title).to_s
+            # @slug ||= SimpleSlugs::Slug.new(title).to_s
+            @slug ||= source.basename.gsub(Post::PERMALINK) { $4 }
           end
 
           def title
-            @title ||= source.basename.gsub(Post::PERMALINK) { $4 }.titleize
+            # @title ||= source.basename.gsub(Post::PERMALINK) { $4 }.titleize
+            @title ||= slug.titleize
           end
 
           def permalink

@@ -18,7 +18,8 @@ When /^I run the import task$/ do
 end
 
 Then /^the watcher should "([^\"]*)" the following "([^\"]*)" params for the file "([^\"]*)":$/ do |method, key, file, table|
-  request = Adva::Static::Import.new(:source => root).request_for(file)
+  import  = Adva::Static::Import.new(:source => root)
+  request = import.request_for(file)
   params  = request.params
 
   case method.downcase!
@@ -29,5 +30,7 @@ Then /^the watcher should "([^\"]*)" the following "([^\"]*)" params for the fil
     assert !params.key?('_method')
   end
 
-  assert_equal table.rows_hash.symbolize_keys, request.params[key.to_sym].except(:id)
+  expected = table.rows_hash.symbolize_keys
+  actual   = request.params[key.to_sym].except(:id)
+  assert_equal expected, actual
 end
