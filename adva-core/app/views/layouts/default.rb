@@ -19,7 +19,7 @@ class Layouts::Default < Layouts::Base
         footer
       end
     end
-  
+
     def footer
       ul :class => :left do
         li :'.made_with'

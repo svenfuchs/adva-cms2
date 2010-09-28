@@ -1,12 +1,12 @@
 require 'uri'
 
-Given /^(?:|I )am on (.+)$/ do |page_name|
-  visit path_to(page_name)
+Given /^(?:|I )am on (.+)$/ do |page|
+  visit path_to(page)
   follow_redirect! if redirect?
 end
 
-When /^(?:|I )go to (.+)$/ do |page_name|
-  visit path_to(page_name)
+When /^(?:|I )go to (.+)$/ do |page|
+  visit path_to(page)
   follow_redirect! if redirect?
 end
 
@@ -255,19 +255,19 @@ Then /^the "([^\"]*)" (?:checkbox|radio button) should not be checked$/ do |labe
   end
 end
 
-Then /^(?:|I )should be on (.+)$/ do |page_name|
+Then /^(?:|I )should be on (.+)$/ do |page|
   if defined?(Spec::Rails::Matchers)
-    URI.parse(current_url).path.should == path_to(page_name)
+    URI.parse(current_url).path.should == path_to(page)
   else
-    assert_equal path_to(page_name), URI.parse(current_url).path
+    assert_equal path_to(page), URI.parse(current_url).path
   end
 end
 
-Then /^(?:|I )should not be on (.+)$/ do |page_name|
+Then /^(?:|I )should not be on (.+)$/ do |page|
   if defined?(Spec::Rails::Matchers)
-    URI.parse(current_url).path.should != path_to(page_name)
+    URI.parse(current_url).path.should != path_to(page)
   else
-    assert_not_equal path_to(page_name), URI.parse(current_url).path
+    assert_not_equal path_to(page), URI.parse(current_url).path
   end
 end
 
