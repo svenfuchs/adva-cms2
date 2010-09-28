@@ -10,14 +10,14 @@ module Adva
         setup_logging(options)
         setup_active_record
 
-        Adva.engines.each do |s|
-          s.setup_load_paths
+        Adva.engines.each do |e|
+          e.setup_load_paths
         end
         
-        Adva.engines.each do |s|
-          s.require_patches
-          s.preload_sliced_models
-          s.migrate
+        Adva.engines.each do |e|
+          e.require_patches
+          e.preload_sliced_models
+          e.migrate
         end
 
         load_assertions
@@ -25,15 +25,19 @@ module Adva
       end
       
       def load_assertions
-        Adva.engines.each { |s| s.load_assertions }
+        Adva.engines.each { |e| e.load_assertions }
       end
       
       def load_factories
-        Adva.engines.each { |s| s.load_factories }
+        Adva.engines.each { |e| e.load_factories }
       end
       
       def load_cucumber_support
-        Adva.engines.each { |s| s.load_cucumber_support }
+        Adva.engines.each { |e| e.load_cucumber_support }
+      end
+
+      def load_helpers
+        Adva.engines.each { |e| e.load_helpers }
       end
     
       def setup_logging(options)
