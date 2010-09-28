@@ -13,9 +13,9 @@ Given /^the following (\w+):$/ do |type, table|
 end
 
 Given /^a site with the following sections:$/ do |table|
-  Site.delete_all
+  Site.all.map(&:destroy)
   Given 'a site'
-  Section.delete_all
+  Section.all.map(&:destroy)
   Given "the following sections:", table
 end
 
@@ -45,6 +45,12 @@ Given /^an? (\w+) with the (\w+) "([^"]+)" for the (\w+) "([^"]+)"$/ do |model, 
   collection = section.send(model.underscore.pluralize)
   attributes = { attribute => value }
   collection.where(attributes).first || collection.create!(attributes)
+end
+
+Given /^(\w+)s with the following attributes:$/ do |model, table|
+  table.hashes.each do |attributes|
+    Factory(model, attributes)
+  end
 end
 
 When /^(.+) that link$/ do |step|

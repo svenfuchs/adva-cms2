@@ -2,6 +2,9 @@ module Adva::Core::Paths
   def path_to(page)
     case page
 
+    when /^\//
+      page
+
     when /^the home\s?page$/
       '/'
 
@@ -36,8 +39,8 @@ module Adva::Core::Paths
       polymorphic_path([:admin, site, section])
 
     else
-      named_route_helper = page_name.gsub(/(\Athe )|( page\Z)/, '').gsub(/ +/, '_').downcase + '_path'
-      raise "Can't find mapping from \"#{page_name}\" to a path.\nNow, go and add a mapping in #{__FILE__}" unless respond_to?(named_route_helper)
+      named_route_helper = page.gsub(/(\Athe )|( page\Z)/, '').gsub(/ +/, '_').downcase + '_path'
+      raise "Can't find mapping from \"#{page}\" to a path.\nNow, go and add a mapping in #{__FILE__}" unless respond_to?(named_route_helper)
       send named_route_helper
     end
   end
