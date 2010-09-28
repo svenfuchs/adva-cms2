@@ -201,3 +201,13 @@ end
 #   html_table = table(tableish("table##{table_id} tr", 'td,th'))
 #   expected_table.diff!(html_table)
 # end
+
+# Then I should see a comment within the sidebar
+# Will look for '#sidebar .comment'
+# Then I should see the cart within the sidebar
+# Will look for '#sidebar #cart'
+Then /^I should see (an?|the) ([a-z ]+) within the ([a-z ]+)$/ do |a_or_the, selector, context_selector|
+  within("##{context_selector}") do |context|
+    assert_select({'a' => '.', 'the' => '#'}[a_or_the]+selector)
+  end
+end
