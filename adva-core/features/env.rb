@@ -24,6 +24,8 @@ require Adva::Core.root.join('lib/core_ext/rails/active_record/skip_callbacks')
 Adva::Testing.load_factories
 Adva::Testing.load_cucumber_support
 Adva::Testing.load_assertions
+Adva::Testing.load_helpers
+World(GlobalHelpers)
 Adva.out = StringIO.new('')
 
 Webrat.configure do |config|
@@ -34,15 +36,3 @@ end
 ActionController::Base.allow_rescue = false
 Cucumber::Rails::World.use_transactional_fixtures = true
 Rails.backtrace_cleaner.remove_silencers!
-
-module GlobalsHelpers
-  def site
-    Site.first || raise("Could not find a site. Maybe you want to set one up in your story background?")
-  end
-
-  def account
-    Account.first || raise("Could not find a site. Maybe you want to set one up in your story background?")
-  end
-end
-
-World(GlobalsHelpers)

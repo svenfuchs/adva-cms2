@@ -196,3 +196,8 @@ Then /^the following emails should have been sent:$/ do |expected_emails|
     assert_email_sent(attributes)
   end
 end
+
+# Then /^I should see a "([^"]+)" table with the following entries:$/ do |table_id, expected_table|
+#   html_table = table(tableish("table##{table_id} tr", 'td,th'))
+#   expected_table.diff!(html_table)
+# end
