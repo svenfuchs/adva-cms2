@@ -58,12 +58,13 @@ When /^(.+) that link$/ do |step|
   When %(#{step} "#{@last_link}")
 end
 
-When /^I (press|click) "(.*)" in the row where "(.*)" is "(.*)"$/ do |method, link_or_button, header, cell_content|
+When /^I (press|click) "(.*)" in the row (of the ([a-z ]+) table )?where "(.*)" is "(.*)"$/ do |press_or_click, link_or_button, _, table_id, header, cell_content|
   body = Nokogiri::HTML(response.body)
-  header_id = body.xpath("//th[normalize-space(text())='#{header}']/@id").first.value
-  row_id = body.xpath("//tr/td[@headers='#{header_id}'][normalize-space(text())='#{cell_content}']/ancestor::tr/@id").first.value
+  table_xpath = table_id.nil? ? 'table' : "table[@id='#{table_id.gsub(/ /, '_')}']"
+  header_id = body.xpath("//#{table_xpath}/descendant::th[normalize-space(text())='#{header}']/@id").first.value
+  row_id = body.xpath("//#{table_xpath}/descendant::td[@headers='#{header_id}'][normalize-space(text())='#{cell_content}']/ancestor::tr/@id").first.value
   within("##{row_id}") do
-    send({'press' => 'click_button', 'click' => 'click_link'}[method], link_or_button)
+    send({'press' => 'click_button', 'click' => 'click_link'}[press_or_click], link_or_button)
   end
 end
 
