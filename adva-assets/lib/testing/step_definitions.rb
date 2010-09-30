@@ -32,10 +32,10 @@ When /^I press the delete button for image with title "([^"]*)"$/ do |image_titl
   click_button check_box_id
 end
 
-Given /^the following images for product with name "([^"]*)":$/ do |product_name, images|
+Given /^the following images for (product|bundle) with name "([^"]*)":$/ do |product_or_bundle, assetable_name, images|
   images.hashes.each do |attributes|
-    product = Product.find_by_name(product_name)
-    product.images.create!(:title => attributes['title'],
+    assetable = product_or_bundle.classify.constantize.find_by_name(assetable_name)
+    assetable.images.create!(:title => attributes['title'],
       :file => File.open(Adva::Assets.root.join('test/fixtures/rails.png')),
       :site => Site.first)
   end
