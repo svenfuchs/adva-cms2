@@ -153,7 +153,7 @@ Then /^I should see an? ([a-z ]+) form with the following values:$/ do |type, ta
   end
 end
 
-Then /^I should see a "(.+)" table with the following entries$/ do |table_id, expected_table|
+Then /^I should see a "(.+)" table with the following entries:$/ do |table_id, expected_table|
   actual_table = table(tableish("table##{table_id} tr", 'td,th'))
   begin
     diff_table = expected_table.dup
