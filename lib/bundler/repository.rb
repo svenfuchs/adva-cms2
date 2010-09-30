@@ -1,6 +1,6 @@
 require 'pathname'
 
-# Bundler gemfile support for local/remote workspaces/repositories for work in 
+# Bundler gemfile support for local/remote workspaces/repositories for work in
 # development teams.
 #
 # Usage:
@@ -14,7 +14,7 @@ require 'pathname'
 #   # define repositories to be used for particular gems:
 #   adva_cms  = repository('adva-cms2', :git => 'git@github.com:svenfuchs/adva-cms2.git', :ref => 'c2af0de')
 #   adva_shop = repository('adva-shop', :source => :local)
-# 
+#
 #   # now use repositories to define gems:
 #   adva_cms.gem  'adva-core'
 #   adva_shop.gem 'adva-catalog'
@@ -35,27 +35,27 @@ class Repository
     def paths
       @paths ||= []
     end
-    
+
     def path(*paths)
       paths.join(' ').split(' ').each do |path|
         self.paths.concat(Pathname.glob(File.expand_path(path)))
       end
     end
-    
+
     def developer(name, preferences)
       developers[name] = preferences
       workspaces(preferences[:workspace])
     end
-    
+
     def current_developer
       developers[ENV['USER'].to_sym] || {}
     end
-    
+
     def developers(developers = nil)
       @developers ||= {}
     end
   end
-  
+
   class Gem < Array
     def initialize(name, repository)
       if repository.local?
@@ -66,32 +66,32 @@ class Repository
       end
     end
   end
-  
+
   attr_reader :bundler, :name, :options, :source
-  
+
   def initialize(bundler, name, options)
     @bundler = bundler
     @name    = name
     @source  = options.delete(:source)
     @options = options
   end
-  
+
   def gem(name)
     bundler.gem(*Gem.new(name, self))
   end
-  
+
   def local?
     source == :local && path
   end
-  
+
   def source
     @source ||= forced_source || preferred_source || :remote
   end
-  
+
   def forced_source
     :remote if ENV['FORCE_REMOTE']
   end
-  
+
   def preferred_source
     self.class.current_developer[:prefer]
   end
@@ -100,6 +100,7 @@ class Repository
     @path ||= begin
       path = self.class.paths.detect { |path| path.join(name).exist? }
       path.join(name) if path
+      self.class.paths.detect { |path| path.join.exist? } unless path
     end
   end
 end
