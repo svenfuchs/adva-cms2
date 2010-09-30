@@ -81,7 +81,7 @@ class Repository
   end
 
   def local?
-    source == :local && path
+    source == :local # && path
   end
 
   def source
@@ -99,8 +99,7 @@ class Repository
   def path
     @path ||= begin
       path = self.class.paths.detect { |path| path.join(name).exist? }
-      path.join(name) if path
-      self.class.paths.detect { |path| path.join.exist? } unless path
+      path ? path.join(name) : Pathname.new('.')
     end
   end
 end
