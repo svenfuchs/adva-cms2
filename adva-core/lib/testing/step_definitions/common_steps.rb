@@ -130,7 +130,11 @@ Then /^I should see an? (\w+) containing "([^"]+)"$/ do |type, text|
   assert_select(".#{type}", /#{text}/)
 end
 
-Then /^I should see an? ([\w]+) list$/ do |type|
+Then /^I should see an? (\w+) list$/ do |type|
+  assert_select(".#{type}.list")
+end
+
+Then /^I should see a list of (\w+)$/ do |type|
   assert_select(".#{type}.list")
 end
 

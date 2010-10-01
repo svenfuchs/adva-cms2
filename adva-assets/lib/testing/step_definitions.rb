@@ -32,11 +32,16 @@ When /^I press the delete button for image with title "([^"]*)"$/ do |image_titl
   click_button check_box_id
 end
 
-Given /^the following images for (product|bundle) with name "([^"]*)":$/ do |product_or_bundle, assetable_name, images|
-  images.hashes.each do |attributes|
-    assetable = product_or_bundle.classify.constantize.find_by_name(assetable_name)
-    assetable.images.create!(:title => attributes['title'],
-      :file => File.open(Adva::Assets.root.join('test/fixtures/rails.png')),
-      :site => Site.first)
+Given /^the following (assets|images|videos) for the (\w+) (\w+)d "([^"]*)":$/ do |type, assetable, attribute, value, table|
+  paths = {
+    'images' => 'test/fixtures/rails.png'
+  }
+  raise "gotta define a fixture for #{type.inspect}" unless paths[type]
+  assetable = assetable.classify.constantize.where(attribute => value).first
+  table.hashes.each do |attributes|
+    assetable.send(type).create!(attributes.merge(
+      :file => File.open(Adva::Assets.root.join(paths[type])),
+      :site => Site.first
+    ))
   end
 end
