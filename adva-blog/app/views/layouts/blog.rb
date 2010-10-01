@@ -10,9 +10,9 @@ class Layouts::Blog < Layouts::Default
         li { link_to(:'.feed', '#', :class => :feed) }
       end
     end
-  
+
     protected
-  
+
       def name
         'default' # TODO
       end

@@ -1,6 +1,4 @@
 class PostsController < BaseController
-  layout 'blog'
-
   nested_belongs_to :blog
   before_filter :set_id, :only => :show
 
