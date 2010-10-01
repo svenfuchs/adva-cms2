@@ -42,7 +42,7 @@ module AdvaAssets
       assert_equal File.stat(asset.path).mode & 0777, 0600
     end
 
-    test 'Assetables have many assets and assets have many asset_assignments' do
+    test 'Assetables have many assets and assets have many asset_assignments and assetables' do
       asset1 = Factory(:asset, :site => site)
       asset2 = Factory(:asset, :site => site)
 
@@ -51,7 +51,6 @@ module AdvaAssets
       user.assets << asset2
 
       assert_equal 2, user.assets.count
-      assert [asset1, asset2], user.assets
 
       assert_equal 1, asset1.asset_assignments.count
       assert_equal user, asset1.asset_assignments.first.assetable
@@ -63,15 +62,16 @@ module AdvaAssets
       post.assets << asset2
 
       assert_equal 2, post.assets.count
-      assert [asset1, asset2], post.assets
 
       assert_equal 2, asset1.asset_assignments.count
       assert_equal post, asset1.asset_assignments.last.assetable
       assert_equal asset1.asset_assignments.find_by_assetable_id_and_assetable_type(post.id, 'Content'),
         post.asset_assignments.find_by_asset_id(asset1.id)
+
+      assert_equal [user, post], asset1.assetables
     end
 
-    test 'Assetables have many images and images have many asset_assignments' do
+    test 'Assetables have many images and images have many asset_assignments and assetables' do
       image1 = Factory(:image, :site => site)
       image2 = Factory(:image, :site => site)
 
@@ -80,7 +80,6 @@ module AdvaAssets
       user.images << image2
 
       assert_equal 2, user.images.count
-      assert [image1, image2], user.images
 
       assert_equal 1, image1.asset_assignments.count
       assert_equal user, image1.asset_assignments.first.assetable
@@ -92,15 +91,16 @@ module AdvaAssets
       post.images << image2
 
       assert_equal 2, post.images.count
-      assert [image1, image2], post.images
 
       assert_equal 2, image1.asset_assignments.count
       assert_equal post, image1.asset_assignments.last.assetable
       assert_equal image1.asset_assignments.find_by_assetable_id_and_assetable_type(post.id, 'Content'),
         post.asset_assignments.find_by_asset_id(image1.id)
+
+      assert_equal [user, post], image1.assetables
     end
 
-    test 'Assetables have many videos and videos have many asset_assignments' do
+    test 'Assetables have many videos and videos have many asset_assignments and assetables' do
       video1 = Factory(:video, :site => site)
       video2 = Factory(:video, :site => site)
 
@@ -109,7 +109,6 @@ module AdvaAssets
       user.videos << video2
 
       assert_equal 2, user.videos.count
-      assert [video1, video2], user.videos
 
       assert_equal 1, video1.asset_assignments.count
       assert_equal user, video1.asset_assignments.first.assetable
@@ -121,12 +120,13 @@ module AdvaAssets
       post.videos << video2
 
       assert_equal 2, post.videos.count
-      assert [video1, video2], post.videos
 
       assert_equal 2, video1.asset_assignments.count
       assert_equal post, video1.asset_assignments.last.assetable
       assert_equal video1.asset_assignments.find_by_assetable_id_and_assetable_type(post.id, 'Content'),
         post.asset_assignments.find_by_asset_id(video1.id)
+
+      assert_equal [user, post], video1.assetables
     end
 
     test 'An asset belongs to many polymorphic assetables' do
