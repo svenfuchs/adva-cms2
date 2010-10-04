@@ -14,12 +14,16 @@ module Adva
 
         def to_html
           div :id => id, :class => 'menus' do
-            ul :class => 'menu main' do
-              main
-            end
-            ul :class => 'menu right' do
-              right
-            end
+            menus
+          end
+        end
+
+        def menus
+          ul :class => 'menu main' do
+            main
+          end
+          ul :class => 'menu right' do
+            right
           end
         end
 
