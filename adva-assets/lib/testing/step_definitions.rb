@@ -19,6 +19,7 @@ end
 def asset_tag_titled(type, title)
   xpaths = {
     :image => "//img[@alt='#{title}']",
+    # TODO does not actually return the object tag, but the param tag
     :video => "//param[@name='name' and @value='#{title}']/parent::object/child::param[@name='movie']"
   }
   assert xpath = xpaths[type.to_sym], "undefined type #{type}"
@@ -27,8 +28,8 @@ end
 
 def button_for(tag)
   body = Nokogiri::HTML(response.body)
-  # should also be able to match buttons in tr/tds
-  body.xpath("#{tag.path}/parent::li/descendant::input[@type='submit']").first
+  # TODO should also be able to match buttons in tr/tds
+  body.xpath("#{tag.path}/ancestor::li/descendant::input[@type='submit']").first
 end
 
 When /^I press the delete button for ([\w ]+) with title "([^"]*)"$/ do |type, title|
@@ -40,7 +41,8 @@ end
 Then /^I should see the (image|video) "([^"]*)"$/ do |type, title|
   asset = asset_tag_titled(type, title)
   assert asset, "could not find an #{type} with the title '#{title}'"
-  src = asset.attributes["src"].value
+  src_attributes = { :image => 'src', :video => 'value' }
+  src = asset.attributes[src_attributes[type.to_sym]].value
   assert File.exists?(src), "The source file #{src.inspect} for #{type} #{title.inspect} does not exist"
 end
 
