@@ -52,9 +52,9 @@ en:
       menu:
         new: New Site
         edit: Edit
-        delete: Delete
+        destroy: Delete
         new_item: New Section
-        confirm_delete: "Do you really want to delete this %{model_name}?"
+        confirm_destroy: "Do you really want to delete this %{model_name}?"
     sections:
       index:
         title: Sections
@@ -62,7 +62,7 @@ en:
         edit: Edit
         destroy: Delete
         published: Published
-        confirm_delete: "Do you really want to delete this %{model_name}?"
+        confirm_destroy: "Do you really want to delete this %{model_name}?"
       new:
         title: Create a New Section
       show:
@@ -81,8 +81,8 @@ en:
         new: New
         show: Page
         view: View
-        delete: Delete
-        confirm_delete: "Do you really want to delete this %{model_name}?"
+        destroy: Delete
+        confirm_destroy: "Do you really want to delete this %{model_name}?"
     posts:
       edit:
         title: Settings

@@ -13,7 +13,7 @@ en:
     show:
       continue: Read the rest of this post
   posts:
-    meta: 
+    meta:
       info: "posted on %{date}"
     columns:
       post: Post
@@ -30,7 +30,7 @@ en:
         published: Published
         empty: "There are no posts. %{link}"
         create_item: "Create one now &raquo;"
-        confirm_delete: "Do you really want to delete this %{model_name}?"
+        confirm_destroy: "Do you really want to delete this %{model_name}?"
       new:
         title: Create a New Section
       edit:
@@ -40,9 +40,9 @@ en:
         show: Posts
         new: New
         edit: Settings
-        delete: Delete
+        destroy: Delete
         new_item: New Post
-        confirm_delete: "Do you really want to delete this %{model_name}?"
+        confirm_destroy: "Do you really want to delete this %{model_name}?"
     posts:
       new:
         title: Write a new blog post
@@ -55,5 +55,5 @@ en:
         new: New
         view: View
         edit: Edit
-        delete: Delete
-        confirm_delete: "Do you really want to delete this %{model_name}?"
+        destroy: Delete
+        confirm_destroy: "Do you really want to delete this %{model_name}?"
