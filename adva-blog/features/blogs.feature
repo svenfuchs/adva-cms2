@@ -64,7 +64,6 @@ Feature: Managing blogs
       |              | Blog could not be updated |
 
   Scenario: Deleting a blog from the admin sections list
-    Then output the page
     When I follow "Delete" within the "Blog" row
     Then the title should be "Sections: Index"
      And I should see "Blog successfully deleted"
