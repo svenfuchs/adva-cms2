@@ -1,28 +1,22 @@
-Then /^I should (not )?see the image "([^"]*)"$/ do |not_see, image_title|
-  body = Nokogiri::HTML(response.body)
-  images = body.xpath("//img[@alt='#{image_title}']")
-  if not_see
-    assert images.empty?, "expected the image with title '#{image_title}' not be found, but was found"
-  else
-    assert images.one?, "image with title '#{image_title}' could not be found"
-    image_src = images.first.attributes["src"].value
-    assert File.exists?(image_src), "file '#{image_src}' for image '#{image_title}' does not exist"
+# Examples for using this step:
+# 1. Given the following images for the product named "Wireless Keyboard":
+# 2. Given the following videos for bundle titled "Cool Bundle":
+Given /^the following ([\w ]+) for (?:the )?([\w ]+) ([\w]+)d "([^"]*)":$/ do |type, assetable, name, value, table|
+  paths = {
+    'images' => 'test/fixtures/rails.png',
+    'videos' => 'test/fixtures/sample_video.swf'
+  }
+  assetable = assetable.gsub(/ /, '_').classify.constantize.where(name => value).first
+  table.hashes.each do |attributes|
+    assetable.send(type).create!(attributes.merge(
+        :file => File.open(Adva::Assets.root.join(paths[type])),
+        :site => Site.first
+      )
+    )
   end
 end
 
-Then /^I should (not )?see the video "([^"]*)"$/ do |not_see, video_title|
-  body = Nokogiri::HTML(response.body)
-  videos = body.xpath("//param[@name='name' and @value='#{video_title}']/parent::object/child::param[@name='movie']")
-  if not_see
-    assert videos.empty?, "expected the video with title '#{video_title}' not be found, but was found"
-  else
-    assert videos.one?, "video with title '#{video_title}' could not be found"
-    video_src = videos.first.attributes["value"].value
-    assert File.exists?(video_src), "file '#{video_src}' for video '#{video_title}' does not exist"
-  end
-end
-
-When /^I press the delete button for ([a-z ]+) with title "([^"]*)"$/ do |asset_type, asset_title|
+When /^I press the delete button for ([\w ]+) with title "([^"]*)"$/ do |asset_type, asset_title|
   body = Nokogiri::HTML(response.body)
   assets = if asset_type == 'image'
     body.xpath("//img[@alt='#{asset_title}']/parent::li/descendant::input[@type='submit']/@id")
@@ -34,20 +28,23 @@ When /^I press the delete button for ([a-z ]+) with title "([^"]*)"$/ do |asset_
   click_button check_box_id
 end
 
-# Examples for using this step:
-# 1. Given the following images for product named "Wireless Keyboard":
-# 2. Given the following videos for bundle titled "Cool Bundle":
-Given /^the following ([a-z ]+) for ([a-z ]+) ([a-z]+)d "([^"]*)":$/ do |asset_association, assetable_type, attribute, attribute_value, table|
-  paths = {
-    'images' => 'test/fixtures/rails.png',
-    'videos' => 'test/fixtures/sample_video.swf'
+def asset_tag_titled(type, title)
+  xpaths = {
+    :image => "//img[@alt='#{title}']",
+    :video => "//param[@name='name' and @value='#{title}']/parent::object/child::param[@name='movie']"
   }
-  assetable = assetable_type.gsub(/ /, '_').classify.constantize.where(attribute => attribute_value).first
-  table.hashes.each do |attributes|
-    assetables.send(asset_association).create!(attributes.merge(
-        :file => File.open(Adva::Assets.root.join(paths[type])),
-        :site => Site.first
-      )
-    )
-  end
+  Nokogiri::HTML(response.body).xpath(xpaths[type.to_sym]).first
 end
+
+Then /^I should see the (image|video) "([^"]*)"$/ do |type, title|
+  asset = asset_tag_titled(type, title)
+  assert asset, "could not find an #{type} with the title '#{title}'"
+  src = asset.attributes["src"].value
+  assert File.exists?(src), "The source file #{src.inspect} for #{type} #{title.inspect} does not exist"
+end
+
+Then /^I should not see the (image|video) "([^"]*)"$/ do |type, title|
+  asset = asset_tag_titled(type, title)
+  assert_nil asset, "expected the #{type} with title #{title.inspect} not be found, but was found"
+end
+
