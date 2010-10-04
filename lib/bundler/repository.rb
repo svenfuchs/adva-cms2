@@ -93,7 +93,7 @@ class Repository
   end
 
   def preferred_source
-    self.class.current_developer[:prefer]
+    self.class.current_developer[:prefer] || self.class.current_developer[name.to_sym]
   end
 
   def path
