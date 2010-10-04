@@ -1,4 +1,6 @@
 class Admin::SitesController < Admin::BaseController
+  purges :update, :destroy
+
   before_filter :set_params_for_nested_resources, :only => [:new, :edit]
   before_filter :set_account, :only => :create
 
