@@ -27,6 +27,7 @@ end
 
 def button_for(tag)
   body = Nokogiri::HTML(response.body)
+  # should also be able to match buttons in tr/tds
   body.xpath("#{tag.path}/parent::li/descendant::input[@type='submit']").first
 end
 
