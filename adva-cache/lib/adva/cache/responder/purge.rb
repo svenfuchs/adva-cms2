@@ -12,7 +12,6 @@ module Adva
         protected
 
           def purge_resources
-            # FIXME this is way to greedy. should check which resources actually have changes
             resources.reject { |r| !r.respond_to?(:new_record?) }
           end
       end
