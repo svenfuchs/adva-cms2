@@ -16,24 +16,24 @@ Given /^the following ([\w ]+) for (?:the )?([\w ]+) ([\w]+)d "([^"]*)":$/ do |t
   end
 end
 
-When /^I press the delete button for ([\w ]+) with title "([^"]*)"$/ do |asset_type, asset_title|
-  body = Nokogiri::HTML(response.body)
-  assets = if asset_type == 'image'
-    body.xpath("//img[@alt='#{asset_title}']/parent::li/descendant::input[@type='submit']/@id")
-  else
-    body.xpath("//param[@name='name' and @value='#{asset_title}']/parent::object/parent::li/descendant::input[@type='submit']/@id")
-  end
-  assert assets.one?, "#{asset_type} with title '#{asset_title}' could not be found"
-  check_box_id = assets.first.value
-  click_button check_box_id
-end
-
 def asset_tag_titled(type, title)
   xpaths = {
     :image => "//img[@alt='#{title}']",
     :video => "//param[@name='name' and @value='#{title}']/parent::object/child::param[@name='movie']"
   }
-  Nokogiri::HTML(response.body).xpath(xpaths[type.to_sym]).first
+  assert xpath = xpaths[type.to_sym], "undefined type #{type}"
+  Nokogiri::HTML(response.body).xpath(xpath).first
+end
+
+def button_for(tag)
+  body = Nokogiri::HTML(response.body)
+  body.xpath("#{tag.path}/parent::li/descendant::input[@type='submit']").first
+end
+
+When /^I press the delete button for ([\w ]+) with title "([^"]*)"$/ do |type, title|
+  asset = asset_tag_titled(type, title)
+  button = button_for(asset)
+  click_button(button['id'])
 end
 
 Then /^I should see the (image|video) "([^"]*)"$/ do |type, title|
