@@ -1,4 +1,4 @@
-class Admin::AssetsAssignmentsController < Admin::BaseController
+class Admin::AssetAssignmentsController < Admin::BaseController
 
   # TODO: why does inherited resources not guess the resource_class out of the box
   defaults :resource_class => AssetAssignment
