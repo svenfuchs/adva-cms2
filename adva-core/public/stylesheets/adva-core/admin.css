@@ -32,8 +32,8 @@ body > div > div {
   padding: 0 25px;
 }
 .main {
-  width: 70%;
+  width: auto;
 }
 .right {
-  width: 30%;
+  width: auto;
 }
