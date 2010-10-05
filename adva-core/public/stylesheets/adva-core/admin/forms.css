@@ -23,12 +23,17 @@ form .column > .inline {
 input[type=text],
 input[type=password],
 input[type=email],
+input[type=number],
 textarea {
   padding: 5px 8px;
   font-size: 14px;
   border: 1px solid #999;
   font-family: "Helvetica Neue", "Helvetica", "Arial", Verdana;
-  width: 98%;
+  width: 450px;
+}
+
+input[type=submit] {
+  margin-top: 15px;
 }
 input[disabled] {
   background: #DDD;
