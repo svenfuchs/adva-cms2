@@ -216,3 +216,8 @@ Then /^I should see (an?|the) ([a-z ]+) within the ([a-z ]+)$/ do |a_or_the, sel
     assert_select({'a' => '.', 'the' => '#'}[a_or_the]+selector)
   end
 end
+
+Then "debug" do
+  debugger
+  true
+end
