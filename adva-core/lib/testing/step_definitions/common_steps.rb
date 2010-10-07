@@ -217,6 +217,21 @@ Then /^I should see (an?|the) ([a-z ]+) within the ([a-z ]+)$/ do |a_or_the, sel
   end
 end
 
+Then /^"([^"]*)" should be filled in with "([^"]*)"$/ do |field, value|
+  field = webrat.field_labeled(field)
+  assert_equal value, field.value
+end
+
+Then /^"([^"]*)" should be selected as "([^"]*)"$/ do |value, select|
+  select = webrat.field_labeled(select)
+  assert_equal value, select.element.xpath(".//option[@selected = 'selected']").first.text
+end
+
+Then /^I should see "([^"]*)" formatted as a "([^"]*)" tag$/ do |value, tag|
+  assert_select(tag, value)
+end
+
+
 Then "debug" do
   debugger
   true
