@@ -127,21 +127,21 @@ end
 
 # Adds support for validates_attachment_content_type. Without the mime-type getting
 # passed to attach_file() you will get a "Photo file is not one of the allowed file types."
-# error message 
+# error message
 When /^(?:|I )attach the file "([^\"]*)" to "([^\"]*)"$/ do |path, field|
   type = path.split(".")[1]
 
   case type
   when "jpg"
-    type = "image/jpg" 
+    type = "image/jpg"
   when "jpeg"
-    type = "image/jpeg" 
+    type = "image/jpeg"
   when "png"
-    type = "image/png" 
+    type = "image/png"
   when "gif"
     type = "image/gif"
   end
-  
+
   attach_file(field, path, type)
 end
 
@@ -274,7 +274,7 @@ end
 Then /^(?:|I )should have the following query string:$/ do |expected_pairs|
   actual_params   = CGI.parse(URI.parse(current_url).query)
   expected_params = Hash[expected_pairs.rows_hash.map{|k,v| [k,[v]]}]
- 
+
   if defined?(Spec::Rails::Matchers)
     actual_params.should == expected_params
   else

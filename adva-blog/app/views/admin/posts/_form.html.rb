@@ -6,7 +6,7 @@ class Admin::Posts::Form < Adva::View::Form
         form.input :body
       end
     end
-  
+
     def sidebar
       tab :options do
         form.input :slug

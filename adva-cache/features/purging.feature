@@ -41,5 +41,5 @@ Feature: Purging tagged pages from the cache
      And I follow "Post title"
     When I fill in "Title" with "Updated title"
      And I press "Update"
-    Then it should purge cache entries tagged: post-1:title
+    Then it should purge cache entries tagged: post-1:body_html, post-1:title, post-1:filter
      And it should purge the cache entries: /blog, /blog/2010/01/01/post-title
