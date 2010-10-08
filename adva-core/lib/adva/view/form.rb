@@ -5,7 +5,7 @@ module Adva
       include Sidebar
 
       attr_reader :form
-      
+
       def to_html
         form_tag
       end
@@ -17,15 +17,11 @@ module Adva
           button_group
         end
       end
-      
+
       def form_arguments
         [resources]
       end
-      
-      def fields
-        raise "no fields implemented for #{self.class}"
-      end
-      
+
       def button_group
         content_tag(:div, :class => 'buttons') do
           buttons
@@ -35,11 +31,11 @@ module Adva
       def buttons
         form.button :submit
       end
-      
+
       def return_here
         hidden_field_tag :return_to, request.url
       end
-      
+
       def pass_return_to
         hidden_field_tag :return_to, params[:return_to]
       end

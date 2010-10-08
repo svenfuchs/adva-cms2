@@ -10,6 +10,7 @@ class AdvaCoreCreateSections < ActiveRecord::Migration
       t.string     :slug, :default => '', :null => false
       t.string     :path, :default => '', :null => false
       t.integer    :level
+      t.text       :options
       t.timestamps
     end
   end
