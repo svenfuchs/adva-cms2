@@ -16,6 +16,10 @@ class Post < Content
     end
   end
 
+  def filter
+    read_attribute(:filter) || section.default_filter
+  end
+
   def permalink
     "#{created_at.year}/#{created_at.month}/#{created_at.day}/#{slug}"
   end
