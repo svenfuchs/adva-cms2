@@ -4,9 +4,13 @@ module TestHelper
       setup_import_directory
       super
     end
-    
-    def root
-      @root ||= Pathname.new('/tmp/adva-static-test/import/ruby-i18n.org')
+
+    def import_dir
+      @import_dir ||= Pathname.new('/tmp/adva-static-test/import/ruby-i18n.org')
+    end
+
+    def export_dir
+      @export_dir ||= Pathname.new('/tmp/adva-static-test/export')
     end
 
     def teardown
@@ -15,11 +19,11 @@ module TestHelper
     end
 
     def request(path)
-      Adva::Static::Import.new(:source => root).request_for(path)
+      Adva::Static::Import.new(:source => import_dir).request_for(path)
     end
 
     def source(path)
-      Adva::Static::Import::Source.new(path, root)
+      Adva::Static::Import::Source.new(path, import_dir)
     end
 
     def setup_site_record
@@ -52,13 +56,13 @@ module TestHelper
     end
 
     def setup_import_directory
-      root.mkpath
+      import_dir.mkpath
       setup_dirs(%w(images javascripts stylesheets))
       setup_files(['config.ru', 'foo'], ['site.yml', YAML.dump(:host => 'ruby-i18n.org', :name => 'Ruby I18n', :title => 'Ruby I18n')])
     end
 
     def teardown_import_directory
-      FileUtils.rm_r(root) rescue nil
+      FileUtils.rm_r(import_dir) rescue nil
     end
 
     def setup_root_blog
@@ -107,15 +111,19 @@ module TestHelper
 
     def setup_dirs(paths)
       paths.each do |path|
-        FileUtils.mkdir_p(root.join(path))
+        FileUtils.mkdir_p(import_dir.join(path))
       end
     end
 
     def setup_files(*files)
       files.each do |path, content|
-        root.join(File.dirname(path)).mkpath
-        File.open(root.join(path), 'w') { |f| f.write(content) }
+        import_dir.join(File.dirname(path)).mkpath
+        File.open(import_dir.join(path), 'w') { |f| f.write(content) }
       end
+    end
+
+    def future
+      Time.local(Time.now.year + 1, Time.now.month, Time.now.day)
     end
   end
 end

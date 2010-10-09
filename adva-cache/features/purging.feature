@@ -33,7 +33,7 @@ Feature: Purging tagged pages from the cache
      And I follow "Settings" within "#actions"
     When I fill in "Name" with "Updated blog"
      And I press "Update"
-    Then it should purge cache entries tagged: blog-2:name
+    Then it should purge cache entries tagged: blog-2:name, blog-2:options
      And it should purge the cache entries: /blog, /blog/2010/01/01/post-title
 
   Scenario: Updating a blog post purges cache entries
