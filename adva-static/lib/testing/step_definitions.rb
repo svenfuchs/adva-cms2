@@ -1,8 +1,3 @@
-After do
-  import_dir.rmtree rescue Errno::ENOENT if import_dir
-  export_dir.rmtree rescue Errno::ENOENT if export_dir
-end
-
 Given /^an empty import directory "([^"]+)"$/ do |name|
   @import_dir = Pathname.new("/tmp/adva-static-test/import/#{name}")
   import_dir.mkpath

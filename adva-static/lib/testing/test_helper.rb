@@ -62,7 +62,11 @@ module TestHelper
     end
 
     def teardown_import_directory
-      FileUtils.rm_r(import_dir) rescue nil
+      import_dir.rmtree rescue nil
+    end
+
+    def teardown_export_directory
+      export_dir.rmtree rescue nil
     end
 
     def setup_root_blog
