@@ -10,7 +10,7 @@ module Adva
               sources.map { |source| new(sources.delete(source).root) if source.path == 'site' }.compact
             end
           end
-          
+
           def initialize(root)
             super(Source.new('', root))
           end
