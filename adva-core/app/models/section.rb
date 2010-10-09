@@ -11,7 +11,7 @@ class Section < ActiveRecord::Base
   # validates_uniqueness_of :slug, :scope => [:site_id, :parent_id]
 
   mattr_accessor :types
-  self.types = []
+  self.types ||= [] # FIXME model is loaded twice, at least in cucumber
 
   class << self
     def inherited(child)
