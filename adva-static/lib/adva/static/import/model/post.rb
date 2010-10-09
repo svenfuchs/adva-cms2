@@ -53,17 +53,19 @@ module Adva
           end
 
           def slug
-            # @slug ||= SimpleSlugs::Slug.new(title).to_s
-            @slug ||= source.basename.gsub(Post::PERMALINK) { $4 }
+            @slug ||= SimpleSlugs::Slug.new(title).to_s
           end
 
           def title
-            # @title ||= source.basename.gsub(Post::PERMALINK) { $4 }.titleize
-            @title ||= slug.titleize
+            @title ||= path_tokens.last.titleize
           end
 
           def permalink
-            source.to_s.match(PERMALINK).to_a[1..-2] << slug
+            @permalink ||= path_tokens.to_a[0..-2] << slug
+          end
+
+          def path_tokens
+            @path_tokens ||= source.to_s.gsub(/\.\w+$/, '').match(PERMALINK).to_a[1..-1]
           end
 
           def created_at
