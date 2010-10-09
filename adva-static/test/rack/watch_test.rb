@@ -6,7 +6,7 @@ require 'adva/routing_filters/section_path'
 
 module AdvaStatic
   class RackWatchTest < Test::Unit::TestCase
-    include TestHelper::Application, Adva::Static::Rack
+    include TestHelper::Application, TestHelper::Static, Adva::Static::Rack
 
     attr_reader :app, :export_dir, :import_dir
 

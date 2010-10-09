@@ -3,6 +3,15 @@ When /^(?:|I )have visited (.+)$/ do |page|
   follow_redirect! if redirect?
 end
 
+When /^the following urls are tagged:$/ do |table|
+  table.hashes.each do |attributes|
+    url = "http://www.example.com#{attributes[:url]}"
+    attributes[:tags].split(',').map(&:strip).each do |tag|
+      Rack::Cache::Tags::Store::ActiveRecord::Tagging.create!(:tag => tag, :url => url)
+    end
+  end
+end
+
 Then /^the following urls should be tagged:$/ do |table|
   table.hashes.each do |hash|
     url = "http://www.example.com#{hash[:url]}"

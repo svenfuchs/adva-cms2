@@ -7,7 +7,7 @@ class AdvaMarkupTest < Test::Unit::TestCase
   end
 
   test "options" do
-    expected = { 'markdown' => 'Markdown', 'textile' => 'Textile' }
+    expected = { 'Markdown' => 'markdown', 'Textile' => 'textile' }
     assert_equal expected, Adva::Markup.options
   end
 

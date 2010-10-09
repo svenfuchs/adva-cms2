@@ -17,7 +17,7 @@ class Post < Content
   end
 
   def filter
-    read_attribute(:filter) || section.default_filter
+    read_attribute(:filter) || section ? section.default_filter : nil
   end
 
   def permalink
