@@ -3,7 +3,7 @@ require 'carrierwave'
 class AssetUploader < CarrierWave::Uploader::Base
 
   storage :file
-  permissions 0600
+  permissions 0666
 
   store_dir '/tmp/uploads'
   cache_dir '/tmp/uploads/tmp'
