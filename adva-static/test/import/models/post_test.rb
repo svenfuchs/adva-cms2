@@ -36,5 +36,49 @@ module AdvaStatic
       post = Post.new(source('2008/07/31/welcome-to-the-future-of-i18n-in-ruby-on-rails.html'))
       assert_equal ::Post.find_by_slug('welcome-to-the-future-of-i18n-in-ruby-on-rails'), post.record
     end
+
+    test "prefers a :title metadata attribute over the file basename as a source for the slug" do
+      setup_files(['2010-10-10-post.yml', YAML.dump(:title => 'Post title')])
+      post = Post.recognize([source('2010-10-10-post.yml')]).first
+      assert_equal 'post-title', post.slug
+    end
+
+    test "prefers a :title metadata attribute over the file basename as a source for the name" do
+      setup_files(['2010-10-10-post.yml', YAML.dump(:title => 'Post title')])
+      post = Post.recognize([source('2010-10-10-post.yml')]).first
+      assert_equal 'Post title', post.title
+    end
+
+    test "permalink can be read from filenames matching blog/:year/:month/:day/:slug.* " do
+      assert_equal %w(2010 10 10 post), Post.new(source('blog/2010/10/10/post.yml')).permalink
+    end
+
+    test "permalink can be read from filenames matching blog/:year/:month/:day-:slug.* " do
+      assert_equal %w(2010 10 10 post), Post.new(source('blog/2010/10/10-post.yml')).permalink
+    end
+
+    test "permalink can be read from filenames matching blog/:year/:month-:day-:slug.* " do
+      assert_equal %w(2010 10 10 post), Post.new(source('blog/2010/10-10-post.yml')).permalink
+    end
+
+    test "permalink can be read from filenames matching blog/:year-:month-:day-:slug.* " do
+      assert_equal %w(2010 10 10 post), Post.new(source('blog/2010-10-10-post.yml')).permalink
+    end
+
+    test "permalink can be read from filenames matching :year/:month/:day/:slug.* " do
+      assert_equal %w(2010 10 10 post), Post.new(source('2010/10/10/post.yml')).permalink
+    end
+
+    test "permalink can be read from filenames matching :year/:month/:day-:slug.* " do
+      assert_equal %w(2010 10 10 post), Post.new(source('2010/10/10-post.yml')).permalink
+    end
+
+    test "permalink can be read from filenames matching :year/:month-:day-:slug.* " do
+      assert_equal %w(2010 10 10 post), Post.new(source('2010/10-10-post.yml')).permalink
+    end
+
+    test "permalink can be read from filenames matching :year-:month-:day-:slug.* " do
+      assert_equal %w(2010 10 10 post), Post.new(source('2010-10-10-post.yml')).permalink
+    end
   end
 end

@@ -1,3 +1,5 @@
+- make sure the watcher can recognize renamed files
+
 - copy files from public dir
 - watch public dir, re-copy files
 
