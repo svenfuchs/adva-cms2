@@ -222,9 +222,12 @@ Then /^"([^"]*)" should be filled in with "([^"]*)"$/ do |field, value|
   assert_equal value, field.value
 end
 
-Then /^"([^"]*)" should be selected as "([^"]*)"$/ do |value, select|
-  select = webrat.field_labeled(select)
-  assert_equal value, select.element.xpath(".//option[@selected = 'selected']").first.text
+Then /^"([^"]*)" should be selected as "([^"]*)"$/ do |value, label|
+  select = webrat.field_labeled(label)
+  assert select, "count not find a select field labeled #{label}"
+  selected = select.element.xpath(".//option[@selected = 'selected']").first
+  assert selected, "could not find a selected option"
+  assert_equal value, selected.text
 end
 
 Then /^I should see "([^"]*)" formatted as a "([^"]*)" tag$/ do |value, tag|
