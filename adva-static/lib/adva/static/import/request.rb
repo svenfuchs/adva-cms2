@@ -2,17 +2,23 @@ module Adva
   class Static
     class Import
       class Request
-        attr_reader :record, :attributes
+        attr_reader :source, :record, :attributes
 
-        def initialize(record, attributes)
+        def initialize(source, record, attributes)
+          @source = source
           @record = record
           @attributes = attributes
         end
 
         def params
           @params ||= begin
-            params = { model_name.underscore.to_sym => attributes }
-            params.merge!('_method' => 'put') unless record.new_record?
+            key = model_name.underscore.to_sym
+            if delete?
+              params = { '_method' => 'delete', key => { :id => record.id } }
+            else
+              params = { model_name.underscore.to_sym => attributes }
+              params.merge!('_method' => 'put') if update?
+            end
             stringify(params)
           end
         end
@@ -22,6 +28,14 @@ module Adva
         end
 
         protected
+
+          def update?
+            record.persisted? && source.exist?
+          end
+
+          def delete?
+            record.persisted? && !source.exist?
+          end
 
           def controller
             @controller ||= controller_name.constantize.new.tap do |controller|

@@ -5,6 +5,14 @@ module TestHelper
       super
     end
 
+    def teardown_import_directory
+      import_dir.rmtree rescue nil
+    end
+
+    def teardown_export_directory
+      export_dir.rmtree rescue nil
+    end
+
     def import_dir
       @import_dir ||= Pathname.new('/tmp/adva-static-test/import/ruby-i18n.org')
     end
@@ -59,14 +67,6 @@ module TestHelper
       import_dir.mkpath
       setup_dirs(%w(images javascripts stylesheets))
       setup_files(['config.ru', 'foo'], ['site.yml', YAML.dump(:host => 'ruby-i18n.org', :name => 'Ruby I18n', :title => 'Ruby I18n')])
-    end
-
-    def teardown_import_directory
-      import_dir.rmtree rescue nil
-    end
-
-    def teardown_export_directory
-      export_dir.rmtree rescue nil
     end
 
     def setup_root_blog

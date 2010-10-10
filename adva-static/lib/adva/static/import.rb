@@ -25,7 +25,7 @@ module Adva
 
       def request_for(path)
         model = recognize(path).first
-        Request.new(model.record, model.attributes)
+        Request.new(model.source, model.record, model.attributes)
       end
 
       protected
