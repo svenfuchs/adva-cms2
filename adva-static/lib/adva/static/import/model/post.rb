@@ -22,7 +22,7 @@ module Adva
           end
 
           def attribute_names
-            [:site_id, :section_id, :title, :body, :created_at] # TODO created_at should be published_at
+            @attribute_names ||= [:site_id, :section_id, :title, :body, :created_at] # TODO created_at should be published_at
           end
 
           def record

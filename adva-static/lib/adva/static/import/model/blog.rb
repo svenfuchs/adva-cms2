@@ -20,7 +20,7 @@ module Adva
           end
 
           def attribute_names
-            super + [:posts_attributes]
+            @attribute_names ||= super + [:posts_attributes]
           end
 
           def posts_attributes
