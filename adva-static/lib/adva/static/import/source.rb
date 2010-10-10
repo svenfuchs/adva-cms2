@@ -7,6 +7,8 @@ module Adva
 
         attr_reader :root
 
+        delegate :exist?, :to => :full_path
+
         def initialize(path, root = nil)
           root ||= path.root if path.respond_to?(:root)
           @root = Pathname.new(root.to_s)
