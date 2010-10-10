@@ -1,7 +1,6 @@
 h2. adva-static
 
-adva-static makes managing static site exports easy. It basically adds the
-following Thor tasks to your tool belt:
+adva-static makes managing static site exports easy. It basically adds the following Thor tasks to your tool belt:
 
     $ thor adva:static:setup  # Setup a repository for managing a static site
     $ thor adva:static:import # Import a site from a directory
@@ -9,15 +8,11 @@ following Thor tasks to your tool belt:
     $ thor adva:static:update # Run import and export task
     $ thor adva:static:server # Start the adva:static server and watcher
 
-Compared to other static site generator tools the cool thing with adva-static
-is that it simply uses an "adva-cms2":http://github.com/svenfuchs/adva-cms2
-application. That makes it very easy to understand, hack on and extend: it's
-just another Rails app based on some reusable and extensible engines.
+Compared to other static site generator tools the cool thing with adva-static is that it simply uses an "adva-cms2":http://github.com/svenfuchs/adva-cms2 application. That makes it very easy to understand, hack on and extend: it's just another Rails app based on some reusable and extensible engines.
 
 h3. Setup
 
-The @adva:static:setup@ task just sets a few things up that are too cumbersome to
-do them manually. It will:
+The @adva:static:setup@ task just sets a few things up that are too cumbersome to do them manually. It will:
 
 * create a source directory named @import@ and add a @site.yml@ file
 * create a target directory named @export@
@@ -27,40 +22,71 @@ do them manually. It will:
 * commit the contents of the root directory to a branch named @source@
 * commit the contents of the export directory to the master @branch@
 
-This setup might seem a bit unusual at the first look but it's quite
-convenient when working with static site exports: You always have the static
-export itself in your master branch, which makes it easy to review and deploy
-it to the target server. And you always have the sources in your source
-branch.
+This setup might seem a bit unusual at the first look but it's quite convenient when working with static site exports: You always have the static export itself in your master branch, which makes it easy to review and deploy it to the target server. And you always have the sources in your source branch.
 
 h3. Import
 
-After setting up the directory structure and repositories one can add source
-files to the import directory and import them to the site (i.e. the database)
-by running the @adva:static:import@ task.
+After setting up the directory structure and repositories one can add source files to the import directory and import them to the site (i.e. the database) by running the @adva:static:import@ task.
 
-Afterwards the site is available as a standard
-"adva-cms2":http://github.com/svenfuchs/adva-cms2 site. That means if you
-wanted to you could can start @rails server@ and look at it or even manage it
-through the admin interface. (Changing things through the admin interface
-currently doesn't make too much sense though because there's no way to sync
-back changes to the source files, yet.)
+Afterwards the site is available as a standard "adva-cms2":http://github.com/svenfuchs/adva-cms2 site. That means if you wanted to you could can start @rails server@ and look at it or even manage it through the admin interface. (Changing things through the admin interface currently doesn't make too much sense though because there's no way to sync back changes to the source files, yet.)
+
+In order to guess what @ActiveRecord@ model instances need to be created in your database the importer will look at your @import@ directory structure and use the following rules and heuristics:
+
+* use a @site.yml@ for initializing the @Site@ instance [1]
+* look for files that match a blog @Post@ permalink structure [2]
+* if there's at least one blog post create a @Blog@ section for it
+* import the blog posts that were found
+* import everything else as @Page@ sections
+
+[1] It currently is recommended that you have a @site.yml@. It should be possible to go without one in future but we aren't quite there, yet.
+[2] Valid permalink styles match "this pattern":https://github.com/svenfuchs/adva-cms2/blob/master/adva-static/lib/adva/static/import/model/post.rb#L6, i.e. they start with a segment containing 4 digits, then have two segments containing 1 or 2 digits and finally have a post slug. Segments can be joined by either dashes or slashes. For example, the following file paths would all be recognized as blog posts:
+    * 2010/10/10/post-title.yml
+    * 2010-10/10-post-title.yml
+    * 2010/10-10-post-title.yml
+    * 2010-10-10-post-title.yml
+
+Here's an examplary @import@ directory structure similar to what's being used on "rails-i18n.org":http://rails-i18n.org
+
+<pre>import
+├─ 2008
+│  └─ 7-31-welcome-to-the-future-of-i18n-in-ruby-on-rails.yml
+├─ site.yml
+├─ wiki
+│  ├─ model-translations.yml
+│  ├─ official-ruby-i18n-project-hymn.yml
+│  └─ translations-available-in-ruby-on-rails.yml
+└─ wiki.yml</pre>
+
+This would create a @Site@ with two @Sections@, one of which is a @Blog@ with one @Post@, the other one being a @Page@ that we use to fake a wiki with three subpages (adva-cms2 currently does not ship with a wiki but we wanted to resemble the old link structure of our previous site on ruby-i18n.org, so we faked it this way).
 
 h3. Export
 
-Once the site has been imported to the database one can run the
-@adva:static:export@ task to export a static version of the site. The export
-task will basically go to your site's homepage and crawl through all links
-pointing to local pages, saving each of them to the respective path in your
-export directory.
+Once the site has been imported to the database one can run the @adva:static:export@ task to export a static version of the site. The export task will basically go to your site's homepage and crawl through all links pointing to local pages, saving each of them to the respective path in your export directory.
 
-It will also place a config.ru file into the export directory that is
-configured to work with the @adva:static:server@ task.
+It will also place a @config.ru@ file into the @export@ directory that is configured to work with the @adva:static:server@ task.
+
+The @import@ directory structure above would result in an @export@ structure like this:
+
+<pre>export
+├─ 2008
+│  └─ 7
+│     └─ 31
+│        └─ welcome-to-the-future-of-i18n-in-ruby-on-rails-1.html
+├─ config.ru
+├─ index.html
+├─ stylesheets
+│  └─ styles.css
+├─ wiki
+│  ├─ model-translations.html
+│  ├─ official-ruby-i18n-project-hymn.html
+│  └─ translations-available-in-ruby-on-rails.html
+└─ wiki.html</pre>
+
+Static @stylesheets@ and @javascript@ assets will (currently) be served from the @public@ directory and thus exported when they are used on dynamic pages. Images (currently) aren't exported at all.
 
 h3. Server
 
-Once you have an export of your site you can start the @adva:static:server@
-which will do the following things:
+Once you have an export of your site you can start the @adva:static:server@ which will do the following things:
 
 * serve static files available in your export directory
 * watch the import directory for new, changed and deleted files
