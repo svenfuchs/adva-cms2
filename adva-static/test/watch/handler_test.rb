@@ -43,6 +43,10 @@ module AdvaStatic
       end
     end
 
+    def rename(file, target)
+      FileUtils.mv(file.to_s, root.join(target).to_s)
+    end
+
     def delete(file)
       file.unlink
     end
@@ -64,6 +68,11 @@ module AdvaStatic
     test "handler recognizes deleted files" do
       delete(file)
       assert_equal [[file.to_s, :deleted]], handler.events
+    end
+
+    test "handler recognizes renamed files as :deleted and :created" do
+      rename(file, 'bar.html')
+      assert_equal [[file.to_s, :deleted], [root.join('bar.html').to_s, :created]], handler.events
     end
 
     test "handler recognizes events on subsequent changes" do
