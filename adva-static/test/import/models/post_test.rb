@@ -80,5 +80,10 @@ module AdvaStatic
     test "permalink can be read from filenames matching :year-:month-:day-:slug.* " do
       assert_equal %w(2010 10 10 post), Post.new(source('2010-10-10-post.yml')).permalink
     end
+
+    test "can add undeclared attributes through import file metadata" do
+      setup_files(['2010/10-10-post.yml', YAML.dump(:filter => 'textile')])
+      assert_equal 'textile', Post.new(source('2010/10-10-post.yml')).attributes[:filter]
+    end
   end
 end

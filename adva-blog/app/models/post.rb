@@ -16,8 +16,9 @@ class Post < Content
     end
   end
 
+  # FIXME should be in adva-markup, shouldn't it?
   def filter
-    read_attribute(:filter) || section.try(:default_filter)
+    read_attribute(:filter) || (section.respond_to?(:default_filter) ? section.default_filter : nil)
   end
 
   def permalink

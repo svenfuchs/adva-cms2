@@ -16,7 +16,7 @@ module Adva
           end
 
           def attribute_names
-            [:account, :host, :name, :title, :sections_attributes]
+            @attribute_names ||= [:account, :host, :name, :title, :sections_attributes]
           end
 
           def record
