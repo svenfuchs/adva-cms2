@@ -94,6 +94,5 @@ Once you have an export of your site you can start the @adva:static:server@ whic
 * purge the file from the export directory and
 * re-export it
 
-# TODO elaborate on import file structure
 
 
