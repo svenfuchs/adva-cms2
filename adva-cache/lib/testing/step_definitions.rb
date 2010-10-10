@@ -43,7 +43,7 @@ Then /^it should purge cache entries tagged: (.+)$/ do |tags|
   expected = tags.split(',').map(&:strip)
   actual = response.headers[Rack::Cache::Tags::PURGE_TAGS_HEADER]
   assert actual, 'no purge tags headers found'
-  assert_equal expected, actual.split("\n")
+  assert_equal expected.sort, actual.split("\n").sort
 end
 
 Then /^it should purge the cache entries: (.+)$/ do |urls|

@@ -7,6 +7,8 @@ class Admin::SectionsController < Admin::BaseController
   helper :sections
   abstract_actions :except => [:index, :destroy]
 
+  purges :destroy
+
   def create
     resource.save
     respond_with *resources
