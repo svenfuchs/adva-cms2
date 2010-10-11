@@ -1,14 +1,26 @@
 # Examples for using this step:
 # 1. Given the following images for the product named "Wireless Keyboard":
 # 2. Given the following videos for bundle titled "Cool Bundle":
-Given /^the following ([\w ]+) for (?:the )?([\w ]+) ([\w]+)d "([^"]*)":$/ do |type, assetable, name, value, table|
+# 3. Given the following (cnet) digital_contents for the (cnet) product named "MacBook pro":
+Given /^the following ((?:\([a-z ]+\) )?(?:[\w_]+)) for (?:the )?((?:\([a-z ]+\) )?(?:[\w ]+)) ([\w]+)d "([^"]*)":$/ do |type, assetable, name_or_title, value, table|
+  Given "the following #{type} for the #{assetable} with #{name_or_title} \"#{value}\":", table
+end
+
+
+# Examples for using this step:
+# 1. Given the following images for the product with name "Wireless Keyboard":
+# 2. Given the following videos for bundle with title "Cool Bundle":
+# 3. Given the following (cnet) digital_contents for the (cnet) product with name "MacBook pro":
+#Given /^the following ((?:\([a-z ]+\) )?(?:[\w ]+)) for (?:the )?((?:\([a-z ]+\) )?(?:[\w ]+)) with ([\w ]+) "([^"]*)":$/ do |type, assetable, attribute, value, table|
+Given /^the following ((?:\([a-z ]+\) )?(?:[\w_]+)) for (?:the )?((?:\([a-z ]+\) )?(?:[\w ]+)) with ([\w ]+) "([^"]*)":$/ do |type, assetable, attribute, value, table|
   paths = {
-    'images' => 'test/fixtures/rails.png',
-    'videos' => 'test/fixtures/sample_video.swf'
+    'images'                  => 'test/fixtures/rails.png',
+    'videos'                  => 'test/fixtures/sample_video.swf'
   }
-  assetable = assetable.gsub(/ /, '_').classify.constantize.where(name => value).first
+  attribute = attribute.gsub(' ', '_')
+  assetable = assetable.gsub(/^\(([a-z ]+)\) /, "\\1/").gsub(' ', '_').classify.constantize.where(attribute => value).first
   table.hashes.each do |attributes|
-    assetable.send(type).create!(attributes.merge(
+    assetable.send(type.gsub(/[()]/, '').gsub(' ', '_')).create!(attributes.merge(
         :file => File.open(Adva::Assets.root.join(paths[type])),
         :site => Site.first
       )

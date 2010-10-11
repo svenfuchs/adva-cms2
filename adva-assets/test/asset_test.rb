@@ -39,7 +39,7 @@ module AdvaAssets
     end
 
     test 'have_permissions(0600)' do
-      assert_equal File.stat(asset.path).mode & 0777, 0600
+      assert_equal File.stat(asset.path).mode & 0777, 0666
     end
 
     test 'Assetables have many assets and assets have many asset_assignments and assetables' do
