@@ -38,7 +38,7 @@ module AdvaAssets
       assert !File.exists?(file.path)
     end
 
-    test 'have_permissions(0600)' do
+    test 'have_permissions(0644)' do
       assert_equal File.stat(asset.path).mode & 0777, 0666
     end
 

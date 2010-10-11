@@ -50,5 +50,17 @@ module AdvaStatic
       page = Page.new(source('contact.yml'))
       assert_equal ::Page.find_by_path('contact'), page.record
     end
+
+    test "prefers a :name metadata attribute over the file basename as a source for the slug" do
+      setup_files(['index.yml', YAML.dump(:name => 'Page')])
+      page = Page.recognize([source('index.yml')]).first
+      assert_equal 'page', page.slug
+    end
+
+    test "prefers a :name metadata attribute over the file basename as a source for the name" do
+      setup_files(['index.yml', YAML.dump(:name => 'Page')])
+      page = Page.recognize([source('index.yml')]).first
+      assert_equal 'Page', page.name
+    end
   end
 end

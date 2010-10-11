@@ -31,7 +31,7 @@ module Adva
           def events
             @last    = @current.dup
             @current = Dir[@pattern]
-            created + modified + deleted
+            deleted + created + modified
           end
 
           def modified

@@ -45,13 +45,23 @@ module Adva
 
     module Test
       module Cucumber
-        def cucumber
-          require 'cucumber'
-          require 'cucumber/rake/task'
+        def cucumber_args
+          args = cucumber_options + Dir[cucumber_pattern]
+          args.flatten.compact
+        end
 
-          options = self.options.map { |name, value| ["--#{name}", value.is_a?(String) ? value : nil] }.flatten.compact
-          pattern = self.pattern.include?('features') ? self.pattern : "#{self.pattern}/features"
-          ::Cucumber::Rake::Task::InProcessCucumberRunner.new([], options, Dir[pattern])
+        def cucumber_pattern
+          pattern = self.respond_to?(:pattern) ? self.pattern : 'adva-cache/features/tagging*'
+          pattern.include?('features') ? pattern : "#{pattern}/features"
+        end
+
+        def cucumber_options
+          # TODO submit a patch to Cucumber: programatically figuring out which options Cucumber
+          # allows seems to be close to impossible bc/ it immediately calls parse! on its options
+          # as soon they are defined.
+          # see http://github.com/aslakhellesoy/cucumber/blob/master/lib/cucumber/cli/options.rb#L261
+          options = self.options.reject { |option| option.include?('rebuild') }
+          options.map { |name, value| ["--#{name}", value.is_a?(String) ? value : nil] }.flatten.compact
         end
       end
 
@@ -62,12 +72,46 @@ module Adva
 
         include Cucumber
 
+
         def all
-          ENV['REGENERATE_APP'] = true if rebuild
+          require 'cucumber'
+          ENV['REGENERATE_APP'] = true if options['rebuild']
           Rails.env = 'test'
-          cucumber.run
+          passed = !::Cucumber::Cli::Main.execute(cucumber_args) # returns true on failure
+
           Dir['**/test/**/*_test.rb'].each { |file| require file }
+          passed ^= test_runner.run # returns true on pass
+
+          exit(passed ? 0 : 1)
         end
+
+        protected
+
+          # GOSHHHH. maybe we really should switch to minitest.
+
+          def test_runner
+            require 'test/unit'
+            ::Test::Unit::AutoRunner.new(false).tap do |runner|
+              runner.collector = lambda { |r| test_collector.new.collect($0.sub(/\.rb\Z/, '')) }
+            end
+          end
+
+          def test_collector
+            require 'test/unit/collector/objectspace'
+            require 'mocha/integration/test_unit'
+            Class.new(::Test::Unit::Collector::ObjectSpace) do
+              def collect(name=NAME)
+                suite, sub_suites = ::Test::Unit::TestSuite.new(name), []
+                @source.each_object(Class) do |klass|
+                  if ::Test::Unit::TestCase > klass && klass != ::Cucumber::Rails::World
+                    add_suite(sub_suites, klass.suite)
+                  end
+                end
+                sort(sub_suites).each { |s| suite << s }
+                suite
+              end
+            end
+          end
       end
 
       class Features < Thor::Group
@@ -85,9 +129,12 @@ module Adva
         include Cucumber
 
         def features
-          ENV['REGENERATE_APP'] = 'true' if options['rebuild'] # TODO cucumber pukes on --regenerate
+          require 'cucumber'
+          ENV['REGENERATE_APP'] = 'true' if options['rebuild']
           Rails.env = 'test'
-          cucumber.run # TODO pass various options
+
+          ::Cucumber::Cli::Main.execute(cucumber_args)
+          exit($1.exitstatus) if $1.exited? && $1.exitstatus != 0
         end
       end
 
@@ -100,6 +147,7 @@ module Adva
         def unit
           Rails.env = 'test'
           Dir[pattern].each { |file| require file }
+          exit($1.exitstatus) if $1.exited? && $1.exitstatus != 0
         end
       end
     end

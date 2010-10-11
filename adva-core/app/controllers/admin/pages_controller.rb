@@ -1,5 +1,5 @@
 class Admin::PagesController < Admin::SectionsController
-  purges :create, :update, :destroy
+  purges :create, :update
   
   def update
     update! do |success, failure|

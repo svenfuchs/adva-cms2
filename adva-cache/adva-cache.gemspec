@@ -19,6 +19,6 @@ Gem::Specification.new do |s|
 
   s.add_dependency 'adva-core'
   s.add_dependency 'rack-cache-purge', '0.0.2'
-  s.add_dependency 'rack-cache-tags', '0.0.5'
-  s.add_dependency 'reference_tracking', '0.0.3'
+  s.add_dependency 'rack-cache-tags', '0.0.6'
+  s.add_dependency 'reference_tracking', '0.0.4'
 end

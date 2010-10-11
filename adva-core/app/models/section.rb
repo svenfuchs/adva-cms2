@@ -5,12 +5,13 @@ class Section < ActiveRecord::Base
   validates_presence_of :site, :name, :slug
 
   has_slug :scope => :site_id
-  acts_as_nested_set # FIXME scope to site_id
+  acts_as_nested_set # FIXME must scope to site_id
+  serialize :options # FIXME should be in has_options, but the class_inheritable_accessor :serialized_attributes seems to get out of sync
 
   # validates_uniqueness_of :slug, :scope => [:site_id, :parent_id]
 
   mattr_accessor :types
-  self.types = []
+  self.types ||= [] # FIXME model is loaded twice, at least in cucumber
 
   class << self
     def inherited(child)

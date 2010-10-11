@@ -13,6 +13,7 @@ require 'adva/routing_filters/section_path'
 require 'adva/routing_filters/section_root'
 require 'adva/controller/abstract_actions'
 require 'adva/controller/references'
+require 'adva/active_record/has_options'
 require 'adva/view/tabs'
 require 'adva/view/form'
 

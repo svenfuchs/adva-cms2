@@ -6,9 +6,10 @@ workspace '. ~/.projects ~/projects ~/Development/{projects,work} ~/.repositorie
 adva_cms = repository('adva-cms2', :source => :local)
 
 adva_cms.gem  'adva-assets'
-adva_cms.gem  'adva-cache'
 adva_cms.gem  'adva-blog'
+adva_cms.gem  'adva-cache'
 adva_cms.gem  'adva-core'
+adva_cms.gem  'adva-markup'
 adva_cms.gem  'adva-static'
 adva_cms.gem  'adva-user'
 
