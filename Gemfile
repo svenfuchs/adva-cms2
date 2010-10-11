@@ -14,7 +14,7 @@ adva_cms.gem  'adva-static'
 adva_cms.gem  'adva-user'
 
 gem 'rails', '3.0.0'
-gem 'has_many_polymorphs', :git => 'git://github.com/kronn/has_many_polymorphs.git', :ref => '9b0913'
+gem 'has_many_polymorphs', :git => 'git://github.com/kronn/has_many_polymorphs.git', :ref => '36f15d2'
 gem 'carrierwave', :git => 'git://github.com/jnicklas/carrierwave.git', :ref => '60314c375783'
 
 # gem 'simple_nested_set', :path => '~/Development/projects/simple_nested_set'
