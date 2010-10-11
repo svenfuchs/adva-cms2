@@ -80,7 +80,7 @@ module Adva
           passed = !::Cucumber::Cli::Main.execute(cucumber_args) # returns true on failure
 
           Dir['**/test/**/*_test.rb'].each { |file| require file }
-          passed ^= test_runner.run # returns true on pass
+          passed &= test_runner.run # returns true on pass
 
           exit(passed ? 0 : 1)
         end
@@ -103,7 +103,7 @@ module Adva
               def collect(name=NAME)
                 suite, sub_suites = ::Test::Unit::TestSuite.new(name), []
                 @source.each_object(Class) do |klass|
-                  if ::Test::Unit::TestCase > klass && klass != ::Cucumber::Rails::World
+                  if klass < ::Test::Unit::TestCase && klass != ::Cucumber::Rails::World
                     add_suite(sub_suites, klass.suite)
                   end
                 end
