@@ -6,7 +6,7 @@ module AdvaStatic
 
     test "recognizes a Blog importer from a non-root blog path (e.g. /blog.yml) when a post source is present" do
       setup_root_blog
-      sources = [source('blog.yml'),source('blog/2010-10-10-post.yml')]
+      sources = [source('blog.yml'), source('blog/2010-10-10-post.yml')]
       blogs = Blog.recognize(sources)
       assert sources.empty?
       assert_equal ['blog'], blogs.map(&:path)
@@ -42,6 +42,18 @@ module AdvaStatic
       setup_non_root_blog_record
       blog = Blog.new(source('blog.yml'))
       assert_equal ::Blog.find_by_path('blog'), blog.record
+    end
+
+    test "prefers a :name metadata attribute over the file basename as a source for the slug" do
+      setup_files(['index.yml', YAML.dump(:name => 'Blog')])
+      blog = Blog.recognize([source('index.yml'), source('2010-10-10-post.yml')]).first
+      assert_equal 'blog', blog.slug
+    end
+
+    test "prefers a :name metadata attribute over the file basename as a source for the name" do
+      setup_files(['index.yml', YAML.dump(:name => 'Blog')])
+      blog = Blog.recognize([source('index.yml'), source('2010-10-10-post.yml')]).first
+      assert_equal 'Blog', blog.name
     end
   end
 end

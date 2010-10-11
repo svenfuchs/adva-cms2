@@ -5,7 +5,7 @@ module Adva
     module Rack
       class Watch
         autoload :Handler, 'adva/static/watch/handler'
-        
+
         include Request
 
         attr_reader :app, :dir, :watch
@@ -16,24 +16,22 @@ module Adva
           @app = app
           @dir = Pathname.new(options[:dir] || File.expand_path('import'))
           dir.mkpath
-
-          @watch = fork { watch!(Adva.out) }
-          at_exit { kill_watch }
-
-          # trap_interrupt
-          # Signal.trap('QUIT') { handler.refresh(watched_paths) }
+          run!
         end
 
         def update(path, event_type = nil)
           Adva.out.puts "\n#{event_type}: #{path}"
           import  = Adva::Static::Import.new(:source => dir)
           request = import.request_for(path)
-          params  = request.params
-          params.merge!('_method' => 'delete') if event_type == :deleted
-          self.request('POST', request.path, params)
+          self.request('POST', request.path, request.params)
         end
 
         protected
+
+          def run!
+            @watch = fork { watch!(Adva.out) }
+            at_exit { kill_watch }
+          end
 
           def watch!(out)
             Adva.out.puts "watching #{dir} for changes"

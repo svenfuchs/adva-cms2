@@ -14,7 +14,7 @@ module Adva
           end
 
           def attribute_names
-            [:site_id, :type, :name, :slug, :path]
+            @attribute_names ||= [:site_id, :type, :name, :slug, :path]
           end
 
           def record

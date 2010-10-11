@@ -12,7 +12,7 @@ module Adva
         protected
 
           def purge_resources
-            resources.reject { |r| !r.respond_to?(:new_record?) }
+            resource.respond_to?(:persisted?) ? [resource] : []
           end
       end
     end

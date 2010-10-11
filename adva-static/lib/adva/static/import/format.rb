@@ -6,19 +6,32 @@ module Adva
           name = File.extname(path).gsub('.', '').camelize
           const_get(name).new(path) if name.present?
         end
-        
+
         class Base
           attr_reader :path
-          
+
           def initialize(path)
             @path = path
           end
-          
+
           def load(target)
-            data.each { |key, value| target.instance_variable_set(:"@#{key}", value) } if data.is_a?(Hash)
+            data.each do |name, value|
+              define_attribute(target, name) if define_attribute?(target, name)
+              target.instance_variable_set(:"@#{name}", value)
+            end if data.is_a?(Hash)
+          end
+
+          def define_attribute?(target, name)
+            !target.attribute_name?(name) && target.column_name?(name)
+          end
+
+          def define_attribute(target, name)
+            target.attribute_names << name
+            target.attribute_names.uniq!
+            target.class.send(:attr_reader, name) unless target.respond_to?(name)
           end
         end
-        
+
         class Yml < Base
           def data
             @data ||= YAML.load_file(path)
@@ -34,7 +47,7 @@ module Adva
               data
             end
           end
-          
+
           def file
             @file ||= File.read(path)
           end

@@ -30,7 +30,7 @@ module AdvaStatic
 
     test "run with an empty database" do
       setup_root_blog
-      Adva::Static::Import.new(:source => root).run
+      Adva::Static::Import.new(:source => import_dir).run
 
       site = Site.first
       blog = site.sections.first
@@ -45,7 +45,7 @@ module AdvaStatic
       setup_site_record
       Page.first.destroy
       setup_root_blog
-      Adva::Static::Import.new(:source => root).run
+      Adva::Static::Import.new(:source => import_dir).run
 
       blog = site.sections.first
       post = blog.posts.first
@@ -60,7 +60,7 @@ module AdvaStatic
       setup_non_root_blog
       setup_non_root_page
       setup_non_root_nested_page
-      Adva::Static::Import.new(:source => root).run
+      Adva::Static::Import.new(:source => import_dir).run
 
       site = Site.first
       assert 4, site.sections.count
@@ -79,7 +79,7 @@ module AdvaStatic
     test "run with a root page and a nested page (implicit creation)" do
       setup_root_page
       setup_nested_page
-      Adva::Static::Import.new(:source => root).run
+      Adva::Static::Import.new(:source => import_dir).run
 
       site    = Site.first
       page    = site.sections.first
@@ -103,7 +103,7 @@ module AdvaStatic
       assert_equal 'will be overwritten', section.article.reload.body
 
       path = 'index.yml'
-      Adva::Static::Import.new(:source => root).import(path)
+      Adva::Static::Import.new(:source => import_dir).import(path)
 
       assert_equal 'Home', section.reload.name
       assert_equal 'home', section.article.reload.body
@@ -120,7 +120,7 @@ module AdvaStatic
       assert_equal 'will be overwritten', section.article.reload.body
 
       path = 'contact.yml'
-      Adva::Static::Import.new(:source => root).import(path)
+      Adva::Static::Import.new(:source => import_dir).import(path)
 
       assert_equal 'Contact', section.reload.name
       assert_equal 'contact', section.article.reload.body
@@ -131,7 +131,7 @@ module AdvaStatic
       setup_non_root_page
 
       path = 'contact.yml'
-      Adva::Static::Import.new(:source => root).import(path)
+      Adva::Static::Import.new(:source => import_dir).import(path)
 
       section = Page.find_by_slug('contact')
       assert_equal 'Contact', section.reload.name
@@ -147,7 +147,7 @@ module AdvaStatic
       assert_equal 'will be overwritten', section.posts.first.reload.body
 
       path = 'blog/2009/07/12/ruby-i18n-gem-hits-0-2-0.yml'
-      Adva::Static::Import.new(:source => root).import(path)
+      Adva::Static::Import.new(:source => import_dir).import(path)
 
       assert_not_equal 'will be overwritten', section.posts.first.reload.body
     end
@@ -161,7 +161,7 @@ module AdvaStatic
       assert_equal 'will be overwritten', section.posts.first.reload.body
 
       path = '2009/07/12/ruby-i18n-gem-hits-0-2-0.yml'
-      Adva::Static::Import.new(:source => root).import(path)
+      Adva::Static::Import.new(:source => import_dir).import(path)
 
       assert_not_equal 'will be overwritten', section.posts.first.reload.body
     end
@@ -174,7 +174,7 @@ module AdvaStatic
       page_id = Page.first.id.to_s
       article_id = Page.first.article.id.to_s
 
-      request = Adva::Static::Import.new(:source => root).request_for('/index.yml')
+      request = Adva::Static::Import.new(:source => import_dir).request_for('/index.yml')
       input   = ::Rack::Utils.build_nested_query(request.params)
       request = Rack::Request.new(Rack::MockRequest.env_for(request.path, :method => 'POST', :input => input))
 

@@ -1,4 +1,4 @@
-module UrlHelper  
+module UrlHelper
   def self.included(base)
     base.send(:helper_method, public_instance_methods(false))
   end

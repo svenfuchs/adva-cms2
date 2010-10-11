@@ -3,6 +3,15 @@ When /^(?:|I )have visited (.+)$/ do |page|
   follow_redirect! if redirect?
 end
 
+When /^the following urls are tagged:$/ do |table|
+  table.hashes.each do |attributes|
+    url = "http://www.example.com#{attributes[:url]}"
+    attributes[:tags].split(',').map(&:strip).each do |tag|
+      Rack::Cache::Tags::Store::ActiveRecord::Tagging.create!(:tag => tag, :url => url)
+    end
+  end
+end
+
 Then /^the following urls should be tagged:$/ do |table|
   table.hashes.each do |hash|
     url = "http://www.example.com#{hash[:url]}"
@@ -34,7 +43,7 @@ Then /^it should purge cache entries tagged: (.+)$/ do |tags|
   expected = tags.split(',').map(&:strip)
   actual = response.headers[Rack::Cache::Tags::PURGE_TAGS_HEADER]
   assert actual, 'no purge tags headers found'
-  assert_equal expected, actual.split("\n")
+  assert_equal expected.sort, actual.split("\n").sort
 end
 
 Then /^it should purge the cache entries: (.+)$/ do |urls|

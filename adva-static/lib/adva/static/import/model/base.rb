@@ -18,6 +18,14 @@ module Adva
             record && record.id ? attributes.merge(:id => record.id.to_s) : attributes
           end
 
+          def attribute_name?(name)
+            attribute_names.include?(name.to_sym)
+          end
+
+          def column_name?(name)
+            model.column_names.include?(name.to_s)
+          end
+
           def updated_record
             record.tap { |record| record.attributes = attributes }
           end
@@ -33,7 +41,7 @@ module Adva
           def slug
             source.basename
           end
-          
+
           def path
             source.path
           end
