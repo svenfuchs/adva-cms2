@@ -3,8 +3,20 @@ Given 'a site' do
   Factory(:admin)
 end
 
-Given /^the following (\w+):$/ do |type, table|
-  type = type.singularize
+Transform /^table:name,product_name$/ do |table|
+  debugger
+  transformed_table = table.hashes.map do |row|
+    row.merge('product_id' => Product.find_by_name(row.delete('product_name')).id)
+  end
+  Cucumber::Ast::Table.new(transformed_table)
+end
+
+# Examples:
+# 1. Given the following products:
+# Also supports namespaced models, (cnet) indicating the namespace Cnet
+# 2. Given the following (cnet) products:
+Given /^the following ((?:\([a-z ]+\) )?(?:[\w]+)):$/ do |type, table|
+  type = type.gsub(/^\(([a-z ]+)\) /, "\\1/").gsub(' ', '_').singularize
   table.hashes.each do |attributes|
     type = attributes.delete('type').underscore if attributes.key?('type')
     attributes['site'] = site if type.classify.constantize.column_names.include?('site_id')
