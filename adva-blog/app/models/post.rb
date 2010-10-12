@@ -3,9 +3,6 @@ class Post < Content
 
   validates_presence_of :title
 
-  belongs_to :site
-  belongs_to :section
-
   class << self
     def by_permalink(year, month, day, slug)
       by_archive(year, month, day).where(:slug => slug)

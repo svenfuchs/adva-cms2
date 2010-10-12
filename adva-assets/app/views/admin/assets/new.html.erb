@@ -1,6 +1,0 @@
-<h3><%= t('.') %></h3>
-
-<%= simple_form_for resource, :url => admin_site_assets_path(controller.site),
-                              :html => { :multipart => true }, :method => :post do |f| %>
-  <%= render :partial => 'form', :object => f %>
-<% end %>

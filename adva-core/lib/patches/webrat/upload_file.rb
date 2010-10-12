@@ -10,22 +10,18 @@ Gem.patching('webrat', '0.7.0') do
     include ActionDispatch::TestProcess
 
     def test_uploaded_file
-      #debugger
-
-      # FIXME workaround for asset test
-      #return "" if @original_value.blank?
-      @original_value ||= "rails.png"
+      return "" if @value.blank?
 
       case Webrat.configuration.mode
       when :rails
         if content_type
-          @original_value = 'sample_video.swf' if content_type == 'swf'
-          Rack::Test::UploadedFile.new(File.expand_path("../../../../../adva-assets/test/fixtures/#{@original_value}", __FILE__), content_type, false)
+          # Rails 3 does not have an ActionController::TestUploadedFile anymore
+          Rack::Test::UploadedFile.new(@value, content_type)
         else
-          Rack::Test::UploadedFile.new(File.expand_path("../../../../../adva-assets/test/fixtures/#{@original_value}", __FILE__), nil, false)
+          Rack::Test::UploadedFile.new(@value)
         end
       when :rack, :merb
-        Rack::Test::UploadedFile.new(@original_value, content_type)
+        Rack::Test::UploadedFile.new(@value, content_type)
       end
     end
   end

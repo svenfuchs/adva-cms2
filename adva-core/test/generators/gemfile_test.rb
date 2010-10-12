@@ -37,17 +37,17 @@ module AdvaCoreTests
 
     test 'engines w/ [:all]' do
       gemfile = Adva::Generators::Gemfile.new('/tmp', :source => source, :engines => [:all])
-      assert_equal [:core, :assets, :blog, :cache, :markup, :static, :user], gemfile.send(:engines)
+      assert_equal [:core, :blog, :cache, :markup, :static, :user], gemfile.send(:engines)
     end
 
     test 'engines w/ []' do
       gemfile = Adva::Generators::Gemfile.new('/tmp', :source => source, :engines => [])
-      assert_equal [:core, :assets, :blog, :cache, :markup, :static, :user], gemfile.send(:engines)
+      assert_equal [:core, :blog, :cache, :markup, :static, :user], gemfile.send(:engines)
     end
 
     test 'engines w/ nil' do
       gemfile = Adva::Generators::Gemfile.new('/tmp', :source => source, :engines => nil)
-      assert_equal [:core, :assets, :blog, :cache, :markup, :static, :user], gemfile.send(:engines)
+      assert_equal [:core, :blog, :cache, :markup, :static, :user], gemfile.send(:engines)
     end
   end
 end
