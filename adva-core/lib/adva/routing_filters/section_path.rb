@@ -41,15 +41,13 @@ module RoutingFilter
       # memoize :excluded?
 
       def recognition(host, path)
-        site = site_by_host(host)
-        if site and path =~ recognition_pattern(host)
+        if site = Site.by_host(host) and path =~ recognition_pattern(site)
           section = site.sections.where(:path => $2).first
           [$2, "#{$1}#{section.type.pluralize.downcase}/#{section.id}"]
         end
       end
-      
-      def recognition_pattern(host)
-        site = site_by_host(host)
+
+      def recognition_pattern(site)
         paths = site.sections.map(&:path).reject(&:blank?)
         paths = paths.sort { |a, b| b.size <=> a.size }.join('|')
         paths.empty? ? %r(^$) : %r(^/([\w]{2,4}/)?(#{paths})(?=/|\.|\?|$))
@@ -72,10 +70,6 @@ module RoutingFilter
       def host(env)
         host, port = env.values_at('SERVER_NAME', 'SERVER_PORT')
         port == default_port ? host : [host, port].compact.join(':')
-      end
-      
-      def site_by_host(host)
-        Site.where(:host => host).first
       end
   end
 end
