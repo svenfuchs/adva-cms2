@@ -5,7 +5,6 @@ source :rubygems
 workspace '. ~/.projects ~/projects ~/Development/{projects,work} ~/.repositories'
 adva_cms = repository('adva-cms2', :source => :local)
 
-adva_cms.gem  'adva-assets'
 adva_cms.gem  'adva-blog'
 adva_cms.gem  'adva-cache'
 adva_cms.gem  'adva-core'
