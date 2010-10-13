@@ -15,15 +15,6 @@ class Admin::Categories::Menu < Adva::View::Menu::Admin::Actions
         item(:'.new', new_path)
       end
     end
-
-    protected
-
-      def active?(url, options)
-        # hmmm ...
-        # types = Section.types.map { |type| type.underscore.pluralize }.join('|')
-        # return false if url =~ %r(/admin/sites/\d+/#{types}/\d+$) && request.path != url
-        super
-      end
   end
 end
 
