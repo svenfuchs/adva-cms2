@@ -7,11 +7,19 @@ Feature: Managing categories
         | Blog    | Design      |
       And the following posts:
         | section | categories  | title                  |
-        | Blog    |             | uncategorized post     |
-        | Blog    | Programming | post about programming |
-        | Blog    | Design      | post about design      |
+        | Blog    |             | Uncategorized post     |
+        | Blog    | Programming | Post about programming |
+        | Blog    | Design      | Post about design      |
     Given I am signed in with "admin@admin.org" and "admin"
       And I am on the admin "Blog" section categories page
+
+  Scenario: Viewing blog post index page filtered by a catagory
+    When I follow "Programming"
+    Then output the page
+     And I follow "Website"
+    Then I should see "Post about programming"
+     But I should not see "Post about design"
+     And I should not see "Uncategorized post"
 
   Scenario Outline: Creating a category
     When I follow "New Category"
@@ -51,6 +59,3 @@ Feature: Managing categories
     Then I should see "Category successfully deleted"
      And I should see a categories list
      But I should not see "Programming"
-
-
-  # Scenario: Viewing an unfiltered blog categories list
