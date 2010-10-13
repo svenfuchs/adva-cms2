@@ -51,8 +51,18 @@ Given /^an? (\w+) with the following attributes:$/ do |model, table|
   Factory(model, table.rows_hash)
 end
 
+# e.g. a post titled "Post" for the blog "Blog"
+# e.g. a category named "Category" belonging to the blog "Blog"
+Given /^an? (\w+) (name|title)d "([^"]+)" (?:for|belonging to) the (\w+) "([^"]+)"$/ do |model, attribute, value, section, name|
+  section = Given(%(a #{section} named "#{name}"))
+  collection = section.send(model.underscore.pluralize)
+  attributes = { attribute => value }
+  collection.where(attributes).first || collection.create!(attributes)
+end
+
 # e.g. a post with the title "Post" for the blog "Blog"
-Given /^an? (\w+) with the (\w+) "([^"]+)" for the (\w+) "([^"]+)"$/ do |model, attribute, value, section, name|
+# e.g. a post with the title "Post" belonging to the blog "Blog"
+Given /^an? (\w+) with the (\w+) "([^"]+)" (?:for|belonging to) the (\w+) "([^"]+)"$/ do |model, attribute, value, section, name|
   section = Given(%(a #{section} named "#{name}"))
   collection = section.send(model.underscore.pluralize)
   attributes = { attribute => value }
@@ -245,7 +255,6 @@ end
 Then /^I should see "([^"]*)" formatted as a "([^"]*)" tag$/ do |value, tag|
   assert_select(tag, value)
 end
-
 
 Then "debug" do
   debugger
