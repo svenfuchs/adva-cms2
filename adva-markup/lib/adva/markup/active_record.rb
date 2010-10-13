@@ -16,7 +16,7 @@ module Adva
         def filter_attributes
           filtered_attributes.each do |name|
             value = self.send(name)
-            value = Adva::Markup.apply(filter, value) if filter
+            value = Adva::Markup.apply(filter, value) if respond_to?(:filter) && filter
             write_attribute(:"#{name}_html", value)
           end
         end
