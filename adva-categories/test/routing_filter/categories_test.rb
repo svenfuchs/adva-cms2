@@ -40,6 +40,11 @@ module AdvaCategoriesTests
       assert_equal foo.id.to_s, params[:category_id]
     end
 
+    test "recognizes /categories/foo and sets the category param" do
+      assert_equal "/", recognize("/categories/foo")
+      assert_equal foo.id.to_s, params[:category_id]
+    end
+
     test "generates from /sections/1/categories/1 and a category param" do
       assert_equal "/sections/#{home.id}/categories/foo/bar", generate("/sections/#{home.id}", :category_id => bar.id)
     end

@@ -10,7 +10,7 @@ module RoutingFilter
 
     def around_recognize(path, env, &block)
       unless excluded?(path)
-        category_id = extract_category_id(path)
+        category_id = extract_category_id(env, path)
         yield.tap do |params|
           params[:category_id] = category_id if category_id
         end
@@ -33,10 +33,11 @@ module RoutingFilter
       end
       # memoize :excluded?
 
-      def extract_category_id(path)
-        if section = section_by_path(path) and path =~ recognition_pattern(section)
+      def extract_category_id(env, path)
+        if section = section_for(env, path) and path =~ recognition_pattern(section)
           if category = section.categories.where(:path => $2).first
             path.gsub!("#{$1}#{$2}", '')
+            path.replace('/') if path.blank?
             category.id.to_s
           end
         end
@@ -62,8 +63,17 @@ module RoutingFilter
       end
       # memoize :generate_pattern
 
-      def section_by_path(path)
-        Section.find($2) if path =~ section_pattern
+      def section_for(env, path)
+        if path =~ section_pattern
+          Section.find($2)
+        elsif path =~ %r(^/categories/\w+) && site = Site.by_host(host(env))
+          site.sections.root
+        end
+      end
+
+      def host(env)
+        host, port = env.values_at('SERVER_NAME', 'SERVER_PORT')
+        port == default_port ? host : [host, port].compact.join(':')
       end
   end
 end

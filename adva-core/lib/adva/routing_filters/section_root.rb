@@ -13,13 +13,12 @@ module RoutingFilter
     self.exclude = %r(^/admin)
 
     cattr_accessor :anchors_segments
-    self.anchors_segments = { 'Page' => 'article' }
+    self.anchors_segments = { 'Page' => ['/article'] }
 
     def around_recognize(path, env, &block)
       if !excluded?(path)
         search, replace = *recognition(host(env))
         path.sub!(search) { "#{$1}#{replace}#{$2}" } if search
-        # path.chomp!('/')
       end
       yield
     end
@@ -39,8 +38,8 @@ module RoutingFilter
 
       def recognition(host)
         if site = Site.by_host(host) and root = site.sections.root
-          anchor = anchors_segments[root.class.name] || raise("undefined url anchor segment for: #{root.class.name}")
-          [%r(^(/[\w]{2})?(?:\/?)(/#{anchor}|\.|\?|/?\Z)), "/#{root.type.tableize}/#{root.id}"]
+          anchors = anchors_segments[root.class.name] || raise("undefined url anchor segment for: #{root.class.name}")
+          [%r(^(/[\w]{2})?(?:\/?)(#{anchors.join('|')}|\.|\?|/?\Z)), "/#{root.type.tableize}/#{root.id}"]
         end
       end
 

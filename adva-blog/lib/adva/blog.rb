@@ -16,4 +16,4 @@ module Adva
   end
 end
 
-RoutingFilter::SectionRoot.anchors_segments['Blog'] = '\d{4}'
+RoutingFilter::SectionRoot.anchors_segments['Blog'] = ['/\d{4}']
