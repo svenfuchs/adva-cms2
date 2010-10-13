@@ -5,7 +5,7 @@ Rails.application.routes.draw do
 
   namespace :admin do
     resources :sites do
-      resources :blogs do
+      resources :sections do
         resources :categories
       end
     end

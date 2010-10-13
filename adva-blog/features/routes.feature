@@ -1,7 +1,9 @@
 Feature: Routes
   Scenario: Routes
     Given the routes are loaded
-    And a site with a blog named "Blog"
+    And a site with the following sections:
+      | id | type | name |
+      | 2  | blog | Blog |
     And a category named "Foo" belonging to the blog "Blog"
 
     Then the following routes should be recognized:
