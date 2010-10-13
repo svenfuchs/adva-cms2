@@ -7,7 +7,7 @@ module Adva
       # models in Dependencies maybe an after-load hook in Dependencies would
       # work.
       def preload_sliced_models
-        types = %w(controllers models views)
+        types = %w(helpers controllers models views)
         paths = types.map { |type| self.paths.app.send(type).to_a.first }
         pattern = %r((?:#{paths.join('|')})/((?:\w+/)*\w+_slice(?:.\w+)*).rb$)
 
