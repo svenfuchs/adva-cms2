@@ -2,14 +2,17 @@ Feature: Routes
 
   Scenario: Routes
     Given the routes are loaded
+    And a site with a blog named "Blog"
+    And a category named "Foo" belonging to the blog "Blog"
+
     Then the following routes should be recognized:
       | method | path                                      | controller          | action  | params                                              |
 
       # adva-core
       | POST   | /installations                            | installations       | create  |                                                     |
       | GET    | /installations/new                        | installations       | new     |                                                     |
-      | GET    | /pages/1                                  | pages               | show    | id: 1                                               |
-      | GET    | /pages/1/article                          | articles            | show    | page_id: 1                                          |
+      | GET    | /pages/2                                  | pages               | show    | id: 2                                               |
+      | GET    | /pages/2/article                          | articles            | show    | page_id: 2                                          |
 
       | GET    | /admin/sites                              | admin/sites         | index   |                                                     |
       | POST   | /admin/sites                              | admin/sites         | create  |                                                     |
