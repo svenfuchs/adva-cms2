@@ -11,7 +11,7 @@ class AdvaCategoriesCreateTables < ActiveRecord::Migration
     end
 
     create_table :categorizations do |t|
-      t.references :categorizable, :polymorph => true
+      t.belongs_to :categorizable, :polymorphic => true
       t.references :category
     end
   end
