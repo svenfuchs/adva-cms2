@@ -6,7 +6,7 @@ ActionView::Base.send(:include, SimpleTable) # TODO should be in simple_table
 
 class BaseController < InheritedResources::Base
   begin_of_association_chain :site
-  tracks :resource, :resources, :site => %w(.title .name .sections)
+  tracks :resource, :resources, :collection, :site => %w(.title .name .sections)
 
   layout 'default'
   helper_method :account, :site

@@ -22,22 +22,22 @@ module AdvaCategoriesTests
 
     test "recognizes /sections/1/categories/foo and sets the category param" do
       assert_equal "/sections/#{home.id}", recognize("/sections/#{home.id}/categories/foo")
-      assert_equal foo.id, params[:category_id]
+      assert_equal foo.id.to_s, params[:category_id]
     end
 
     test "recognizes /sections/1/categories/foo/bar and sets the category param" do
       assert_equal "/sections/#{home.id}", recognize("/sections/#{home.id}/categories/foo/bar")
-      assert_equal bar.id, params[:category_id]
+      assert_equal bar.id.to_s, params[:category_id]
     end
 
     test "recognizes /sections/1/categories/foo.rss and sets the category param" do
       assert_equal "/sections/#{home.id}.rss", recognize("/sections/#{home.id}/categories/foo.rss")
-      assert_equal foo.id, params[:category_id]
+      assert_equal foo.id.to_s, params[:category_id]
     end
 
     test "recognizes /sections/1/categories/foo?foo=bar and sets the category param" do
       assert_equal "/sections/#{home.id}?foo=bar", recognize("/sections/#{home.id}/categories/foo?foo=bar")
-      assert_equal foo.id, params[:category_id]
+      assert_equal foo.id.to_s, params[:category_id]
     end
 
     test "generates from /sections/1/categories/1 and a category param" do

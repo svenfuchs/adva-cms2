@@ -8,10 +8,10 @@ Feature: Routes
       | method | path                                      | controller          | action  | params                                              |
 
       # adva-blog
-      | GET    | /blogs/2                                  | blogs               | show    | id: 2                                               |
-      | GET    | /blogs/2/2009                             | blogs               | show    | id: 2, year: 2009                                   |
-      | GET    | /blogs/2/2009/1                           | blogs               | show    | id: 2, year: 2009, month: 1                         |
-      | GET    | /blogs/2/2009/1/1                         | blogs               | show    | id: 2, year: 2009, month: 1, day: 1                 |
+      | GET    | /blogs/2                                  | posts               | index   | blog_id: 2                                          |
+      | GET    | /blogs/2/2009                             | posts               | index   | blog_id: 2, year: 2009                              |
+      | GET    | /blogs/2/2009/1                           | posts               | index   | blog_id: 2, year: 2009, month: 1                    |
+      | GET    | /blogs/2/2009/1/1                         | posts               | index   | blog_id: 2, year: 2009, month: 1, day: 1            |
       | GET    | /blogs/2/2009/1/1/foo                     | posts               | show    | blog_id: 2, year: 2009, month: 1, day: 1, slug: foo |
 
       | GET    | /admin/sites/1/blogs/2/posts              | admin/posts         | index   | site_id: 1, blog_id: 2                              |
