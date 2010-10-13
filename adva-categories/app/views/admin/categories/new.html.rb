@@ -1,4 +1,4 @@
-class Admin::Posts::Edit < Minimal::Template
+class Admin::Categories::New < Adva::View::Form
   include do
     def to_html
       h2 :'.title'
@@ -6,3 +6,5 @@ class Admin::Posts::Edit < Minimal::Template
     end
   end
 end
+
+

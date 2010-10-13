@@ -37,6 +37,7 @@ en:
         title: Settings
       menu:
         sections: Sections
+        categories: Categories
         show: Posts
         new: New
         edit: Settings

@@ -9,6 +9,13 @@ module UrlHelper
 
   def public_url_for(resources)
     resources -= [:admin, site]
-    resources.empty? ? "http://#{site.host}" : polymorphic_url(resources, :host => site.host)
+
+    # FIXME move this to adva-categories
+    reject = lambda { |resource| resource.is_a?(Category) }
+    options = Hash[*resources.select(&reject).map { |resource| [resource.class.name.foreign_key, resource.id] }.flatten]
+    options.merge(:host => site.host)
+
+    resources.reject!(&reject)
+    resources.empty? ? "http://#{site.host}" : polymorphic_url(resources, options)
   end
 end

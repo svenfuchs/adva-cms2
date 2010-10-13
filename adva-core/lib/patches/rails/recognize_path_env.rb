@@ -9,9 +9,9 @@ module ActionDispatch
         path = Rack::Mount::Utils.normalize_path(path)
 
         begin
-      
+
           # TODO submit a rails patch
-      
+
           # env = Rack::MockRequest.env_for(path, {:method => method})
           env = Rack::MockRequest.env_for(path, {:method => method}).merge(environment)
         rescue URI::InvalidURIError => e

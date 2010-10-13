@@ -65,7 +65,6 @@ module RoutingFilter
       def section_by_path(path)
         Section.find($2) if path =~ section_pattern
       end
-
   end
 end
 

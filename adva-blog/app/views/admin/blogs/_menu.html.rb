@@ -5,7 +5,7 @@ class Admin::Blogs::Menu < Adva::View::Menu::Admin::Actions
         label(resource.name)
         item(:'.show', show_path)
         item(:'.edit', edit_path)
-        # item(:'.categories', edit_path)
+        item(:'.categories', admin_site_blog_categories_path(site, resource)) if Adva.engine?('Categories')
       else
         item(:'.sections', index_path)
       end
