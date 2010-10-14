@@ -28,7 +28,7 @@ class AdvaMarkupTest < Test::Unit::TestCase
   end
 
   test "content applies filter before save" do
-    content = Content.create(:body => '**foo**', :filter => 'textile')
+    content = Content.create!(:body => '**foo**', :filter => 'textile')
     assert_equal '<p><b>foo</b></p>', content.body_html
   end
 end

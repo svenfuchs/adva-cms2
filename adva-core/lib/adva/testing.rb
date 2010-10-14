@@ -10,18 +10,17 @@ module Adva
         setup_logging(options)
         setup_active_record
 
-        Adva.engines.each do |e|
-          e.setup_load_paths
-        end
-
-        Adva.engines.each do |e|
-          e.migrate
-          e.require_patches
-          e.preload_sliced_models
-        end
+        each_engine { |e| e.setup_load_paths }
+        each_engine { |e| e.migrate }
+        each_engine { |e| e.require_patches }
+        each_engine { |e| e.preload_sliced_models }
 
         load_assertions
         load_factories
+      end
+
+      def each_engine(&block)
+        Adva.engines.each(&block)
       end
 
       def load_assertions
