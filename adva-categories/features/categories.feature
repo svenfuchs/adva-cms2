@@ -15,7 +15,6 @@ Feature: Managing categories
 
   Scenario: Viewing blog post index page filtered by a catagory
     When I follow "Programming"
-    Then output the page
      And I follow "Website"
     Then I should see "Post about programming"
      But I should not see "Post about design"

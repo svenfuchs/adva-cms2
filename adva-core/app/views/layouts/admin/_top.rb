@@ -19,7 +19,7 @@ class Layouts::Admin::Top < Adva::View::Menu::Admin
     end
 
     protected
-  
+
       def sites
         label(site.name, url_for([:admin, :sites])) do
           ul(:class => 'sites') do
@@ -35,8 +35,7 @@ class Layouts::Admin::Top < Adva::View::Menu::Admin
         item(:'.sections', url_for([:admin, site, :sections])) do
           ul(:class => 'sections') do
             site.sections.each do |section|
-              # TODO hu? inherited_resources seems to use build_section, so there's a new section in the collection??
-              item(section.name, url_for([:admin, site, section]), :class => :section) unless section.new_record?
+              item(section.name, url_for([:admin, site, section]), :class => :section)
             end
             item(:'.new_section', url_for([:new, :admin, site, :section]))
           end
