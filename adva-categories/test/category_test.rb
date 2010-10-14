@@ -25,12 +25,24 @@ module AdvaCategoryTests
     test 'content categorization' do
       foo = Factory(:content, :title => 'foo')
       bar = Factory(:content, :title => 'bar')
+
       category = Factory(:category)
       category.categorizables << foo << bar
 
       assert_equal [foo, bar], category.reload.categorizables
       assert_equal [category], foo.categories
       assert_equal [category], bar.categories
+    end
+
+    test 'categorized content scope' do
+      foo = Factory(:content, :title => 'foo')
+      bar = Factory(:content, :title => 'bar')
+      baz = Factory(:content, :title => 'baz')
+
+      category = Factory(:category)
+      category.categorizables << foo << bar
+
+       assert_equal [foo, bar], Content.categorized(category.id)
     end
   end
 end
