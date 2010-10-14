@@ -7,5 +7,5 @@ end
 
 Factory.define :admin, :parent => :user do |f|
   f.email 'admin@admin.org'
-  f.password 'admin'
+  f.password 'admin!'
 end

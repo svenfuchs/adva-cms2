@@ -1,7 +1,7 @@
 Feature: Content markup filtering
   Background:
     Given a site with a blog named "Blog"
-     And I am signed in with "admin@admin.org" and "admin"
+     And I am signed in with "admin@admin.org" and "admin!"
      And I am on the admin "Blog" section page
 
   Scenario: Writing a blog post in textile

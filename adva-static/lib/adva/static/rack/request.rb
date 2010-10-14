@@ -28,7 +28,7 @@ module Adva
           end
 
           def password
-            'admin'
+            'admin!'
           end
 
           def site

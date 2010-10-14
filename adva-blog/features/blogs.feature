@@ -8,7 +8,7 @@ Feature: Managing blogs
     And the following posts:
       | section | title      | body      |
       | Blog    | Post title | Post body |
-    And I am signed in with "admin@admin.org" and "admin"
+    And I am signed in with "admin@admin.org" and "admin!"
     And I am on the admin sections page
 
   Scenario: Listing blogs as sections

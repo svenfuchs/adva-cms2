@@ -1,20 +1,18 @@
 Feature: Menus
 
   Background:
-    Given a site with the following sections:
-      | type | name |
-      | Blog | Blog |
+    Given a site with a blog named "Blog"
     And the following posts:
       | section | title      | body      |
       | Blog    | Post title | Post body |
-    And I am signed in with "admin@admin.org" and "admin"
+    And I am signed in with "admin@admin.org" and "admin!"
 
   Scenario: Admin Blogs
     When I go to the admin "Blog" section page
     Then the menu should contain the following items:
       | text     | url                              | active | menu            |
       | adva-cms |                                  |        | #top .main      |
-      | adva-cms | /admin/sites/1                   | yes    | #top .main  |
+      | adva-cms | /admin/sites/1                   | yes    | #top .main      |
       | Sections | /admin/sites/1/sections          | yes    | #top .main      |
       | Blog     | /admin/sites/1/blogs/1           | yes    | #top .main      |
       | Settings | /admin/sites/1/edit              |        | #top .right     |

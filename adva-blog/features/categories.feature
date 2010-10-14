@@ -1,4 +1,4 @@
-Feature: Managing categories
+Feature: Managing blog categories
   Background:
     Given a site with a blog named "Blog"
       And the following categories:
@@ -10,7 +10,7 @@ Feature: Managing categories
         | Blog    |             | Uncategorized post     |
         | Blog    | Programming | Post about programming |
         | Blog    | Design      | Post about design      |
-    Given I am signed in with "admin@admin.org" and "admin"
+    Given I am signed in with "admin@admin.org" and "admin!"
       And I am on the admin "Blog" section categories page
 
   Scenario: Viewing blog post index page filtered by a catagory
@@ -58,3 +58,4 @@ Feature: Managing categories
     Then I should see "Category successfully deleted"
      And I should see a categories list
      But I should not see "Programming"
+

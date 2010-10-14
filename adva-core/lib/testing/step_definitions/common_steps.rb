@@ -1,6 +1,5 @@
 Given 'a site' do
   @site = Factory(:site)
-  Factory(:admin)
 end
 
 Transform /^table:name,product_name$/ do |table|
@@ -26,15 +25,13 @@ end
 
 Given /^a site with the following sections:$/ do |table|
   Site.all.map(&:destroy)
-  Given 'a site'
-  Section.all.map(&:destroy)
+  @site = Factory(:site, :sections_attributes => [])
   Given "the following sections:", table
 end
 
 Given /^a site with a (\w+) named "([^"]+)"$/ do |section, name|
-  Site.delete_all
-  Given 'a site'
-  Section.delete_all
+  Site.all.map(&:destroy)
+  @site = Factory(:site, :sections_attributes => [])
   Given %(a #{section} named "#{name}")
 end
 

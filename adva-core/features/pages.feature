@@ -5,7 +5,7 @@ Feature: Managing pages
       | type | name    | body         |
       | Page | Home    | Home body    |
       | Page | Contact | Contact body |
-    And I am signed in with "admin@admin.org" and "admin"
+    And I am signed in with "admin@admin.org" and "admin!"
     And I am on the admin sections page
 
   Scenario: Listing pages as sections
