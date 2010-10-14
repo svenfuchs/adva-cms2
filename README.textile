@@ -39,16 +39,16 @@ h3. Get adva-cms
 
 From github:
 
-@$ git clone git://github.com/svenfuchs/adva-cms2@
-@$ cd adva-cms2@
-@$ bundle install@
+bc. $ git clone git://github.com/svenfuchs/adva-cms2
+$ cd adva-cms2
+$ bundle install
 
 *Generate a new app and run it:*
 
-@$ thor adva:app /home/user/path/to/app@
-@$ cd /home/user/path/to/app@
-@$ sed -i`date +%s` -e 's/:source => :local/:git => \"git:\/\/github\.com\/svenfuchs\/adva-cms\.git\/\"/' Gemfile@
-@$ bundle install@
-@$ rails s@
+bc. $ thor adva:app /home/user/path/to/app
+$ cd /home/user/path/to/app
+$ sed -i`date +%s` -e 's/:source => :local/:git => \"git:\/\/github\.com\/svenfuchs\/adva-cms\.git\/\"/' Gemfile
+$ bundle install
+$ rails s
 
 Now in your browser navigate to http://localhost:3000. Fill out the fields in the resulting page and click 'Create Site'. After this you can log in to your new site with the credentials 'admin@admin.org' and password 'admin'.
