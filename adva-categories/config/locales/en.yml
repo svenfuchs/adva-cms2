@@ -7,6 +7,9 @@ en:
         edit: Edit
         destroy: Delete
         confirm_destroy: Do you really want to delete this category?
+      columns:
+        category: Category
+        actions:
       index:
         edit: Edit
         destroy: Delete

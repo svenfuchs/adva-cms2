@@ -20,8 +20,9 @@ module RoutingFilter
     end
 
     def around_generate(params, &block)
-      category_id = params.delete(:category_id)
+      category_id = params.delete('category_id') || params.delete(:category_id)
       yield.tap do |path|
+        # debugger if path == "/admin/sites/1/sections/2/categories/1"
         insert_category_path(path, category_id) if !excluded?(path) && category_id
       end
     end
@@ -51,9 +52,11 @@ module RoutingFilter
       # memoize :recognition_pattern
 
       def insert_category_path(path, category_id)
+        category = Category.find(category_id)
         if path =~ section_pattern
-          category = Category.find(category_id)
           path.sub!("/#{$1}/#{$2}", "/#{$1}/#{$2}/categories/#{category.path}")
+        elsif category.section.root?
+          path.sub!(%r(^/), "/categories/#{category.path}")
         end
       end
 

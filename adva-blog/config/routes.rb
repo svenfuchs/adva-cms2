@@ -1,3 +1,7 @@
+segments = ['/\d{4}']
+segments << ['/categories'] if Adva.engine?('Categories')
+RoutingFilter::SectionRoot.anchors_segments['Blog'] = segments.uniq
+
 Rails.application.routes.draw do
   namespace :admin do
     resources :sites do

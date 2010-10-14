@@ -5,7 +5,7 @@ class Admin::Categories::Index < Minimal::Template
     		t.column :category, :actions
 
     		t.row do |r, category|
-    			r.cell link_to_edit(category.name, category)
+    			r.cell capture { link_to_edit(category.name, category) }
     			r.cell links_to_actions([:edit, :destroy], category)
     		end
 

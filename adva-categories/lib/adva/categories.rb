@@ -5,6 +5,3 @@ module Adva
     include Adva::Engine
   end
 end
-
-RoutingFilter::SectionRoot.anchors_segments['Blog'] << ['/categories']
-

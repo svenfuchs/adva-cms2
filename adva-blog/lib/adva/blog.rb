@@ -1,3 +1,4 @@
+require 'adva/core'
 require 'adva/engine'
 
 require 'routing_filter'
@@ -16,4 +17,3 @@ module Adva
   end
 end
 
-RoutingFilter::SectionRoot.anchors_segments['Blog'] = ['/\d{4}']
