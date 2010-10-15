@@ -57,7 +57,7 @@ Feature: Managing blogs
      And I press "Update blog"
     Then I should see "<message>"
      And I should see an edit blog form
-     And I should see "<name>"
+     And "name" should be filled in with "<name>"
     Examples:
       | name         | message                   |
       | Updated name | Blog successfully updated |
@@ -68,8 +68,9 @@ Feature: Managing blogs
     Then the title should be "Sections: Index"
      And I should see "Blog successfully deleted"
 
-  Scenario: Deleting a blog from the admin section page
+  Scenario: Deleting a blog from the admin section settings page
     When I follow "Blog"
+     And I follow "Settings" within "#actions"
     When I follow "Delete"
     Then the title should be "Sections: Index"
      And I should see "Blog successfully deleted"

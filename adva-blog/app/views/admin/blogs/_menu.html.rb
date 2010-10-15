@@ -3,10 +3,9 @@ class Admin::Blogs::Menu < Adva::View::Menu::Admin::Actions
     def main
       if persisted?
         label(resource.name)
-        item(:'.show', show_path)
+        item(:'.show', index_path(:posts))
         item(:'.edit', edit_path)
-        # FIXME use a better path helper
-        item(:'.categories', admin_site_section_categories_path(site, resource)) if Adva.engine?('Categories')
+        item(:'.categories', index_path(:categories)) if Adva.engine?('Categories')
       else
         item(:'.sections', index_path)
       end

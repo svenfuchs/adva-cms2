@@ -51,7 +51,7 @@ Feature: Purging tagged entries from the cache
      And it should purge the cache entries: /blog, /blog/2010/01/01/post-title
 
   Scenario: Deleting a blog purges cache entries
-    Given I am on the admin "Blog" section page
+    Given I am on the admin "Blog" section settings page
     When I follow "Delete"
     Then it should purge cache entries tagged: site-1:blogs, site-1:sections, site-1:home_section, blog-2
      And it should purge the cache entries: /, /blog, /blog/2010/01/01/post-title

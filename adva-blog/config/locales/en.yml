@@ -22,14 +22,6 @@ en:
       actions: ""
   admin:
     blogs:
-      show:
-        view: View
-        edit: Edit
-        destroy: Delete
-        published: Published
-        empty: "There are no posts. %{link}"
-        create_item: "Create one now &raquo;"
-        confirm_destroy: "Do you really want to delete this %{model_name}?"
       new:
         title: Create a New Section
       edit:
@@ -44,6 +36,14 @@ en:
         new_item: New Post
         confirm_destroy: "Do you really want to delete this %{model_name}?"
     posts:
+      index:
+        view: View
+        edit: Edit
+        destroy: Delete
+        published: Published
+        empty: "There are no posts. %{link}"
+        create_item: "Create one now &raquo;"
+        confirm_destroy: "Do you really want to delete this %{model_name}?"
       new:
         title: Write a new blog post
       edit:
@@ -52,7 +52,7 @@ en:
       menu:
         show: Posts
         edit_parent: Settings
-        new: New
+        new: New Post
         view: View
         edit: Edit
         destroy: Delete

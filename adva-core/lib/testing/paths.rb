@@ -38,6 +38,11 @@ module Adva::Core::Paths
       section = Section.where(:name => $1).first || raise("could not find section named #{$1}")
       polymorphic_path([:admin, site, section])
 
+    when /^the admin "([^"]*)" section settings page$/
+      site = Site.first
+      section = Section.where(:name => $1).first || raise("could not find section named #{$1}")
+      polymorphic_path([:edit, :admin, site, section])
+
     else
       named_route_helper = page.gsub(/(\Athe )|( page\Z)/, '').gsub(/ +/, '_').downcase + '_path'
       raise "Can't find mapping from \"#{page}\" to a path.\nNow, go and add a mapping in #{__FILE__}" unless respond_to?(named_route_helper)

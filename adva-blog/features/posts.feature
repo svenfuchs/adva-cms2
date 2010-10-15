@@ -11,7 +11,7 @@ Feature: Managing posts
     And I am on the admin "Blog" section page
 
   Scenario: Listing posts
-    Then the title should be "Blogs: Show"
+    Then the title should be "Posts: Index"
     Then I should see a posts list
     And I should see "Post title"
 
@@ -66,11 +66,11 @@ Feature: Managing posts
 
   Scenario: Deleting a post from the admin posts list
     When I follow "Delete" within the "Post title" row
-    Then the title should be "Blogs: Show"
+    Then the title should be "Posts: Index"
      And I should see "Post successfully deleted"
 
   Scenario: Deleting a post from the admin post page
     When I follow "Post title"
     When I follow "Delete"
-    Then the title should be "Blogs: Show"
+    Then the title should be "Posts: Index"
      And I should see "Post successfully deleted"

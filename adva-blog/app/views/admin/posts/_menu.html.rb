@@ -2,7 +2,7 @@ class Admin::Posts::Menu < Adva::View::Menu::Admin::Actions
   include do
     def main
       label(resource.section.name)
-      item(:'.show', parent_show_path)
+      item(:'.show', index_path)
       item(:'.edit_parent', parent_edit_path)
     end
 
