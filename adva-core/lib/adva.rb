@@ -24,5 +24,9 @@ module Adva
     def engine_names
       @engine_names ||= engines.map { |constant| constant.name.split('::').last }
     end
+
+    def engine?(name)
+      engine_names.include?(name)
+    end
   end
 end

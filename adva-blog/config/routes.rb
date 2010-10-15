@@ -1,3 +1,7 @@
+segments = ['/\d{4}']
+segments << ['/categories'] if Adva.engine?('Categories')
+RoutingFilter::SectionRoot.anchors_segments['Blog'] = segments.uniq
+
 Rails.application.routes.draw do
   namespace :admin do
     resources :sites do
@@ -7,7 +11,10 @@ Rails.application.routes.draw do
     end
   end
 
-  match 'blogs/:id(/:year(/:month(/:day)))',      :to => 'blogs#show',     :as => :blog
-  match 'blogs/:blog_id/:year/:month/:day/:slug', :to => 'posts#show'
-  match 'blogs/:blog_id/*permalink',              :to => "posts#internal", :as => :blog_post
+  constraints :year => /\d{4}/, :month => /\d{1,2}/, :day => /\d{1,2}/ do
+    match 'blogs/:blog_id(/:year(/:month(/:day)))', :to => 'posts#index', :as => :blog
+    match 'blogs/:blog_id/:year/:month/:day/:slug', :to => 'posts#show',  :as => :blog_post
+  end
+
+  match 'blogs/:blog_id/*permalink', :to => "posts#internal", :as => :blog_post
 end

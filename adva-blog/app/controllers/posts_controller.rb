@@ -4,6 +4,12 @@ class PostsController < BaseController
 
   protected
 
+    def collection
+      # FIXME only here for reference tracking. how can we remove this?
+      @_references << [blog, :posts] if @_references
+      super
+    end
+
     def set_id
       blog = site.blogs.find(params[:blog_id])
       permalink = params.values_at(:year, :month, :day, :slug)

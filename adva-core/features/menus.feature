@@ -4,7 +4,7 @@ Feature: Menus
     Given a site with the following sections:
       | type | name |
       | Page | Home |
-    And I am signed in with "admin@admin.org" and "admin"
+    And I am signed in with "admin@admin.org" and "admin!"
 
   Scenario: Admin Sites
     When I go to the admin sites page

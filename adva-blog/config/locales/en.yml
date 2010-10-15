@@ -9,10 +9,9 @@ en:
     blog:
       made_with: "Made with <a href=\"http://github.com/svenfuchs/adva-cms2\">adva cms 2</a>"
       feed: Atom Feed
-  blogs:
-    show:
-      continue: Read the rest of this post
   posts:
+    index:
+      continue: Read the rest of this post
     meta:
       info: "posted on %{date}"
     columns:
@@ -23,7 +22,21 @@ en:
       actions: ""
   admin:
     blogs:
-      show:
+      new:
+        title: Create a New Section
+      edit:
+        title: Settings
+      menu:
+        sections: Sections
+        categories: Categories
+        show: Posts
+        new: New
+        edit: Settings
+        destroy: Delete
+        new_item: New Post
+        confirm_destroy: "Do you really want to delete this %{model_name}?"
+    posts:
+      index:
         view: View
         edit: Edit
         destroy: Delete
@@ -32,19 +45,6 @@ en:
         create_item: "Create one now &raquo;"
         confirm_destroy: "Do you really want to delete this %{model_name}?"
       new:
-        title: Create a New Section
-      edit:
-        title: Settings
-      menu:
-        sections: Sections
-        show: Posts
-        new: New
-        edit: Settings
-        destroy: Delete
-        new_item: New Post
-        confirm_destroy: "Do you really want to delete this %{model_name}?"
-    posts:
-      new:
         title: Write a new blog post
       edit:
         title: Edit Post
@@ -52,7 +52,7 @@ en:
       menu:
         show: Posts
         edit_parent: Settings
-        new: New
+        new: New Post
         view: View
         edit: Edit
         destroy: Delete

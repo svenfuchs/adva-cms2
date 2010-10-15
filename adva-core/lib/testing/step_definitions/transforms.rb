@@ -22,9 +22,22 @@ foreign_keyify = lambda do |table|
   table.transpose
 end
 
+# FIXME must be here because one apparently can't register multiple transforms for the
+# same regex (like /^table:/) in cucumber. should really be in adva-categories though.
+categoryify = lambda do |table|
+  if table.headers.include?('categories')
+    table.map_column!('categories') do |categories|
+      names = categories.split(',').map(&:strip)
+      Category.where(:name => names).all
+    end
+  end
+  table.transpose
+end
+
 Transform /^table:/ do |table|
   table = timezonify.call(timezonify.call(table))
   table = objectify.call(objectify.call(table))
   table = foreign_keyify.call(foreign_keyify.call(table))
+  table = categoryify.call(categoryify.call(table))
   table
 end

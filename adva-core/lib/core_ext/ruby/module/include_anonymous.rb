@@ -26,3 +26,11 @@ Class.class_eval do
     block_given? ? super(Module.new(&block)) : super(*args)
   end
 end
+
+Module.class_eval do
+  def include_with_anonymous(*args, &block)
+    block_given? ? include_without_anonymous(Module.new(&block)) : include_without_anonymous(*args)
+  end
+  alias :include_without_anonymous :include
+  alias :include :include_with_anonymous
+end

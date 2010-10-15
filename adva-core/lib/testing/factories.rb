@@ -10,6 +10,7 @@ Factory.define :site do |f|
       :body => 'Body'
     }
   }]
+  f.after_create { |site| Factory(:admin) }
 end
 
 Factory.define :section do |f|

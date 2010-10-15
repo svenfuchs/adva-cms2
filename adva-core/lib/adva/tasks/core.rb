@@ -60,7 +60,7 @@ module Adva
           # allows seems to be close to impossible bc/ it immediately calls parse! on its options
           # as soon they are defined.
           # see http://github.com/aslakhellesoy/cucumber/blob/master/lib/cucumber/cli/options.rb#L261
-          options = self.options.reject { |option| option.include?('rebuild') }
+          options = self.options.reject { |name, value| name.include?('rebuild') }
           options.map { |name, value| ["--#{name}", value.is_a?(String) ? value : nil] }.flatten.compact
         end
       end
@@ -133,8 +133,8 @@ module Adva
           ENV['REGENERATE_APP'] = 'true' if options['rebuild']
           Rails.env = 'test'
 
-          ::Cucumber::Cli::Main.execute(cucumber_args)
-          exit($1.exitstatus) if $1.exited? && $1.exitstatus != 0
+          passed = !::Cucumber::Cli::Main.execute(cucumber_args) # returns true on failure
+          exit(passed ? 0 : 1)
         end
       end
 

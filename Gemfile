@@ -7,6 +7,7 @@ adva_cms = repository('adva-cms2', :source => :local)
 
 adva_cms.gem  'adva-blog'
 adva_cms.gem  'adva-cache'
+adva_cms.gem  'adva-categories'
 adva_cms.gem  'adva-core'
 adva_cms.gem  'adva-markup'
 adva_cms.gem  'adva-static'

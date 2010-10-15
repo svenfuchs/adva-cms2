@@ -24,7 +24,7 @@ Feature: Tagging pages for cache invalidation
     And I go to /2010/01/01/first-post
     And I go to /2010/01/02/second-post
     Then the following urls should be tagged:
-      | url                    | tags                                                  |
-      | /                      | site-1:title, site-1:sections, blog-1, post-1, post-2 |
-      | /2010/01/01/first-post | site-1:title, site-1:sections, blog-1, post-1         |
+      | url                    | tags                                                        |
+      | /                      | site-1:title, site-1:sections, blog-1:posts, post-1, post-2 |
+      | /2010/01/01/first-post | site-1:title, site-1:sections, blog-1, post-1               |
 

@@ -6,11 +6,11 @@ Feature: Purging tagged entries from the cache
        | 2  | Blog | Blog |
      And the following posts:
        | id | section | title      | created_at |
-       | 1  | Blog    | Post title | 2010-01-01 |
+       | 2  | Blog    | Post title | 2010-01-01 |
      And I have visited /
      And I have visited /blog
      And I have visited /blog/2010/01/01/post-title
-     And I am signed in with "admin@admin.org" and "admin"
+     And I am signed in with "admin@admin.org" and "admin!"
      And I don't follow any http redirects
 
   Scenario: Updating a site purges cache entries
@@ -51,7 +51,7 @@ Feature: Purging tagged entries from the cache
      And it should purge the cache entries: /blog, /blog/2010/01/01/post-title
 
   Scenario: Deleting a blog purges cache entries
-    Given I am on the admin "Blog" section page
+    Given I am on the admin "Blog" section settings page
     When I follow "Delete"
     Then it should purge cache entries tagged: site-1:blogs, site-1:sections, site-1:home_section, blog-2
      And it should purge the cache entries: /, /blog, /blog/2010/01/01/post-title
@@ -70,14 +70,14 @@ Feature: Purging tagged entries from the cache
      And I follow "Post title"
     When I fill in "Title" with "Updated title"
      And I press "Update"
-    Then it should purge cache entries tagged: post-1:body_html, post-1:title, post-1:filter
+    Then it should purge cache entries tagged: post-2:body_html, post-2:title, post-2:filter
      And it should purge the cache entries: /blog, /blog/2010/01/01/post-title
 
   Scenario: Deleting a blog post purges cache entries
     Given I am on the admin "Blog" section page
      And I follow "Post title"
     When I follow "Delete"
-    Then it should purge cache entries tagged: blog-2:posts, post-1
+    Then it should purge cache entries tagged: blog-2:posts, post-2
   # well, this is too greedy. it purges the other post because it is tagged as blog-2 and blog-2:posts matches.
      And it should purge the cache entries: /blog, /blog/2010/01/01/post-title
 
