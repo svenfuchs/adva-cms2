@@ -80,6 +80,8 @@ end
 When /^I (press|click) "(.*)" in the row (of the ([a-z ]+) table )?where "(.*)" is "(.*)"$/ do |press_or_click, link_or_button, _, table_id, header, cell_content|
   body = Nokogiri::HTML(response.body)
   table_xpath = table_id.nil? ? 'table' : "table[@id='#{table_id.gsub(/ /, '_')}']"
+  table_header_cells = body.xpath("//#{table_xpath}/descendant::th[normalize-space(text())='#{header}']/@id")
+  assert !table_header_cells.empty?, "could not find table header cell '#{header}'"
   header_id = body.xpath("//#{table_xpath}/descendant::th[normalize-space(text())='#{header}']/@id").first.value
   row_id = body.xpath("//#{table_xpath}/descendant::td[@headers='#{header_id}'][normalize-space(text())='#{cell_content}']/ancestor::tr/@id").first.value
   within("##{row_id}") do
