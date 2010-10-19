@@ -2,6 +2,15 @@ class Section < ActiveRecord::Base
   extend ActiveSupport::Memoizable
 
   belongs_to :site, :inverse_of => :sections
+
+  # unfortunate, but moving this to a adva-categories/section_slice breaks because
+  # class_inheritable_attributes get out of sync and crash. this might change if we
+  # were able to load code slices lazily
+  if Adva.engine?(:categories)
+    has_many :categories, :foreign_key => :section_id
+    accepts_nested_attributes_for :categories
+  end
+
   validates_presence_of :site, :name, :slug
 
   has_slug :scope => :site_id
