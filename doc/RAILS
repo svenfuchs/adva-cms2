@@ -3,7 +3,7 @@ Rails register_asset_expansion vergißt .js für z.B. adva_cms/jquery/jquery.qti
 with only
 
   paths.app('path/to/app')
-    
+
 defined in the Railtie ...
 
   undefined method `controllers' for #<Rails::Paths::Path:0x105419938> (NoMethodError)
@@ -37,7 +37,7 @@ extend fields_for so that
     <% end %>
   <% end %>
 
-renders the :street field no matter what (i.e. build a shipping_address if 
+renders the :street field no matter what (i.e. build a shipping_address if
 missing).
 
 
@@ -49,3 +49,19 @@ missing).
 
 # make Devise.config.encryptor default to :bcrypt (or something else) so
 that one doesn't need to to configure Devise in tests
+
+
+
+THIS SEEMS TO SCREW CLASS_INHERITABLE_ATTRIBUTES:
+
+class Section < ActiveRecord::Base
+end
+
+class Blog < Section
+end
+
+Section.class_eval do
+  accepts_nested_attributes_for :categories
+end
+
+... now in activerecord#assign_nested_attributes_for_collection_association options are unexpectedly nil.

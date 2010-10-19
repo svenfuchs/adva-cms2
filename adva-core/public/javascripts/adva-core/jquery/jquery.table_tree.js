@@ -23,12 +23,12 @@ TableTree = {
 			return $(row).ttnode() ? true : false;
 		}
 	},
-	toggle: function(table, type, collection_url) {
-		TableTree.current_table ? TableTree.teardown(table) : TableTree.setup(table, type, collection_url);
+	toggle: function(table, types, collection_url) {
+		TableTree.current_table ? TableTree.teardown(table) : TableTree.setup(table, types, collection_url);
 	},
-	setup: function(table, type, collection_url) {
+	setup: function(table, types, collection_url) {
 		$('tbody', table).tableDnD(TableTree.tableDnDOptions);
-		TableTree.current_table = new TableTree.Table($(table).get(0), type, collection_url);
+		TableTree.current_table = new TableTree.Table($(table).get(0), types, collection_url);
 		TableTree.current_table.setSortable();
 	},
 	teardown: function(table) {
@@ -54,10 +54,10 @@ TableTree = {
 		}
 	},
 	Base: function() {},
-	Table: function(table, type, collection_url) {
+	Table: function(table, types, collection_url) {
 		this.is_tree = $(table).hasClass('tree')
 		this.table = table; //$('tbody', table)
-		this.type = type;
+		this.types = types;
 		this.level = -1;
 		this.collection_url = collection_url;
 		this.rebuild();
@@ -118,7 +118,7 @@ TableTree.Table.prototype = jQuery.extend(new TableTree.Base(), {
 						element.appendChild(document.createTextNode($(this).text()))
 					});
 				} else {
-					$(this).hide(); 
+					$(this).hide();
 				}
 			});
 		});
@@ -138,7 +138,7 @@ TableTree.Table.prototype = jQuery.extend(new TableTree.Base(), {
       // tbody
 			$('td', this).each(function(ix) {
 				if(ix == 0) {
-					$('a', this).each(function() { 
+					$('a', this).each(function() {
 					  $(this).show();
 					});
 					$('img.spinner', this).remove();
@@ -167,8 +167,9 @@ TableTree.Table.prototype = jQuery.extend(new TableTree.Base(), {
 	serialize: function(row) {
 		row = $(row).ttnode();
 		data = {};
-		data[this.type + '[' + row.id() + '][parent_id]'] = row.parent_id();
-		data[this.type +'[' + row.id() + '][left_id]'] = row.left_id();
+		data[this.types[0] + '[' + this.types[1] + '_attributes][0][id]'] = row.id() || '';
+		data[this.types[0] + '[' + this.types[1] + '_attributes][0][parent_id]'] = row.parent_id() || '';
+		data[this.types[0] + '[' + this.types[1] + '_attributes][0][left_id]'] = row.left_id() || '';
 		return data;
 	},
 	show_spinner: function(row) {
@@ -218,8 +219,8 @@ TableTree.Node.prototype = jQuery.extend(new TableTree.Base(), {
 		ix = siblings.indexOf(this);
 		if(ix > 0) return siblings[ix - 1];
 	},
-	to_int: function(str) { 
-		if(str) return str.replace(/[\D]+/, '') 
+	to_int: function(str) {
+		if(str) return str.replace(/[\D]+/, '')
 	},
 	next_row_sibling: function () {
 		return this.row_siblings()[this.row_index() + 1];
@@ -251,11 +252,11 @@ TableTree.Node.prototype = jQuery.extend(new TableTree.Base(), {
 	},
 	update_level: function(event, level) {
 		if (event) TableTree.startOffset = jQuery.tableDnD.getMouseOffset(this.element, event).x;
-		
+
 		$(this.element).removeClass('level_' + this.level);
 		$(this.element).addClass('level_' + level);
-		
-		this.level = level;	
+
+		this.level = level;
 		this.children.each(function() { this.update_level(event, level + 1); });
 	},
 	adjust_level: function() {
@@ -274,7 +275,7 @@ TableTree.Node.prototype = jQuery.extend(new TableTree.Base(), {
 		this.children.each(function() { this.update_children() });
 	}
 });
-		
+
 jQuery.fn.extend({
 	ttnode: function() {
 		var subject = this.push ? this[0] : this;
@@ -290,18 +291,3 @@ jQuery.extend(jQuery.tableDnD, {
 		jQuery.tableDnD.mouseOffset = null;
 	}
 });
-// 
-// tableDnD {
-// 	toggle: function() {
-// 		if (table.hasClass('tree')) {
-// 			setupTree()
-// 		}
-// 	}
-// 	// aslödkjföksdfk
-// 	Tree {
-// 		
-// 	}
-// }
-// 
-// 
-// 

@@ -22,7 +22,7 @@ module Adva
     end
 
     def engine_names
-      @engine_names ||= engines.map { |constant| constant.name.split('::').last }
+      @engine_names ||= engines.map { |constant| constant.name.split('::').last.underscore.to_sym }
     end
 
     def engine?(name)

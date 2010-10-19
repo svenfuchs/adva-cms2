@@ -2,9 +2,10 @@ Feature: Managing blog categories
   Background:
     Given a site with a blog named "Blog"
       And the following categories:
-        | section | name        |
-        | Blog    | Programming |
-        | Blog    | Design      |
+        | section | name          |
+        | Blog    | Programming   |
+        | Blog    | Design        |
+        | Blog    | Miscellaneous |
       And the following posts:
         | section | categories  | title                  |
         | Blog    |             | Uncategorized post     |
@@ -28,10 +29,13 @@ Feature: Managing blog categories
     Then I should see "<message>"
      And I should see an <action> category form with the following values:
       | name | <name> |
+    When I follow "Categories"
+    Then I should see a categories list
+     And I should see "<name>"
     Examples:
-      | name        | message                       | action |
-      | Development | Category successfully created | edit   |
-      |             | Category could not be created | new    |
+      | name     | message                       | action |
+      | Business | Category successfully created | edit   |
+      |          | Category could not be created | new    |
 
   Scenario Outline: Updating a category
     When I follow "Programming"
@@ -41,6 +45,9 @@ Feature: Managing blog categories
     Then I should see "<message>"
      And I should see a edit category form with the following values:
       | name | <name> |
+    When I follow "Categories"
+    Then I should see a categories list
+     And I should see "<name>"
     Examples:
       | name        | message                       |
       | Development | Category successfully updated |
@@ -59,3 +66,10 @@ Feature: Managing blog categories
      And I should see a categories list
      But I should not see "Programming"
 
+  Scenario: Sorting a blog's categories
+    When I drag the category "Programming" below the category "Miscellaneous"
+    Then I should see a "categories" table with the following entries:
+      | Category      |
+      | Design        |
+      | Miscellaneous |
+      | Programming   |

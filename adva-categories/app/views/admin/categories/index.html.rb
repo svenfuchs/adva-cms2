@@ -1,10 +1,11 @@
 class Admin::Categories::Index < Minimal::Template
   include do
     def to_html
-    	table_for section.categories do |t|
+    	table_for collection do |t|
     		t.column :category, :actions
 
     		t.row do |r, category|
+          r.options[:id] = dom_id(category)
     			r.cell capture { link_to_edit(category.name, category) }
     			r.cell links_to_actions([:edit, :destroy], category)
     		end

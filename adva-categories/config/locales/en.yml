@@ -1,4 +1,8 @@
 en:
+  categories:
+    columns:
+      category: Category
+      actions: ""
   admin:
     categories:
       menu:
@@ -6,14 +10,17 @@ en:
         new: New Category
         edit: Edit
         destroy: Delete
+        reorder: Reorder
         confirm_destroy: Do you really want to delete this category?
       columns:
         category: Category
         actions:
       index:
+        create_item: Create Category
         edit: Edit
         destroy: Delete
         confirm_destroy: Do you really want to delete this category?
+        empty: "There are no categories. %{link}"
       new:
         title: Create a Category
       edit:
