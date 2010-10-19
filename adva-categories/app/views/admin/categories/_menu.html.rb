@@ -1,11 +1,8 @@
 class Admin::Categories::Menu < Adva::View::Menu::Admin::Actions
   include do
     def main
-      if resource.try(:persisted?)
-        item(resource.name, edit_path)
-      else
-        item(:'.categories', index_path)
-      end
+      item(:'.categories', index_path)
+      item(resource.name, edit_path) if resource.try(:persisted?)
     end
 
     def right
@@ -13,6 +10,7 @@ class Admin::Categories::Menu < Adva::View::Menu::Admin::Actions
         item(:'.destroy', resource_path, :method => :delete, :confirm => t(:'.confirm_destroy', :model_name => resource.class.model_name.human))
       else
         item(:'.new', new_path)
+        item(:'.reorder', parent_show_path, :id => "reorder_#{parent_resource.class.name.underscore}_categories")
       end
     end
   end
