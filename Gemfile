@@ -13,7 +13,6 @@ adva_cms.gem  'adva-markup'
 adva_cms.gem  'adva-static'
 adva_cms.gem  'adva-user'
 
-gem 'rails', '3.0.0'
 gem 'has_many_polymorphs', :git => 'git://github.com/kronn/has_many_polymorphs.git', :ref => '2c373b1'
 gem 'carrierwave', :git => 'git://github.com/jnicklas/carrierwave.git', :ref => '60314c375783'
 
