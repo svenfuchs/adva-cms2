@@ -21,7 +21,7 @@ class Admin::SectionsController < Admin::BaseController
       if params[:section][:type] == 'Page'
         # FIXME! this seems to insert tons of empty articles on update if :article_attributes is empty.
         # shouldn't happen with a regular form submit but still seems a bit ugly
-        params[:section][:article_attributes] ||= { :body => '' }
+        params[:section][:article_attributes] ||= { :body => '' } if params[:action] == :new
       else
         params[:section].delete(:article_attributes)
       end
