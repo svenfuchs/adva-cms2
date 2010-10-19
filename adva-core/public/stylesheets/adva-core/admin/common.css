@@ -119,3 +119,8 @@ div.pagination a:hover, div.pagination a:focus {
 ul#uploaded_images {
   margin-top: 20px;
 }
+
+p.active a {
+  background: none repeat scroll 0 0 #DDDDDD;
+  -moz-border-radius:4px 4px 4px 4px;
+}
