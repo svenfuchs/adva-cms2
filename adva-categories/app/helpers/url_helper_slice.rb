@@ -1,3 +1,5 @@
+require_dependency 'url_helper'
+
 UrlHelper.module_eval do
   include do
     def public_url_for(resources, options = {})
