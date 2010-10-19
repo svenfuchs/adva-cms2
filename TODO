@@ -1,4 +1,5 @@
 - fix login flash css
 - fix admin backend css
 
+- patch action_view asset_tag_helper registration to allow appending assets to existing groups
 - in section_controller consider merging params[:section] to params[:blog] (or whatever the concrete controller type is)
