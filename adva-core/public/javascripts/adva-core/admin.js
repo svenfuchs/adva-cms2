@@ -5,8 +5,7 @@ $(document).ready(function() {
 
   $('a.reorder').click(function(event) {
     $(this).parent().toggleClass('active');
-    var types = this.id.split('_').slice(1, 3);
-    TableTree.toggle($('table.list'), types, this.href);
+    TableTree.toggle($('table.list'), $(this).attr('data-resource_type'), $(this).attr('data-sortable_type'), this.href);
     event.preventDefault();
     return false;
   })

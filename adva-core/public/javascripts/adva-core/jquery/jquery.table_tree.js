@@ -23,12 +23,12 @@ TableTree = {
 			return $(row).ttnode() ? true : false;
 		}
 	},
-	toggle: function(table, types, collection_url) {
-		TableTree.current_table ? TableTree.teardown(table) : TableTree.setup(table, types, collection_url);
+	toggle: function(table, resource_type, sortable_type, collection_url) {
+		TableTree.current_table ? TableTree.teardown(table) : TableTree.setup(table, resource_type, sortable_type, collection_url);
 	},
-	setup: function(table, types, collection_url) {
+	setup: function(table, resource_type, sortable_type, collection_url) {
 		$('tbody', table).tableDnD(TableTree.tableDnDOptions);
-		TableTree.current_table = new TableTree.Table($(table).get(0), types, collection_url);
+		TableTree.current_table = new TableTree.Table($(table).get(0), resource_type, sortable_type, collection_url);
 		TableTree.current_table.setSortable();
 	},
 	teardown: function(table) {
@@ -54,10 +54,11 @@ TableTree = {
 		}
 	},
 	Base: function() {},
-	Table: function(table, types, collection_url) {
+	Table: function(table, resource_type, sortable_type, collection_url) {
 		this.is_tree = $(table).hasClass('tree')
 		this.table = table; //$('tbody', table)
-		this.types = types;
+		this.resource_type = resource_type;
+		this.sortable_type = sortable_type;
 		this.level = -1;
 		this.collection_url = collection_url;
 		this.rebuild();
@@ -113,10 +114,10 @@ TableTree.Table.prototype = jQuery.extend(new TableTree.Base(), {
 				if (ix == 0) {
 					element = this;
 					this.setAttribute('colspan', cells.length);
-					$('a', this).each(function() {
-						$(this).hide();
-						element.appendChild(document.createTextNode($(this).text()))
-					});
+          $('a', this).click(function(event) {
+            event.preventDefault();
+            return false;
+          })
 				} else {
 					$(this).hide();
 				}
@@ -138,11 +139,8 @@ TableTree.Table.prototype = jQuery.extend(new TableTree.Base(), {
       // tbody
 			$('td', this).each(function(ix) {
 				if(ix == 0) {
-					$('a', this).each(function() {
-					  $(this).show();
-					});
 					$('img.spinner', this).remove();
-					this.removeChild(this.lastChild);
+          $('a', this).unbind("click")
 					this.setAttribute('colspan', 1);
 				} else {
 					$(this).show();
@@ -165,11 +163,12 @@ TableTree.Table.prototype = jQuery.extend(new TableTree.Base(), {
 		});
 	},
 	serialize: function(row) {
-		row = $(row).ttnode();
-		data = {};
-		data[this.types[0] + '[' + this.types[1] + '_attributes][0][id]'] = row.id() || '';
-		data[this.types[0] + '[' + this.types[1] + '_attributes][0][parent_id]'] = row.parent_id() || '';
-		data[this.types[0] + '[' + this.types[1] + '_attributes][0][left_id]'] = row.left_id() || '';
+		var row = $(row).ttnode();
+		var data = {};
+    var key = this.resource_type + '[' + this.sortable_type + '_attributes][0]'
+		data[key + '[id]'] = row.id() || '';
+		data[key + '[parent_id]'] = row.parent_id() || '';
+		data[key + '[left_id]'] = row.left_id() || '';
 		return data;
 	},
 	show_spinner: function(row) {
