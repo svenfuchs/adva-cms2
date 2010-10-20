@@ -18,11 +18,15 @@ Gem.patching('inherited_resources', '1.1.2') do
         set_collection_ivar(collection)
       end
     end
-
+    
+    # TODO REVIEW: svenfuchs, ingoweiss (by rw, mv)
     def build_resource
       get_resource_ivar || begin
         resource = end_of_association_chain.send(method_for_build, params[resource_instance_name] || {})
-        end_of_association_chain.delete(resource) if method_for_build == :build
+        # check if resource is included to prevent deleting from a relation
+        if method_for_build == :build && end_of_association_chain.include?(resource)
+          end_of_association_chain.delete(resource)
+        end
         set_resource_ivar(resource)
       end
     end
