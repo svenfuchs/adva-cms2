@@ -4,9 +4,6 @@ end
 
 
 
-we use admin/sites/show instead of admin/sections/index for dashboard like 
-pages because it leaves more flexibility
-
 we should be able to use url_for and polymorphic_url because that's the abstraction
 that is native to Rails. we will need the abstraction and should not implement one
 ourselves
