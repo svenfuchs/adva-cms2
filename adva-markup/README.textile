@@ -1,0 +1,44 @@
+h1. adva-markup
+
+adva-markup adds the ability to filter content attributes (e.g. a blog post's body attribute) through predefined filters.
+
+The goal is to make this completely optional and pluggable, i.e. have adva-blog work fine without any reference to adva-markup in case it's not installed.
+
+h2. Filters
+
+The `filter` act_macro on `ActiveRecord::Base` adds a `before_save` hook `filter_attibutes` that filters the given attributes. E.g.
+
+<pre>
+  class Content < ActiveRecord::Base
+    filters :body
+  end
+</pre>
+
+will apply required filters to the value body of the `body` attribute and set it to the `body_html` attribute.
+
+adva-markup currently ships with two filters: `textile` (using "RedCloth":http://github.com/jgarber/redcloth) and `markdown` (using "rdiscount":http://github.com/rtomayko/rdiscount).
+
+(Unfortunately it seems hard to ship any optional filters because Rubygems (and thus Bundler) do not support optional dependencies. If you know any good solution to this please let us know.)
+
+h2. Architecture
+
+We want ActiveRecord attribute filtering to:
+
+* transparently work no matter if the adva-markup plugin is installed or not
+* not require any changes to index/show or new/edit forms
+
+That means we want views, helpers etc. to read from, e.g., `content.body` (and not `content.body_html`). But on the other hand we still want to filter attributes on-save so that we only need to filter once.
+
+Thus we need to announce in some central place where reading `content.body `should return the actual, unfiltered attribute value or be delegated to the filtered `body_html` attribute value. We'll do that in the controller class:
+
+<pre>
+  class PostController < BaseController
+    filtered_attributes :post, :only => [:index, :show]
+  end
+</pre>
+
+That will (on index and show actions) temporarily set a flag on `Post` that tells the `body` attribute reader to delegate to `body_html`. (More precisely this flag is set at the beginning of the controller `render` method and turned off afterwards.)
+
+This architecture assumes that we don't need to access filtered values in any places other than views (we'll probably want to enable the same thing for mailers at some point).
+
+

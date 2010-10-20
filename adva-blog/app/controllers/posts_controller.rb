@@ -2,6 +2,8 @@ class PostsController < BaseController
   nested_belongs_to :blog
   before_filter :set_id, :only => :show
 
+  filtered_attributes :post if Adva.engine?(:markup) # FIXME move to adva-markup
+
   protected
 
     def collection

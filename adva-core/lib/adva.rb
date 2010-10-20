@@ -18,7 +18,11 @@ module Adva
         constant = const_get(name)
         constant if constant != Adva::Core && constant.is_a?(Class) && constant < ::Rails::Engine
       end.compact.sort { |lft, rgt| lft.name <=> rgt.name }.unshift(Adva::Core)
-      @engines
+    end
+
+    def engine(name)
+      name = "Adva::#{name.camelize}" unless name.to_s.starts_with?('Adva::')
+      engines.detect { |engine| engine.name == name }
     end
 
     def engine_names

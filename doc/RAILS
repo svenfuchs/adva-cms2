@@ -27,6 +27,13 @@ active_support/core_ext/string/inflections.rb:16 uses pluralize but does not req
 action_dispatch/testing/assertions.rb:9: uninitialized constant ActionDispatch::Assertions::ActiveSupport (NameError)
 
 
+ActionDispatch::TestRequest
+    def initialize(env = {})
+      env = Rails.application.env_defaults.merge(env) if defined?(Rails.application)
+
+defined?(Rails.application) is true even if Rails.application is nil (e.g. in unit tests that want to test certain controller beviour)
+
+
 
 extend fields_for so that
 

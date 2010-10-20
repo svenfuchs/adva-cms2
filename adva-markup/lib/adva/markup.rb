@@ -8,6 +8,7 @@ module Adva
   class Markup < ::Rails::Engine
     include Adva::Engine
 
+    autoload :ActionController, 'adva/markup/action_controller'
     autoload :ActiveRecord, 'adva/markup/active_record'
 
     mattr_accessor :filters
@@ -42,5 +43,6 @@ module Adva
   end
 end
 
+ActionController::Base.extend(Adva::Markup::ActionController::ActMacro)
 ActiveRecord::Base.extend(Adva::Markup::ActiveRecord::ActMacro)
 
