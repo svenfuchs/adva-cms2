@@ -5,11 +5,11 @@ module Adva
     module ActiveRecord
       module ActMacro
         def filters(*attributes)
-          class_inheritable_accessor :filter_attributes
           class_inheritable_accessor :filtered_attributes
+          class_inheritable_accessor :read_filtered_attributes
 
-          self.filter_attributes = false
           self.filtered_attributes = attributes
+          self.read_filtered_attributes = false
 
           before_save :filter_attributes!
           include InstanceMethods
@@ -20,7 +20,7 @@ module Adva
           Module.new.tap do |readers|
             filtered_attributes.each do |name|
               readers.module_eval <<-rb
-                def #{name}; filter_attributes ? send(:#{name}_html) : super; end
+                def #{name}; read_filtered_attributes ? send(:#{name}_html) : super; end
               rb
             end
           end

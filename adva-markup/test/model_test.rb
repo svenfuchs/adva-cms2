@@ -2,12 +2,12 @@ require File.expand_path('../test_helper', __FILE__)
 
 class AdvaMarkupModelTest < Test::Unit::TestCase
   test "returns the unfiltered attribute value if filter_attributes is false" do
-    Model.filter_attributes = false
+    Model.read_filtered_attributes = false
     assert_equal 'unfiltered', Model.new(:body => 'unfiltered', :body_html => 'filtered').body
   end
 
   test "returns the filtered attribute value if filter_attributes is true" do
-    Model.filter_attributes = true
+    Model.read_filtered_attributes = true
     assert_equal 'filtered', Model.new(:body => 'unfiltered', :body_html => 'filtered').body
   end
 

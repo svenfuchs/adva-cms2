@@ -10,7 +10,7 @@ class AdvaMarkupControllerTest < Test::Unit::TestCase
 
     include do
       def render(*)
-        Content.filter_attributes
+        Content.read_filtered_attributes
       end
     end
   end

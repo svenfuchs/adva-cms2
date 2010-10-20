@@ -26,9 +26,9 @@ module Adva
 
         def with_filtered_attributes
           models = filtered_attribute_options[:models].map(&:constantize)
-          models.each { |model| model.filter_attributes = true }
+          models.each { |model| model.read_filtered_attributes = true }
           yield.tap do
-            models.each { |model| model.filter_attributes = false }
+            models.each { |model| model.read_filtered_attributes = false }
           end
         end
       end

@@ -51,7 +51,7 @@ module Adva
         end
 
         def cucumber_files
-          paths = Adva.engines.map { |engine| engine.root.join('features/*.feature').to_s }
+          paths = Adva.engines.map { |engine| engine.root.join('features/**/*.feature').to_s }
           paths = paths.select { |path| path.include?(pattern) } if pattern
           Dir["{#{paths.join(',')}}"].sort
         end
