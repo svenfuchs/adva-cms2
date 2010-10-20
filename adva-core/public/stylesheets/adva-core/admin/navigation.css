@@ -26,6 +26,9 @@
 #top .menu {
   padding-top: 5px;
 }
+#top .main {
+  padding-left: 3%;
+}
 #top .right {
   padding-right: 3%;
   text-align: right;

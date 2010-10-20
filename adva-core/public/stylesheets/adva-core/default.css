@@ -54,6 +54,10 @@ p {
 a {
   color: #b44444;
 }
+ul, ol {
+  padding-top: 1em;
+  margin-left: 22px;
+}
 
 /* MENU */
 

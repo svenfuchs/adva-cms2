@@ -5,7 +5,7 @@ body > div {
   display: table;
   width: 100%;
   min-width: 775px;
-  border-collapse: collapse; 
+  border-collapse: collapse;
 }
 body > div > div {
   display: table-row;
@@ -19,12 +19,11 @@ body > div > div {
 }
 #content {
   margin: 20px 0;
-  padding-bottom: 20px;
+  padding: 0px 16px 0px;
 }
 #sidebar {
   width: 30% !important;
   background-color: #f6f6f6;
-/*  overflow: hidden;*/
 }
 
 .main, .right {
