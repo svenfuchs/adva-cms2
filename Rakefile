@@ -5,7 +5,7 @@ require 'cucumber'
 require 'cucumber/rake/task'
 
 Cucumber::Rake::Task.new(:features) do |t|
-  t.cucumber_opts = "**/features --format pretty --tags ~@wip"
+  t.cucumber_opts = "adva-*/features --format pretty --tags ~@wip"
 end
 
 desc 'Run all adva tests'
