@@ -9,12 +9,11 @@ adva_cms.gem  'adva-blog'
 adva_cms.gem  'adva-cache'
 adva_cms.gem  'adva-categories'
 adva_cms.gem  'adva-core'
-adva_cms.gem  'adva-markup'
 adva_cms.gem  'adva-static'
 adva_cms.gem  'adva-user'
+adva_cms.gem  'adva-markup'
 
 gem 'has_many_polymorphs', :git => 'git://github.com/kronn/has_many_polymorphs.git', :ref => '2c373b1'
-# gem 'carrierwave', :git => 'git://github.com/jnicklas/carrierwave.git', :ref => '60314c375783'
 
 # gem 'simple_nested_set', :path => '~/Development/projects/simple_nested_set'
 # gem 'minimal', :path => '~/Development/projects/minimal'
