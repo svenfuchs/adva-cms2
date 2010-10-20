@@ -46,19 +46,23 @@ module Adva
     module Test
       module Cucumber
         def cucumber_args
-          args = cucumber_options + Dir[cucumber_pattern]
+          args = cucumber_options + cucumber_files
           args.flatten.compact
         end
 
+        def cucumber_files
+          paths = Adva.engines.map { |engine| engine.root.join('features/*.feature').to_s }
+          paths = paths.select { |path| path.include?(pattern) } if pattern
+          Dir["{#{paths.join(',')}}"].sort
+        end
+
         def cucumber_pattern
-          pattern = self.respond_to?(:pattern) ? self.pattern : 'adva-cache/features/tagging*'
-          pattern.include?('features') ? pattern : "#{pattern}/features"
+          self.respond_to?(:pattern) ? self.pattern : ''
         end
 
         def cucumber_options
-          # TODO submit a patch to Cucumber: programatically figuring out which options Cucumber
-          # allows seems to be close to impossible bc/ it immediately calls parse! on its options
-          # as soon they are defined.
+          # TODO submit a patch to Cucumber: programatically find out supported Cucumber options seems
+          # close to impossible bc/ it immediately calls parse! on its options as soon they are defined.
           # see http://github.com/aslakhellesoy/cucumber/blob/master/lib/cucumber/cli/options.rb#L261
           options = self.options.reject { |name, value| name.include?('rebuild') }
           options.map { |name, value| ["--#{name}", value.is_a?(String) ? value : nil] }.flatten.compact
@@ -117,7 +121,7 @@ module Adva
       class Features < Thor::Group
         namespace 'test:features'
         desc 'run cucumber features'
-        argument :pattern, :required => false, :default => '**/features'
+        argument :pattern, :required => false, :default => '/features'
         class_option :rebuild,   :aliases => '-r', :required => false, :default => false
         class_option :format,    :aliases => '-f', :required => false, :default => 'pretty'
         class_option :tags,      :aliases => '-t', :required => false, :default => '~@wip'
