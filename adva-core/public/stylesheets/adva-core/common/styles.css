@@ -1,0 +1,41 @@
+body {
+  font-size: 11pt;
+}
+h1 {
+  font-size: 22pt;
+  font-weight: bold;
+}
+h2 {
+  padding-top: 1em;
+  font-size: 16pt;
+  font-weight: bold;
+}
+h3 {
+  padding-top: 1em;
+  font-size: 13pt;
+}
+h4 {
+  padding-top: 1em;
+  font-weight: bold;
+}
+p {
+  padding-top: 1em;
+}
+a {
+  color: #b44444;
+}
+ul, ol {
+  padding-top: 1em;
+  margin-left: 22px;
+}
+pre {
+  display: block;
+  white-space: pre;
+  margin: 1em 0 0 0;
+  padding: 1em 1.5em;
+  border: 1px solid #AAA;
+  background: #F6F6F6;
+  line-height: 1.5em;
+  font-family: monospace;
+}
+

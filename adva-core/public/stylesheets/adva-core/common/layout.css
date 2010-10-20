@@ -1,9 +1,6 @@
 html, body {
   height: 100%;
 }
-body {
-/*  background: #fff url(/images/adva-core/grid.png) 0 13px;*/
-}
 #page {
   min-height: 100%;
 }
@@ -29,34 +26,6 @@ body {
 #main {
   overflow: auto;
   padding: 0 15% 72px 15%;
-}
-
-h1 {
-  font-size: 22pt;
-  font-weight: bold;
-}
-h2 {
-  padding-top: 1em;
-  font-size: 16pt;
-  font-weight: bold;
-}
-h3 {
-  padding-top: 1em;
-  font-size: 13pt;
-}
-h4 {
-  padding-top: 1em;
-  font-weight: bold;
-}
-p {
-  padding-top: 1em;
-}
-a {
-  color: #b44444;
-}
-ul, ol {
-  padding-top: 1em;
-  margin-left: 22px;
 }
 
 /* MENU */
@@ -121,22 +90,4 @@ body:before { /* opera sticky footer clearing */
 }
 
 
-/* BLOG */
 
-.posts {
-  margin-left: 0;
-  list-style-type: none;
-}
-.post {
-  padding-bottom: 1em;
-}
-.meta {
-  font-size: 10pt;
-  color: #999;
-}
-.continue {
-  font-size: 10pt;
-}
-.continue:after {
-  content: " \2192";
-}

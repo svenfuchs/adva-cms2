@@ -33,25 +33,10 @@ table {
   border-collapse: separate;
   border-spacing: 0;
 }
-caption, th, td {
-  text-align: left;
-  font-weight: normal;
-}
 table, td, th {
   vertical-align: top;
 }
-pre {
-  display: block;
-  white-space: pre;
-  margin: 1em 0 0 0;
-  padding: 1em 1.5em;
-  border: 1px solid #AAA;
-  background: #F6F6F6;
-  line-height: 1.5em;
-  font-family: monospace;
-}
-
-li.asset {
-  display: inline;
-  margin-right: 5px;
+caption, th, td {
+  text-align: left;
+  font-weight: normal;
 }

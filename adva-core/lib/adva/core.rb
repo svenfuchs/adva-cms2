@@ -58,15 +58,21 @@ module Adva
       )
 
       ActionView::Helpers::AssetTagHelper.register_stylesheet_expansion(
-        :common  => %w( adva-core/common ),
-        :simple  => %w( adva-core/simple
-                        adva-core/admin/common
-                        adva-core/admin/forms ),
-        :default => %w( adva-core/default ),
-        :admin   => %w( adva-core/admin
+        :common  => %w( adva-core/common/reset
+                        adva-core/common/layout
+                        adva-core/common/styles
+                        adva-core/common/forms ),
+
+        :simple  => %w( adva-core/simple/layout ),
+
+        :default => %w( adva-core/default/layout
+                        adva-core/default/styles ),
+
+        :admin   => %w( adva-core/common/reset
+                        adva-core/admin/layout
                         adva-core/admin/navigation
                         adva-core/admin/sidebar
-                        adva-core/admin/common
+                        adva-core/admin/styles
                         adva-core/admin/forms
                         adva-core/admin/lists )
       )
