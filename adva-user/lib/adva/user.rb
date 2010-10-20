@@ -4,11 +4,11 @@ require 'devise'
 module Adva
   class User < ::Rails::Engine
     include Adva::Engine
-    
+
     # TODO should probably happen in the client app
     # for more devise options see http://bit.ly/bwxrGg
     initializer 'adva-user.devise_setup' do |app|
-      
+
       # FIXME
       app.config.action_mailer.default_url_options = { :host => 'www.example.com' }
 
@@ -33,9 +33,9 @@ module Adva
       )
 
       ActionView::Helpers::AssetTagHelper.register_stylesheet_expansion(
-        :user => %w( adva-user/user
+        :user => %w( adva-core/default/forms
                      adva-core/admin/common
-                     adva-core/admin/forms )
+                     adva-user/user )
       )
     end
   end

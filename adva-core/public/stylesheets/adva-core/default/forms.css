@@ -1,60 +1,173 @@
-/* FORM */
-
-fieldset {
-	border-width: 0px;
+#content fieldset {
+  display: table;
+  margin: 0 9px 0px 0px;
+  width: 100%;
 }
+form .column {
+  display: table-cell;
+  padding: 0 20px;
+}
+form .column:first-child {
+  padding-left: 0;
+}
+form .column:last-child {
+  padding-right: 0;
+}
+form .column:only-child {
+  display: block;
+}
+form .column > .inline {
+  margin-left: 0;
+}
+
 input[type=text],
 input[type=password],
+input[type=email],
+input[type=number],
 textarea {
-	border: 1px solid #888;
-}
-input[type=text],
-input[type=password] {
-	height: 20px;
-	padding: 0 4px;
-	margin: -2px 12px -2px 0;
-}
-input[type=text].wide,
-input[type=password].wide {
-	width: 80%;
-}
-textarea {
-	width: 80%;
-	height: 270px;
-	padding: 3px 3px;
-	margin: -2px 0;
-}
-label {
-	display: block;
-	width: 100px;
-	float: left;
-	clear: both;
-}
-label.inline {
-	display: inline;
-	float: none;
-	clear: none;
-	padding-right: 12px;
-}
-.clearing {
-  display: block;
-  zoom: 1; /* gives layout to ie? */
-}
-.clearing:after {
-  content: ".";
-  display: block;
-  height: 0;
-  clear: both;
-  visibility: hidden;
-}
-* html .clearing {
-  height: 1%;
+  padding: 5px 8px;
+  font-size: 14px;
+  border: 1px solid #999;
+  font-family: "Helvetica Neue", "Helvetica", "Arial", Verdana;
+  width: 97%;
 }
 
-p.buttons {
-	margin-left: 100px;
+input[type=submit] {
+  margin-top: 15px;
 }
-.hint {
-	color: #aaa;
-	font-size: 11px;
+input[disabled] {
+  background: #DDD;
 }
+select {
+  margin: 3px 0;
+}
+textarea {
+  height: 200px;
+}
+textarea.medium {
+  height: 100px;
+}
+input.big[type=text],
+input.big[type=password] {
+  font-size: 20px;
+}
+textarea.small {
+  height: 79px;
+}
+label {
+  display: block;
+  clear: both;
+  color: #666;
+  text-shadow: #fff 1px 1px;
+  line-height: 1.2em;
+  margin-top: 15px;
+  margin-bottom: 6px;
+}
+label.inline {
+  position: relative;
+  display: inline;
+  margin-right: 15px;
+  top: -2px;
+  vertical-align: baseline;
+}
+label.light {
+  font-weight: normal;
+}
+.checkbox_group, .radio_group {
+  margin-top: 15px;
+  margin-bottom: 6px;
+}
+.buttons {
+  margin-top: 15px;
+  margin-bottom: 6px;
+  /* border-top: 4px solid #ddd;*/
+  /* background-color: #E3FFE3;*/
+}
+
+
+#content form h2 {
+  font-size: 12pt;
+}
+#content form p {
+  margin-top: 0.5em;
+}
+#content form p.buttons {
+  margin-top: 1.2em;
+}
+
+.error_message {
+  float: right;
+  margin-top: -25px;
+  margin-right: -9px;
+  color: #c00000;
+  font-style: italic;
+  font-size: .9em;
+}
+.wide_button {
+  display: block;
+  color: #555;
+  background: #f6f6f6;
+  padding: 5px;
+  text-decoration: none;
+  margin-top: 10px;
+  text-align: center;
+  outline: none;
+}
+.wide_button:hover {
+  background-color: #ddd;
+  text-decoration: none;
+}
+input[type=submit].delete {
+  padding: 0;
+  margin: 0;
+  border: 0px;
+  background: url(/images/icons/delete.png);
+  background-repeat:no-repeat;
+  background-position: 0px 0px;
+  width: 20px;
+  heigth: 20px;
+}
+.left-floating-field {
+  float:left;
+  margin-right: 7px;
+}
+
+#section_submit {
+  display: none;
+}
+span.error {
+  color: #c00000;
+  display: block;
+  font-size: 12px;
+  margin-bottom: 10px;
+}
+
+div.medium_sized_inputs
+  input[type="text"], input[type="number"] {
+  width: 350px !important;
+}
+
+div.medium_sized_inputs input[type="number"] {
+  width: 148px !important;
+}
+
+div.medium_sized_inputs textarea {
+  width: 350px !important;
+  height: 180px !important;
+}
+
+/*button {
+   border: 1px solid #8ec1da;
+   background-color: #ddeef6;
+   border-radius: 4px;
+   box-shadow: inset 0 1px 3px #fff, inset 0 -15px #cbe6f2, 0 0 3px #8ec1da;
+   -o-box-shadow: inset 0 1px 3px #fff, inset 0 -15px #cbe6f2, 0 0 3px #8ec1da;
+   -webkit-box-shadow: inset 0 1px 3px #fff, inset 0 -15px #cbe6f2, 0 0 3px #8ec1da;
+   -moz-box-shadow: inset 0 1px 3px #fff, inset 0 -15px #cbe6f2, 0 0 3px #8ec1da;
+   color: #3985a8;
+   text-shadow: 0 1px #fff;
+   padding: 5px 30px;
+}*/
+
+
+
