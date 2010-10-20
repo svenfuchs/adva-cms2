@@ -8,7 +8,7 @@ class Posts::Index < Minimal::Template
               link_to(post.title, [post.section, post], :class => 'entry-title', :rel => 'bookmark')
             end
             render :partial => 'posts/meta', :locals => { :post => post }
-            div truncate_html(post.body_html, :length => 500, :omission => ' …'), :class => 'entry-content'
+            div truncate_html(post.body, :length => 500, :omission => ' …'), :class => 'entry-content'
             p do
               link_to(:'.continue', [post.section, post], :class => :continue)
             end
