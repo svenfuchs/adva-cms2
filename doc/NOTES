@@ -3,20 +3,3 @@ ActiveSupport.on_load(:action_view) do
 end
 
 
-
-we should be able to use url_for and polymorphic_url because that's the abstraction
-that is native to Rails. we will need the abstraction and should not implement one
-ourselves
-
-
-# ISSUES
-
-- form builder
-- inherited resource controller plugin
-- minimal
-- i18n key conventions
-
-- controller: responders, redirect_to/return_to/registry
-- resource abstraction/reflection vs hardcoded url_helpers
-
-

@@ -1,3 +1,6 @@
+Some old notes. This is now a gem on its own ...
+
+
 Based on InheritedResources
 
 # controller#resource
@@ -12,10 +15,10 @@ and the current action:
   posts#edit    => post
   posts#update  => post
   posts#destroy => post
-  
+
 # controller#resources
 
-Returns an array containing the current resource and all of its inherited 
+Returns an array containing the current resource and all of its inherited
 resources as defined by the controller through InheritedResources.
 
 E.g. on admin/sites/1/blogs/1/posts/1 the resources array equals [:admin, site, blog, post]
@@ -29,7 +32,7 @@ the current resources array:
   new_url
   edit_url
   show_url, aliased resource_url
-  
+
 # resource link helpers
 
   link_to_index, alias: link_to_collection

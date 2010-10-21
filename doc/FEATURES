@@ -18,6 +18,7 @@ The main reason for this is that we need to be able to respond to controller act
 
 But it also has huge advantages for any developer who's just interested in using and maybe extending adva-cms2 for custom needs because abstraction generally enables extensibility and portability in many ways.
 
+TODO: example using collection in blog views and then being able to apply scopes from plugins/other engines
 
 # Central registry and redirect responder
 
