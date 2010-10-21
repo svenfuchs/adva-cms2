@@ -22,7 +22,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'minimal', '0.0.22'
   s.add_dependency 'simple_form', '1.2.2'
   s.add_dependency 'simple_slugs', '0.0.7'
-  s.add_dependency 'simple_table', '0.0.6'
+  s.add_dependency 'simple_table', '0.0.7'
   s.add_dependency 'simple_nested_set', '0.0.15'
   s.add_dependency 'kronn-has_many_polymorphs', '3.0.0'
   s.add_dependency 'nbrew-country_select', '0.0.1'
