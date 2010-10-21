@@ -104,6 +104,10 @@ Then /^there should be an? (\w+) named "([^\"]+)"$/ do |model, name|
   assert @last_record = model.classify.constantize.where(:name => name).first, "could not find any #{model} named #{name}"
 end
 
+Then /^there should not be an? (\w+) named "([^"]*)"$/ do |model, name|
+  assert !model.classify.constantize.where(:name => name).first, "expected no #{model} named #{name} exists, but found one"
+end
+
 Then /^there should be a (\w+) with the following attributes:$/ do |model, table|
   assert @last_record = model.classify.constantize.where(table.rows_hash).first, "could not find a #{model} with #{table.rows_hash.inspect}"
 end

@@ -70,6 +70,7 @@ Feature: Running the import task
       | Bar   | Bar body | 2010-10-10 |
       | Baz   | Baz body | 2010-01-01 |
       | Buz   | Buz body | 2010-10-10 |
+     But there should not be a section named "2010"
 
   Scenario: An import directory with a root blog source file and a blog post source file
     Given an empty import directory "import"
@@ -83,4 +84,5 @@ Feature: Running the import task
       | title      | Foo        |
       | body       | Foo body   |
       | created_at | 2010-01-01 |
+     But there should not be a section named "2010"
 

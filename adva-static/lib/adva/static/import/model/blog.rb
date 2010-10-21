@@ -14,7 +14,7 @@ module Adva
               blogs = posts.map { |post| Post.new(post).section_source }.flatten.uniq
               blogs = blogs.map { |blog| sources.detect { |source| blog.path == source.path } || blog }
 
-              sources.replace(sources - blogs - posts)
+              sources.replace(sources - blogs - posts.map(&:self_and_parents).flatten)
               blogs.map { |source| new(source) }
             end
           end
