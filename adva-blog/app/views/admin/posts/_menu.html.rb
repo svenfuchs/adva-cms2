@@ -3,7 +3,7 @@ class Admin::Posts::Menu < Adva::View::Menu::Admin::Actions
     def main
       label(resource.section.name)
       item(:'.show', index_path)
-      item(:'.edit_parent', parent_edit_path)
+      item(:'.edit_parent', edit_parent_path)
     end
 
     def right
