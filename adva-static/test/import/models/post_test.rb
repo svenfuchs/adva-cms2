@@ -18,6 +18,13 @@ module AdvaStatic
       assert_equal ['2010/10/10/post'], posts.map(&:path)
     end
 
+    test "when recognizing /2010/10/10/post.html it removes the subdirectories from the recognizable paths" do
+      sources = [source('2010'), source('2010/10'), source('2010/10/10'), source('2010/10/10/post.html')]
+      posts = Post.recognize(sources)
+      assert !posts.empty?
+      assert sources.empty?
+    end
+
     test "has Post attributes" do
       post = Post.new(source('2010-10-10-post.html'))
       expected = { :site_id => '', :section_id => '', :title => 'Post', :body => '', :created_at => DateTime.new(2010, 10, 10) }

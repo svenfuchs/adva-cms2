@@ -8,7 +8,7 @@ module Adva
           class << self
             def recognize(sources)
               posts = sources.select { |source| source.path =~ PERMALINK }
-              sources.replace(sources - posts)
+              sources.replace(sources - posts.map(&:self_and_parents).flatten)
               posts.map { |post| new(post) }
             end
 
