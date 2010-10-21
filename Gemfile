@@ -13,20 +13,11 @@ adva_cms.gem  'adva-static'
 adva_cms.gem  'adva-user'
 adva_cms.gem  'adva-markup'
 
-gem 'has_many_polymorphs', :git => 'git://github.com/kronn/has_many_polymorphs.git', :ref => '2c373b1'
-
-# gem 'simple_nested_set', :path => '~/Development/projects/simple_nested_set'
-# gem 'minimal', :path => '~/Development/projects/minimal'
-# gem 'reference_tracking', :path => '~/Development/projects/reference_tracking'
-# gem 'rack-cache-purge', :path => '~/Development/projects/rack-cache-purge'
-# gem 'rack-cache-tags',  :path => '~/Development/projects/rack-cache-tags'
-# gem 'inherited_resources_helpers', :path => '~/Development/projects/inherited_resources_helpers'
-
 group :test do
   gem 'sqlite3-ruby', '1.2.5'
   gem 'cucumber', '0.9.0'
   gem 'cucumber-rails', '0.3.2'
-  gem 'webrat', '0.7.0' # '0.7.2.beta.1'
+  gem 'webrat', '0.7.0'
   gem 'thor'
   gem 'ruby-debug'
   gem 'mocha'
