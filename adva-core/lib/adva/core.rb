@@ -1,3 +1,4 @@
+require 'rails'
 require 'rails/engine'
 require 'adva'
 
@@ -5,6 +6,7 @@ require 'simple_form'
 require 'simple_slugs'
 require 'simple_nested_set'
 require 'simple_slugs'
+require 'has_many_polymorphs'
 require 'minimal'
 require 'silence_log_tailer'
 
