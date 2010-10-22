@@ -7,11 +7,10 @@ module Adva
         protected
           def request(method, path, params = {})
             Adva.out.puts "  #{params['_method'] ? params['_method'].upcase : method} #{path} "
-
-            status, headers, response = call(env_for(method, path, params))
-
-            Adva.out.puts "  => #{status} " + (status == 302 ? "(Location: #{headers['Location']})" : '')
-            Adva.out.puts response if status == 500
+            call(env_for(method, path, params)).tap do |status, headers, response|
+              Adva.out.puts "  => #{status} " + (status == 302 ? "(Location: #{headers['Location']})" : '')
+              Adva.out.puts response if status == 500
+            end
           end
 
           def env_for(method, path, params)

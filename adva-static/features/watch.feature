@@ -49,7 +49,7 @@ Feature: Updating the database based on changes to the import source files
       | created_at | 2010-1-1          |
       | site_id    | adva-cms          |
       | section_id | <blog>            |
-     # And there should be an export file "<post_target>" containing "New post body"
+     And there should be an export file "<post_target>" containing "New post body"
     Examples:
       | blog | post_source                  | post_target                     |
       | Home | 2010-1-1-post-title.yml      | 2010/01/01/post-title.html      |

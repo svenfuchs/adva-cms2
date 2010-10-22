@@ -23,7 +23,8 @@ module Adva
           Adva.out.puts "\n#{event_type}: #{path}"
           import  = Adva::Static::Import.new(:source => dir)
           request = import.request_for(path)
-          self.request('POST', request.path, request.params)
+          status, headers, response = self.request('POST', request.path, request.params)
+          # self.request('GET', path.gsub(dir, ''), STORE_HEADER => true) if status == 302
         end
 
         protected

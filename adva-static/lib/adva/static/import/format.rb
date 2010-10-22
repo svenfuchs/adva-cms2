@@ -42,7 +42,7 @@ module Adva
           def data
             @data ||= begin
               file =~ /^(---\s*\n.*?\n?)^---\s*$\n?(.*)/m
-              data = YAML.load($1)
+              data = YAML.load($1) rescue {}
               data.merge!(:body => $2) if $2
               data
             end

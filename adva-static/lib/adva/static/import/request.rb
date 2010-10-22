@@ -29,6 +29,10 @@ module Adva
 
         protected
 
+          def create?
+            !update && !delete?
+          end
+
           def update?
             record.persisted? && source.exist?
           end
