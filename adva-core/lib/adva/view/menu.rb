@@ -5,6 +5,7 @@ module Adva
 
       def item(text, url = nil, options = {}, &block)
         options.merge!(:class => text.to_s.gsub('.', '')) if text.is_a?(Symbol)
+        url = url_for(url) unless url.is_a?(String)
         li(:class => active?(url, options) ? 'active' : nil) do
           options[:type] == :label ? h4(text, options) : link_to(text, url, options)
           self << capture { instance_eval(&block) } if block_given?

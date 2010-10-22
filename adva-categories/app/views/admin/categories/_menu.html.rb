@@ -1,8 +1,9 @@
 class Admin::Categories::Menu < Adva::View::Menu::Admin::Actions
   include do
     def main
-      item(:'.categories', index_path)
-      item(resource.name, edit_path) if resource.try(:persisted?)
+      label("#{parent_resource.class.name}:")
+      item(:'admin.categories.menu.categories', index_path)
+      item(:'admin.categories.menu.edit', edit_parent_path)
     end
 
     def right

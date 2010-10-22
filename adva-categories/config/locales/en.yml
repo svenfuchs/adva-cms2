@@ -7,8 +7,9 @@ en:
     categories:
       menu:
         categories: Categories
+        products: Products
         new: New Category
-        edit: Edit
+        edit: Settings
         destroy: Delete
         reorder: Reorder
         confirm_destroy: Do you really want to delete this category?
