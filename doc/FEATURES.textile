@@ -1,0 +1,251 @@
+h2. Common adva engines behaviour
+
+adva-cms2 comes as a collection of engines that all enforce some common default
+behaviour. Currently any adva engine will:
+
+* automatically require all patches stored in the engines lib directory
+* load the engine's redirects configuration (see below)
+* register the engine's public directory to a static middleware in order to
+  serve static assets
+* preload code slices (see below)
+
+Similarly adva engines can provide test support files such as assertions,
+factories, cucumber step definitions, etc. so one can share these things amongst
+engines and applications.
+
+See:
+
+* adva/core/lib/adva/engine.rb
+* adva/core/lib/adva/testing/engine.rb
+
+
+h2. Vertical code slices
+
+One feature that is crucial to adva-cms2 are vertical code slices. The original
+Engines plugin [1] by James Adam invented this feature. But it has been dropped
+from the plugin and has not been reimplemented in Rails since.
+
+For example in adva-cms2 we have the Site model which is pretty much the most
+central domain concept, so it's contained in adva-core. Now adva-blog
+contributes a Blog section type and needs to extend the Site model with the
+has_many association for its blogs (`Site.has_many :blogs`).
+
+Traditionally, in adva-cms we would have added an initializer to adva-blog which
+basically was an ugly poor-mans way of doing vertical code slices.
+
+In adva-cms2 we now can move this code to the app/models directory of adva-blog
+which is a much better place for it. In order to solve the code loading in a
+simple way any adva engine will eager load all files that match the pattern
+{controllers,models,views}*_slice.rb (yes, views can also be sliced). These
+files currently need to `require_dependency` the original ("main") file where
+the class is defined and then `class_eval` them.
+
+This way we can, to follow the example, have a main `models/site.rb` file in
+adva-core and many `models/site_slice.rb` files in other engines, contributing
+their "code slices" to the Site model.
+
+Vertical code slices are quite hard to get right and so adva-cms2 implements
+them in an eager loading fashion which is suboptimal and has to be revisited in
+the near future. If you want to help with this be our guest :)
+
+See:
+
+* adva/core/lib/adva/engine.rb
+* adva/core/lib/adva/engine/sliced_models.rb
+
+[1] http://rails-engines.org
+
+
+h2. Controller abstraction
+
+adva-cms2 makes heavy use of controller abstraction using inherited_resources
+and inherited_resources_helpers.
+
+Therefor the shipped controllers are nearly empty and just carry a few required
+customizations.
+
+The main reason for this is that we need to be able to respond to controller
+actions using Rails 3 responders so that process flow logic can be changed
+dynamically. This is a requirement by adva-business, the company driving the
+development of adva-cms2.
+
+But it also has huge advantages for any developer who's just interested in using
+and maybe extending adva-cms2 for custom needs because abstraction generally
+enables extensibility and portability in many ways.
+
+TODO: example using collection in blog views and then being able to apply scopes
+from plugins/other engines
+
+h2. Central registry and redirect responder
+
+Like its predecessor adva-cms2 comes with a central Registry for storing
+configuration and other values. One main use for this is that redirects that
+happen after controller actions can be configured in a central file in
+config/redirects.rb
+
+Any adva engine will look for a file named this and read it. The file can
+register controller actions to be redirected to certain URLs. This configuration
+will then be used by the Adva::Responder::Redirect responder (unless the
+controller has chosen not to use responders of course).
+
+See:
+
+* adva-core/lib/adva/responder/redirect.rb
+* adva-core/lib/adva/registry.rb
+* [engine]/config/redirects.rb
+
+
+h2. Object-oriented views
+
+Rails' default architecture using ERB (or any other non-oop templating system)
+and helpers for views has a number of major drawbacks. For adva-cms2 the most
+relevant one is that non-oop templates are not extensible. Similarly overwriting
+Rails helpers based on certain contexts is not an easy and intuitive thing and
+therefor not commonly done.
+
+adva-cms2 therefor takes a different route - and even in the short life of
+adva-cms2, our own (so far intern) extensions and customer application we
+believe that using pure Ruby code for our views was a really successul decision.
+
+With adva-cms2 you can still use the classical Rails ERB/helper style. In fact
+you can use any templating system you want. But you can also opt for
+object-oriented views using the minimal/template library. These object-oriented
+views look a lot like what you might have seen from Markaby or Erector (which
+are older implementations of the same concept), but they fully leverage the very
+extensible capabilities of ActionPack 3.
+
+For example the adva-user engine comes with a user form base class which is
+re-used by several user related actions (such as registration, confirmation
+etc., deriving from Devise). Imagine you need to add a certain link to this
+form. With object-oriented views you can simply inherit the base class and
+overwrite one of the ("helper") methods it comes with. Or you can include a
+module. Or do anything else that Ruby enables you to do. It's just Ruby and just
+as extensible and flexible as any other class that you work with.
+
+Obviously object-oriented views are a starting point for disucussions about
+topics such as how designers could work with views that entirely consist of pure
+Ruby code. But from our point of view the major advantages of using
+object-oriented views, implemented as classes and thus unlocking all the power
+Ruby comes with for our views by far outrules such drawbacks. (And ... in our
+experience frontend developers are quite a smart bunch of people. Who ever is
+able to make sense from a regular real-life ERB template will probably be able
+to grasp a Ruby view as well, at least with some guidance or pairing.)
+
+
+h2. STI Controllers and internal redirects
+
+We haven't come up with a really good name for this abstraction, but it's
+certainly not only useful in adva-cms2.
+
+What it means is: If you have an STI model like Section, Blog, Page where
+Section is the base model then in your controller(s) you sometimes want to have
+common behaviour for all these models on most actions, but special behaviour on
+some other actions.
+
+adva-cms2 implements a concept of an "abstract" controller and related
+"concrete" controllers that makes it possible to have certain actions handled by
+the "abstract" or "concrete" controllers without changing any routes. E.g. when
+there is a Blog with the id 1 and a route maps /admin/sections/1 to
+sections#show but you've configured this action to be handled by its "concrete"
+counterpart then this request would be handled by the BlogController, not the
+SectionController.
+
+This is implemented using another feature that could be used separately and that
+we call "internal redirects". Internal redirects just force a request to be
+handled by a different controller action than the one that is pointed to by your
+routes - without going through an HTTP redirect. In the example above the
+request is originally pointed to the SectionController's show action (by the
+routes) but it is internally redirected to the BlogController's show action.
+
+See:
+
+* adva-core/lib/adva/controller/abstract_actions.rb and
+* adva-core/lib/adva/controller/internal_redirect.rb
+
+
+h2. url_for fallbacks
+
+Suppose we have a class Blog that extends a base class Section. Now when there
+is any resource using the base class Section instead of the concrete class Blog
+then `url_for` won't be able to resolve Blog instances:
+
+<pre>
+  resource :sections
+  url_for(blog)
+  # => no method error: blog_path
+</pre>
+
+adva-cms2 adds a monkeypatch that extends Rails' `url_for` helper in way so that
+it supports fallbacks based on class inheritance so that it is able to resolve
+to `section_path` in this case.
+
+See:
+
+* adva-core/lib/patches/rails/url_for.rb
+* https://rails.lighthouseapp.com/projects/8994-ruby-on-rails/tickets/2986-polymorphic_url-should-handle-sti-better
+
+
+h2. STI associations build
+
+Trying to support STI better adva-cms2 adds another patch that makes
+ActiveRecord associations build instances of the appropriate type if a :type
+attribute has been passed.
+
+I.e. the following would return an instance of Blog, not Section:
+
+<pre>
+  Site.sections.build(:type => 'Blog', :title => 'title')
+  # => #<Blog id: nil, type: "Blog", title: "title", ...>
+</pre>
+
+See:
+
+* adva-core/lib/patches/rails/sti_associations.rb
+
+
+h2. Anonymous modules inclusion
+
+Ruby does not (yet) include an ability to "push" a module before a class'
+implementation in the class' module chain. That means that if a class implements
+a method #foo then it is not possible to overwrite that method by including a
+module to that class. (Instead one can only inherit the class or use
+alias_method_chain.)
+
+For a while many libraries started using a Base module for that reason. They'd
+include the Base module into an otherwise empty class that's intended to be
+used. This class could now be easily extended by just including other modules
+that overwrite certain methods.
+
+The Base module does not provide any other value than compensating for this
+"missing" Ruby feature. Therefor we can implement this whole concept better by
+just including an anonymous module. Including anonymous modules looks less noisy
+and heavyweight but provides the same extensibility.
+
+Because adva-cms2 wants to be as extensible as possible it includes anonymous
+modules at many places.
+
+See:
+
+* adva-core/lib/core_ext/ruby/module/include_anonymous.rb
+
+For a more detailled explanation how this concept works in the I18n gem see
+"this talk at Euruko 2010":http://vimeo.com/12665914
+
+
+h2. Thor
+
+We use thor, not rake because thor is so much better. Get over it.
+
+
+-----------------------------------------------
+
+h2. Routing filters
+
+(only makes sense in the context of a more detailled description of how an
+adva-cms2 site is build up, i.e. Site, Section tree etc.)
+
+h2. Testing setup and framework additions
+
+...
+
+
