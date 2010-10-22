@@ -1,31 +1,46 @@
-h2. adva-cms development
+h2. adva-cms2
 
-h3. Running the tests
+adva-cms2 is the successor of adva-cms which was the first completely
+engine-based CMS plattform for Rails. adva-cms2 is written for and
+based on Rails 3.
 
-Integration tests require setting up a "host app" which is then used as a context for the various adva gems to run the cucumber features in.
+adva-cms2 is currently in an early developer sneak-peak preview stage.
 
-So when you want to run the tests for the first time you have to "regenerate" this application:
+h3. Developer level feature overview
 
-$ REGENERATE_APP=1 rake
+See doc/FEATURES.textile:"http://github.com/svenfuchs/adva-cms2/doc/FEATURES.textile"
+for an overview.
 
-As long as you don't add any migrations you can now use this application for subsequent test runs and just use:
+h3. Todo
 
-$ rake
+See doc/TODO:"http://github.com/svenfuchs/adva-cms2/doc/TODO" for an incomplete
+todo list
 
-h3. Development mode and class reloading
+h3. Running adva-cms2 tests
 
-Views seem to be reloaded depending on their timestamp. To turn on controller/model class reloading for adva-cms Gems:
+adva-cms2 uses cucumber, test/unit (with test_declarative), factory_girl and
+mocha for testing.
 
-  # config/application.rb
+Cucumber features require setting up a "dummy app" which is used as a
+context for the various adva-cms2 engines to run the cucumber features in.
 
-  module TheApp
-    class Application < Rails::Application
-      # Enables or disables engine reloading.
-      config.reload_engines = true
-    end
-  end
+Thus, when you want to run the tests for the first time you have to "regenerate"
+this application:
 
-=> umm, might or might not (yet) work as expected. plz check.
+<pre>
+  $ REGENERATE_APP=1 rake
+  $ REGENERATE_APP=1 cucumber **/features
+  $ REGENERATE_APP=1 test/all.rb
+</pre>
+
+As long as you don't add any migrations you can now use this application for
+subsequent test runs and just use:
+
+<pre>
+  $ rake
+  $ cucumber **/features
+  $ test/all.rb
+</pre>
 
 h3. Generate a new adva engine
 
