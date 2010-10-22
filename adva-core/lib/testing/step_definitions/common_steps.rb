@@ -164,8 +164,10 @@ Then /^I should see a list of (\w+)$/ do |type|
 end
 
 Then /^I should see an? ([a-z ]+) form$/ do |type|
-  type = type.gsub(' ', '_') #.gsub(/edit_/, '')
-  assert_select("form.#{type}, form##{type}")
+  tokens = type.split(' ')
+  types = [tokens.join('_'), tokens.reverse.join('_')]
+  selectors = types.map { |type| "form.#{type}, form##{type}" }
+  assert_select(selectors.join(', '))
 end
 
 Then /^I should not see an? ([a-z ]+) form$/ do |type|
