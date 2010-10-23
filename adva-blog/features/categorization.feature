@@ -14,7 +14,7 @@ Feature: Categorizing blog posts
       And I am on the admin "Blog" section page
 
   Scenario: Categorizing an uncategorized post
-    When I follow "Uncategorized"
+    When I follow "Uncategorized post"
     Then I should see a post edit form
      And I should see "Categories" in the sidebar
     When I check "Programming"
@@ -22,3 +22,17 @@ Feature: Categorizing blog posts
     Then I should see a post edit form
      And "Programming" should be checked
      But "Design" should not be checked
+     And the post titled "Uncategorized post" should be categorized as "Programming"
+     And the post titled "Uncategorized post" should not be categorized as "Design"
+    When I go to /
+    Then I should see "Uncategorized post"
+     And I should see "Post about programming"
+     And I should see "Post about design"
+    When I go to /categories/programming
+    Then I should see "Uncategorized post"
+     And I should see "Post about programming"
+     But I should not see "Post about design"
+    When I go to /categories/design
+    Then I should not see "Uncategorized post"
+     And I should not see "Post about programming"
+     But I should see "Post about design"

@@ -11,6 +11,10 @@ class Admin::Posts::Form < Adva::View::Form
       tab :options do
         form.input :slug
       end
+
+      tab :categories do
+        form.has_many_through_collection_check_boxes(:categorizations, blog.categories, :name)
+      end
     end
   end
 end

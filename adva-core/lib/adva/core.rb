@@ -20,6 +20,7 @@ require 'adva/view/tabs'
 require 'adva/view/form'
 
 require 'core_ext/ruby/module/include_anonymous'
+require 'core_ext/rails/action_view/has_many_through_collection_helpers'
 require 'core_ext/rails/active_record/skip_callbacks'
 
 module Adva

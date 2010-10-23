@@ -26,3 +26,6 @@ en:
         title: Create a Category
       edit:
         title: Edit Category
+    sidebar:
+      tabs:
+        categories: Categories
