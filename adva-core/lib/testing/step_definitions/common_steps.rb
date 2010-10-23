@@ -2,8 +2,8 @@ Given 'a site' do
   @site = Factory(:site)
 end
 
+# TODO what's this?
 Transform /^table:name,product_name$/ do |table|
-  debugger
   transformed_table = table.hashes.map do |row|
     row.merge('product_id' => Product.find_by_name(row.delete('product_name')).id)
   end
@@ -234,6 +234,8 @@ end
 #   expected_table.diff!(html_table)
 # end
 
+# TODO somehow merge this with what's in within_steps.rb
+#
 # Then I should see a comment within the sidebar
 # Will look for '#sidebar .comment'
 # Then I should see the cart within the sidebar
@@ -247,6 +249,16 @@ end
 Then /^"([^"]*)" should be filled in with "([^"]*)"$/ do |field, value|
   field = webrat.field_labeled(field)
   assert_equal value, field.value
+end
+
+Then /^"([^"]*)" should be checked$/ do |label|
+  field = webrat.field_labeled(label)
+  assert field.checked?, "expected the checkbox #{label} to be checked"
+end
+
+Then /^"([^"]*)" should not be checked$/ do |label|
+  field = webrat.field_labeled(label)
+  assert !field.checked?, "expected the checkbox #{label} not to be checked"
 end
 
 Then /^"([^"]*)" should be selected as "([^"]*)"$/ do |value, label|
