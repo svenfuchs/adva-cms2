@@ -3,6 +3,7 @@ require 'rails/engine'
 module Adva
   autoload :Engine,     'adva/engine'
   autoload :Generators, 'adva/generators'
+  autoload :Rack,       'adva/rack'
   autoload :Registry,   'adva/registry'
   autoload :Responder,  'adva/responder'
   autoload :Tasks,      'adva/tasks/core'

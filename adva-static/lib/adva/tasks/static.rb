@@ -65,7 +65,7 @@ module Adva
           ARGV.shift
           Dir.chdir(symbolized_options[:root])
           require "rack"
-          Rack::Server.start
+          ::Rack::Server.start
         end
       end
     end

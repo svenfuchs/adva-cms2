@@ -24,10 +24,6 @@ module Adva
             load_redirects
           end
 
-          initializer "adva-#{engine_name}.register_statics_middleware" do |app|
-            register_statics_middleware(app)
-          end
-
           initializer "adva-#{engine_name}.preload_sliced_models" do |app|
             engine = self
             config.to_prepare { engine.preload_sliced_models }
@@ -52,12 +48,6 @@ module Adva
         begin
           load root.join('config/redirects.rb')
         rescue LoadError
-        end
-      end
-
-      def register_statics_middleware(app)
-        if File.directory?(root.join('public'))
-          app.middleware.use(ActionDispatch::Static, root.join('public').to_s)
         end
       end
 

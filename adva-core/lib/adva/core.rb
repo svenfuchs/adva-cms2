@@ -27,8 +27,8 @@ module Adva
   class Core < ::Rails::Engine
     include Adva::Engine
 
-    initializer 'adva-core.require_country_select' do
-      config.to_prepare { require_dependency 'country_select' }
+    initializer 'adva-core.register_middlewares.static' do
+      config.app_middleware.insert_before 'Rack::Lock', Adva::Rack::Static
     end
 
     initializer 'adva-core.require_section_types' do
