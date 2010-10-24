@@ -22,7 +22,7 @@ module Adva
             urls += dom.xpath(xpath).map { |node| Path.new(node.attributes[name]) }
           end
         end
-      
+
         def body
           @body ||= case response
           when ActionDispatch::Response
@@ -33,7 +33,7 @@ module Adva
             response.to_s
           end
         end
-      
+
         protected
 
           def dom

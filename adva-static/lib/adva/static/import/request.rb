@@ -13,7 +13,7 @@ module Adva
         def params
           @params ||= begin
             key = model_name.underscore.to_sym
-            if delete?
+            if destroy?
               params = { '_method' => 'delete', key => { :id => record.id } }
             else
               params = { model_name.underscore.to_sym => attributes }
@@ -32,14 +32,14 @@ module Adva
         end
 
         def create?
-          !update? && !delete?
+          !update? && !destroy?
         end
 
         def update?
           record.persisted? && source.exist?
         end
 
-        def delete?
+        def destroy?
           record.persisted? && !source.exist?
         end
 

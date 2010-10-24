@@ -59,16 +59,16 @@ module Adva
         end
 
         def get(path)
-          response = nil
+          result = nil
           bench = Benchmark.measure do
-            response = app.call(env_for(path))
-            response = follow_redirects(response)
+            result = app.call(env_for(path))
+            result = follow_redirects(result)
           end
 
-          status = response[0]
+          status, headers, response = result
           if status == 200
             Adva.out.puts "#{bench.total.to_s[0..3]}s: exporting #{path}"
-            Page.new(path, response[2])
+            Page.new(path, headers['X-Sendfile'] ? File.read(headers['X-Sendfile']) : response)
           else
             Adva.out.puts "can not export #{path} (status: #{status})"
           end
