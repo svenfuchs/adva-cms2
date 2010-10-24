@@ -10,30 +10,46 @@ module Adva
       autoload :Queue,  'adva/static/export/queue'
       autoload :Store,  'adva/static/export/store'
 
-      attr_reader :app, :target, :queue, :store
+      attr_reader :app, :queue, :store, :options
 
       DEFAULT_OPTIONS = {
+        :source => "#{Dir.pwd}/public",
         :target => "#{Dir.pwd}/export"
       }
 
       def initialize(app, options = {})
-        options = options.reverse_merge!(DEFAULT_OPTIONS)
+        @options = options.reverse_merge!(DEFAULT_OPTIONS)
 
         @app   = app
-        @store = Store.new(options[:target])
+        @store = Store.new(target)
         @queue = Queue.new
 
         queue.push(options[:queue] || Path.new('/'))
 
-        FileUtils.rm_r(Dir["#{options[:target]}/*"]) rescue Errno::ENOENT
+        FileUtils.rm_r(Dir[target.join('*')])
       end
 
       def run
         configure
+        copy_assets
         process(queue.shift) until queue.empty?
       end
 
       protected
+
+        def source
+          @source ||= Pathname.new(options[:source])
+        end
+
+        def target
+          @target ||= Pathname.new(options[:target])
+        end
+
+        def copy_assets
+          %w(images javascripts stylesheets).each do |dir|
+            FileUtils.cp_r(source.join(dir), target.join(dir)) if source.join(dir).exist?
+          end
+        end
 
         def process(path)
           if page = get(path)
