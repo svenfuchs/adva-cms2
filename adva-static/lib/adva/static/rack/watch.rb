@@ -24,7 +24,19 @@ module Adva
           import  = Adva::Static::Import.new(:source => dir)
           request = import.request_for(path)
           status, headers, response = self.request('POST', request.path, request.params)
-          # self.request('GET', path.gsub(dir, ''), STORE_HEADER => true) if status == 302
+          get(path) if request.create? && status == 302
+        rescue Exception => e
+          Adva.out.puts e.message
+          e.backtrace.each { |line| puts Adva.out.line }
+        end
+
+        def get(path)
+          import  = Adva::Static::Import.new(:source => dir)
+          request = import.request_for(path)
+          self.request('GET', request.public_path, STORE_HEADER => true)
+        rescue Exception => e
+          Adva.out.puts e.message
+          e.backtrace.each { |line| Adva.out.puts line }
         end
 
         protected

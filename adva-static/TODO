@@ -1,6 +1,3 @@
-- copying static files
-  - make $ thor adva:static:export copy files from public asset dirs
-  - watch public asset dirs, simply recopy everything on every change (?)
-- watcher currently does not export created files because Rack::Export only exports after purging urls that have been tagged
+- copying static files: watch public asset dirs, simply recopy everything on every change (?)
 - watcher GETs deleted files
 - read an optional manifest of starting urls

@@ -27,26 +27,30 @@ module Adva
           controller.polymorphic_path(controller.resources)
         end
 
+        def public_path
+          controller.public_url_for(controller.resources, :routing_type => :path)
+        end
+
+        def create?
+          !update? && !delete?
+        end
+
+        def update?
+          record.persisted? && source.exist?
+        end
+
+        def delete?
+          record.persisted? && !source.exist?
+        end
+
+        def controller
+          @controller ||= controller_name.constantize.new.tap do |controller|
+            controller.request = ActionDispatch::TestRequest.new
+            controller.params = params_for(controller)
+          end
+        end
+
         protected
-
-          def create?
-            !update && !delete?
-          end
-
-          def update?
-            record.persisted? && source.exist?
-          end
-
-          def delete?
-            record.persisted? && !source.exist?
-          end
-
-          def controller
-            @controller ||= controller_name.constantize.new.tap do |controller|
-              controller.request = ActionDispatch::TestRequest.new
-              controller.params = params_for(controller)
-            end
-          end
 
           def section_ids
             @section_ids ||= Section.types.map { |type| :"#{type.underscore}_id" }
