@@ -9,4 +9,13 @@ $(document).ready(function() {
     event.preventDefault();
     return false;
   })
+
+  $('div.tabs li a').click(function() {
+    tabs = $(this).closest('div');
+    $('li.active, div.active', tabs).removeClass('active')
+    $(this).closest('li').addClass('active');
+    selected = '#tab_' + $(this).attr('href').replace('#', '');
+    $(selected).addClass('active');
+  });
+
 });

@@ -29,7 +29,8 @@ textarea {
   font-size: 14px;
   border: 1px solid #999;
   font-family: "Helvetica Neue", "Helvetica", "Arial", Verdana;
-  width: 450px;
+  /* width: 450px; */
+  width: 98%;
 }
 
 input[type=submit] {
@@ -66,8 +67,7 @@ label {
 label.inline {
   position: relative;
   display: inline;
-  margin-right: 15px;
-  top: -2px;
+  margin: 0 15px 0 3px;
   vertical-align: baseline;
 }
 label.light {

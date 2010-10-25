@@ -24,7 +24,7 @@ module Adva
                   end
                 end
                 controller.sidebar.each do |tab|
-                  div :id => tab.name, :class => "tab #{tab.active? ? :active : ''}" do
+                  div :id => "tab_#{tab.name}", :class => "tab #{tab.active? ? :active : ''}" do
                     tab.blocks.each { |block| block.call }
                   end
                 end

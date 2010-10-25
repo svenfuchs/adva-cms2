@@ -14,6 +14,8 @@ class Admin::Posts::Form < Adva::View::Form
 
       if Adva.engine?(:categories)
         tab :categories do
+          # h4 :'categories'
+          form.label :categories
           form.has_many_through_collection_check_boxes(:categorizations, blog.categories, :name)
         end
       end

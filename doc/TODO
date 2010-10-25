@@ -18,23 +18,25 @@ Done:
 
 Stuff:
 
-- further speed up Adva::Rack::Static by memoizing existing static file paths
 - patch action_view asset_tag_helper registration to allow appending assets to existing groups
 - in section_controller consider merging params[:section] to params[:blog] (or whatever the concrete controller type is)
 - cache_tagging doesn't play well with Arel scopes
 - cache_tagging (or whoever) seems to use the filtered path (apparently section_root) instead of the real request path
-- blog atom feed
-- blog archive
 - thor engine migration generator
 - make adva-user optional through http_auth, fix Site.install
 - figure out how to remove set_params_for_nested_resources controller filters
 - custom error pages
 - clean up i18n scopes (see below)
 
+Optimize:
+
+- further speed up Adva::Rack::Static by memoizing existing static file paths
+- optimize routing filters
+
 Features:
 
 - core: detect site from host, multiple sites
-- core: excerpts
+- core: excerpts (improve truncate_html)
 - core: system events, orchestration (?)
 - core: content filters
 - core: authorship
@@ -45,7 +47,7 @@ Features:
 - core: tags
 - core: optimistic lock
 - blog: rss feeds
-- caching: integration tests
+- blog archive
 - user: integration tests (e.g. unlocking)
 - user: account/site memberships
 - rbac
