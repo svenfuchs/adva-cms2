@@ -36,3 +36,17 @@ Feature: Categorizing blog posts
     Then I should not see "Uncategorized post"
      And I should not see "Post about programming"
      But I should see "Post about design"
+
+  Scenario: Uncategorizing a categorized post
+    When I follow "Post about programming"
+    Then I should see a post edit form
+     And I should see "Categories" in the sidebar
+     And "Programming" should be checked
+    When I uncheck "Programming"
+     And I press "Update post"
+    Then I should see a post edit form
+     And "Programming" should not be checked
+     But "Design" should not be checked
+     And the post titled "Uncategorized post" should not be categorized as "Programming"
+     And the post titled "Uncategorized post" should not be categorized as "Design"
+

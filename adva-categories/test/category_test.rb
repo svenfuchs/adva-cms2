@@ -45,13 +45,23 @@ module AdvaCategoryTests
       assert_equal [foo, bar], Content.categorized(category.id)
     end
 
-    test 'updating a categorizable through nested attributes' do
-      foo = Factory(:content, :title => 'foo')
-      category = Factory(:category)
+    test 'adding a categorization through nested attributes' do
+      foo     = Factory(:category, :name => 'foo')
+      bar     = Factory(:category, :name => 'bar')
+      content = Factory(:content, :title => 'content')
 
-      foo.update_attributes!(:categorizations_attributes => [{ :category_id => category.id }])
+      content.update_attributes!(:categorizations_attributes => [{ :category_id => foo.id }, { :category_id => bar.id }])
+      assert_equal [foo, bar], content.reload.categories
+    end
 
-      assert_equal [category], foo.reload.categories
+    test 'removing a categorization through nested attributes' do
+      foo     = Factory(:category)
+      content = Factory(:content, :title => 'foo')
+      content.categories << foo
+      assert_equal [foo], content.reload.categories
+
+      content.update_attributes!(:categorizations_attributes => [{ :id => content.categorizations.first.id, '_destroy' => '1' }])
+      assert content.reload.categories.empty?
     end
   end
 end

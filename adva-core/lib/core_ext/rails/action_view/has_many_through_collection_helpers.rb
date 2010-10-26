@@ -10,9 +10,15 @@ ActionView::Helpers::FormBuilder.send :include do
       param   = "#{object_name}[#{attribute}_attributes][#{ix}]"
       through = object.send(attribute).detect { |t| t.send(foreign_key) == item.id }
 
-      html << @template.hidden_field_tag("#{param}[id]", through.id) if through
-      html << @template.label_tag("#{param}[#{foreign_key}]", :class => 'checkbox') do
-        @template.check_box_tag("#{param}[#{foreign_key}]", item.id, !!through) + item.send(label_attribute)
+      if through
+        html << @template.hidden_field_tag("#{param}[id]", through.id)
+        html << @template.label_tag("#{param}[_destroy]", :class => 'checkbox') do
+          @template.check_box_tag("#{param}[_destroy]", item.id, true) + item.send(label_attribute)
+        end
+      else
+        html << @template.label_tag("#{param}[#{foreign_key}]", :class => 'checkbox') do
+          @template.check_box_tag("#{param}[#{foreign_key}]", item.id) + item.send(label_attribute)
+        end
       end
     end
 

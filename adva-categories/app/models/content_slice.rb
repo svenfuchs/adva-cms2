@@ -5,7 +5,7 @@ Category.has_many_polymorphs :categorizables, :through => :categorizations, :for
 
 Content.class_eval do
   has_many :categories, :through => :categorizations, :as => :categorizable
-  accepts_nested_attributes_for :categorizations
+  accepts_nested_attributes_for :categorizations, :allow_destroy => true
 
   class << self
     def categorized(category_id)
