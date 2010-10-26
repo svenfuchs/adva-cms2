@@ -19,7 +19,7 @@ module Adva
           # require_dependency(const_name.underscore)
           if filename =~ pattern
             require_dependency $1.gsub(%r(_slice), '')
-            load(filename)
+            require_dependency filename
           end
         end
       end
