@@ -1,29 +1,30 @@
 module Adva
   module View
     class Form
-      module Sidebar
+      module Tabs
         def form_for(*args, &block)
-          super(*args, &with_sidebar_rendering(block))
+          super(*args, &with_tabs(block))
         end
 
         def simple_form_for(*args, &block)
-          super(*args, &with_sidebar_rendering(block))
+          super(*args, &with_tabs(block))
         end
 
-        def with_sidebar_rendering(block)
+        def with_tabs(block)
           if respond_to?(:sidebar)
             lambda do |*args|
               block.call(*args)
               sidebar
+
               div :class => :tabs do
                 ul do
-                  controller.sidebar.each do |tab|
+                  controller.tabs.each do |tab|
                     li(:class => tab.active? ? :active : '') do
-                      link_to(:"admin.sidebar.tabs.#{tab.name}", "##{tab.name}")
+                      link_to(:"admin.tabs.#{tab.name}", "##{tab.name}")
                     end
                   end
                 end
-                controller.sidebar.each do |tab|
+                controller.tabs.each do |tab|
                   div :id => "tab_#{tab.name}", :class => "tab #{tab.active? ? :active : ''}" do
                     tab.blocks.each { |block| block.call }
                   end
@@ -35,8 +36,9 @@ module Adva
           end
         end
 
+        # should store the tabs on the form builder object instead of the controller
         def tab(*args, &block)
-          controller.sidebar.tab(*args, &block)
+          controller.tabs.tab(*args, &block)
         end
       end
     end
