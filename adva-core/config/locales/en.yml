@@ -87,10 +87,9 @@ en:
       edit:
         title: Settings
 
-    sidebar:
-      tabs:
-        options: Options
-        assets: Assets
+    tabs:
+      options: Options
+      assets: Assets
   layouts:
     default:
       made_with: "Made with <a href=\"http://github.com/svenfuchs/adva-cms2\">adva cms 2</a>"

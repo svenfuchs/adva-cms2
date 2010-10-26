@@ -1,8 +1,8 @@
 module Adva
   module View
     class Form < Minimal::Template
-      autoload :Sidebar, 'adva/view/form/sidebar'
-      include Sidebar
+      autoload :Tabs, 'adva/view/form/tabs'
+      include Tabs
 
       attr_reader :form
 
