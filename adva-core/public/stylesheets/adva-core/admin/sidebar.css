@@ -57,6 +57,10 @@
   clear: left;
 }
 
+.tabs fieldset {
+  margin-top: 25px;
+}
+
 
 
 /*.tabs h4 {

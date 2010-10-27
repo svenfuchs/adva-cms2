@@ -21,7 +21,6 @@ ActionView::Helpers::FormBuilder.send :include do
         end
       end
     end
-
-    @template.concat(html.html_safe)
+    html.html_safe
   end
 end
