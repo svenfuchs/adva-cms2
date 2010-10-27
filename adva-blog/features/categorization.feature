@@ -46,7 +46,20 @@ Feature: Categorizing blog posts
      And I press "Update post"
     Then I should see a post edit form
      And "Programming" should not be checked
-     But "Design" should not be checked
-     And the post titled "Uncategorized post" should not be categorized as "Programming"
-     And the post titled "Uncategorized post" should not be categorized as "Design"
+     And "Design" should not be checked
+     And the post titled "Post about programming" should not be categorized as "Programming"
+     And the post titled "Post about programming" should not be categorized as "Design"
+     When I check "Programming"
+     When I check "Design"
+      And I press "Update post"
+      And "Programming" should be checked
+      But "Design" should be checked
+      And the post titled "Post about programming" should be categorized as "Programming"
+      And the post titled "Post about programming" should be categorized as "Design"
+      When I uncheck "Design"
+       And I press "Update post"
+       And "Programming" should be checked
+       But "Design" should not be checked
+       And the post titled "Post about programming" should be categorized as "Programming"
+       And the post titled "Post about programming" should not be categorized as "Design"
 
