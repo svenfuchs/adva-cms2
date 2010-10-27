@@ -1,7 +1,6 @@
 module Adva
   module Engine
     module SlicedModels
-
       # TODO while preloading seems to work fine, it slows the dev mode down
       # quite a bit. should be replace with an approace which lazyloads sliced
       # models in Dependencies maybe an after-load hook in Dependencies would
@@ -12,14 +11,12 @@ module Adva
         pattern = %r((?:#{paths.join('|')})/((?:\w+/)*\w+_slice(?:.\w+)*).rb$)
 
         Dir["{#{paths.join(',')}}/**/*.rb"].each do |filename|
-          # const_name = filename =~ %r(/([^/]*)_slice.rb) && $1.camelize
-          # ActiveSupport::Dependencies.mark_for_unload(const_name)
-          # ActiveSupport::Dependencies.autoloaded_constants << const_name
-          # ActiveSupport::Dependencies.autoloaded_constants.uniq!
-          # require_dependency(const_name.underscore)
           if filename =~ pattern
-            require_dependency $1.gsub(%r(_slice), '')
-            require_dependency filename
+            begin
+              require_dependency $1.gsub(%r(_slice), '')
+              require_dependency filename
+            rescue LoadError
+            end
           end
         end
       end
