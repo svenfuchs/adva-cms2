@@ -8,16 +8,17 @@ class Admin::Posts::Form < Adva::View::Form
     end
 
     def sidebar
-      tab :options do
-        form.input :slug
+      if Adva.engine?(:categories) && blog.categories.present?
+        # TODO extract to Adva::View::Form#categorizable_tab or something
+        tab :categories do
+          fieldset do
+            form.has_many_through_collection_check_boxes(:categorizations, blog.categories, :name)
+          end
+        end
       end
 
-      if Adva.engine?(:categories)
-        tab :categories do
-          # h4 :'categories'
-          form.label :categories
-          form.has_many_through_collection_check_boxes(:categorizations, blog.categories, :name)
-        end
+      tab :options do
+        form.input :slug
       end
     end
   end
