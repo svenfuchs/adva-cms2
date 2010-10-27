@@ -13,7 +13,7 @@ ActionView::Helpers::FormBuilder.send :include do
       if through
         html << @template.hidden_field_tag("#{param}[id]", through.id)
         html << @template.label_tag("#{param}[_destroy]", :class => 'checkbox') do
-          @template.check_box_tag("#{param}[_destroy]", item.id, true) + item.send(label_attribute)
+          @template.check_box_tag("#{param}[_destroy]", '1', true) + item.send(label_attribute)
         end
       else
         html << @template.label_tag("#{param}[#{foreign_key}]", :class => 'checkbox') do
