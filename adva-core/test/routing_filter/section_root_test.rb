@@ -41,6 +41,10 @@ module AdvaCoreTests
       assert_equal "/docs", recognize('/docs')
     end
 
+    test "recognition does not touch /sections/2" do
+      assert_equal "/sections/2", recognize('/sections/2')
+    end
+
     test "generates from /pages/1" do
       assert_equal '/', generate("/pages/#{root.id}")
     end
@@ -55,10 +59,6 @@ module AdvaCoreTests
 
     test "generates from /pages/1/article/1.rss" do
       assert_equal '/article/1.rss', generate("/pages/#{root.id}/article/1.rss")
-    end
-
-    test "generation does not touch /sections/2" do
-      assert_equal "/sections/2", recognize('/sections/2')
     end
 
     protected
