@@ -3,8 +3,6 @@ require 'routing_filter/filter'
 # If the path is, aside from a slash and an optional locale, the leftmost part
 # of the path, replace it by "sections/:id" segments.
 
-# TODO needs to unmemoize if any section is created, renamed, moved or deleted!
-
 module RoutingFilter
   class SectionPath < Filter
     extend ActiveSupport::Memoizable
@@ -16,6 +14,7 @@ module RoutingFilter
     self.exclude = %r(^/admin)
 
     def around_recognize(path, env, &block)
+      # p "#{self.class.name}: #{path}"
       if !excluded?(path)
         search, replace = recognition(host(env), path)
         path.sub!(%r(^/([\w]{2,4}/)?(#{search})(?=/|\.|\?|$)), "/#{$1}#{replace}#{$3}") if search
@@ -25,6 +24,7 @@ module RoutingFilter
 
     def around_generate(params, &block)
       yield.tap do |path|
+        # p "#{self.class.name}: #{path}"
         if !excluded?(path)
           search, replace = *generation(path)
           path.sub!(search) { "#{replace}#{$3}" } if search
@@ -38,7 +38,6 @@ module RoutingFilter
       def excluded?(path)
         path =~ exclude
       end
-      # memoize :excluded?
 
       def recognition(host, path)
         if site = Site.by_host(host) and path =~ recognition_pattern(site)
@@ -52,7 +51,6 @@ module RoutingFilter
         paths = paths.sort { |a, b| b.size <=> a.size }.join('|')
         paths.empty? ? %r(^$) : %r(^/([\w]{2,4}/)?(#{paths})(?=/|\.|\?|$))
       end
-      # memoize :recognition_pattern
 
       def generation(path)
         if path =~ generate_pattern
@@ -65,7 +63,6 @@ module RoutingFilter
         types = Section.types.map { |type| type.downcase.pluralize }.join('|')
         %r(/(sections|#{types})/([\d]+(/?))(\.?))
       end
-      # memoize :generate_pattern
 
       def host(env)
         host, port = env.values_at('SERVER_NAME', 'SERVER_PORT')

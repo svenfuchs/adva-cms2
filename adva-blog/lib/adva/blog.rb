@@ -14,6 +14,10 @@ module Adva
     initializer 'adva-blog.require_section_types' do
       config.to_prepare { require_dependency 'blog' }
     end
+
+    initializer 'adva-blog.configure_routing_filters' do
+      RoutingFilter::SectionRoot.anchors << '\d{4}'
+    end
   end
 end
 
