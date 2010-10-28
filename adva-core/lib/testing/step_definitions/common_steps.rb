@@ -96,6 +96,16 @@ When /^I click on the link from the email to (.*)$/ do |to|
   get link
 end
 
+Then /^I should see a row (?:of the ([a-z ]+) table )?where "(.*)" is "(.*)"$/ do |table_id, header, cell_content|
+  body = Nokogiri::HTML(response.body)
+  table_xpath = table_id.nil? ? 'table' : "table[@id='#{table_id.gsub(/ /, '_')}']"
+  table_header_cells = body.xpath("//#{table_xpath}/descendant::th[normalize-space(text())='#{header}']/@id")
+  assert !table_header_cells.empty?, "could not find table header cell '#{header}'"
+  header_id = body.xpath("//#{table_xpath}/descendant::th[normalize-space(text())='#{header}']/@id").first.try(:value)
+
+  assert body.xpath("//#{table_xpath}/descendant::td[@headers='#{header_id}'][normalize-space(text())='#{cell_content}']/ancestor::tr/@id").first.try(:value)
+end
+
 Then /^there should be an? (\w+)$/ do |model|
   assert @last_record = model.classify.constantize.first, "could not find any #{model}"
 end
