@@ -57,6 +57,10 @@ module AdvaCategoriesTests
       assert_equal "/sections/#{home.id}/categories/foo/bar?foo=bar", generate("/sections/#{home.id}?foo=bar", :category_id => bar.id)
     end
 
+    test "generates from /blogs/1/categories/1 and a category param " do
+      assert_equal "/blogs/#{home.id}/categories/foo/bar", generate("/blogs/#{home.id}", :category_id => bar.id)
+    end
+
     protected
 
       def recognize(path)
