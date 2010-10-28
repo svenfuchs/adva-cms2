@@ -1,4 +1,4 @@
-require 'routing_filter/filter'
+require 'routing_filter'
 
 module RoutingFilter
   class Categories < Filter
@@ -22,7 +22,6 @@ module RoutingFilter
     def around_generate(params, &block)
       category_id = params.delete('category_id') || params.delete(:category_id)
       yield.tap do |path|
-        # debugger if path == "/admin/sites/1/sections/2/categories/1"
         insert_category_path(path, category_id) if !excluded?(path) && category_id
       end
     end

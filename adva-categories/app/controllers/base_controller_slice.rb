@@ -3,8 +3,7 @@ require_dependency 'base_controller'
 BaseController.class_eval do
   include do
     def collection
-      collection = super
-      params[:category_id] ? collection.categorized(params[:category_id]) : collection
+      params[:category_id] ? super.categorized(params[:category_id]) : super
     end
   end
 end
