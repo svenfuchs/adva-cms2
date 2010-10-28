@@ -7,10 +7,10 @@ class Admin::Categories::Menu < Adva::View::Menu::Admin::Actions
     end
 
     def right
+      item(:'.new', new_path)
       if resource.try(:persisted?)
         item(:'.destroy', resource_path, :method => :delete, :confirm => t(:'.confirm_destroy', :model_name => resource.class.model_name.human))
       else
-        item(:'.new', new_path)
         item(:'.reorder', show_parent_path, :class => 'reorder', :'data-resource_type' => parent_resource.class.name.underscore, :'data-sortable_type' => 'categories')
       end
     end
