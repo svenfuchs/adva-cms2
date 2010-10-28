@@ -38,12 +38,11 @@ Feature: Menus
       | Blog:        |                                          |        | #actions .main  |
       | Categories   | /admin/sites/1/sections/1/categories     | yes    | #actions .main  |
       | New Category | /admin/sites/1/sections/1/categories/new |        | #actions .right |
-      
+
   Scenario: Admin Blogs Categories Edit
     When I go to the admin "Blog" section settings page
     When I follow "Categories"
-    When I follow "Programming"    
-    Then show me the page
+    When I follow "Programming"
     Then the menu should contain the following items:
       | text         | url                                      | active | menu            |
       | adva-cms     |                                          |        | #top .main      |
@@ -54,7 +53,7 @@ Feature: Menus
       | Blog:        |                                          |        | #actions .main  |
       | Categories   | /admin/sites/1/sections/1/categories     | yes    | #actions .main  |
       | New Category | /admin/sites/1/sections/1/categories/new |        | #actions .right |
-      | Delete       | /admin/sites/1/sections/1/categories/1   |        | #actions .right |      
+      | Delete       | /admin/sites/1/sections/1/categories/1   |        | #actions .right |
 
   Scenario: Admin Posts
     When I go to the admin edit post page for the post "Post title"
