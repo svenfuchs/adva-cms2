@@ -1,7 +1,5 @@
 require 'routing_filter/filter'
 
-# TODO needs to unmemoize if any section is created, renamed, moved or deleted!
-
 module RoutingFilter
   class SectionRoot < Filter
     extend ActiveSupport::Memoizable
@@ -12,10 +10,11 @@ module RoutingFilter
     cattr_accessor :exclude
     self.exclude = %r(^/admin)
 
-    cattr_accessor :anchors_segments
-    self.anchors_segments = { 'Page' => ['/article'] }
+    cattr_accessor :anchors
+    self.anchors = %w(article)
 
     def around_recognize(path, env, &block)
+      # p "#{self.class.name}: #{path}"
       if !excluded?(path)
         search, replace = *recognition(host(env))
         path.sub!(search) { "#{$1}#{replace}#{$2}" } if search
@@ -25,6 +24,7 @@ module RoutingFilter
 
     def around_generate(params, &block)
       yield.tap do |path|
+        # p "#{self.class.name}: #{path}"
         remove_root_section!(path) unless excluded?(path)
       end
     end
@@ -34,13 +34,15 @@ module RoutingFilter
       def excluded?(path)
         path =~ exclude
       end
-      memoize :excluded?
 
       def recognition(host)
         if site = Site.by_host(host) and root = site.sections.root
-          anchors = anchors_segments[root.class.name] || raise("undefined url anchor segment for: #{root.class.name}")
           [%r(^(/[\w]{2})?(?:\/?)(#{anchors.join('|')}|\.|\?|/?\Z)), "/#{root.type.tableize}/#{root.id}"]
         end
+      end
+
+      def anchors
+        @anchors ||= self.class.anchors.map { |anchor| "/#{anchor}" }
       end
 
       def remove_root_section!(path)

@@ -1,4 +1,4 @@
-require 'routing_filter/filter'
+require 'routing_filter'
 
 module RoutingFilter
   class Categories < Filter
@@ -9,6 +9,7 @@ module RoutingFilter
     self.exclude = %r(^/admin)
 
     def around_recognize(path, env, &block)
+      # p "#{self.class.name}: #{path}"
       unless excluded?(path)
         category_id = extract_category_id(env, path)
         yield.tap do |params|
@@ -22,7 +23,7 @@ module RoutingFilter
     def around_generate(params, &block)
       category_id = params.delete('category_id') || params.delete(:category_id)
       yield.tap do |path|
-        # debugger if path == "/admin/sites/1/sections/2/categories/1"
+        # p "#{self.class.name}: #{path}"
         insert_category_path(path, category_id) if !excluded?(path) && category_id
       end
     end
@@ -32,7 +33,6 @@ module RoutingFilter
       def excluded?(path)
         path =~ exclude
       end
-      # memoize :excluded?
 
       def extract_category_id(env, path)
         if section = section_for(env, path) and path =~ recognition_pattern(section)
@@ -49,7 +49,6 @@ module RoutingFilter
         paths = paths.sort { |a, b| b.size <=> a.size }.join('|')
         paths.empty? ? %r(^$) : %r(^.*(/categories/)(#{paths})(?=/|\.|\?|$))
       end
-      # memoize :recognition_pattern
 
       def insert_category_path(path, category_id)
         category = Category.find(category_id)
@@ -64,7 +63,6 @@ module RoutingFilter
         types = Section.types.map { |type| type.downcase.pluralize }.join('|')
         %r(/(sections|#{types})/(\d+)(?=/|\.|\?|$))
       end
-      # memoize :generate_pattern
 
       def section_for(env, path)
         if path =~ section_pattern

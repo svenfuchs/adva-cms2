@@ -16,7 +16,7 @@ Gem::Specification.new do |s|
 
   s.add_dependency 'rails', '3.0.0'
   s.add_dependency 'gem_patching', '0.0.2'
-  s.add_dependency 'routing-filter', '0.1.7'
+  s.add_dependency 'routing-filter', '0.2.0'
   s.add_dependency 'inherited_resources', '1.1.2'
   s.add_dependency 'inherited_resources_helpers', '0.0.13'
   s.add_dependency 'minimal', '0.0.22'
