@@ -6,10 +6,10 @@ en:
   admin:
     categories:
       menu:
-        categories: Categories
+        index: Categories
         products: Products
         new: New Category
-        edit: Settings
+        edit_parent: Settings
         destroy: Delete
         reorder: Reorder
         confirm_destroy: Do you really want to delete this category?

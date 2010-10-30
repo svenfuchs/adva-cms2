@@ -2,25 +2,47 @@ module Adva
   module View
     class Menu < Minimal::Template
       autoload :Admin, 'adva/view/menu/admin'
+      autoload :Items, 'adva/view/menu/items'
+
+      def to_html
+        build
+        render_items
+      end
 
       def item(text, url = nil, options = {}, &block)
-        options.merge!(:class => text.to_s.split('.').last) if text.is_a?(Symbol)
-        url = url_for(url) unless url.is_a?(String) || options[:type] == :label
-        li(:class => active?(url, options) ? 'active' : nil) do
-          options[:type] == :label ? h4(text, options) : link_to(text, url, options)
-          self << capture { instance_eval(&block) } if block_given?
-        end
+        items.insert(text, url, options, block)
       end
 
       def label(text, url = nil, options = {}, &block)
         item(text, url, options.merge(:type => :label), &block)
       end
 
-      def link(text, url = '#', options = {}, &block)
-        item(text, url, options.merge(:type => :link), &block)
-      end
-
       protected
+        def items
+          @items ||= Items.new
+        end
+
+        def render_items
+          items, @items = self.items, Items.new
+          items.each { |args| render_item(*args) }
+        end
+
+        def render_item(text, url, options, block)
+          options.merge!(:class => text.to_s.split('.').last) if text.is_a?(Symbol)
+          url = url_for(url) unless url.is_a?(String) || options[:type] == :label
+
+          li(:class => active?(url, options) ? 'active' : nil) do
+            options[:type] == :label ? h4(text, options) : link_to(text, url, options)
+            render_block(block) if block
+          end
+        end
+
+        def render_block(block)
+          self << capture do
+            instance_eval(&block)
+            render_items
+          end
+        end
 
         def name
           @name ||= self.class.name.demodulize.underscore
