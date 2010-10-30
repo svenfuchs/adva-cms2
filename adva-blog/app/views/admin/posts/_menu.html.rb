@@ -1,18 +1,10 @@
-class Admin::Posts::Menu < Adva::View::Menu::Admin::Actions
+require_dependency 'admin/contents/_menu.html'
+
+class Admin::Posts::Menu < Admin::Contents::Menu
   include do
     def main
-      label(resource.section.name)
-      item(:'.show', index_path)
-      item(:'.edit_parent', edit_parent_path)
-    end
-
-    def right
-      item(:'.new', new_path)
-      if persisted?
-        item(:'.view', public_url)
-        item(:'.edit', edit_path)
-        item(:'.destroy', resource_path, :method => :delete, :confirm => t(:'.confirm_destroy', :model_name => resource.class.model_name.human))
-      end
+      super
+      categories(index_parent_path(:categories)) if Adva.engine?(:categories)
     end
   end
 end

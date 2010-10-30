@@ -50,7 +50,7 @@ en:
         title: Edit Post
         delete: Delete
       menu:
-        show: Posts
+        index: Posts
         edit_parent: Settings
         new: New Post
         view: View

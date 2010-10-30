@@ -26,8 +26,8 @@ Feature: Menus
     When I go to the admin sections page
     Then the menu should contain the following items:
       | text     | url                         | active | menu            |
-      | adva-cms |                             |        | #top .main  |
-      | adva-cms | /admin/sites/1              |        | #top .main  |
+      | adva-cms |                             |        | #top .main      |
+      | adva-cms | /admin/sites/1              |        | #top .main      |
       | Sections | /admin/sites/1/sections     | yes    | #top .main      |
       | Home     | /admin/sites/1/pages/1      |        | #top .main      |
       | Settings | /admin/sites/1/edit         |        | #top .right     |
@@ -39,12 +39,11 @@ Feature: Menus
     When I go to the admin "Home" section page
     Then the menu should contain the following items:
       | text     | url                         | active | menu            |
-      | adva-cms |                             |        | #top .main  |
-      | adva-cms | /admin/sites/1              |        | #top .main  |
+      | adva-cms |                             |        | #top .main      |
+      | adva-cms | /admin/sites/1              |        | #top .main      |
       | Sections | /admin/sites/1/sections     | yes    | #top .main      |
       | Home     | /admin/sites/1/pages/1      | yes    | #top .main      |
       | Settings | /admin/sites/1/edit         |        | #top .right     |
       | Home     |                             |        | #actions .main  |
       | Page     | /admin/sites/1/pages/1      | yes    | #actions .main  |
-      | View     | http://www.example.com/     |        | #actions .right |
       | Delete   | /admin/sites/1/pages/1      |        | #actions .right |

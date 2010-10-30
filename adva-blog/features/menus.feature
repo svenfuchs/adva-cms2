@@ -38,6 +38,7 @@ Feature: Menus
       | Blog:        |                                          |        | #actions .main  |
       | Categories   | /admin/sites/1/sections/1/categories     | yes    | #actions .main  |
       | New Category | /admin/sites/1/sections/1/categories/new |        | #actions .right |
+      | Reorder      | /admin/sites/1/sections/1/categories     |        | #actions .right |
 
   Scenario: Admin Blogs Categories Edit
     When I go to the admin "Blog" section settings page
@@ -68,7 +69,6 @@ Feature: Menus
       | Posts    | /admin/sites/1/blogs/1/posts                 | yes    | #actions .main  |
       | Settings | /admin/sites/1/blogs/1/edit                  |        | #actions .main  |
       | New Post | /admin/sites/1/blogs/1/posts/new             |        | #actions .right |
-      | View     | http://www.example.com/2010/09/08/post-title |        | #actions .right |
       | Edit     | /admin/sites/1/blogs/1/posts/1/edit          | yes    | #actions .right |
       | Delete   | /admin/sites/1/blogs/1/posts/1               |        | #actions .right |
 

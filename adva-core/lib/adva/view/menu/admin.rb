@@ -12,18 +12,16 @@ module Adva
           id :actions
         end
 
-        def to_html
+        def build
           div :id => id, :class => 'menus' do
-            menus
-          end
-        end
-
-        def menus
-          ul :class => 'menu main' do
-            main
-          end
-          ul :class => 'menu right' do
-            right
+            ul :class => 'menu main' do
+              main
+              render_items
+            end
+            ul :class => 'menu right' do
+              right
+              render_items
+            end
           end
         end
 
@@ -39,8 +37,63 @@ module Adva
             self.class.read_inheritable_attribute(:id)
           end
 
+          def resource_label
+            label(resource.name)
+          end
+
+          def resource_section_label
+            label(resource.section.name)
+          end
+
+          def parent_resource_label
+            label("#{parent_resource.class.name}:") # TODO needs i18n
+          end
+
+          def index
+            item(:'.index', index_path)
+          end
+
+          def show
+            item(:'.show', show_path)
+          end
+
+          def edit
+            item(:'.edit', edit_path)
+          end
+
+          def edit_parent
+            item(:'.edit_parent', edit_parent_path)
+          end
+
+          def categories(url = nil, options = { :before => :'.edit' })
+            url ||= index_path(:categories)
+            item(:'.categories', url, options)
+          end
+
+          def new
+            item(:'.new', new_path)
+          end
+
+          def reorder
+            item(:'.reorder', index_path, :activate => false)
+          end
+
+          def destroy
+            item(:'.destroy', resource_path, :method => :delete, :confirm => t(:'.confirm_destroy', :model_name => resource.class.model_name.human))
+          end
+
           def persisted?
             resource.try(:persisted?)
+          end
+
+          def collection?
+            index? || new? || create?
+          end
+
+          %w(index show new create edit update).each do |action|
+            define_method(:"#{action}?") do
+              params[:action] == action
+            end
           end
       end
     end

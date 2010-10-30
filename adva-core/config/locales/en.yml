@@ -68,7 +68,7 @@ en:
       show:
         title: Settings
       menu:
-        sections: Sections
+        index: Sections
         new: New
         reorder: Reorder
     pages:
