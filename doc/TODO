@@ -16,15 +16,17 @@ Done:
 + reorganize stylesheets, there's tons of duplication and the file organization doesn't make too much sense
 + don't use multiple static middleware instances for serving static assets
 + patch action_view asset_tag_helper registration to allow appending assets to existing groups
++ improve menu item helper to use only the last part of a dot separated i18n key
 
 Stuff:
 
+- improve menus to allow for registering and thus prepending/appending/moving items
 - in section_controller consider merging params[:section] to params[:blog] (or whatever the concrete controller type is)
+- figure out how to remove set_params_for_nested_resources controller filters
 - cache_tagging doesn't play well with Arel scopes
 - cache_tagging (or whoever) seems to use the filtered path (apparently section_root) instead of the real request path
 - thor engine migration generator
 - make adva-user optional through http_auth, fix Site.install
-- figure out how to remove set_params_for_nested_resources controller filters
 - custom error pages
 - clean up i18n scopes (see below)
 
