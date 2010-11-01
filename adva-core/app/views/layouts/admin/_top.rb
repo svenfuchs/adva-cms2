@@ -27,6 +27,7 @@ class Layouts::Admin::Top < Adva::View::Menu::Admin
               item(site.name, url_for([:admin, site])) unless site.new_record?
             end
             item(:'.new_site', url_for([:new, :admin, :site]))
+            render_items
           end
         end
       end
@@ -38,6 +39,7 @@ class Layouts::Admin::Top < Adva::View::Menu::Admin
               item(section.name, url_for([:admin, site, section]), :class => :section)
             end
             item(:'.new_section', url_for([:new, :admin, site, :section]))
+            render_items
           end
         end
       end

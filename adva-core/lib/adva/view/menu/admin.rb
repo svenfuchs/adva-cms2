@@ -46,7 +46,7 @@ module Adva
           end
 
           def parent_resource_label
-            label("#{parent_resource.class.name}:") # TODO needs i18n
+            label(parent_resource.name)
           end
 
           def index
@@ -65,7 +65,7 @@ module Adva
             item(:'.edit_parent', edit_parent_path)
           end
 
-          def categories(url = nil, options = { :before => :'.edit' })
+          def categories(url = nil, options = { :after => :'.show' })
             url ||= index_path(:categories)
             item(:'.categories', url, options)
           end

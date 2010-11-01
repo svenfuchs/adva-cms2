@@ -27,7 +27,7 @@ en:
       edit:
         title: Settings
       menu:
-        sections: Sections
+        index: Sections
         categories: Categories
         show: Posts
         new: New
@@ -54,6 +54,7 @@ en:
         delete: Delete
       menu:
         index: Posts
+        categories: Categories
         edit_parent: Settings
         new: New Post
         view: View

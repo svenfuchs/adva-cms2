@@ -7,8 +7,8 @@ class Admin::Categories::Menu < Adva::View::Menu::Admin::Actions
     end
 
     def right
-      new
-      persisted? ? destroy : reorder
+      collection? ? new : destroy
+      reorder if index? # TODO should only happen if we actually have more than 1 category
     end
   end
 end
