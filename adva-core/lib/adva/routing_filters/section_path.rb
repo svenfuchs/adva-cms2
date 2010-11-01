@@ -1,4 +1,4 @@
-require 'routing_filter/filter'
+require 'routing_filter'
 
 # If the path is, aside from a slash and an optional locale, the leftmost part
 # of the path, replace it by "sections/:id" segments.
