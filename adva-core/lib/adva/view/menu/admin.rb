@@ -38,15 +38,15 @@ module Adva
           end
 
           def resource_label
-            label(resource.name)
+            label("#{resource.name}:")
           end
 
           def resource_section_label
-            label(resource.section.name)
+            label("#{resource.section.name}:")
           end
 
           def parent_resource_label
-            label(parent_resource.name)
+            label("#{parent_resource.name}:")
           end
 
           def index
