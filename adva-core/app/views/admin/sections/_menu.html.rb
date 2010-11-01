@@ -7,20 +7,20 @@ class Admin::Sections::Menu < Adva::View::Menu::Admin::Actions
       else
         resource_label
         show
-        edit
+        edit unless page?
       end
     end
 
     def right
-      if collection?
-        new
-        reorder
-      elsif edit?
-        destroy
-      end
+      collection? ? new : destroy
+      reorder if index? # TODO should only happen if we actually have more than 1 category
     end
 
     protected
+
+      def page?
+        resource.is_a?(Page)
+      end
 
       def active?(url, options)
         # hmmm ...
