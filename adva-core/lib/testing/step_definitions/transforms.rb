@@ -14,11 +14,18 @@ objectify = lambda do |table|
   table.transpose
 end
 
+TRANSFORM_FOREIGN_KEY_TYPES = Section.types.map(&:underscore) << 'section' << 'site'
+TRANSFORM_FOREIGN_KEY_MAP = {}
+
 foreign_keyify = lambda do |table|
-  types = Section.types.map(&:underscore) << 'section' << 'site'
-  keys = types.map { |type| "#{type}_id" }
+  keys = TRANSFORM_FOREIGN_KEY_TYPES.map { |type| "#{type}_id" }
   keys = table.headers.select { |header| keys.include?(header) }
-  keys.each { |key| table.map_column!(key) { |value| key.gsub('_id', '').classify.constantize.find_by_name(value).try(:id).to_s } }
+  keys.each do |key|
+    table.map_column!(key) do |value|
+      klass = TRANSFORM_FOREIGN_KEY_MAP[key] || key.gsub('_id', '').classify.constantize
+      Array(klass.find_by_name(value)).first.try(:id).to_s
+    end
+  end
   table.transpose
 end
 
