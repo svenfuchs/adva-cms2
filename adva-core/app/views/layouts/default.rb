@@ -5,26 +5,43 @@ class Layouts::Default < Layouts::Base
     end
 
     def body
+      page
+      footer
+    end
+
+    def page
       div :id => :page do
-        div :id => :header do
-          h1 site.title
-          h4 site.subtitle unless site.subtitle.blank?
-          render :partial => 'layouts/default/menu'
-        end
+        header
         div :id => :main do
           content
         end
+        sidebar
       end
-      div :id => :footer do
-        footer
+    end
+
+    def header
+      div :id => :header do
+        h1 site.title
+        h4 site.subtitle unless site.subtitle.blank?
+        render :partial => 'layouts/default/menu'
       end
     end
 
     def footer
-      ul :class => :left do
-        li :'.made_with'
+      div :id => :footer do
+        ul :class => :left do
+          li :'.made_with'
+        end
+        ul :class => :right do
+        end
       end
-      ul :class => :right do
+    end
+
+    def sidebar
+      if sidebar = block.call(:sidebar)
+        div :id => 'sidebar', :class => 'left' do
+          sidebar
+        end
       end
     end
   end
