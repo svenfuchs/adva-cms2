@@ -44,6 +44,6 @@ Feature: Menus
       | Sections | /admin/sites/1/sections     | yes    | #top .main      |
       | Home     | /admin/sites/1/pages/1      | yes    | #top .main      |
       | Settings | /admin/sites/1/edit         |        | #top .right     |
-      | Home     |                             |        | #actions .main  |
+      | Home:    |                             |        | #actions .main  |
       | Page     | /admin/sites/1/pages/1      | yes    | #actions .main  |
       | Delete   | /admin/sites/1/pages/1      |        | #actions .right |

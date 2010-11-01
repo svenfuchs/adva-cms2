@@ -1,5 +1,6 @@
 Adva::Registry.set :redirect, {
-  'admin/blogs#show'    => lambda { |c| c.index_path(:posts) },
+  # see comment in admin/blog_controller
+  # 'admin/blogs#show'    => lambda { |c| c.index_path(:posts) },
   'admin/blogs#update'  => lambda { |c| c.edit_url },
   'admin/posts#create'  => lambda { |c| c.edit_url },
   'admin/posts#update'  => lambda { |c| c.edit_url },
