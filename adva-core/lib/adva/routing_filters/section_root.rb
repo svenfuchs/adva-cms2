@@ -1,4 +1,4 @@
-require 'routing_filter/filter'
+require 'routing_filter'
 
 module RoutingFilter
   class SectionRoot < Filter

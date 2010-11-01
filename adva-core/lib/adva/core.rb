@@ -10,12 +10,12 @@ require 'has_many_polymorphs'
 require 'minimal'
 require 'silence_log_tailer'
 
-require 'routing_filter'
 require 'adva/routing_filters/section_path'
 require 'adva/routing_filters/section_root'
 require 'adva/controller/abstract_actions'
 require 'adva/controller/references'
 require 'adva/active_record/has_options'
+require 'adva/view/helper/i18n'
 require 'adva/view/tabs'
 require 'adva/view/form'
 
