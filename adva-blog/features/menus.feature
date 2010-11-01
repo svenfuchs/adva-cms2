@@ -36,7 +36,9 @@ Feature: Menus
       | Blog         | /admin/sites/1/blogs/1                   | yes    | #top .main      |
       | Settings     | /admin/sites/1/edit                      |        | #top .right     |
       | Blog:        |                                          |        | #actions .main  |
+      | Posts        | /admin/sites/1/blogs/1/posts             |        | #actions .main  |
       | Categories   | /admin/sites/1/sections/1/categories     | yes    | #actions .main  |
+      | Settings     | /admin/sites/1/blogs/1/edit              |        | #actions .main  |
       | New Category | /admin/sites/1/sections/1/categories/new |        | #actions .right |
       | Reorder      | /admin/sites/1/sections/1/categories     |        | #actions .right |
 

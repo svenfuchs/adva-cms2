@@ -35,6 +35,9 @@ en:
         destroy: Delete
         new_item: New Post
         confirm_destroy: "Do you really want to delete this %{model_name}?"
+    categories:
+      menu:
+        posts: Posts
     posts:
       index:
         view: View
