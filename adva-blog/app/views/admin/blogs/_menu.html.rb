@@ -8,8 +8,8 @@ class Admin::Blogs::Menu < Admin::Sections::Menu
     end
 
     def right
-      super
       new_item if persisted?
+      super
     end
 
     protected
