@@ -173,7 +173,7 @@ TableTree.Table.prototype = jQuery.extend(new TableTree.Base(), {
 	},
 	show_spinner: function(row) {
 		img = document.createElement('img');
-		img.src = '/images/adva_cms/indicator.gif';
+		img.src = '/images/adva-core/indicator.gif';
 		img.className = 'spinner';
 		$('td', row)[0].appendChild(img);
 	},
