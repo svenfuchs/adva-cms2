@@ -10,6 +10,7 @@ require 'has_many_polymorphs'
 require 'minimal'
 require 'silence_log_tailer'
 
+require 'adva/i18n'
 require 'adva/routing_filters/section_path'
 require 'adva/routing_filters/section_root'
 require 'adva/controller/abstract_actions'

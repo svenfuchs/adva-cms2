@@ -38,6 +38,29 @@ module AdvaCoreTests
     #   I18n.backend.store_translations(:en, :edit => 'edit')
     #   assert_equal 'edit', translate(:'.edit')
     # end
+
+    # test 'logs missing translations' do
+    #   I18n.t(:missing)
+    #   expected = { 'en' => { 'missing' => 'Missing' } }
+    #   assert_equal expected, I18n.missing_translations
+    # end
+
+    # test 'MemoryLogger logs to a memory hash' do
+    #   logger = MemoryLogger.new
+    #   logger.log([:en, :foo])
+    #   logger.log([:en, :bar, :baz, :boz])
+    #   logger.log([:en, :bar, :baz, :buz])
+    #   expected = { 'en' => { 'foo' => 'Foo', 'bar' => { 'baz' => { 'boz' => 'Boz', 'buz' => 'Buz' } } } }
+    #   assert_equal expected, logger
+    # end
+
+    # test 'dumps memory log as a yaml hash to Adva.out' do
+    #   logger = MemoryLogger.new
+    #   logger.log([:en, :foo, :bar])
+    #   logger.dump
+    #   expected = '---  en:    foo:      bar: Bar '
+    #   assert_equal expected, I18n.missing_translations.out.string.gsub("\\n", ' ')
+    # end
   end
 end
 
