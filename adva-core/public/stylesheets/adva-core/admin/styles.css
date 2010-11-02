@@ -124,6 +124,10 @@ p.active a {
 .tree .drag {
   background-color: lightyellow;
 }
+.tree .spinner {
+  float: right;
+  padding-top: 2px;
+}
 
 /* TODO move to adva-assets */
 
