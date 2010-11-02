@@ -157,6 +157,7 @@ TableTree.Table.prototype = jQuery.extend(new TableTree.Base(), {
 		$.ajax({
 		  type: "POST",
 			url: this.remote_url,
+      dataType: 'json',
 			data: jQuery.extend(this.serialize(row), { authenticity_token: window._auth_token, '_method': 'put' }),
 			success: function(msg) { _this.hide_spinner(row); },
 			error:   function(msg) { _this.hide_spinner(row); }

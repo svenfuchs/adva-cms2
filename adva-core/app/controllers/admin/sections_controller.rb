@@ -1,4 +1,7 @@
 class Admin::SectionsController < Admin::BaseController
+  respond_to :html
+  respond_to :json, :only => :update
+
   belongs_to :site
 
   before_filter :set_params_for_nested_resources, :only => [:new, :create, :edit, :update]
