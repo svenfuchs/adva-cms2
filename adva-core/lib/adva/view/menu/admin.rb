@@ -74,8 +74,8 @@ module Adva
             item(:'.new', new_path)
           end
 
-          def reorder
-            item(:'.reorder', index_path, :activate => false)
+          def reorder(options = {})
+            item(:'.reorder', index_path, options.merge(:activate => false))
           end
 
           def destroy

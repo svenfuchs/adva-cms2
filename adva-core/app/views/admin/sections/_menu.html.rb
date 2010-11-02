@@ -18,6 +18,10 @@ class Admin::Sections::Menu < Adva::View::Menu::Admin::Actions
 
     protected
 
+      def reorder
+        super( :'data-resource_type' => 'site', :'data-sortable_type' => 'sections')
+      end
+
       def page?
         resource.is_a?(Page)
       end

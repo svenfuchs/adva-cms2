@@ -23,12 +23,12 @@ TableTree = {
 			return $(row).ttnode() ? true : false;
 		}
 	},
-	toggle: function(table, resource_type, sortable_type, collection_url) {
-		TableTree.current_table ? TableTree.teardown(table) : TableTree.setup(table, resource_type, sortable_type, collection_url);
+	toggle: function(table, resource_type, sortable_type, remote_url) {
+		TableTree.current_table ? TableTree.teardown(table) : TableTree.setup(table, resource_type, sortable_type, remote_url);
 	},
-	setup: function(table, resource_type, sortable_type, collection_url) {
+	setup: function(table, resource_type, sortable_type, remote_url) {
 		$('tbody', table).tableDnD(TableTree.tableDnDOptions);
-		TableTree.current_table = new TableTree.Table($(table).get(0), resource_type, sortable_type, collection_url);
+		TableTree.current_table = new TableTree.Table($(table).get(0), resource_type, sortable_type, remote_url);
 		TableTree.current_table.setSortable();
 	},
 	teardown: function(table) {
@@ -54,13 +54,13 @@ TableTree = {
 		}
 	},
 	Base: function() {},
-	Table: function(table, resource_type, sortable_type, collection_url) {
+	Table: function(table, resource_type, sortable_type, remote_url) {
 		this.is_tree = $(table).hasClass('tree')
 		this.table = table; //$('tbody', table)
 		this.resource_type = resource_type;
 		this.sortable_type = sortable_type;
 		this.level = -1;
-		this.collection_url = collection_url;
+		this.remote_url = remote_url;
 		this.rebuild();
 	},
 	Node: function(parent, element, level) {
@@ -156,7 +156,7 @@ TableTree.Table.prototype = jQuery.extend(new TableTree.Base(), {
 		this.show_spinner(row);
 		$.ajax({
 		  type: "POST",
-			url: this.collection_url,
+			url: this.remote_url,
 			data: jQuery.extend(this.serialize(row), { authenticity_token: window._auth_token, '_method': 'put' }),
 			success: function(msg) { _this.hide_spinner(row); },
 			error:   function(msg) { _this.hide_spinner(row); }
@@ -167,8 +167,8 @@ TableTree.Table.prototype = jQuery.extend(new TableTree.Base(), {
 		var data = {};
     var key = this.resource_type + '[' + this.sortable_type + '_attributes][0]'
 		data[key + '[id]'] = row.id() || '';
-		data[key + '[parent_id]'] = row.parent_id() || '';
-		data[key + '[left_id]'] = row.left_id() || '';
+		data[key + '[parent_id]'] = row.parent_id() || 'null';
+		data[key + '[left_id]'] = row.left_id() || 'null';
 		return data;
 	},
 	show_spinner: function(row) {
@@ -257,12 +257,15 @@ TableTree.Node.prototype = jQuery.extend(new TableTree.Base(), {
 
 		this.level = level;
 		this.children.each(function() { this.update_level(event, level + 1); });
+
+    TableTree.current_table.dirty = true;
 	},
 	adjust_level: function() {
 		var prev = $(this.element).prev().ttnode();
 		if(!prev) {
 			this.update_level(null, 0);
 		} else if(prev.level + 1 < this.level) {
+    // } else {
 			this.update_level(null, prev.level + 1);
 		}
 	},

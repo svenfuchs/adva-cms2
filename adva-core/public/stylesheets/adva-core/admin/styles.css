@@ -121,6 +121,10 @@ p.active a {
   -moz-border-radius:4px 4px 4px 4px;
 }
 
+.tree .drag {
+  background-color: lightyellow;
+}
+
 /* TODO move to adva-assets */
 
 ul#uploaded_images {
