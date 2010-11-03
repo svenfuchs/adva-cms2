@@ -19,6 +19,10 @@ class Admin::Sections::Menu < Adva::View::Menu::Admin::Actions
 
     protected
 
+      def index
+        item(:".sections", index_parent_path(:sections))
+      end
+
       def reorder
         super( :'data-resource_type' => 'site', :'data-sortable_type' => 'sections')
       end

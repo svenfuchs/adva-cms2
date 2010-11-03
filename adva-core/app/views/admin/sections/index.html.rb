@@ -18,7 +18,7 @@ class Admin::Sections::Index < Minimal::Template
     end
 
     def link_to_view(section)
-      capture { link_to(:'.view', public_url_for([section]), :class => :view) }
+      capture { link_to(:'.actions.view', public_url_for([section]), :class => :view) }
     end
 
     def status(section)

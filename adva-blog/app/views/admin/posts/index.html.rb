@@ -31,11 +31,11 @@ class Admin::Posts::Index < Minimal::Template
     end
 
     def link_to_view(post)
-      capture { link_to(options[:text] || :'.view', public_url_for([blog, post]), :class => :view) }
+      capture { link_to(options[:text] || :'.action.view', public_url_for([blog, post]), :class => :view) }
     end
 
     def status(post)
-      capture { span(t(:'.published'), :title => t(:'.published'), :class => 'status published') }
+      capture { span(t(:'.status.published'), :title => t(:'.status.published'), :class => 'status published') }
     end
   end
 end

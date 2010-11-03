@@ -1,38 +1,21 @@
 en:
   a_or_b: '%{a} or %{b}'
+
   flash:
-    actions:
-      create:
-        notice: '%{resource_name} successfully created.'
-        alert:  '%{resource_name} could not be created.'
-      update:
-        notice: '%{resource_name} successfully updated.'
-        alert:  '%{resource_name} could not be updated.'
-      destroy:
-        notice: '%{resource_name} successfully deleted.'
-        alert:  '%{resource_name} could not be deleted.'
+    create:
+      notice: '%{resource_name} successfully created.'
+      alert:  '%{resource_name} could not be created.'
+    update:
+      notice: '%{resource_name} successfully updated.'
+      alert:  '%{resource_name} could not be updated.'
+    destroy:
+      notice: '%{resource_name} successfully deleted.'
+      alert:  '%{resource_name} could not be deleted.'
     installation:
       protected: "Installation for %{host} is already complete. Please log in with your admin account."
-  confirm:
-    delete: 'Do you really want to delete this %{model_name}?'
 
-  installations:
-    new:
-      title: adva-cms installation
-      welcome: |
-        Welcome to the adva-cms less-than-one-minute installation process:
-        Just fill in a name for your site below and you're done.
-        Don't worry. You can always change everything later.
-      section_name: Section Name
-    show:
-      title: Success!
-      confirm: You have successfully created your site. Enjoy!
-      link_to_admin: "Manage your new site &raquo;"
-
-  sections:
-    columns:
-      section: Section
-      actions: ""
+  confirmations:
+    destroy: 'Do you really want to delete this %{model_name}?'
 
   menu:
     sections: Sections
@@ -48,7 +31,32 @@ en:
   columns:
     published: Published
     author: Author
-    actions: ""
+
+  status:
+    published: Published
+
+  actions:
+    view: View
+    edit: Edit
+    destroy: Delete
+
+  section:
+    types:
+      page: Page
+    default_name: Home
+
+  installations:
+    new:
+      title: adva-cms installation
+      welcome: |
+        Welcome to the adva-cms less-than-one-minute installation process:
+        Just fill in a name for your site below and you're done.
+        Don't worry. You can always change everything later.
+      section_name: Section Name
+    show:
+      title: Success!
+      confirm: You have successfully created your site. Enjoy!
+      link_to_admin: "Manage your new site &raquo;"
 
   admin:
     sites:
@@ -67,11 +75,7 @@ en:
     sections:
       index:
         title: Sections
-        view: View
-        edit: Edit
-        destroy: Delete
         published: Published
-        confirm_destroy: "Do you really want to delete this %{model_name}?"
       new:
         title: Create a New Section
     pages:
@@ -82,6 +86,7 @@ en:
     tabs:
       options: Options
       assets: Assets
+
   layouts:
     default:
       made_with: "Made with <a href=\"http://github.com/svenfuchs/adva-cms2\">adva cms 2</a>"
@@ -99,11 +104,6 @@ en:
         sign_out: "Sign out %{user}"
         change_language: "Change language:"
         website: "Website »"
-
-  section:
-    types:
-      page: Page
-    default_name: Home
 
   simple_form:
     "yes": 'Yes'

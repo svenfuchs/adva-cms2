@@ -32,7 +32,7 @@ class Admin::SectionsController < Admin::BaseController
 
     def protect_last_section
       if site.sections.count == 1
-        flash[:error] = t(:'flash.actions.destroy.alert', :resource_name => resource.class.model_name)
+        resource.errors[:error] = [:last_section_cant_be_destroyed]
         respond_with(resources)
       end
     end
