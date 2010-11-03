@@ -58,7 +58,7 @@ Feature: Purging tagged entries from the cache
 
   Scenario: Creating a blog post purges cache entries
     Given I am on the admin "Blog" section page
-     And I follow "New post"
+     And I follow "New"
     When I fill in "Title" with "New post title"
      And I press "Create"
     Then it should purge cache entries tagged: blog-2:posts

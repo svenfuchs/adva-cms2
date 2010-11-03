@@ -2,10 +2,11 @@ require File.expand_path('../test_helper', __FILE__)
 
 module AdvaCoreTests
   class I18nTest < Test::Unit::TestCase
-    include ActionView::Helpers
+    attr_reader :view
 
     def setup
-      @_virtual_path = 'admin/sites/_menu'
+      @view = ActionView::Base.new
+      view.instance_variable_set(:@_virtual_path, 'admin/sites/_menu')
     end
 
     def teardown
@@ -19,17 +20,17 @@ module AdvaCoreTests
 
     test 'view helper: returns the :edit translation from the view path scope admin.sites.menu' do
       I18n.backend.store_translations(:en, :admin => { :sites => { :menu => { :edit => 'edit' } } })
-      assert_equal 'edit', translate(:'.edit')
+      assert_equal 'edit', view.translate(:'.edit')
     end
 
     test 'view helper: returns the :edit translation from the view path scope admin.menu' do
       I18n.backend.store_translations(:en, :admin => { :menu => { :edit => 'edit' } })
-      assert_equal 'edit', translate(:'.edit')
+      assert_equal 'edit', view.translate(:'.edit')
     end
 
     test 'view helper: returns the :edit translation from the view path scope admin' do
       I18n.backend.store_translations(:en, :menu => { :edit => 'edit' })
-      assert_equal 'edit', translate(:'.edit')
+      assert_equal 'edit', view.translate(:'.edit')
     end
 
     # not yet supported in I18n::Cascade

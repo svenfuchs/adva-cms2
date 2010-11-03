@@ -29,7 +29,7 @@ Feature: Managing posts
      And I should see "Post body"
 
   Scenario Outline: Creating a post
-    When I follow "New Post"
+    When I follow "New"
     Then the title should be "Posts: New"
      And I should see a new post form
     When I fill in the following:

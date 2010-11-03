@@ -15,11 +15,11 @@ class Admin::Blogs::Menu < Admin::Sections::Menu
     protected
 
       def show
-        item(:'.show', index_path(:posts))
+        item(:'.posts', index_path(:posts))
       end
 
       def new_item
-        item(:'.new_item', new_path(:post))
+        item(:'.new_post', new_path(:post))
       end
   end
 end

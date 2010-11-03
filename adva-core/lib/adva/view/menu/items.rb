@@ -4,7 +4,9 @@ module Adva
       class Items < Array
         def insert(text, url, options, block)
           item = [text, url, options, block]
-          if ix = index(options.delete(:before))
+          if ix = options.delete(:at)
+            super(ix, item)
+          elsif ix = index(options.delete(:before))
             super(ix, item)
           elsif ix = index(options.delete(:after))
             super(ix + 1, item)

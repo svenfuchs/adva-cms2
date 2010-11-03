@@ -50,11 +50,11 @@ module Adva
           end
 
           def index
-            item(:'.index', index_path)
+            item(:".#{resource.class.name.pluralize.underscore}", index_path)
           end
 
           def show
-            item(:'.show', show_path)
+            item(:".#{resource.class.name.underscore}", show_path)
           end
 
           def edit
@@ -62,12 +62,11 @@ module Adva
           end
 
           def edit_parent
-            item(:'.edit_parent', edit_parent_path)
+            item(:".edit_#{parent_resource.class.base_class.name.underscore}", edit_parent_path)
           end
 
-          def categories(url = nil, options = { :after => :'.show' })
-            url ||= index_path(:categories)
-            item(:'.categories', url, options)
+          def categories(url = nil, options = { :before => :'.edit_section' })
+            item(:'.categories', url || index_path(:categories), options)
           end
 
           def new

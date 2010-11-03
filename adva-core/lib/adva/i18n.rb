@@ -6,6 +6,21 @@ I18n.module_eval do
   class << self
     attr_writer :logger
 
+    # def handle_exception(exception, locale, key, options)
+    #   case handler = options[:exception_handler] || config.exception_handler
+    #   when Symbol
+    #     send(handler, exception, locale, key, options)
+    #   else
+    #     handler.call(exception, locale, key, options)
+    #   end
+    # end
+
+    # def wrap_message_html(exception, locale, key, options)
+    #   keys = I18n.normalize_keys(exception.locale, exception.key, exception.options[:scope])
+    #   %(<span class="translation_missing">#{keys.join(', ')}</span>)
+    #   # content_tag('span', keys.join(', '), :class => 'translation_missing')
+    # end
+
     def missing_translations
       @missing_translations ||= MemoryLogger.new
     end
