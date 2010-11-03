@@ -1,12 +1,11 @@
 I18n::Backend::Simple.send(:include, I18n::Backend::Cascade)
 
-ActionView::Helpers.module_eval do
-  module CascadingTranslations
-    def translate(key, options = {})
-      options.merge!(:cascade => { :step => 1, :offset => 2, :skip_root => false })
-      super
-    end
-    alias t translate
+# TODO no idea how to use a module here :/
+ActionView::Base.class_eval do
+  def translate(key, options = {})
+    # TODO must be fixed in I18n::Backend::Cascade
+    options.merge!(:cascade => { :step => 1, :offset => 2, :skip_root => false }) if key.to_s.include?('.')
+    super(key, options)
   end
-  include CascadingTranslations
+  alias t translate
 end

@@ -22,7 +22,7 @@ Feature: Managing blog categories
      And I should not see "Uncategorized post"
 
   Scenario Outline: Creating a category
-    When I follow "New Category"
+    When I follow "New"
     Then I should see a new category form
     When I fill in "Name" with "<name>"
      And I press "Create category"

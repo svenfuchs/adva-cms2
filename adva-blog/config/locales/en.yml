@@ -5,6 +5,12 @@ en:
   section:
     types:
       blog: Blog
+  menu:
+    posts: Posts
+    new_post: New Post
+  columns:
+    post: Post
+    comments: Comments
   layouts:
     blog:
       made_with: "Made with <a href=\"http://github.com/svenfuchs/adva-cms2\">adva cms 2</a>"
@@ -14,30 +20,12 @@ en:
       continue: Read the rest of this post
     meta:
       info: "posted on %{date}"
-    columns:
-      post: Post
-      comments: Comments
-      published: Published
-      author: Author
-      actions: ""
   admin:
     blogs:
       new:
         title: Create a New Section
       edit:
         title: Settings
-      menu:
-        index: Sections
-        categories: Categories
-        show: Posts
-        new: New
-        edit: Settings
-        destroy: Delete
-        new_item: New Post
-        confirm_destroy: "Do you really want to delete this %{model_name}?"
-    categories:
-      menu:
-        posts: Posts
     posts:
       index:
         view: View
@@ -52,12 +40,3 @@ en:
       edit:
         title: Edit Post
         delete: Delete
-      menu:
-        index: Posts
-        categories: Categories
-        edit_parent: Settings
-        new: New Post
-        view: View
-        edit: Edit
-        destroy: Delete
-        confirm_destroy: "Do you really want to delete this %{model_name}?"

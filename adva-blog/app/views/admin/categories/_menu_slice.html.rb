@@ -10,7 +10,7 @@ Admin::Categories::Menu.class_eval do
     protected
 
       def posts
-        item(:'.posts', index_parent_path(:posts), :before => :'.index')
+        item(:'.posts', index_parent_path(:posts), :before => :'.categories')
       end
 
       def blog?

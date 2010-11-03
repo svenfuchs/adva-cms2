@@ -5,7 +5,7 @@ Feature: Content markup filtering
      And I am on the admin "Blog" section page
 
   Scenario: Writing a blog post in textile
-    When I follow "New post"
+    When I follow "New"
      And I select "Textile" from "Filter"
      And I fill in "Title" with "Blog Post"
      And I fill in "Body" with "**bold**"

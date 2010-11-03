@@ -1,21 +1,23 @@
 en:
+  menu:
+    categories: Categories
+  columns:
+    category: Category
+    actions:
   categories:
     columns:
       category: Category
-      actions: ""
+      actions:
   admin:
     categories:
-      menu:
-        index: Categories
-        products: Products
-        new: New Category
-        edit_parent: Settings
-        destroy: Delete
-        reorder: Reorder
-        confirm_destroy: Do you really want to delete this category?
-      columns:
-        category: Category
-        actions:
+      # menu:
+      #   index: Categories
+      #   products: Products
+      #   new: New Category
+      #   edit_parent: Settings
+      #   destroy: Delete
+      #   reorder: Reorder
+      #   confirm_destroy: Do you really want to delete this category?
       index:
         create_item: Create Category
         edit: Edit

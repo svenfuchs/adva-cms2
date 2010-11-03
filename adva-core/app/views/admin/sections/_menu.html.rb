@@ -12,7 +12,8 @@ class Admin::Sections::Menu < Adva::View::Menu::Admin::Actions
     end
 
     def right
-      collection? ? new : destroy
+      new if collection?
+      destroy if edit?
       reorder if index? # TODO should only happen if we actually have more than 1 category
     end
 
@@ -24,6 +25,10 @@ class Admin::Sections::Menu < Adva::View::Menu::Admin::Actions
 
       def page?
         resource.is_a?(Page)
+      end
+
+      def edit
+        item(:'.edit_section', edit_path)
       end
 
       def active?(url, options)

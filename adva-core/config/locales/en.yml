@@ -34,6 +34,22 @@ en:
       section: Section
       actions: ""
 
+  menu:
+    sections: Sections
+    page: Page
+    view: View
+    new: New
+    edit: Edit
+    edit_section: Settings
+    destroy: Delete
+    reorder: Reorder
+    confirm_destroy: "Do you really want to delete this %{model_name}?"
+
+  columns:
+    published: Published
+    author: Author
+    actions: ""
+
   admin:
     sites:
       index:
@@ -48,13 +64,6 @@ en:
           new: New Section
         site:
           new: New Site
-        sections: All Sections
-      menu:
-        new: New Site
-        edit: Edit
-        destroy: Delete
-        new_item: New Section
-        confirm_destroy: "Do you really want to delete this %{model_name}?"
     sections:
       index:
         title: Sections
@@ -65,26 +74,11 @@ en:
         confirm_destroy: "Do you really want to delete this %{model_name}?"
       new:
         title: Create a New Section
-      show:
-        title: Settings
-      menu:
-        index: Sections
-        new: New
-        reorder: Reorder
     pages:
       show:
         title: Edit Page
       new:
         title: Create a New Section
-      menu:
-        index: Sections
-        new: New
-        show: Page
-        view: View
-        destroy: Delete
-        confirm_destroy: "Do you really want to delete this %{model_name}?"
-        reorder: Reorder
-
     tabs:
       options: Options
       assets: Assets
