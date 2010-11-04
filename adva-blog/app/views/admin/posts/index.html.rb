@@ -31,7 +31,7 @@ class Admin::Posts::Index < Minimal::Template
     end
 
     def link_to_view(post)
-      capture { link_to(options[:text] || :'.action.view', public_url_for([blog, post]), :class => :view) }
+      capture { link_to(options[:text] || :'.actions.view', public_url_for([blog, post]), :class => :view) }
     end
 
     def status(post)

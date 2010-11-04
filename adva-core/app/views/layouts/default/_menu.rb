@@ -5,6 +5,7 @@ class Layouts::Default::Menu < Adva::View::Menu
         site.sections.each do |section|
           item(section.name, url_for(section))
         end
+        render_items
       end
     end
 

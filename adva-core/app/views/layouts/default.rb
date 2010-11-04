@@ -38,11 +38,8 @@ class Layouts::Default < Layouts::Base
     end
 
     def sidebar
-      if sidebar = block.call(:sidebar)
-        div :id => 'sidebar', :class => 'left' do
-          sidebar
-        end
-      end
+      sidebar = capture { block.call(:sidebar) }
+      div sidebar, :id => 'sidebar', :class => 'left' unless sidebar.blank?
     end
   end
 end
