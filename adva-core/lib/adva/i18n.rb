@@ -4,22 +4,7 @@ I18n.module_eval do
   self.exception_handler = :log_missing_translations
 
   class << self
-    attr_writer :logger
-
-    # def handle_exception(exception, locale, key, options)
-    #   case handler = options[:exception_handler] || config.exception_handler
-    #   when Symbol
-    #     send(handler, exception, locale, key, options)
-    #   else
-    #     handler.call(exception, locale, key, options)
-    #   end
-    # end
-
-    # def wrap_message_html(exception, locale, key, options)
-    #   keys = I18n.normalize_keys(exception.locale, exception.key, exception.options[:scope])
-    #   %(<span class="translation_missing">#{keys.join(', ')}</span>)
-    #   # content_tag('span', keys.join(', '), :class => 'translation_missing')
-    # end
+    attr_writer :missing_translations
 
     def missing_translations
       @missing_translations ||= MemoryLogger.new
@@ -53,7 +38,29 @@ I18n.module_eval do
       puts YAML.dump(Hash[*to_a.flatten]) unless empty?
     end
   end
+end
 
+# TODO move to I18n
+I18n.module_eval do
+  class << self
+    def handle_exception(exception, locale, key, options)
+      case handler = options[:exception_handler] || config.exception_handler
+      when Symbol
+        send(handler, exception, locale, key, options)
+      else
+        handler.call(exception, locale, key, options)
+      end
+    end
+
+    def wrap_exception(exception, locale, key, options)
+      case exception
+      when MissingTranslationData
+        %(<span class="translation_missing">#{exception.keys.join('.')}</span>)
+      else
+        raise exception
+      end
+    end
+  end
 end
 
 I18n::MissingTranslationData.class_eval do
