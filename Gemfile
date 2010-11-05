@@ -13,6 +13,8 @@ adva_cms.gem  'adva-static'
 adva_cms.gem  'adva-user'
 adva_cms.gem  'adva-markup'
 
+gem 'i18n', :path => '~/Development/projects/i18n/i18n'
+
 group :test do
   gem 'sqlite3-ruby', '1.2.5'
   gem 'cucumber', '0.9.0'
