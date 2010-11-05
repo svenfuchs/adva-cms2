@@ -96,14 +96,27 @@ When /^I click on the link from the email to (.*)$/ do |to|
   get link
 end
 
-Then /^I should see a row (?:of the ([a-z ]+) table )?where "(.*)" is "(.*)"$/ do |table_id, header, cell_content|
+Then /^I should (not )?see a ([a-z ]+ )?row (?:of the ([a-z ]+) table )?where "(.*)" is "(.*)"$/ do |optional_not, row_classes, table_id, header, cell_content|
   body = Nokogiri::HTML(response.body)
   table_xpath = table_id.nil? ? 'table' : "table[@id='#{table_id.gsub(/ /, '_')}']"
   table_header_cells = body.xpath("//#{table_xpath}/descendant::th[normalize-space(text())='#{header}']/@id")
-  assert !table_header_cells.empty?, "could not find table header cell '#{header}'"
+
+  unless optional_not.present?
+    assert !table_header_cells.empty?, "could not find table header cell '#{header}'"
+  end
   header_id = body.xpath("//#{table_xpath}/descendant::th[normalize-space(text())='#{header}']/@id").first.try(:value)
 
-  assert body.xpath("//#{table_xpath}/descendant::td[@headers='#{header_id}'][normalize-space(text())='#{cell_content}']/ancestor::tr/@id").first.try(:value)
+  class_condition = row_classes.to_s.split(' ').map do |row_class|
+    "contains(concat(' ', normalize-space(@class), ' '), ' #{row_class} ')"
+  end.join(' and ')
+  tr_xpath = class_condition.empty? ? 'ancestor::tr' : "ancestor::tr[#{class_condition}]"
+  xpath_result = body.xpath("//#{table_xpath}/descendant::td[@headers='#{header_id}'][normalize-space(text())='#{cell_content}']/#{tr_xpath}/@id")
+
+  if optional_not.present?
+    assert xpath_result.empty?, 'should not find a row'
+  else
+    assert xpath_result.any?, 'should find at least one row'
+  end
 end
 
 Then /^there should be an? (\w+)$/ do |model|
