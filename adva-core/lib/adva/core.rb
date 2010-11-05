@@ -24,12 +24,18 @@ require 'core_ext/ruby/module/include_anonymous'
 require 'core_ext/rails/action_view/has_many_through_collection_helpers'
 require 'core_ext/rails/active_record/skip_callbacks'
 
+at_exit { I18n.missing_translations.dump } if Rails.env.test?
+
 module Adva
   class Core < ::Rails::Engine
     include Adva::Engine
 
     initializer 'adva-core.register_middlewares.static' do
-      config.app_middleware.insert_before 'Rack::Lock', Adva::Rack::Static
+      config.app_middleware.insert_before('Rack::Lock', Adva::Rack::Static)
+    end
+
+    initializer 'adva-core.register_middlewares.log_missing_translations' do
+      config.app_middleware.use(I18n::MissingTranslationsLog) if Rails.env.development?
     end
 
     initializer 'adva-core.require_section_types' do
