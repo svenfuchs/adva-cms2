@@ -25,5 +25,6 @@ Gem::Specification.new do |s|
   s.add_dependency 'simple_table', '0.0.10'
   s.add_dependency 'simple_nested_set', '0.0.19'
   s.add_dependency 'kronn-has_many_polymorphs', '3.0.2'
+  s.add_dependency 'i18n-missing_translations', '0.0.1'
   s.add_dependency 'silence_log_tailer', '0.0.1'
 end

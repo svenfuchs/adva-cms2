@@ -1,4 +1,4 @@
-require File.expand_path('../test_helper', __FILE__)
+require File.expand_path('../../test_helper', __FILE__)
 
 module AdvaCoreTests
   class I18nViewHelperTest < Test::Unit::TestCase
@@ -38,46 +38,6 @@ module AdvaCoreTests
       I18n.t(:missing, :locale => :missing_translations)
       expected = { 'missing_translations' => { 'missing' => 'Missing' } }
       assert_equal expected, I18n.missing_translations
-    end
-  end
-
-  class I18nMissingTranslationsLogTest < Test::Unit::TestCase
-    attr_reader :app, :log, :filename
-
-    def setup
-      @filename = '/tmp/adva-cms2-test/log/test_missing_translations.rb'
-      FileUtils.mkdir_p(File.dirname(filename))
-    end
-
-    def teardown
-      File.rm(filename) rescue nil
-      I18n.missing_translations.clear
-    end
-
-    test 'logs to a memory hash' do
-      log = I18n::MissingTranslationsLog.new
-      log.log([:missing_translations, :foo])
-      log.log([:missing_translations, :bar, :baz, :boz])
-      log.log([:missing_translations, :bar, :baz, :buz])
-
-      expected = { 'missing_translations' => { 'foo' => 'Foo', 'bar' => { 'baz' => { 'boz' => 'Boz', 'buz' => 'Buz' } } } }
-      assert_equal expected, log
-    end
-
-    test 'dumps memory log as a yaml hash' do
-      log = I18n::MissingTranslationsLog.new
-      log.log([:missing_translations, :foo, :bar])
-      log.dump(out = StringIO.new)
-
-      expected = '---  missing_translations:    foo:      bar: Bar '
-      assert_equal expected, out.string.gsub("\n", ' ')
-    end
-
-    test 'works as a rack middleware' do
-      File.open(filename, 'w+') { |f| f.write(YAML.dump('en' => { 'foo' => 'Foo' })) }
-      log = I18n::MissingTranslationsLog.new(lambda { |*| I18n.t(:missing) }, filename)
-      log.call({})
-      assert_equal({ 'en' => { 'foo' => 'Foo', 'missing' => 'Missing' }}, YAML.load_file(filename))
     end
   end
 end

@@ -8,9 +8,9 @@ require 'simple_nested_set'
 require 'simple_slugs'
 require 'has_many_polymorphs'
 require 'minimal'
+require 'i18n/missing_translations'
 require 'silence_log_tailer'
 
-require 'adva/i18n'
 require 'adva/routing_filters/section_path'
 require 'adva/routing_filters/section_root'
 require 'adva/controller/abstract_actions'
@@ -35,7 +35,7 @@ module Adva
     end
 
     initializer 'adva-core.register_middlewares.log_missing_translations' do
-      config.app_middleware.use(I18n::MissingTranslationsLog) if Rails.env.development?
+      config.app_middleware.use(I18n::MissingTranslations) if Rails.env.development?
     end
 
     initializer 'adva-core.require_section_types' do
