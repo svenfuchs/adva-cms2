@@ -17,10 +17,14 @@ Done:
 + don't use multiple static middleware instances for serving static assets
 + patch action_view asset_tag_helper registration to allow appending assets to existing groups
 + improve menu item helper to use only the last part of a dot separated i18n key
++ improve menus to allow for registering and thus prepending/appending/moving items
++ i18n: clean up scopes
++ i18n: fix inherited_resources lookup scopes
++ i18n: make :'.foo' additionally lookup sane defaults (using I18n::Cascade)
 
 Stuff:
 
-- improve menus to allow for registering and thus prepending/appending/moving items
+- i18n: fix simple_form lookup scopes
 - in section_controller consider merging params[:section] to params[:blog] (or whatever the concrete controller type is)
 - figure out how to remove set_params_for_nested_resources controller filters
 - cache_tagging doesn't play well with Arel scopes
@@ -28,12 +32,12 @@ Stuff:
 - thor engine migration generator
 - make adva-user optional through http_auth, fix Site.install
 - custom error pages
-- clean up i18n scopes (see below)
 
 Optimize:
 
 - further speed up Adva::Rack::Static by memoizing existing static file paths
 - optimize routing filters
+- development mode seems to load nokogiri, webrat, etc.
 
 Features:
 
@@ -55,7 +59,3 @@ Features:
 - rbac
 - comments
 
-I18n:
-
-- fix simple_form, inherited_resources etc lookup scopes
-- make :'.foo' additionally lookup sane defaults (e.g. minimal class parents?)
