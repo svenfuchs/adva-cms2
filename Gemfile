@@ -13,8 +13,7 @@ adva_cms.gem  'adva-static'
 adva_cms.gem  'adva-user'
 adva_cms.gem  'adva-markup'
 
-gem 'i18n-missing_translations', :git => 'git://github.com/svenfuchs/i18n-missing_translations.git'
-gem 'i18n', :git => 'git@github.com:svenfuchs/i18n.git', :ref => '0.5.0'
+gem 'i18n', :git => 'git://github.com/svenfuchs/i18n.git', :ref => '0.5.0'
 
 group :test do
   gem 'sqlite3-ruby', '1.2.5'
