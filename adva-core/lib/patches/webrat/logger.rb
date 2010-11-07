@@ -1,11 +1,6 @@
-begin
-  require 'webrat'
-rescue LoadError
-end
-# require 'webrat/core/logging'
 require 'gem_patching'
 
-Gem.patching('webrat', '0.7.0') do
+Gem.patching('webrat', '0.7.2') do
   Webrat::Logging.class_eval do
     def logger
       case Webrat.configuration.mode

@@ -17,9 +17,9 @@ gem 'i18n', :git => 'git://github.com/svenfuchs/i18n.git', :ref => '0.5.0'
 
 group :test do
   gem 'sqlite3-ruby', '1.2.5'
-  gem 'cucumber', '0.9.0'
+  gem 'cucumber', '0.9.4'
   gem 'cucumber-rails', '0.3.2'
-  gem 'webrat', '0.7.0'
+  gem 'webrat', '0.7.2'
   gem 'thor'
   gem 'ruby-debug'
   gem 'mocha'
