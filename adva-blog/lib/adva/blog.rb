@@ -18,6 +18,12 @@ module Adva
     initializer 'adva-blog.configure_routing_filters' do
       RoutingFilter::SectionRoot.anchors << '\d{4}'
     end
+
+    initializer 'adva-blog.register_asset_expansions' do
+      ActionView::Helpers::AssetTagHelper.register_stylesheet_expansion(
+        :default => %w( adva-blog/default/styles )
+      )
+    end
   end
 end
 

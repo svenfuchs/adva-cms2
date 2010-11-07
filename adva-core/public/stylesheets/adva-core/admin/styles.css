@@ -128,9 +128,3 @@ p.active a {
   float: right;
   padding-top: 2px;
 }
-
-/* TODO move to adva-assets */
-
-ul#uploaded_images {
-  margin-top: 20px;
-}
