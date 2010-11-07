@@ -1,6 +1,6 @@
 # Make the view translation helper use the :rescue_format => :html option instead
 # of rescuing exceptions itself.
-Gem.patching('rails', '3.0.0') do
+Gem.patching('rails', '3.0.1') do
   ActionView::Helpers::TranslationHelper.module_eval do
     def translate(key, options = {})
       options.merge!(:rescue_format => :html) unless options.key?(:rescue_format)

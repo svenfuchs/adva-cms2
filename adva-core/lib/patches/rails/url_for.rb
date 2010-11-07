@@ -1,7 +1,7 @@
 require 'gem_patching'
 
 # remove trailing segments '.1' and  query params '?=1' from url
-Gem.patching('rails', '3.0.0') do
+Gem.patching('rails', '3.0.1') do
   ActionDispatch::Routing::RouteSet.class_eval do
     def url_for_with_singleton_resource_patch(options)
       url_for_without_singleton_resource_patch(options).
@@ -15,7 +15,7 @@ end
 # walks up the inheritance chain for given records if the generated named route
 # helper does not exist
 # see https://rails.lighthouseapp.com/projects/8994-ruby-on-rails/tickets/2986-polymorphic_url-should-handle-sti-better
-Gem.patching('rails', '3.0.0') do
+Gem.patching('rails', '3.0.1') do
   require 'action_dispatch/routing/polymorphic_routes'
 
   ActionDispatch::Routing::PolymorphicRoutes.module_eval do
@@ -50,7 +50,7 @@ end
 # respond_to? method. It thus doesn't respond_to? to named route url helpers even
 # though it actually responds to them. Happens with the PolymorphicRoutes patch
 # above, so this patch is here as well.
-Gem.patching('rails', '3.0.0') do
+Gem.patching('rails', '3.0.1') do
   ActionDispatch::Integration::Runner.module_eval do
     def respond_to?(method, include_private = false)
       @integration_session.respond_to?(method, include_private) || super

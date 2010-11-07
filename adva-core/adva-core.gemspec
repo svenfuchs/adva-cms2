@@ -14,7 +14,7 @@ Gem::Specification.new do |s|
   s.require_path = 'lib'
   s.rubyforge_project = '[none]'
 
-  s.add_dependency 'rails', '3.0.0'
+  s.add_dependency 'rails', '3.0.1'
   s.add_dependency 'gem_patching', '0.0.2'
   s.add_dependency 'routing-filter', '0.2.0'
   s.add_dependency 'inherited_resources', '1.1.2'
