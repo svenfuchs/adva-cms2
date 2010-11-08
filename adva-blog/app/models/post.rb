@@ -13,11 +13,6 @@ class Post < Content
     end
   end
 
-  # FIXME should be in adva-markup, shouldn't it?
-  def filter
-    read_attribute(:filter) || (section.respond_to?(:default_filter) ? section.default_filter : nil)
-  end
-
   def permalink
     "#{created_at.year}/#{created_at.month}/#{created_at.day}/#{slug}"
   end
