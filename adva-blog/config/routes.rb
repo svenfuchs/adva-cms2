@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   namespace :admin do
     resources :sites do
       resources :blogs do
+        # TODO how to map admin/sites/:site_id/blogs/:blog_id to admin/posts#index?
         resources :posts
       end
     end
