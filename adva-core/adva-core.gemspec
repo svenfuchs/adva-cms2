@@ -14,7 +14,7 @@ Gem::Specification.new do |s|
   s.require_path = 'lib'
   s.rubyforge_project = '[none]'
 
-  s.add_dependency 'rails', '3.0.0'
+  s.add_dependency 'rails', '3.0.1'
   s.add_dependency 'gem_patching', '0.0.2'
   s.add_dependency 'routing-filter', '0.2.0'
   s.add_dependency 'inherited_resources', '1.1.2'
@@ -22,8 +22,9 @@ Gem::Specification.new do |s|
   s.add_dependency 'minimal', '0.0.22'
   s.add_dependency 'simple_form', '1.2.2'
   s.add_dependency 'simple_slugs', '0.0.7'
-  s.add_dependency 'simple_table', '0.0.10'
+  s.add_dependency 'simple_table', '0.0.11'
   s.add_dependency 'simple_nested_set', '0.0.19'
   s.add_dependency 'kronn-has_many_polymorphs', '3.0.2'
+  s.add_dependency 'i18n-missing_translations', '0.0.1'
   s.add_dependency 'silence_log_tailer', '0.0.1'
 end

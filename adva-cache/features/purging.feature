@@ -33,7 +33,7 @@ Feature: Purging tagged entries from the cache
     Given I am on the admin "FAQ" section page
     When I fill in "Name" with "Updated FAQ"
      And I press "Update"
-    Then it should purge cache entries tagged: page-1:name
+    Then it should purge cache entries tagged: page-1:name, page-1:options
      And it should purge the cache entries: /
 
   Scenario: Deleting a page purges cache entries

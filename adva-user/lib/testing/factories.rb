@@ -6,6 +6,6 @@ Factory.define :user, :class => User do |f|
 end
 
 Factory.define :admin, :parent => :user do |f|
-  f.email 'admin@admin.org'
+  f.email { User.find_by_email('admin@admin.org') ? 'admin-2@admin.org' : 'admin@admin.org' }
   f.password 'admin!'
 end

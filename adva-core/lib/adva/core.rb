@@ -8,9 +8,9 @@ require 'simple_nested_set'
 require 'simple_slugs'
 require 'has_many_polymorphs'
 require 'minimal'
+require 'i18n/missing_translations'
 require 'silence_log_tailer'
 
-require 'adva/i18n'
 require 'adva/routing_filters/section_path'
 require 'adva/routing_filters/section_root'
 require 'adva/controller/abstract_actions'
@@ -24,12 +24,18 @@ require 'core_ext/ruby/module/include_anonymous'
 require 'core_ext/rails/action_view/has_many_through_collection_helpers'
 require 'core_ext/rails/active_record/skip_callbacks'
 
+at_exit { I18n.missing_translations.dump } if Rails.env.test?
+
 module Adva
   class Core < ::Rails::Engine
     include Adva::Engine
 
     initializer 'adva-core.register_middlewares.static' do
-      config.app_middleware.insert_before 'Rack::Lock', Adva::Rack::Static
+      config.app_middleware.insert_before('Rack::Lock', Adva::Rack::Static)
+    end
+
+    initializer 'adva-core.register_middlewares.log_missing_translations' do
+      config.app_middleware.use(I18n::MissingTranslations) if Rails.env.development?
     end
 
     initializer 'adva-core.require_section_types' do

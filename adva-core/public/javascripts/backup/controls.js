@@ -781,7 +781,7 @@ Ajax.InPlaceCollectionEditor = Class.create(Ajax.InPlaceEditor, {
       onComplete: Prototype.emptyFunction,
       onSuccess: function(transport) {
         var js = transport.responseText.strip();
-        if (!/^\[.*\]$/.test(js)) // TODO: improve sanity check
+        if (!/^\[.*\]$/.test(js))
           throw('Server returned an invalid collection representation.');
         this._collection = eval(js);
         this.checkForExternalText();

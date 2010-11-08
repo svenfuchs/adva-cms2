@@ -273,7 +273,3 @@ Then /^I should see "([^"]*)" formatted as a "([^"]*)" tag$/ do |value, tag|
   assert_select(tag, value)
 end
 
-Then "debug" do
-  debugger
-  true
-end

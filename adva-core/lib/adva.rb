@@ -33,5 +33,8 @@ module Adva
     def engine?(name)
       engine_names.include?(name)
     end
+    alias :installed? :engine?
   end
 end
+
+

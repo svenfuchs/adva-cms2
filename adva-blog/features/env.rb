@@ -1,1 +1,1 @@
-require File.expand_path('../../../adva-core/features/env', __FILE__)
+require File.expand_path('../../../adva-core/lib/testing/env', __FILE__)

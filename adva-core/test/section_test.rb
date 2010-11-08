@@ -40,6 +40,12 @@ module AdvaCoreTests
       assert_equal [3, 4], [node_2.lft, node_2.rgt]
     end
 
+    test 'section trees are scoped to their site_id' do
+      other_site = Factory(:site, :host => 'http://other_host')
+      node_1 = other_site.sections.create!(:name => 'node 2')
+      assert (site.sections & other_site.sections).empty?
+    end
+
     test "a section has its path denormalized (happens in simple_nested_set) and strips the home section path off (on read)" do
       root_1 = site.sections.first
       node_1 = site.sections.create!(:name => 'node 1', :parent => root_1)
