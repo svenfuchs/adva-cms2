@@ -1,13 +1,16 @@
 # encoding: utf-8
 
+$:.unshift File.expand_path('../lib', __FILE__)
+require 'adva_core/version'
+
 Gem::Specification.new do |s|
   s.name         = "adva-core"
-  s.version      = '0.0.1'
+  s.version      = AdvaCore::VERSION
   s.authors      = ["Ingo Weiss", "Sven Fuchs"]
   s.email        = "nobody@adva-cms.org"
   s.homepage     = "http://github.com/svenfuchs/adva-cms2"
-  s.summary      = "[summary]"
-  s.description  = "[description]"
+  s.summary      = "Core engine for adva-cms2"
+  s.description  = "Core engine for adva-cms2"
 
   s.files        = Dir['{app,config,lib,public}/**/*']
   s.platform     = Gem::Platform::RUBY
