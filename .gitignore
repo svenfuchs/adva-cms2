@@ -6,3 +6,5 @@
 *.zip
 *.sqlite3
 Gemfile.lock
+*.swp
+*.gem
