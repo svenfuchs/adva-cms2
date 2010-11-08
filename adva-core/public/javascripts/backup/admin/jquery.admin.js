@@ -41,7 +41,6 @@ $(document).ready(function() {
           scroll: true
         }
       },
-      // FIXME tip option for qtip is broken currently on firefox, add this when this is fixed: tip: 'bottomMiddle'
       style: {
         background: '#FBF7E4',
         color: '#black',
@@ -69,7 +68,6 @@ $(document).ready(function() {
     });
   });
 
-  // TODO make the new section creation maybe a two-step form and get rid of this here...
   $('form.section_type input[type=submit]').hide();
   $('form.section_type input[type=radio]').change(function(e) {
     $('form.section_type').submit();

@@ -30,14 +30,14 @@ Stuff:
 - cache_tagging doesn't play well with Arel scopes
 - cache_tagging (or whoever) seems to use the filtered path (apparently section_root) instead of the real request path
 - thor engine migration generator
-- make adva-user optional through http_auth, fix Site.install
+- make adva-user optional (using http_auth?), fix Site.install
 - custom error pages
 
 Optimize:
 
-- further speed up Adva::Rack::Static by memoizing existing static file paths
 - optimize routing filters
 - development mode seems to load nokogiri, webrat, etc.
+- further speed up Adva::Rack::Static by memoizing existing static file paths
 
 Features:
 
