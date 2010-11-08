@@ -12,11 +12,6 @@ class Admin::SectionsController < Admin::BaseController
 
   purges :destroy
 
-  def create
-    resource.save
-    respond_with *resources
-  end
-
   protected
 
     def set_params_for_nested_resources
