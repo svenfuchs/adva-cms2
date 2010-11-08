@@ -1,0 +1,19 @@
+.posts {
+  padding-top: 0;
+  margin-left: 0;
+  list-style-type: none;
+}
+.post {
+  padding-bottom: 1em;
+}
+.meta {
+  font-size: 10pt;
+  color: #999;
+}
+.continue {
+  font-size: 10pt;
+}
+.continue:after {
+  content: " \2192";
+}
+

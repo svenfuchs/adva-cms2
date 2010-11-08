@@ -19,7 +19,7 @@ en:
     index:
       continue: Read the rest of this post
     meta:
-      info: "posted on %{date}"
+      info_html: "posted on %{date}"
 
   admin:
     blogs:
