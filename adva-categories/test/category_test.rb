@@ -34,7 +34,7 @@ module AdvaCategoryTests
       assert_equal [category], bar.categories
     end
 
-    test 'categorized content scope' do
+    test 'categorized content scope: includes contents categorized as the given category' do
       foo = Factory(:content, :title => 'foo')
       bar = Factory(:content, :title => 'bar')
       baz = Factory(:content, :title => 'baz')
@@ -43,6 +43,19 @@ module AdvaCategoryTests
       category.categorizables << foo << bar
 
       assert_equal [foo, bar], Content.categorized(category.id)
+    end
+
+    test 'categorized content scope: includes contents categorized as children of the given category' do
+      foo = Factory(:content, :title => 'foo')
+      bar = Factory(:content, :title => 'bar')
+      baz = Factory(:content, :title => 'baz')
+
+      parent = Factory(:category)
+      child  = Factory(:category)
+      child.move_to_child_of(parent)
+      child.categorizables << foo << bar
+
+      assert_equal [foo, bar], Content.categorized(parent.id)
     end
 
     test 'adding a categorization through nested attributes' do
