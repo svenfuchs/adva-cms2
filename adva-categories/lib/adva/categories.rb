@@ -1,4 +1,4 @@
-require 'adva'
+require 'adva/core'
 require 'adva/views/categories_tab.rb'
 
 module Adva

@@ -1,4 +1,4 @@
-require 'adva'
+require 'adva/core'
 
 module Adva
   class Static < ::Rails::Engine
