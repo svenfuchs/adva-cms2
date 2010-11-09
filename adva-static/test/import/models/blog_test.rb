@@ -26,9 +26,9 @@ module AdvaStatic
       expected = { :site_id => '', :type => 'Blog', :path => 'blog', :slug => 'blog',
         :name => 'Blog', :posts_attributes=>[
           { :section_id => '', :site_id => '', :title => 'Welcome To The Future Of I18n In Ruby On Rails',
-            :body => 'Welcome to the future', :created_at => DateTime.new(2008, 7, 31) },
+            :body => 'Welcome to the future', :published_at => DateTime.new(2008, 7, 31) },
           { :section_id => '', :site_id => '', :title => 'Ruby I18n Gem Hits 0 2 0',
-            :body => 'Ruby I18n hits 0.2.0', :created_at => DateTime.new(2009, 7, 12) }] }
+            :body => 'Ruby I18n hits 0.2.0', :published_at => DateTime.new(2009, 7, 12) }] }
       assert_equal expected, blog.attributes
     end
 

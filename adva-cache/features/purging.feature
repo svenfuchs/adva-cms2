@@ -2,11 +2,11 @@ Feature: Purging tagged entries from the cache
   Background:
     Given a site with the following sections:
        | id | type | name |
-       | 1  | Page | FAQ  |
+       | 1  | Page | Home |
        | 2  | Blog | Blog |
      And the following posts:
-       | id | section | title      | created_at |
-       | 2  | Blog    | Post title | 2010-01-01 |
+       | id | section | title      | published_at |
+       | 2  | Blog    | Post title | 2010-01-01   |
      And I have visited /
      And I have visited /blog
      And I have visited /blog/2010/01/01/post-title
@@ -30,14 +30,14 @@ Feature: Purging tagged entries from the cache
      And it should purge the cache entries: /, /blog, /blog/2010/01/01/post-title
 
   Scenario: Updating a page purges cache entries
-    Given I am on the admin "FAQ" section page
-    When I fill in "Name" with "Updated FAQ"
+    Given I am on the admin "Home" section page
+    When I fill in "Name" with "Updated Home"
      And I press "Update"
     Then it should purge cache entries tagged: page-1:name, page-1:options
      And it should purge the cache entries: /
 
   Scenario: Deleting a page purges cache entries
-    Given I am on the admin "FAQ" section page
+    Given I am on the admin "Home" section page
     When I follow "Delete"
     Then it should purge cache entries tagged: site-1:pages, site-1:sections, page-1
      And it should purge the cache entries: /, /blog, /blog/2010/01/01/post-title

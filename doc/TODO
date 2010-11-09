@@ -24,6 +24,7 @@ Done:
 
 Stuff:
 
+- add publishing workflow to blog post
 - i18n: fix simple_form lookup scopes
 - in section_controller consider merging params[:section] to params[:blog] (or whatever the concrete controller type is)
 - figure out how to remove set_params_for_nested_resources controller filters

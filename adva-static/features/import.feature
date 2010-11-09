@@ -65,11 +65,11 @@ Feature: Running the import task
     When I run the import task
     Then there should be a blog named "Home"
      And that blog should have posts with the following attributes:
-      | title | body     | created_at |
-      | Foo   | Foo body | 2010-01-01 |
-      | Bar   | Bar body | 2010-10-10 |
-      | Baz   | Baz body | 2010-01-01 |
-      | Buz   | Buz body | 2010-10-10 |
+      | title | body     | published_at |
+      | Foo   | Foo body | 2010-01-01   |
+      | Bar   | Bar body | 2010-10-10   |
+      | Baz   | Baz body | 2010-01-01   |
+      | Buz   | Buz body | 2010-10-10   |
      But there should not be a section named "2010"
 
   Scenario: An import directory with a root blog source file and a blog post source file
@@ -81,8 +81,8 @@ Feature: Running the import task
     When I run the import task
     Then there should be a blog named "Blog"
      And there should be a post with the following attributes:
-      | title      | Foo        |
-      | body       | Foo body   |
-      | created_at | 2010-01-01 |
+      | title        | Foo        |
+      | body         | Foo body   |
+      | published_at | 2010-01-01 |
      But there should not be a section named "2010"
 

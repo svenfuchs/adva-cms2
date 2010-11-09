@@ -7,7 +7,7 @@ class Posts::Meta < Minimal::Template
     end
 
     def published_at
-      capture { content_tag(:abbr, l(post.created_at, :format => :post), :title => post.created_at, :class => 'updated') }
+      capture { content_tag(:abbr, l(post.published_at, :format => :post), :title => post.published_at, :class => 'updated') }
     end
   end
 end

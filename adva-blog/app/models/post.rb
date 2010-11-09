@@ -1,6 +1,8 @@
 class Post < Content
   has_slug :scope => :section_id
 
+  before_validation { |r| r.published_at = Time.now.to_datetime unless r.published_at }
+
   validates_presence_of :title
 
   class << self
@@ -9,12 +11,12 @@ class Post < Content
     end
 
     def by_archive(*args)
-      where("DATE(contents.created_at) = ?", Date.new(*args.map(&:to_i)).to_formatted_s(:db))
+      where("DATE(contents.published_at) = ?", Date.new(*args.map(&:to_i)).to_formatted_s(:db))
     end
   end
 
   def permalink
-    "#{created_at.year}/#{created_at.month}/#{created_at.day}/#{slug}"
+    "#{published_at.year}/#{published_at.month}/#{published_at.day}/#{slug}"
   end
 
   def to_param(name)

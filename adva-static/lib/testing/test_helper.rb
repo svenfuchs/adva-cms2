@@ -52,14 +52,14 @@ module TestHelper
       site.pages.first.destroy
 
       site.blogs.create!(:name => 'Home', :posts_attributes => [
-        { :title => 'Welcome to the future of I18n in Ruby on Rails', :body => 'Welcome to the future!', :created_at => '2008-07-31' }
+        { :title => 'Welcome to the future of I18n in Ruby on Rails', :body => 'Welcome to the future!', :published_at => '2008-07-31' }
       ])
     end
 
     def setup_non_root_blog_record
       site = setup_site_record
       site.blogs.create!(:name => 'Blog', :posts_attributes => [
-        { :title => 'Welcome to the future of I18n in Ruby on Rails', :body => 'Welcome to the future!', :created_at => '2008-07-31' }
+        { :title => 'Welcome to the future of I18n in Ruby on Rails', :body => 'Welcome to the future!', :published_at => '2008-07-31' }
       ])
     end
 

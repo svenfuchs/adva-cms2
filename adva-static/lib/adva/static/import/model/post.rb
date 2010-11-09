@@ -22,7 +22,7 @@ module Adva
           end
 
           def attribute_names
-            @attribute_names ||= [:site_id, :section_id, :title, :body, :created_at] # TODO [stuff] created_at should be published_at
+            @attribute_names ||= [:site_id, :section_id, :title, :body, :published_at]
           end
 
           def record
@@ -68,8 +68,8 @@ module Adva
             @path_tokens ||= source.to_s.gsub(/\.\w+$/, '').match(PERMALINK).to_a[1..-1]
           end
 
-          def created_at
-            @created_at ||= DateTime.civil(*permalink[0..-2].map(&:to_i))
+          def published_at
+            @published_at ||= DateTime.civil(*permalink[0..-2].map(&:to_i))
           end
         end
       end

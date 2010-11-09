@@ -17,9 +17,9 @@ Feature: Tagging pages for cache invalidation
       | id |  type | name |
       | 1  |  Blog | Blog |
     And the following posts:
-      | id |  section | title       | created_at |
-      | 1  |  Blog    | First post  | 2010-01-01 |
-      | 2  |  Blog    | Second post | 2010-01-02 |
+      | id |  section | title       | published_at |
+      | 1  |  Blog    | First post  | 2010-01-01   |
+      | 2  |  Blog    | Second post | 2010-01-02   |
     When I go to /
     And I go to /2010/01/01/first-post
     And I go to /2010/01/02/second-post

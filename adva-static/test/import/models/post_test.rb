@@ -27,7 +27,7 @@ module AdvaStatic
 
     test "has Post attributes" do
       post = Post.new(source('2010-10-10-post.html'))
-      expected = { :site_id => '', :section_id => '', :title => 'Post', :body => '', :created_at => DateTime.new(2010, 10, 10) }
+      expected = { :site_id => '', :section_id => '', :title => 'Post', :body => '', :published_at => DateTime.new(2010, 10, 10) }
       assert_equal expected, post.attributes
     end
 
