@@ -4,6 +4,7 @@ Feature: Menus
     Given a site with the following sections:
       | type | name |
       | Page | Home |
+      | Blog | Home |
     And I am signed in with "admin@admin.org" and "admin!"
 
   Scenario: Admin Sites

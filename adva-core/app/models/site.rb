@@ -8,11 +8,9 @@ class Site < ActiveRecord::Base
 
   accepts_nested_attributes_for :account, :sections
 
-  has_one  :home_section, :class_name => 'Section', :conditions => 'parent_id IS NULL', :order => 'lft'
-
   class << self
     def install(params)
-      User.skip_callbacks do # TODO remove user dependency, test failure
+      User.skip_callbacks do # TODO remove user dependency
         site = Site.create!(params[:site])
         site.account.users.first.confirm!
         site

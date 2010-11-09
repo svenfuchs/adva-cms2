@@ -28,7 +28,8 @@ class Section < ActiveRecord::Base
   end
 
   def path
-    _path == site.sections.root.send(:_path) ? '' : _path
+    # FIXME must be site.sections.root ...
+    _path == site.sections.first.send(:_path) ? '' : _path
   end
 
   def home?

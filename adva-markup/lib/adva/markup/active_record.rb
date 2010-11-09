@@ -1,29 +1,35 @@
-# TODO make sure this can be called multiple times
-#
 module Adva
   class Markup
     module ActiveRecord
       module ActMacro
         def filters(*attributes)
-          class_inheritable_accessor :filtered_attributes
-          class_inheritable_accessor :read_filtered_attributes
+          unless filters?
+            class_inheritable_accessor :filtered_attributes
+            class_inheritable_accessor :read_filtered_attributes
 
-          self.filtered_attributes = attributes
-          self.read_filtered_attributes = false
+            self.filtered_attributes = []
+            self.read_filtered_attributes = false
 
-          before_save :filter_attributes!
-          include InstanceMethods
-          include attribute_readers_module
+            before_save :filter_attributes!
+            include InstanceMethods
+          end
+
+          self.filtered_attributes += attributes
+          include attribute_readers_module(attributes)
         end
 
-        def attribute_readers_module
+        def attribute_readers_module(attributes)
           Module.new.tap do |readers|
-            filtered_attributes.each do |name|
+            attributes.each do |name|
               readers.module_eval <<-rb
                 def #{name}; read_filtered_attributes ? send(:#{name}_html) : super; end
               rb
             end
           end
+        end
+
+        def filters?
+          included_modules.include?(InstanceMethods)
         end
       end
 

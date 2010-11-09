@@ -26,7 +26,7 @@ Feature: Purging tagged entries from the cache
     When I follow "New"
      And I fill in "Name" with "New page"
      And I press "Create"
-     Then it should purge cache entries tagged: site-1:pages, site-1:sections, site-1:home_section
+     Then it should purge cache entries tagged: site-1:pages, site-1:sections
      And it should purge the cache entries: /, /blog, /blog/2010/01/01/post-title
 
   Scenario: Updating a page purges cache entries
@@ -39,7 +39,7 @@ Feature: Purging tagged entries from the cache
   Scenario: Deleting a page purges cache entries
     Given I am on the admin "FAQ" section page
     When I follow "Delete"
-    Then it should purge cache entries tagged: site-1:pages, site-1:sections, site-1:home_section, page-1
+    Then it should purge cache entries tagged: site-1:pages, site-1:sections, page-1
      And it should purge the cache entries: /, /blog, /blog/2010/01/01/post-title
 
   Scenario: Updating a blog purges cache entries
@@ -53,7 +53,7 @@ Feature: Purging tagged entries from the cache
   Scenario: Deleting a blog purges cache entries
     Given I am on the admin "Blog" section settings page
     When I follow "Delete"
-    Then it should purge cache entries tagged: site-1:blogs, site-1:sections, site-1:home_section, blog-2
+    Then it should purge cache entries tagged: site-1:blogs, site-1:sections, blog-2
      And it should purge the cache entries: /, /blog, /blog/2010/01/01/post-title
 
   Scenario: Creating a blog post purges cache entries
