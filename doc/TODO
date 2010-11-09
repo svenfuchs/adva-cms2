@@ -32,6 +32,7 @@ Stuff:
 - thor engine migration generator
 - make adva-user optional (using http_auth?), fix Site.install
 - custom error pages
+- add features for confirmations, passwords, unlocks to adva-user
 
 Optimize:
 

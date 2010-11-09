@@ -47,6 +47,12 @@ class Layouts::Base < Minimal::Template
       block.call
     end
 
+    def flash
+      controller.flash.each do |name, value|
+        div value, :id => "flash_#{name}", :class => "flash #{name}"
+      end
+    end
+
     def name
       @name ||= self.class.name.demodulize.underscore.to_sym
     end

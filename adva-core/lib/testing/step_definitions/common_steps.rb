@@ -98,11 +98,11 @@ When /^I (press|click) "(.*)" in the row (of the ([a-z ]+) table )?where "(.*)" 
   end
 end
 
-When /^I click on the link from the email to (.*)$/ do |to|
+When /^I visit the url from the email to (.*)$/ do |to|
   email = ::ActionMailer::Base.deliveries.detect { |email| email.to.include?(to) }
   assert email, "email to #{to} could not be found"
-  link = email.body.to_s =~ %r((http://[^\s"]+)) && $1
-  get link
+  url = email.body.to_s =~ %r((http://[^\s"]+)) && $1
+  visit(url)
 end
 
 Then /^there should be an? (\w+)$/ do |model|

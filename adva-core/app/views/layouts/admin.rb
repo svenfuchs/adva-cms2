@@ -11,7 +11,7 @@ module Layouts
           header
           div :id => 'page' do
             div :id => 'main', :class => 'main' do
-              render :partial => 'layouts/flash'
+              flash
               div :id => 'content' do
                 content
               end

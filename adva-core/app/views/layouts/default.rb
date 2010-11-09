@@ -13,6 +13,7 @@ class Layouts::Default < Layouts::Base
       div :id => :page do
         header
         div :id => :main do
+          flash
           content
         end
         sidebar
