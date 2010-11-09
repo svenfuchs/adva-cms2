@@ -1,4 +1,4 @@
-# # TODO just doesn't work this way. use fake_fs instead.
+# # TODO [tests] just doesn't work this way. use fake_fs instead.
 #
 # require File.expand_path('../test_helper', __FILE__)
 # require 'action_controller'

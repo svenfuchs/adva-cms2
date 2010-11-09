@@ -28,7 +28,7 @@ class Section < ActiveRecord::Base
   end
 
   def path
-    # FIXME must be site.sections.root ...
+    # FIXME [bug] must be site.sections.root ...
     _path == site.sections.first.send(:_path) ? '' : _path
   end
 

@@ -20,8 +20,8 @@ Gem.patching('rails', '3.0.1') do
 
   ActionDispatch::Routing::PolymorphicRoutes.module_eval do
     def build_named_route_call_with_sti_fallbacks(records, inflection, options = {})
-      # FIXME should cache successful transformation for reuse
-      # FIXME currently only works if records is an array (also might be a single record or a Hash)
+      # FIXME [polymorphic url_for] should cache successful transformation for reuse
+      # currently only works if records is an array (also might be a single record or a Hash)
       original_records = records
       records = records.dup unless records.is_a?(Symbol)
       method = build_named_route_call_without_sti_fallbacks(records, inflection, options)

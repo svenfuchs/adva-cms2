@@ -17,6 +17,6 @@ Rails.application.routes.draw do
   end
 
   # this is just here so we get the named url helper and can use url_for([blog, post])
-  # TODO how can we improve this? can we just make this a regular helper blog_post_path?
+  # TODO [routes] how can we improve this? can we just make this a regular helper blog_post_path?
   get 'blogs/:blog_id/*permalink', :to => "posts#internal", :as => :blog_post
 end

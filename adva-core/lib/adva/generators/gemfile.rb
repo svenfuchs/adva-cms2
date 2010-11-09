@@ -6,7 +6,7 @@ module Adva
       def initialize(target, options = {})
         self.engines = options[:engines]
         @target  = Pathname.new(target)
-        @source  = options[:source] || raise('no source given') # TODO should bubble up to find the current Gemfile
+        @source  = options[:source] || raise('no source given') # TODO [cli] should bubble up to find the current Gemfile
         @engines = engines
       end
 

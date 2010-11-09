@@ -1,6 +1,6 @@
 class InstallationsController < BaseController
   defaults :resource_class => Site, :instance_name => 'site'
-  
+
   layout 'simple'
   helper :sections
 
@@ -18,11 +18,11 @@ class InstallationsController < BaseController
       params[:site].reverse_merge!(:host => request.host_with_port, :title => params[:site][:name], :account_attributes => {})
       params[:site][:sections_attributes] ||= [{ :type => 'Page', :name => I18n.t(:'section.default_name', :default => 'Home') }]
     end
-    
+
     def protect_install
       if Site.find_by_host(request.host_with_port)
         flash[:error] = t(:'flash.installation.protected', :host => request.host_with_port)
-        redirect_to admin_sites_url # TODO figure out how to remove the user dependency
+        redirect_to admin_sites_url # TODO [user dependency] figure out how to remove the user dependency
       end
     end
 end

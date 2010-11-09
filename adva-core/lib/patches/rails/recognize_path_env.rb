@@ -10,7 +10,7 @@ module ActionDispatch
 
         begin
 
-          # TODO submit a rails patch
+          # TODO [patch] submit a rails patch
 
           # env = Rack::MockRequest.env_for(path, {:method => method})
           env = Rack::MockRequest.env_for(path, {:method => method}).merge(environment)

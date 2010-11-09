@@ -29,7 +29,7 @@ foreign_keyify = lambda do |table|
   table.transpose
 end
 
-# FIXME must be here because one apparently can't register multiple transforms for the
+# must be here because one apparently can't register multiple transforms for the
 # same regex (like /^table:/) in cucumber. should really be in adva-categories though.
 categoryify = lambda do |table|
   if table.headers.include?('categories')

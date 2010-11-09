@@ -7,7 +7,7 @@ class PostsController < BaseController
   protected
 
     def collection
-      # FIXME only here for reference tracking. how can we remove this?
+      # FIXME [reference tracking] how can we remove this?
       @_references << [blog, :posts] if @_references
       super
     end

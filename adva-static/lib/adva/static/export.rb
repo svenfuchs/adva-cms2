@@ -84,7 +84,7 @@ module Adva
         end
 
         def env_for(path)
-          site = Site.first || raise('could not find any site') # TODO make this a cmd line arg or options
+          site = Site.first || raise('could not find any site') # TODO [static] make this a cmd line arg or options
           name, port = site.host.split(':')
           ::Rack::MockRequest.env_for(path).merge('SERVER_NAME' => name,'SERVER_PORT' => port || '80')
         end

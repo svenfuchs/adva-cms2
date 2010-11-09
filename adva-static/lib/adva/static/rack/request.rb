@@ -23,7 +23,7 @@ module Adva
           end
 
           def username
-            'admin@admin.org' # TODO read from conf/auth.yml or something
+            'admin@admin.org' # TODO [static] read from conf/auth.yml or something
           end
 
           def password
@@ -31,7 +31,7 @@ module Adva
           end
 
           def site
-            @site ||= Site.first || raise('could not find any site') # FIXME
+            @site ||= Site.first || raise('could not find any site') # TODO [static]
           end
       end
     end

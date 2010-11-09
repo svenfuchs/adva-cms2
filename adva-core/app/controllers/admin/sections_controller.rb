@@ -17,7 +17,7 @@ class Admin::SectionsController < Admin::BaseController
     def set_params_for_nested_resources
       params[:section] ||= { :type => 'Page' }
       if params[:section][:type] == 'Page'
-        # FIXME! this seems to insert tons of empty articles on update if :article_attributes is empty.
+        # FIXME! [bug] this seems to insert tons of empty articles on update if :article_attributes is empty.
         # shouldn't happen with a regular form submit but still seems a bit ugly
         params[:section][:article_attributes] ||= { :body => '' } if params[:action] == 'new'
       else

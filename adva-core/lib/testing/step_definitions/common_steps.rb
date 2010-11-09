@@ -2,7 +2,7 @@ Given 'a site' do
   @site = Factory(:site)
 end
 
-# TODO what's this?
+# TODO [steps] what's this?
 Transform /^table:name,product_name$/ do |table|
   transformed_table = table.hashes.map do |row|
     row.merge('product_id' => Product.find_by_name(row.delete('product_name')).id)
@@ -243,7 +243,7 @@ end
 #   expected_table.diff!(html_table)
 # end
 
-# TODO somehow merge this with what's in within_steps.rb
+# TODO [steps] somehow merge this with what's in within_steps.rb
 #
 # Then I should see a comment within the sidebar
 # Will look for '#sidebar .comment'

@@ -2,7 +2,7 @@ module HasOptions
   def has_option(*names)
     unless respond_to?(:option_definitions)
       include InstanceMethods
-      # FIXME once lazy loaded code slices do work we should be able to make
+      # FIXME [code slices] once lazy loaded code slices do work we should be able to make
       # this a class_inheritable_reader and remove the descendants loop. currently
       # class_inheritable_readers (which are used by :serialize, too) get out of
       # sync because has_option is being called from section_slice which is loaded

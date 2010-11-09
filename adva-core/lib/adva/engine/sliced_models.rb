@@ -1,7 +1,7 @@
 module Adva
   module Engine
     module SlicedModels
-      # TODO while preloading seems to work fine, it slows the dev mode down
+      # TODO [code slices] while preloading seems to work fine, it slows the dev mode down
       # quite a bit. should be replace with an approace which lazyloads sliced
       # models in Dependencies maybe an after-load hook in Dependencies would
       # work.

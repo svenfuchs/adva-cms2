@@ -61,8 +61,8 @@ module Adva
         end
 
         def cucumber_options
-          # TODO submit a patch to Cucumber: programatically find out supported Cucumber options seems
-          # close to impossible bc/ it immediately calls parse! on its options as soon they are defined.
+          # programatically find out supported Cucumber options seems close to impossible because it
+          # immediately calls parse! on its options as soon they are defined.
           # see http://github.com/aslakhellesoy/cucumber/blob/master/lib/cucumber/cli/options.rb#L261
           options = self.options.reject { |name, value| name.include?('rebuild') }
           options.map { |name, value| ["--#{name}", value.is_a?(String) ? value : nil] }.flatten.compact

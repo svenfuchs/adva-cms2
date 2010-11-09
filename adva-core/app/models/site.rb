@@ -10,7 +10,7 @@ class Site < ActiveRecord::Base
 
   class << self
     def install(params)
-      User.skip_callbacks do # TODO remove user dependency
+      User.skip_callbacks do # TODO [user dependency] move to adva-user
         site = Site.create!(params[:site])
         site.account.users.first.confirm!
         site
@@ -18,7 +18,7 @@ class Site < ActiveRecord::Base
     end
 
     def by_host(host)
-      Site.count == 1 ? Site.first : Site.find_by_host(host) # TODO figure out how we want to do this ...
+      Site.count == 1 ? Site.first : Site.find_by_host(host) # TODO [top level] figure out how we want to do this ...
     end
   end
 end
