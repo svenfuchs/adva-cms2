@@ -1,4 +1,4 @@
-require 'adva'
+require 'adva/core'
 
 require 'rack/cache'
 require 'rack/cache/purge'

@@ -1,4 +1,4 @@
-require 'adva'
+require 'adva/core'
 require 'RedCloth'
 require 'rdiscount'
 
