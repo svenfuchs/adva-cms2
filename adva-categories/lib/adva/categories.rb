@@ -1,4 +1,5 @@
 require 'adva'
+require 'adva/views/categories_tab.rb'
 
 module Adva
   class Categories < ::Rails::Engine
@@ -9,3 +10,5 @@ module Adva
     end
   end
 end
+
+
