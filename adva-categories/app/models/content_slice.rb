@@ -9,7 +9,9 @@ Content.class_eval do
 
   class << self
     def categorized(category_id)
-      includes(:categorizations).where(:categorizations => { :category_id => category_id })
+      category     = Category.find(category_id)
+      category_ids = category.self_and_descendants.map(&:id)
+      includes(:categorizations).where(:categorizations => { :category_id => category_ids })
     end
   end
 end

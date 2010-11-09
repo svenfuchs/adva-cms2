@@ -19,8 +19,17 @@ Given /^the following ((?:\([a-z ]+\) )?(?:[\w]+)):$/ do |type, table|
   table.hashes.each do |attributes|
     type = attributes.delete('type').underscore if attributes.key?('type')
     attributes['site'] = site if type.classify.constantize.column_names.include?('site_id')
+    parent = attributes.delete('parent')
+    attributes['parent_id'] = type.classify.constantize.find_by_name(parent) unless parent.blank?
     Factory(type, attributes)
   end
+end
+
+Given /^the (\w+) "([^"]*)" is a child of "([^"]*)"$/ do |model, child, parent|
+  model  = model.classify.constantize
+  parent = model.find_by_name(parent)
+  child  = model.find_by_name(child)
+  child.move_to_child_of(parent)
 end
 
 Given /^a site with the following sections:$/ do |table|
