@@ -1,0 +1,65 @@
+Improved I18n helpers
+Support I18n cascading fallbacks in views
+Added I18n missing translations log
+
+Changed adva-cms2 default layout
+Add sidebar to default layout
+
+Site#update and Section#update actions now respond to :json
+
+Improved table tree drag/drop spinner
+Improved category tree drag/drop
+
+Extend table transformation for cucumber
+
+Using "polymorphic" category menus in adva-blog
+Improve menu item helper to use the last part of a dot separated i18n key (instead of just removing the dots)
+Improved menus (missing i18n keys, change link order etc)
+
+
+
+Improve I18n helpers
+Support I18n cascading fallbacks in views
+Add I18n missing translations log
+Change adva-cms2 default layout
+Add sidebar to default layout
+Site#update and Section#update actions now respond to :json
+Improve table tree drag/drop spinner
+Improve category tree drag/drop
+Extend table transformation for cucumber
+Use "polymorphic" category menus in adva-blog
+Improve menu item helper to use the last part of a dot separated i18n
+key (instead of just removing the dots)
+Improve menus (missing i18n keys, change link order etc)
+
+
+
+Since we're working in sprints of 2 weeks we're also trying to follow a similar
+release cycle. This will of course mean fewer major changes, but also steadier
+stream of new features. How agile!
+
+To keep y'all informed we'll at least send the changelog on a mailing list:
+link_to('mailinglist'), but of course if there is anything particularly noteworthy,
+you can always expect to find it mentioned.
+
+So, on to the changes to for this release, 0.0.2
+
+We've commited some I18n related changes. In order to keep the locale keys both
+'dry' and flexible we now support cascading fallbacks in views and have added a
+missing translation log that keeps you informed on all missing translations (cool).
+
+It is now possible to reuse and extend existing menus from other engines.
+
+We've also improved the layout. For example the sidebar is now in the the default
+layout and the table tree drag and drop is improved in the section and categories trees
+and it also now has a spinner.
+
+We've also worked on the menus by adding missing I18n keys and changing the link order.
+We've also improved category menus to now work with polymorphic 'categorizable' models.
+
+We've also met Konstantin Haase, who did an RSoC project about improving
+ActiveSupport::Dependencies. He gave us a few hints about how to fix our 'vertical
+code slices' approach and thus fix the development mode too (which is currently broken).
+
+
+

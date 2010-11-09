@@ -1,16 +1,16 @@
 # encoding: utf-8
 
-# $: << File.expand_path('../lib', __FILE__)
-# require 'adva/static/version'
+$:.unshift File.expand_path('../lib', __FILE__)
+require 'adva_static/version'
 
 Gem::Specification.new do |s|
   s.name         = "adva-static"
-  s.version      = '0.0.1'
+  s.version      = AdvaStatic::VERSION
   s.authors      = ["Sven Fuchs"]
   s.email        = "nobody@adva-cms.org"
   s.homepage     = "http://github.com/svenfuchs/adva-cms2"
-  s.summary      = "[summary]"
-  s.description  = "[description]"
+  s.summary      = "Static engine for adva-cms2"
+  s.description  = "Static engine for adva-cms2"
 
   s.files        = Dir['{app,config,lib,public}/**/*']
   s.platform     = Gem::Platform::RUBY
