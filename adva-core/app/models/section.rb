@@ -3,24 +3,14 @@ class Section < ActiveRecord::Base
 
   belongs_to :site, :inverse_of => :sections
 
-  # unfortunate, but moving this to a adva-categories/section_slice breaks because
-  # class_inheritable_attributes get out of sync and crash. this might change if we
-  # were able to load code slices lazily
-  if Adva.engine?(:categories)
-    has_many :categories, :foreign_key => :section_id
-    accepts_nested_attributes_for :categories
-  end
-
   validates_presence_of :site, :name, :slug
+  # validates_uniqueness_of :slug, :scope => [:site_id, :parent_id]
 
   has_slug :scope => :site_id
   acts_as_nested_set :scope => :site_id
-  serialize :options # FIXME should be in has_options, but the class_inheritable_accessor :serialized_attributes seems to get out of sync
-
-  # validates_uniqueness_of :slug, :scope => [:site_id, :parent_id]
 
   mattr_accessor :types
-  self.types ||= [] # FIXME model is loaded twice, at least in cucumber
+  self.types = []
 
   class << self
     def inherited(child)
@@ -38,7 +28,7 @@ class Section < ActiveRecord::Base
   end
 
   def path
-    _path == site.home_section.send(:_path) ? '' : _path
+    _path == site.sections.root.send(:_path) ? '' : _path
   end
 
   def home?
