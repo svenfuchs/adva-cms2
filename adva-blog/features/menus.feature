@@ -8,6 +8,7 @@ Feature: Menus
     And the following categories:
       | section | name        |
       | Blog    | Programming |
+      | Blog    | Design      |
     And I am signed in with "admin@admin.org" and "admin!"
 
   Scenario: Admin Blogs
