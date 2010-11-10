@@ -4,8 +4,8 @@ class Layouts::Admin::Top < Adva::View::Menu::Admin
   include do
     def main
       if site.try(:persisted?)
-        sites
-        sections unless site.new_record?
+        sites_menu
+        sections_menu unless site.new_record?
         item(:'.assets', url_for([:admin, site, :assets])) if defined?(Asset)
       else
         item(:'.sites', url_for([:admin, :sites]))
@@ -20,10 +20,10 @@ class Layouts::Admin::Top < Adva::View::Menu::Admin
 
     protected
 
-      def sites
+      def sites_menu
         label(site.name, url_for([:admin, :sites])) do
           ul(:class => 'sites') do
-            account.sites.each do |site|
+            sites.each do |site|
               item(site.name, url_for([:admin, site])) unless site.new_record?
             end
             item(:'.new_site', url_for([:new, :admin, :site]))
@@ -32,7 +32,7 @@ class Layouts::Admin::Top < Adva::View::Menu::Admin
         end
       end
 
-      def sections
+      def sections_menu
         item(:'.sections', url_for([:admin, site, :sections])) do
           ul(:class => 'sections') do
             site.sections.each do |section|
@@ -42,6 +42,10 @@ class Layouts::Admin::Top < Adva::View::Menu::Admin
             render_items
           end
         end
+      end
+
+      def sites
+        Site.all
       end
 
       def active?(url, options)

@@ -1,8 +1,8 @@
 class Admin::SectionsController < Admin::BaseController
+  belongs_to :site
+
   respond_to :html
   respond_to :json, :only => :update
-
-  belongs_to :site
 
   before_filter :set_params_for_nested_resources, :only => [:new, :create, :edit, :update]
   before_filter :protect_last_section, :only => :destroy

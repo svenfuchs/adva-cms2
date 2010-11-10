@@ -8,8 +8,7 @@ class Admin::BaseController < InheritedResources::Base
   respond_to :html
   layout 'admin'
 
-  helper_method :account, :tabs
-  delegate :account, :to => :site
+  helper_method :tabs
 
   def self.responder
     Adva::Responder

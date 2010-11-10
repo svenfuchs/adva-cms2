@@ -7,8 +7,7 @@ class BaseController < InheritedResources::Base
   tracks :resource, :resources, :collection, :site => %w(.title .name .sections)
 
   layout 'default'
-  helper_method :account, :site
-  delegate :account, :to => :site
+  helper_method :site
 
   def self.responder
     Adva::Responder
