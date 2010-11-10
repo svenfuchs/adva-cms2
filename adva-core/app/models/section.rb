@@ -24,7 +24,7 @@ class Section < ActiveRecord::Base
   end
 
   def type
-    read_attribute(:type) || 'Section'
+    read_attribute(:type) || 'Page'
   end
 
   def path

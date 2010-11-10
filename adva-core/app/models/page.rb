@@ -1,17 +1,13 @@
 class Page < Section
+  default_scope :include => :article
   has_one :article, :foreign_key => 'section_id', :inverse_of => :section, :dependent => :destroy
-  validates_presence_of :article
+  after_initialize :set_default_article
   accepts_nested_attributes_for :article
-  before_validation :ensure_default_article
+  validates_presence_of :article
 
-  def body=(body)
-    ensure_default_article
-    article.body = body
+  delegate :body=, :to => :article
+
+  def set_default_article
+    self.article ||= build_article(:site => site, :section => self, :title => name)
   end
-
-  protected
-
-    def ensure_default_article
-      build_article(:site => site, :section => self, :title => name) unless article.present?
-    end
 end

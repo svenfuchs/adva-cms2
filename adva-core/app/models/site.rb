@@ -18,7 +18,7 @@ class Site < ActiveRecord::Base
     end
 
     def by_host(host)
-      Site.count == 1 ? Site.first : Site.find_by_host(host) # TODO [top level] figure out how we want to do this ...
+      Site.count == 1 ? Site.first : Site.find_by_host(host) # TODO [site detection] figure out how we want to do this ...
     end
   end
 end
