@@ -238,23 +238,6 @@ Then /^the following emails should have been sent:$/ do |expected_emails|
   end
 end
 
-# Then /^I should see a "([^"]+)" table with the following entries:$/ do |table_id, expected_table|
-#   html_table = table(tableish("table##{table_id} tr", 'td,th'))
-#   expected_table.diff!(html_table)
-# end
-
-# TODO [steps] somehow merge this with what's in within_steps.rb
-#
-# Then I should see a comment within the sidebar
-# Will look for '#sidebar .comment'
-# Then I should see the cart within the sidebar
-# Will look for '#sidebar #cart'
-Then /^I should see (an?|the) ([a-z ]+) within the ([a-z ]+)$/ do |a_or_the, selector, context_selector|
-  within("##{context_selector}") do |context|
-    assert_select({'a' => '.', 'the' => '#'}[a_or_the]+selector)
-  end
-end
-
 Then /^"([^"]*)" should be filled in with "([^"]*)"$/ do |field, value|
   field = webrat.field_labeled(field)
   assert_equal value, field.value
