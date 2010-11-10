@@ -143,6 +143,11 @@ Then /^the title should be "([^"]+)"$/ do |title|
   assert_select('title', title)
 end
 
+Then /^I should see (an?|the) "([^"]+)"$/ do |kind, thing|
+  kind = { 'a' => '.', 'the' => '#' }[kind]
+  assert_select("#{kind}#{thing}")
+end
+
 Then /^I should see a link "([^"]+)"$/ do |link|
   @last_link = link
   assert_select('a', link)
