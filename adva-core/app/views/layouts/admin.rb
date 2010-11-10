@@ -9,16 +9,7 @@ module Layouts
       def body
         div do
           header
-          div :id => 'page' do
-            div :id => 'main', :class => 'main' do
-              flash
-              div :id => 'content' do
-                content
-              end
-            end
-            div :id => 'sidebar', :class => 'right' do
-            end
-          end
+          page
         end
       end
 
@@ -33,6 +24,32 @@ module Layouts
       def javascripts
         javascript_include_tag :admin
       end
-    end
+
+      def page
+        div :id => 'page' do
+          main
+          sidebar
+        end
+      end
+
+      def main
+        div :id => 'main', :class => 'main' do
+          flash
+          content
+        end
+      end
+
+      def content
+        div :id => 'content' do
+          super
+        end
+      end
+
+      def sidebar
+        div :id => 'sidebar', :class => 'right' do
+          block.call :sidebar
+        end
+      end
+     end
   end
 end
