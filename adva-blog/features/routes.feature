@@ -12,7 +12,7 @@ Feature: Routes
       | GET    | /blogs/1/2010                             | posts               | index   | blog_id: 1, year: 2010                              |
       | GET    | /blogs/1/2010/1                           | posts               | index   | blog_id: 1, year: 2010, month: 1                    |
       | GET    | /blogs/1/2010/1/1                         | posts               | index   | blog_id: 1, year: 2010, month: 1, day: 1            |
-      | GET    | /blogs/1/2010/1/1/foo                     | posts               | show    | blog_id: 1, year: 2010, month: 1, day: 1, slug: foo |
+      | GET    | /blogs/1/2010/1/1/foo                     | posts               | show    | blog_id: 1, permalink: 2010/1/1/foo                 |
 
       | GET    | /admin/sites/1/blogs/1                    | admin/posts         | index   | site_id: 1, blog_id: 1                              |
       | GET    | /admin/sites/1/blogs/1/posts              | admin/posts         | index   | site_id: 1, blog_id: 1                              |

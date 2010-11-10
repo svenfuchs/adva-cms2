@@ -14,7 +14,7 @@ class PostsController < BaseController
 
     def set_id
       blog = site.blogs.find(params[:blog_id])
-      permalink = params.values_at(:year, :month, :day, :slug)
+      permalink = params[:permalink].split('/')
       params[:id] = blog.posts.by_permalink(*permalink).first.try(:id)
     end
 end
