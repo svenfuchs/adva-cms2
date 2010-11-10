@@ -4,6 +4,11 @@ Feature: Managing sites
     Given a site
     And I am signed in with "admin@admin.org" and "admin!"
 
+  Scenario: Listing sites
+    Given I am on the admin sites page
+    Then I should see a list of sites
+    And I should see "adva-cms"
+
   Scenario: Creating a new site
     Given I am on the admin dashboard page
 
