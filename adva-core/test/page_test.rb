@@ -14,7 +14,7 @@
 #       @page_params = {
 #         :name => 'Page name',
 #         :site_id => @site.id,
-#         :article_attributes => { :title => 'Article Title', :body => 'Body' }
+#         :body => 'Body'
 #       }
 #     end
 #

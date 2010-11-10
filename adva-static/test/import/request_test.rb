@@ -6,15 +6,13 @@ module AdvaStatic
 
     test "returns the request parameters necessary to create a new Page (w/ an index page)" do
       setup_root_page
-      expected = { :page => { :site_id => '', :type => 'Page', :name => 'Home', :slug => 'home', :path => 'home',
-        :article_attributes => { :body => 'home', :title => 'Home'} } }
+      expected = { :page => { :site_id => '', :type => 'Page', :name => 'Home', :slug => 'home', :path => 'home', :body => 'home' } }
       assert_equal expected, request('index.yml').params
     end
 
     test "returns the request parameters necessary to create a new Page (w/ a non-index page)" do
       setup_non_root_page
-      expected = { :page => { :site_id => '', :type => 'Page', :name => 'Contact', :slug => 'contact', :path => 'contact',
-        :article_attributes => { :body => 'contact', :title => 'Contact' } } }
+      expected = { :page => { :site_id => '', :type => 'Page', :name => 'Contact', :slug => 'contact', :path => 'contact', :body => 'contact' } }
       assert_equal expected, request('contact.yml').params
     end
 
@@ -26,7 +24,7 @@ module AdvaStatic
       article = page.article
 
       expected = { '_method' => 'put', :page => { :id => page.id.to_s, :site_id => site.id.to_s, :type => 'Page', :name => 'Home',
-        :slug => 'home', :path => 'home', :article_attributes => { :id => article.id.to_s, :body => 'home', :title => 'Home'} } }
+        :slug => 'home', :path => 'home', :body => 'home' } }
       assert_equal expected, request('index.yml').params
     end
 
@@ -38,7 +36,7 @@ module AdvaStatic
       article = page.article
 
       expected = { '_method' => 'put', :page => { :id => page.id.to_s, :site_id => site.id.to_s, :type => 'Page', :name => 'Contact',
-        :slug => 'contact', :path => 'contact', :article_attributes => { :id => article.id.to_s, :body => 'contact', :title => 'Contact'} } }
+        :slug => 'contact', :path => 'contact', :body => 'contact' } }
       assert_equal expected, request('contact.yml').params
     end
 

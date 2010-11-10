@@ -15,16 +15,14 @@ module AdvaStatic
       import_dir.join('site.yml').delete
       site = Site.new(import_dir)
       expected = { :host => 'ruby-i18n.org', :name => 'ruby-i18n.org', :title => 'ruby-i18n.org',
-        :sections_attributes => [{ :site_id => '', :type => 'Page', :path => 'home', :slug => 'home',
-          :name => 'Home', :article_attributes => { :title => 'Home', :body  => '' } }] }
+        :sections_attributes => [{ :site_id => '', :type => 'Page', :path => 'home', :slug => 'home', :name => 'Home', :body  => '' }] }
       assert_equal expected, site.attributes.except(:account)
     end
 
     test "has Site attributes (w/ an existing site.yml)" do
       site = Site.new(import_dir)
       expected = { :host => 'ruby-i18n.org', :name => 'Ruby I18n', :title => 'Ruby I18n',
-        :sections_attributes => [{ :site_id => '', :type => 'Page', :path => 'home', :slug => 'home',
-          :name => 'Home', :article_attributes => { :title => 'Home', :body  => '' } }] }
+        :sections_attributes => [{ :site_id => '', :type => 'Page', :path => 'home', :slug => 'home', :name => 'Home', :body  => '' }] }
       assert_equal expected, site.attributes.except(:account)
     end
 

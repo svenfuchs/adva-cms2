@@ -135,7 +135,7 @@ module AdvaStatic
 
       section = Page.find_by_slug('contact')
       assert_equal 'Contact', section.reload.name
-      # assert_equal 'contact', section.article.reload.body
+      assert_equal 'contact', section.article.reload.body
     end
 
     test "import(path) syncs changes to blog/2009/07/12/ruby-i18n-gem-hits-0-2-0.yml (existing root blog post)" do
@@ -187,11 +187,7 @@ module AdvaStatic
           'name' => 'Home',
           'slug' => 'home',
           'path' => 'home',
-          'article_attributes' => {
-            'id' => article_id,
-            'title' => 'Home',
-            'body' => 'home'
-          }
+          'body' => 'home'
         }
       }
       assert_equal params, request.params

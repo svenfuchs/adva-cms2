@@ -6,9 +6,7 @@ Factory.define :site do |f|
   f.sections_attributes [{
     :type => 'Page',
     :name => 'Home',
-    :article_attributes => {
-      :body => 'Body'
-    }
+    :body => 'body'
   }]
   f.after_create { |site| Factory(:admin) }
 end

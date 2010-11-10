@@ -19,12 +19,7 @@ module Adva
           end
 
           def attribute_names
-            @attribute_names ||= super + [:article_attributes]
-          end
-
-          def article_attributes
-            attributes = { :title => name, :body => body }
-            record.persisted? ? attributes.merge(:id => record.article.id.to_s) : attributes
+            @attribute_names ||= super + [:body]
           end
         end
       end
