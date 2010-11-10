@@ -14,7 +14,7 @@ Feature: Routes
       | GET    | /categories/foo/2010                        | posts            | index   | blog_id: 1, category_id: 1, year: 2010                                |
       | GET    | /categories/foo/2010/1                      | posts            | index   | blog_id: 1, category_id: 1, year: 2010, month: 1                      |
       | GET    | /categories/foo/2010/1/1                    | posts            | index   | blog_id: 1, category_id: 1, year: 2010, month: 1, day: 1              |
-      | GET    | /categories/foo/2010/1/1/post               | posts            | show    | blog_id: 1, category_id: 1, year: 2010, month: 1, day: 1, slug: post  |
+      | GET    | /categories/foo/2010/1/1/post               | posts            | show    | blog_id: 1, category_id: 1, permalink: 2010/1/1/post                  |
       | GET    | /categories/foo.rss                         | posts            | index   | blog_id: 1, category_id: 1, format: rss                               |
       | GET    | /categories/foo/2010.rss                    | posts            | index   | blog_id: 1, category_id: 1, format: rss, year: 2010                   |
       | GET    | /categories/foo/2010/1.rss                  | posts            | index   | blog_id: 1, category_id: 1, format: rss, year: 2010, month: 1         |
@@ -24,7 +24,7 @@ Feature: Routes
       | GET    | /blog-2/categories/bar/2010                 | posts            | index   | blog_id: 2, category_id: 2, year: 2010                                |
       | GET    | /blog-2/categories/bar/2010/1               | posts            | index   | blog_id: 2, category_id: 2, year: 2010, month: 1                      |
       | GET    | /blog-2/categories/bar/2010/1/1             | posts            | index   | blog_id: 2, category_id: 2, year: 2010, month: 1, day: 1              |
-      | GET    | /blog-2/categories/bar/2010/1/1/post        | posts            | show    | blog_id: 2, category_id: 2, year: 2010, month: 1, day: 1, slug: post  |
+      | GET    | /blog-2/categories/bar/2010/1/1/post        | posts            | show    | blog_id: 2, category_id: 2, permalink: 2010/1/1/post                  |
       | GET    | /blog-2/categories/bar.rss                  | posts            | index   | blog_id: 2, category_id: 2, format: rss                               |
       | GET    | /blog-2/categories/bar/2010.rss             | posts            | index   | blog_id: 2, category_id: 2, format: rss, year: 2010                   |
       | GET    | /blog-2/categories/bar/2010/1.rss           | posts            | index   | blog_id: 2, category_id: 2, format: rss, year: 2010, month: 1         |
