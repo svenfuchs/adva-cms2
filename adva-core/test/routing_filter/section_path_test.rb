@@ -10,7 +10,7 @@ module AdvaCoreTests
     def setup
       @site   = Factory(:site)
       @home   = site.sections.first
-      @docs   = site.sections.create!(:name => 'docs') 
+      @docs   = site.sections.create!(:name => 'docs')
       @api    = site.sections.create!(:name => 'api', :parent => docs)
       @pages  = site.sections.create!(:name => 'pages')
       @filter = RoutingFilter::SectionPath.new
@@ -20,43 +20,43 @@ module AdvaCoreTests
     end
 
     test "recognizes /docs" do
-      assert_equal "/sections/#{docs.id}", recognize('/docs')
-    end 
+      assert_equal "/pages/#{docs.id}", recognize('/docs')
+    end
 
     test "recognizes /docs/api" do
-      assert_equal "/sections/#{api.id}", recognize('/docs/api')
+      assert_equal "/pages/#{api.id}", recognize('/docs/api')
     end
 
     test "recognizes /docs/articles/1" do
-      assert_equal "/sections/#{docs.id}/articles/1", recognize('/docs/articles/1')
+      assert_equal "/pages/#{docs.id}/articles/1", recognize('/docs/articles/1')
     end
 
     test "recognizes /docs.rss" do
-      assert_equal "/sections/#{docs.id}.rss", recognize('/docs.rss')
+      assert_equal "/pages/#{docs.id}.rss", recognize('/docs.rss')
     end
 
     test "recognizes /docs?foo=bar" do
-      assert_equal "/sections/#{docs.id}?foo=bar", recognize('/docs?foo=bar')
+      assert_equal "/pages/#{docs.id}?foo=bar", recognize('/docs?foo=bar')
     end
 
     test "generates from /sections/1" do
-      assert_equal '/docs', generate("/sections/#{docs.id}")
+      assert_equal '/docs', generate("/pages/#{docs.id}")
     end
 
     test "generates from /sections/2" do
-      assert_equal '/docs/api', generate("/sections/#{api.id}")
+      assert_equal '/docs/api', generate("/pages/#{api.id}")
     end
 
     test "generates from /sections/1/foo" do
-      assert_equal '/docs/foo', generate("/sections/#{docs.id}/foo")
+      assert_equal '/docs/foo', generate("/pages/#{docs.id}/foo")
     end
 
     test "generates from /sections/1.rss" do
-      assert_equal '/docs.rss', generate("/sections/#{docs.id}.rss")
+      assert_equal '/docs.rss', generate("/pages/#{docs.id}.rss")
     end
 
     test "generates from /sections/1?foo=bar" do
-      assert_equal '/docs?foo=bar', generate("/sections/#{docs.id}?foo=bar")
+      assert_equal '/docs?foo=bar', generate("/pages/#{docs.id}?foo=bar")
     end
 
     protected
