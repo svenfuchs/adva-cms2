@@ -2,7 +2,7 @@ require File.expand_path('../test_helper', __FILE__)
 
 module AdvaCoreTests
   class PageTest < Test::Unit::TestCase
-    attr_reader :page_params
+    attr_reader :site
 
     def setup
       @site = Site.create!(
@@ -11,18 +11,22 @@ module AdvaCoreTests
         :name => 'Site Name',
         :sections_attributes => [{ :name => 'Home' }]
       )
-      @page_params = {
-        :name => 'Page name',
-        :site_id => @site.id,
-        :body => 'Body'
-      }
     end
 
-    test "page accepts nested attributes for article" do
-      page = Page.create(page_params)
+    test "page accepts article body and title attributes" do
+      page = Page.create!(
+        :name => 'Page',
+        :site_id => site.id,
+        :title => 'Title',
+        :body => 'Body'
+      )
       assert !page.article.new_record?
+      assert_equal 'Title', page.article.title
       assert_equal 'Body', page.article.body
     end
 
+    test "a new page has a default article set" do
+      assert Page.new(:site => site).article.is_a?(Article)
+    end
   end
 end
