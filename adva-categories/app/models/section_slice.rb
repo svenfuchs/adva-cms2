@@ -1,5 +1,3 @@
-require_dependency 'section'
-
 Section.class_eval do
   # TODO [code slices] unfortunate, but not defining this on Section and subclasses breaks
   # because class_inheritable_attributes get out of sync and crash. this will probably change
