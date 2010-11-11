@@ -10,10 +10,10 @@ Feature: Installation
      Then I should be on the site installation confirmation page
       And I should see "Success!"
       And I should see "Manage your new site"
-     # TODO [stuff] Then I should be on the admin site edit page
+     # TODO [installation] Then I should be on the admin site edit page
 
   Scenario: Trying to install a site for a port that already exist
     Given a site
      When I go to the site installation page
-     Then I should not see a new site form
-      # TODO [stuff] And I should see /Installation for .* is already complete/
+     Then I should see a new site form
+      And I should see /Installation for .* is already complete/

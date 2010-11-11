@@ -14,7 +14,7 @@ module TestHelper
     def setup_application(&block)
       Rails.application = Rails::Application.send(:new)
       Rails.application.singleton_class.send(:include, Rails::Application::Configurable)
-      # TODO [patch] fix devise probably should use some defaults instead
+      # devise probably should use some defaults instead
       Devise.warden_config = Rails.application.config
 
       if block_given?

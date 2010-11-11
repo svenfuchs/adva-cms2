@@ -5,7 +5,7 @@ module AdvaCoreTests
     include TestHelper::Application
 
     attr_reader :site, :page
-    
+
     def setup
       setup_application do
         match 'admin/sites/:site_id/pages/:id', :to => 'admin/pages#show', :as => 'admin_site_page'
@@ -17,7 +17,7 @@ module AdvaCoreTests
       @site = Factory(:site)
       @page = site.pages.first
     end
-    
+
     test 'tracks references to site.title, site.name and resource and adds tags to response headers' do
       process_action_rendering(:show, :id => page.id) do
         site.name

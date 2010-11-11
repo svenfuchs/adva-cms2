@@ -2,14 +2,6 @@ Given 'a site' do
   @site = Factory(:site)
 end
 
-# # TODO [steps] what's this?
-# Transform /^table:name,product_name$/ do |table|
-#   transformed_table = table.hashes.map do |row|
-#     row.merge('product_id' => Product.find_by_name(row.delete('product_name')).id)
-#   end
-#   Cucumber::Ast::Table.new(transformed_table)
-# end
-
 # Examples:
 # 1. Given the following products:
 # Also supports namespaced models, (cnet) indicating the namespace Cnet
