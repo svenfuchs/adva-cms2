@@ -15,7 +15,6 @@ class PostsController < BaseController
     def set_id
       blog = site.blogs.find(params[:blog_id])
       permalink = params[:permalink].split('/')
-      permalink.last.gsub!(/\.\w+$/, '') # TODO [routes] the route should remove the format, but doesn't
       params[:id] = blog.posts.by_permalink(*permalink).first.try(:id)
     end
 end

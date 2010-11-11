@@ -16,7 +16,7 @@ Rails.application.routes.draw do
   end
 
   constraints :permalink => %r(\d{4}/\d{1,2}/\d{1,2}/w+) do
-    get 'blogs/:blog_id/*permalink.:format',   :to => "posts#show"
-    get 'blogs/:blog_id/*permalink(.:format)', :to => "posts#show", :as => :blog_post
+    get 'blogs/:blog_id/*permalink.:format', :to => "posts#show"
+    get 'blogs/:blog_id/*permalink', :to => "posts#show", :as => :blog_post
   end
 end
