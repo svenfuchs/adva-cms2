@@ -1,5 +1,6 @@
 require 'adva/core'
-require 'adva/views/categories_tab.rb'
+require 'adva/active_record/categorizable'
+require 'adva/views/categories_tab'
 
 module Adva
   class Categories < ::Rails::Engine
@@ -10,5 +11,3 @@ module Adva
     end
   end
 end
-
-
