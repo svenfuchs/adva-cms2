@@ -1,6 +1,5 @@
 require 'inherited_resources'
 require 'inherited_resources/helpers'
-require 'simple_table'
 
 class BaseController < InheritedResources::Base
   begin_of_association_chain :site
