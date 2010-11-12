@@ -1,4 +1,4 @@
-Factory.define :blog do |f|
+Factory.define :blog, :parent => :section, :class => Blog do |f|
   f.name 'Blog'
 end
 
