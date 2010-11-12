@@ -13,7 +13,7 @@ module Adva
         each_engine { |e| e.setup_load_paths }
         each_engine { |e| e.migrate }
         each_engine { |e| e.require_patches }
-        each_engine { |e| e.preload_sliced_models }
+        each_engine { |e| e.register_slice_paths }
 
         load_assertions
         load_factories

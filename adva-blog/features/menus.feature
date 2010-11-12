@@ -26,7 +26,7 @@ Feature: Menus
       | New Post | /admin/sites/1/blogs/1/posts/new |        | #actions .right |
       | Delete   | /admin/sites/1/blogs/1           |        | #actions .right |
 
-  Scenario: Admin Blogs Categories
+  Scenario: Admin Blog Categories
     When I go to the admin "Blog" section settings page
     When I follow "Categories"
     Then the menu should contain the following items:

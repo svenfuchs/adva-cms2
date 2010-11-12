@@ -2,7 +2,7 @@
 
 module Adva
   module Engine
-    autoload :SlicedModels, 'adva/engine/sliced_models'
+    autoload :Slices, 'adva/engine/slices'
 
     class << self
       def included(base)
@@ -24,16 +24,15 @@ module Adva
             load_redirects
           end
 
-          initializer "adva-#{engine_name}.preload_sliced_models" do |app|
-            engine = self
-            config.to_prepare { engine.preload_sliced_models }
+          initializer "adva-#{engine_name}.register_slice_paths" do |app|
+            register_slice_paths
           end
         end
       end
     end
 
     module Initializations
-      include SlicedModels
+      include Slices
 
       def engine_name
         name = is_a?(Class) ? self.name : self.class.name # ughugh.

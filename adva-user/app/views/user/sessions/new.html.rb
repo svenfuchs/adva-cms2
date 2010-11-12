@@ -15,7 +15,7 @@ class User::Sessions::New < User::Form
     def form_arguments
       [resource, { :as => resource_name, :url => session_path(resource_name) }]
     end
-  
+
     def remember_me
       div :class => :checkbox_group do
         form.check_box :remember_me
