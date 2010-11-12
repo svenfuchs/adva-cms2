@@ -6,10 +6,10 @@ module AdvaCoreTests
       assert Adva::Blog.slice_paths.any? { |path| File.basename(path) == 'models' }
     end
 
-    test "slice_path: given path/to/foo.rb it returns nil" do
-      filename = ActiveSupport::Dependencies.slice_path('path/to/foo.rb')
-      assert_nil filename
-    end
+    # test "slice_path: given path/to/foo.rb it returns nil" do
+    #   filename = ActiveSupport::Dependencies.slice_path('path/to/foo.rb')
+    #   assert_nil filename
+    # end
 
     test "slice_path: given a path in a slice dir it returns the slice filename" do
       filename = ActiveSupport::Dependencies.slice_path('path/to/models/foo.rb')
