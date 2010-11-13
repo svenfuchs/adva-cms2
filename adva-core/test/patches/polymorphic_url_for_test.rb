@@ -12,49 +12,67 @@ module AdvaCoreTests
     attr_reader :objects, :view
 
     def setup
-      @objects = [:admin, Factory(:site), Factory(:blog), Factory(:post), Comment]
       @view = ActionView::Base.new('')
     end
 
-    test 'classes_for_named_route_call' do
-      expected = [[:admin], ['Site'], ['Blog', 'Section'], ['Post', 'Content'], ['Comment']]
-      assert_equal expected, classes_for_named_route_call(objects)
+    def teardown
+      NamedRouteCall.cache.clear
+      super
     end
 
-    test 'class_name_combinations_for_named_route_call' do
-      expected = [
-        [:admin, 'Site', 'Blog', 'Post', 'Comment'],
-        [:admin, 'Site', 'Blog', 'Content', 'Comment'],
-        [:admin, 'Site', 'Section', 'Post', 'Comment'],
-        [:admin, 'Site', 'Section', 'Content', 'Comment']
-      ]
-      assert_equal expected, class_name_combinations_for_named_route_call(objects)
-    end
-
-    test 'build_named_route_call returns the default method name if no other combination applies' do
+    test 'returns the default method name if no other combination applies' do
+      objects = [:admin, Factory(:site), Factory(:blog), Factory(:post), Comment]
       assert_equal 'admin_site_blog_post_comment_url', view.build_named_route_call(objects, :singular)
     end
 
-    test 'build_named_route_call returns admin_site_blog_post_comment_url if the view responds to this method' do
+    test 'returns admin_site_blog_post_comment_url if the view responds to this method' do
+      objects = [:admin, Factory(:site), Factory(:blog), Factory(:post), Comment]
       stub_url_helpers('admin_site_blog_post_comment_url', 'admin_site_blog_content_comment_url',
         'admin_site_section_post_comment_url', 'admin_site_section_content_comment_url')
       assert_equal 'admin_site_blog_post_comment_url', view.build_named_route_call(objects, :singular)
     end
 
-    test 'build_named_route_call returns admin_site_blog_content_comment_url if the view responds to this method' do
+    test 'returns admin_site_blog_content_comment_url if the view responds to this method' do
+      objects = [:admin, Factory(:site), Factory(:blog), Factory(:post), Comment]
       stub_url_helpers('admin_site_blog_content_comment_url', 'admin_site_section_post_comment_url',
         'admin_site_section_content_comment_url')
       assert_equal 'admin_site_blog_content_comment_url', view.build_named_route_call(objects, :singular)
     end
 
-    test 'build_named_route_call returns admin_site_section_post_comment_url if the view responds to this method' do
+    test 'returns admin_site_section_post_comment_url if the view responds to this method' do
+      objects = [:admin, Factory(:site), Factory(:blog), Factory(:post), Comment]
       stub_url_helpers('admin_site_section_post_comment_url', 'admin_site_section_content_comment_url')
       assert_equal 'admin_site_section_post_comment_url', view.build_named_route_call(objects, :singular)
     end
 
-    test 'build_named_route_call returns admin_site_section_content_comment_url if the view responds to this method' do
-      stub_url_helpers( 'admin_site_section_content_comment_url')
+    test 'returns admin_site_section_content_comment_url if the view responds to this method' do
+      objects = [:admin, Factory(:site), Factory(:blog), Factory(:post), Comment]
+      stub_url_helpers('admin_site_section_content_comment_url')
       assert_equal 'admin_site_section_content_comment_url', view.build_named_route_call(objects, :singular)
+    end
+
+    test 'given [blog] it returns blog_url' do
+      objects = [Factory(:blog)]
+      stub_url_helpers('blog_url')
+      assert_equal 'blog_url', view.build_named_route_call(objects, :singular)
+    end
+
+    test 'given [site, Section] w/ :new it returns new_site_section_url' do
+      objects = [Factory(:site), Section]
+      stub_url_helpers('site_sections_url')
+      assert_equal 'new_site_section_url', view.build_named_route_call(objects, :singular, :action_prefix => 'new')
+    end
+
+    test 'given [site, :sections] it returns site_sections_url' do
+      objects = [Factory(:site), :sections]
+      stub_url_helpers('site_sections_url')
+      assert_equal 'site_sections_url', view.build_named_route_call(objects, :singular)
+    end
+
+    test 'given [site, Section] it returns site_sections_url' do
+      objects = [Factory(:site), Section]
+      stub_url_helpers('site_sections_url')
+      assert_equal 'site_sections_url', view.build_named_route_call(objects, :plural)
     end
 
     protected
