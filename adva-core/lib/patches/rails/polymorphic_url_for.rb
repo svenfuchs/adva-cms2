@@ -26,7 +26,7 @@ Gem.patching('rails', '3.0.1') do
 
         def cache_key(objects, inflection, options)
           objects = objects + [inflection, options[:action_prefix], options[:routing_type]]
-          objects.map do |object|
+          objects.compact.map do |object|
             case object
             when String, Symbol
               object
