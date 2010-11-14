@@ -21,17 +21,19 @@ Done:
 + i18n: clean up scopes
 + i18n: fix inherited_resources lookup scopes
 + i18n: make :'.foo' additionally lookup sane defaults (using I18n::Cascade)
++ improve polymorphic url_for patch (see adva-core/lib/patches/rails/url_for.rb)
++ add published_at column to contents
++ core: content filters
 
 Stuff:
 
-- improve polymorphic url_for patch (see adva-core/lib/patches/rails/url_for.rb)
-- add publishing workflow to blog post
 - i18n: fix simple_form lookup scopes
-- in section_controller consider merging params[:section] to params[:blog] (or whatever the concrete controller type is)
-- figure out how to remove set_params_for_nested_resources controller filters
-- cache_tagging doesn't play well with Arel scopes
-- cache_tagging (or whoever) seems to use the filtered path (apparently section_root) instead of the real request path
-- thor engine migration generator
+- install: figure out how to generate config hooks for the app to configure adva-cms (e.g. adva-user/devise)
+- refactor: in section_controller consider merging params[:section] to params[:blog] (or whatever the concrete controller type is)
+- refactor: figure out how to remove set_params_for_nested_resources controller filters
+- cache: tagging doesn't play well with Arel scopes
+- cache: tagging (or whoever) seems to use the filtered path (apparently section_root) instead of the real request path
+- thor: engine migration generator
 - make adva-user optional (using http_auth?), fix Site.install
 - custom error pages
 - add features for confirmations, passwords, unlocks to adva-user
@@ -47,7 +49,6 @@ Features:
 - core: detect site from host, multiple sites
 - core: excerpts (improve truncate_html)
 - core: system events, orchestration (?)
-- core: content filters
 - core: authorship
 - core: publishing
 - core: content translation
@@ -57,7 +58,6 @@ Features:
 - core: optimistic lock
 - blog: rss feeds
 - blog archive
-- user: integration tests (e.g. unlocking)
 - user: account/site memberships
 - rbac
 - comments

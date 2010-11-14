@@ -73,8 +73,18 @@ But it also has huge advantages for any developer who's just interested in using
 and maybe extending adva-cms2 for custom needs because abstraction generally
 enables extensibility and portability in many ways.
 
-TODO: [docs] example using collection in blog views and then being able to apply
-scopes from plugins/other engines
+For example:
+
+adva-blog uses the @posts#index@ action to display the posts list on the blog
+start page. This action provides the posts collection through a @collection@
+helper method (done by InheritedResources) and this helper method is used by
+the view.
+
+Now any other engine can easily hook in here and filter this collection
+without touching the @PostsController@ in adva-blog nor the @posts#index@
+view. E.g. adva-categories simply adds a scope to this collection if a
+@:category@ param is present (using a @BaseController@ slice).
+
 
 h2. Central registry and redirect responder
 
