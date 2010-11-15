@@ -3,7 +3,7 @@
 Changes
   * Changed adva-cms2 default layout
 
-Enhancementts
+Enhancements
   * Improved I18n helpers
   * Add sidebar to default layout
   * Improved table tree drag/drop spinner

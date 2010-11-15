@@ -1,7 +1,4 @@
 class Admin::SectionsController < Admin::BaseController
-  respond_to :html
-  respond_to :json, :only => :update
-
   belongs_to :site
 
   respond_to :html
