@@ -16,8 +16,11 @@ class AdvaCategoriesCreateTables < ActiveRecord::Migration
     end
     add_index :categorizations, :category_id
     add_index :categorizations, :categorizable_id
-    add_index :categorizations, [:category_id, :categorizable_id, :categorizable_type],
-      :unique => true, :name => 'index_categorizations_on_cat_and_categorizable'
+    # TODO: add this index later, when the cnet product_categorization finalizer has been adjusted
+    # so that existing categorizations between products and categories get overwritten by setting
+    # the source attribute to 'cnet'.
+    # add_index :categorizations, [:category_id, :categorizable_id, :categorizable_type],
+    #   :unique => true, :name => 'index_categorizations_on_cat_and_categorizable'
   end
 
   def self.down
