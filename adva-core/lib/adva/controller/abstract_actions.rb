@@ -46,13 +46,18 @@ module Adva
           end
 
           def internal_redirect_to_abstraction
-            params[abstract_instance_name] = params.delete(instance_name)
+            merge_params(abstract_instance_name, instance_name)
             internal_redirect_to("#{abstract_controller_class.controller_path}##{params[:action]}")
           end
 
           def internal_redirect_to_concretion
-            params[instance_name] = params.delete(abstract_instance_name)
+            merge_params(instance_name, abstract_instance_name)
             internal_redirect_to("#{controller_namespace}/#{collection_name}##{params[:action]}")
+          end
+
+          def merge_params(to, from)
+            params[to] ||= {}
+            params[to].merge!(params.delete(from) || {})
           end
 
           def concrete_controller?

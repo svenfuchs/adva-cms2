@@ -24,12 +24,12 @@ Done:
 + improve polymorphic url_for patch (see adva-core/lib/patches/rails/url_for.rb)
 + add published_at column to contents
 + core: content filters
++ refactor: in section_controller merge params[:section] to params[:blog] (or whatever the concrete controller type is)
 
 Stuff:
 
 - i18n: fix simple_form lookup scopes
 - install: figure out how to generate config hooks for the app to configure adva-cms (e.g. adva-user/devise)
-- refactor: in section_controller consider merging params[:section] to params[:blog] (or whatever the concrete controller type is)
 - refactor: figure out how to remove set_params_for_nested_resources controller filters
 - cache: tagging doesn't play well with Arel scopes
 - cache: tagging (or whoever) seems to use the filtered path (apparently section_root) instead of the real request path
