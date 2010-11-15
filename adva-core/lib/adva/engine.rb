@@ -2,43 +2,24 @@
 
 module Adva
   module Engine
-    autoload :Slices, 'adva/engine/slices'
+    extend ActiveSupport::Concern
 
-    class << self
-      def included(base)
-        base.class_eval do
-          include Initializations # ugh. why does these need to be both class
-          extend Initializations  # and instance methods?
+    included do
+      config.autoload_paths << paths.app.views.to_a.first
+      paths.lib.tasks = Dir[root.join('lib/adva/tasks/*.*')]
 
-          engine_name = base.name.underscore.split('/').last
+      engine_name = name.underscore.split('/').last
 
-          config.autoload_paths << paths.app.views.to_a.first
+      initializer "adva-#{engine_name}.require_patches" do |app|
+        require_patches
+      end
 
-          paths.lib.tasks = Dir[root.join('lib/adva/tasks/*.*')]
-
-          initializer "adva-#{engine_name}.require_patches" do |app|
-            require_patches
-          end
-
-          initializer "adva-#{engine_name}.load_redirects" do |app|
-            load_redirects
-          end
-
-          initializer "adva-#{engine_name}.register_slice_paths" do |app|
-            register_slice_paths
-          end
-        end
+      initializer "adva-#{engine_name}.load_redirects" do |app|
+        load_redirects
       end
     end
 
-    module Initializations
-      include Slices
-
-      def engine_name
-        name = is_a?(Class) ? self.name : self.class.name # ughugh.
-        name.underscore.split('/').last
-      end
-
+    module InstanceMethods
       def require_patches
         Dir[root.join('lib/patches/**/*.rb')].each { |patch| require patch }
       end

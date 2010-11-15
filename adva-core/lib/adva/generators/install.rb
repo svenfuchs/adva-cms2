@@ -11,7 +11,7 @@ module Adva
 
       def invoke
         engines.each do |engine|
-          engine.copy_migrations.each do |path|
+          engine.new.copy_migrations.each do |path|
             say_status('copy migration', File.basename(path), :green)
           end
         end

@@ -11,8 +11,9 @@ module Adva
         setup_active_record
 
         each_engine { |e| e.setup_load_paths }
-        each_engine { |e| e.require_patches }
-        each_engine { |e| e.register_slice_paths }
+        ActiveSupport::Slices.register
+
+        each_engine { |e| e.new.require_patches }
         each_engine { |e| e.migrate }
 
         load_assertions

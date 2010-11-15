@@ -1,5 +1,6 @@
 require 'rails'
 require 'rails/engine'
+require 'active_support/slices'
 require 'adva'
 
 require 'simple_form'

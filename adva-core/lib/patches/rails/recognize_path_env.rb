@@ -1,6 +1,8 @@
 require 'action_dispatch/routing/mapper'
 require 'action_dispatch/routing/route_set'
 
+# make recognize_path pass the given environment through
+
 module ActionDispatch
   module Routing
     class RouteSet
@@ -9,9 +11,6 @@ module ActionDispatch
         path = Rack::Mount::Utils.normalize_path(path)
 
         begin
-
-          # TODO [patch] submit a rails patch
-
           # env = Rack::MockRequest.env_for(path, {:method => method})
           env = Rack::MockRequest.env_for(path, {:method => method}).merge(environment)
         rescue URI::InvalidURIError => e

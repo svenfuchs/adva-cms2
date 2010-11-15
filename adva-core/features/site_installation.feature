@@ -10,7 +10,7 @@ Feature: Installation
      Then I should be on the site installation confirmation page
       And I should see "Success!"
       And I should see "Manage your new site"
-     # TODO [installation] Then I should be on the admin site edit page
+     # TODO [user dependency] Then I should be on the admin site edit page
 
   Scenario: Trying to install a site for a port that already exist
     Given a site
