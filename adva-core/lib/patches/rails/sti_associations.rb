@@ -4,7 +4,7 @@ require 'gem_patching'
 # i.e.: site.sections.build(:type => 'Page').class == Page
 # http://pragmatig.com/2010/06/04/fixing-rails-nested-attributes-on-collections-with-sti
 
-Gem.patching('rails', '3.0.1') do
+Gem.patching('rails', '3.0.3') do
   class ActiveRecord::Reflection::AssociationReflection
     def build_association(*options)
       if options.first.is_a?(Hash) && options.first[:type].present?
