@@ -45,3 +45,24 @@ subsequent test runs and just use:
 h3. Generate a new adva engine
 
 $ thor adva:generate:engine contacts
+
+h2. Using adva-cms2
+
+h3. Get adva-cms
+
+*Get it*
+
+From github:
+
+bc. $ git clone git://github.com/svenfuchs/adva-cms2
+$ cd adva-cms2
+$ bundle install
+
+*Generate a new app and run it:*
+
+bc. $ thor adva:app /home/user/path/to/app
+$ cd /home/user/path/to/app
+$ bundle install
+$ rails s
+
+Now in your browser navigate to http://localhost:3000. Fill out the fields in the resulting page and click 'Create Site'. After this you can log in to your new site with the credentials 'admin@admin.org' and password 'admin!'.
