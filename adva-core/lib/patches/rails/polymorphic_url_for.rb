@@ -3,6 +3,7 @@
 # see https://rails.lighthouseapp.com/projects/8994-ruby-on-rails/tickets/2986-polymorphic_url-should-handle-sti-better
 Gem.patching('rails', '3.0.3') do
   require 'action_dispatch/routing/polymorphic_routes'
+  require 'active_model/naming'
 
   ActionDispatch::Routing::PolymorphicRoutes.module_eval do
     def build_named_route_call(objects, inflection, options = {})
@@ -25,7 +26,7 @@ Gem.patching('rails', '3.0.3') do
         end
 
         def cache_key(objects, inflection, options)
-          objects = objects + [inflection, options[:action_prefix], options[:routing_type]]
+          objects = objects + [inflection, options[:action], options[:routing_type]]
           objects.compact.map do |object|
             case object
             when String, Symbol
@@ -44,7 +45,7 @@ Gem.patching('rails', '3.0.3') do
       def initialize(objects, inflection, options = {})
         @objects       = Array(objects)
         @inflection    = inflection
-        @action_prefix = options[:action_prefix]
+        @action_prefix = options[:action]
         @routing_type  = options[:routing_type] || :url
       end
 
@@ -63,19 +64,23 @@ Gem.patching('rails', '3.0.3') do
       end
 
       def method_name(combination)
-        combination[-1] = pluralize(combination.last)
+        combination = pluralize(combination)
         combination << 'index' if uncountable?(combination.last) && inflection == :plural
         combination.unshift(action_prefix).push(routing_type).compact.join('_')
       end
 
-      def pluralize(string)
+      def pluralize(objects)
+        last = objects.pop
+        objects = objects.map do |object|
+          Symbol === object || String === object ? object : ActiveModel::Naming.singular(object)
+        end
         # polymorphic_url passes an incorrect inflection in some cases
-        if [String, Symbol].include?(objects.last.class)
-          string
+        objects << if Symbol === self.objects.last || String === self.objects.last
+          last
         elsif inflection == :singular
-          string.singularize
+          ActiveModel::Naming.singular(last)
         else
-          string.pluralize
+          ActiveModel::Naming.plural(last)
         end
       end
 
@@ -101,9 +106,9 @@ Gem.patching('rails', '3.0.3') do
       end
 
       def ancestry(model)
-        ancestry = [model]
-        ancestry << ancestry.last.superclass until ancestry.last.superclass == ActiveRecord::Base
-        ancestry.map { |model| ActiveModel::Naming.plural(model).singularize }
+        [model].tap do |ancestry|
+          ancestry << ancestry.last.superclass until ancestry.last.superclass == ActiveRecord::Base
+        end
       end
 
       def uncountable?(string)
