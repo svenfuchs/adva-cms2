@@ -18,7 +18,7 @@ Gem::Specification.new do |s|
   s.rubyforge_project = '[none]'
 
   s.add_dependency 'rails', '3.0.3'
-  s.add_dependency 'i18n', '0.5.0beta3'
+  s.add_dependency 'i18n', '0.5.0'
   s.add_dependency 'activesupport-slices', '0.0.1'
   s.add_dependency 'gem_patching', '0.0.2'
   s.add_dependency 'routing-filter', '0.2.0'
