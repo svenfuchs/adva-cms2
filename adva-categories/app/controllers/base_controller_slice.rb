@@ -10,4 +10,6 @@ BaseController.class_eval do
       params[:category_id] ? Category.find(params[:category_id]) : nil
     end
   end
+
+  helper_method :category
 end

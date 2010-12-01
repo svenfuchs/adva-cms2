@@ -1,7 +1,6 @@
 # http://mislav.uniqpath.com/2010/09/cuking-it-right/
 
 # Then I should see "foo" in the top menu
-
 scopes = {
   'the title' => 'h1, h2, h3',
   'the top menu' => '#top',
