@@ -285,3 +285,14 @@ Then /^I should see "([^"]*)" formatted as a "([^"]*)" tag$/ do |value, tag|
   assert_select(tag, value)
 end
 
+Then /^I should see (\d+|no|one|two|three) ([a-z ]+)$/ do |amount, item_class|
+  amount = case amount
+    when 'no' then 0
+    when 'one' then 1
+    when 'two' then 2
+    when 'three' then 3
+    else amount.to_i
+  end
+  assert_select ".#{item_class.gsub(' ', '_').singularize}", :count => amount
+end
+
