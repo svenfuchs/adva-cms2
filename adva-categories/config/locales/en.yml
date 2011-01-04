@@ -27,6 +27,6 @@ en:
       new:
         title: Create a Category
       edit:
-        title: Edit Category
+        title: "Edit Category: %{category_name}"
     tabs:
       categories: Categories

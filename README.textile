@@ -60,8 +60,8 @@ $ bundle install
 
 *Generate a new app and run it:*
 
-bc. $ thor adva:app /home/user/path/to/app
-$ cd /home/user/path/to/app
+bc. $ thor adva:app my_new_app --target /home/user/path/to/apps
+$ cd /home/user/path/to/apps/my_new_app
 $ bundle install
 $ rails s
 
