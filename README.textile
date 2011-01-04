@@ -48,9 +48,9 @@ $ thor adva:generate:engine contacts
 
 h2. Using adva-cms2
 
-h3. Get adva-cms
+*NOTE:* Because of some of its dependencies, adva-cms2 currently does not run on ruby 1.9.x, it only runs on ruby 1.8.7.
 
-*Get it*
+h3. Get adva-cms
 
 From github:
 
