@@ -6,15 +6,15 @@ module Adva
       def instance
         @@instance ||= new
       end
-    
+
       def get(*args)
         instance.get(*args)
       end
-    
+
       def set(*args)
         instance.set(*args)
       end
-    
+
       def clear
         instance.clear
       end
@@ -40,18 +40,18 @@ module Adva
     end
 
     def get(*keys)
-      keys.map { |key| key.to_sym }.inject(self) do |result, key| 
+      keys.map { |key| key.to_sym }.inject(self) do |result, key|
         return nil unless result.has_key?(key)
         result[key]
       end
     end
-  
+
     protected
-    
+
       def merge!(other)
         other.each { |key, value| self[key] = value }
       end
-  
+
       def to_registry(hash)
         hash.inject(Registry.new) do |registry, (key, value)|
           registry[key.to_sym] = value.is_a?(Hash) ? to_registry(value) : value

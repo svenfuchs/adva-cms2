@@ -4,16 +4,16 @@ class User::Form < Adva::View::Form
       devise_error_messages!
       super
     end
-  
+
     def button_group
       super
       links
     end
-  
+
     def buttons
       form.submit t(:'.submit')
     end
-  
+
     def links
       ul :class => 'links user' do
         li { sign_in_link }             if sign_in?

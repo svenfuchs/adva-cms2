@@ -258,6 +258,10 @@ Then /^the following emails should have been sent:$/ do |expected_emails|
   end
 end
 
+Then /^no emails should have been sent$/ do
+  assert_no_email_sent
+end
+
 Then /^"([^"]*)" should be filled in with "([^"]*)"$/ do |field, value|
   field = webrat.field_labeled(field)
   assert_equal value, field.value
