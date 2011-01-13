@@ -114,9 +114,9 @@ Then /^I should (not )?see a ([a-z ]+ )?row (?:of the ([a-z ]+) table )?where "(
   xpath_result = body.xpath("//#{table_xpath}/descendant::td[@headers='#{header_id}'][normalize-space(text())='#{cell_content}']/#{tr_xpath}/@id")
 
   if optional_not.present?
-    assert xpath_result.empty?, 'should not find a row'
+    assert xpath_result.empty?, "Expected not find a row where #{header.inspect} is #{cell_content}."
   else
-    assert xpath_result.any?, 'should find at least one row'
+    assert xpath_result.any?, "Expected to find at least one row where #{header.inspect} is #{cell_content}."
   end
 end
 
