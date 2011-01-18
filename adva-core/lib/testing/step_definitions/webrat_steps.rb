@@ -44,7 +44,7 @@ end
 #     | Note           | Nice guy   |
 #     | Wants Email?   |            |
 #
-When /^(?:|I )fill in the following:$/ do |fields|
+When /^(?:|I )fill in the following:?$/ do |fields|
   fields.rows_hash.each do |name, value|
     step = case webrat.field_labeled(name)
     when Webrat::TextField, Webrat::TextareaField, Webrat::PasswordField
