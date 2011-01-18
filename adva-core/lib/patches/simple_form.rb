@@ -1,4 +1,4 @@
-require 'gem_patching'
+require 'gem-patching'
 
 # add "blog edit_blog" as css classes. should propose a patch to simple_form
 
