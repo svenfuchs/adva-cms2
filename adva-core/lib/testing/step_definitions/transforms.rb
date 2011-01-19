@@ -3,7 +3,7 @@
 # works for both normal tables and row_hash tables):
 timezonify = lambda do |table|
   dates = table.headers.select { |header| header =~ /(_at|_on)$/ }
-  dates.each { |date| table.map_column!(date) { |date| DateTime.parse(date).in_time_zone } }
+  dates.each { |date| table.map_column!(date) { |date| DateTime.parse(date).in_time_zone if date.present? && date != '-' } }
   table.transpose
 end
 
