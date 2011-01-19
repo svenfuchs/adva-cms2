@@ -190,6 +190,14 @@ Then /^I should see an? (\w+) containing "([^"]+)"$/ do |type, text|
   assert_select(".#{type}", /#{text}/)
 end
 
+Then /^the ([^"]+) should contain "([^"]+)"$/ do |container_name, text|
+  container_id = container_name.gsub(' ', '_')
+  # 'within' doesn't currently work with assertions, so we need to resort to xpath
+  # within('#' + container_id) { assert_contain text }
+  assert(parsed_html.xpath("//*[@id=\"#{container_id}\"]"), "Could not find the #{container_name}")
+  assert(parsed_html.xpath("//*[@id=\"#{container_id}\"]/descendant::*[normalize-space(text()) = \"#{text}\"]").any?, "Could not see '#{text}' in the #{container_name}")
+end
+
 Then /^I should see an? (\w+) list$/ do |type|
   assert_select(".#{type}.list")
 end
@@ -295,7 +303,8 @@ Then /^I should see "([^"]*)" formatted as a "([^"]*)" tag$/ do |value, tag|
   assert_select(tag, value)
 end
 
-Then /^I should see (\d+|no|one|two|three) ([a-z ]+)$/ do |amount, item_class|
+Then(/^I should see (\d+|no|one|two|three) ([a-z ]+?)(?: in the ([a-z ]+))?$/) do |amount, item_class, container_id|
+  container_selector = container_id ? '#' + container_id.gsub!(' ', '_') : nil
   amount = case amount
     when 'no' then 0
     when 'one' then 1
@@ -303,6 +312,9 @@ Then /^I should see (\d+|no|one|two|three) ([a-z ]+)$/ do |amount, item_class|
     when 'three' then 3
     else amount.to_i
   end
-  assert_select ".#{item_class.gsub(' ', '_').singularize}", :count => amount
+  item_selector = '.' + item_class.gsub(' ', '_').singularize
+  # assertions do not work with 'within' yet, so we need to resort to assert_select:
+  # container_selector ? within(container_selector) { assert_select(item_selector) } : assert_select(item_selector)
+  assert_select(([container_selector, item_selector].compact.join(' ')), amount)
 end
 
