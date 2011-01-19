@@ -89,6 +89,12 @@ ul.links li:before {
 .actions a.destroy {
   background: url(/images/adva-core/icons/bin_closed.png) no-repeat -5px top;
 }
+.actions a.publish {
+  background: url('/images/adva-core/icons/tick.png');
+}
+.actions a.unpublish {
+  background: url('/images/adva-core/icons/delete.png');
+}
 
 
 div.pagination {
