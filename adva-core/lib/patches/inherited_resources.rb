@@ -1,4 +1,4 @@
-require 'gem_patching'
+require 'gem-patching'
 require 'inherited_resources'
 
 Gem.patching('inherited_resources', '1.1.2') do

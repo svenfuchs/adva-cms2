@@ -1,4 +1,4 @@
-require 'gem_patching'
+require 'gem-patching'
 
 # ActionDispatch::Integration::Runner defines method_missing but no accompaning
 # respond_to? method. It thus doesn't respond_to? to named route url helpers even
