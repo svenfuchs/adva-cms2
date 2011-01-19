@@ -87,8 +87,13 @@ When /^I (press|click|follow) "(.*)" in the row (of the ([a-z ]+) table )?where 
   header_id = headers.first.value
   row_id = body.xpath("//#{table_xpath}/descendant::td[@headers='#{header_id}'][normalize-space(text())='#{cell_content}']/ancestor::tr/@id").first.value
 
+  map = { 'press' => 'click_button', 'click' => 'click_link' }
   within("##{row_id}") do
-    When %(I #{action} "#{target}")
+    if map[action]
+      send(map[action], target)
+    else
+      When %(I #{action} "#{target}")
+    end
   end
 end
 
