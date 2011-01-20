@@ -1,3 +1,7 @@
+def assert_html(html, *args, &block)
+  assert_select(HTML::Document.new(html).root, *args, &block)
+end
+
 def emails_for_assertion(attributes)
   ::ActionMailer::Base.deliveries.select do |email|
     attributes.all? do |name, value|
