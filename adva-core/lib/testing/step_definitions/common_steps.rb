@@ -313,8 +313,13 @@ Then(/^I should see (\d+|no|one|two|three) ([a-z ]+?)(?: in the ([a-z ]+))?$/) d
     else amount.to_i
   end
   item_selector = '.' + item_class.gsub(' ', '_').singularize
-  # assertions do not work with 'within' yet, so we need to resort to assert_select:
+  # assertions do not work with 'within' yet, so we need to resort to cancatenating selectors:
   # container_selector ? within(container_selector) { assert_select(item_selector) } : assert_select(item_selector)
-  assert_select(([container_selector, item_selector].compact.join(' ')), amount)
+  if container_selector
+    assert_select container_selector
+    assert_select [container_selector, item_selector].join(' '), amount
+  else
+    assert_select item_selector, amount
+  end
 end
 
