@@ -97,6 +97,12 @@ When /^I (press|click|follow) "(.*)" in the row (of the ([a-z ]+) table )?where 
   within("##{rows.first.value}") { map[action] ? send(map[action], target) : When(%(I #{action} "#{target}")) }
 end
 
+When /^I order the (.*)s list by "([^"]*)"$/ do |model, order|
+  When %(I select "#{order}" from "#{model}s_order")
+  select = Webrat::Locators::FieldLocator.new(webrat, webrat.dom, "#{model}s_order", Webrat::SelectField).locate!
+  select.send(:form).submit
+end
+
 When /^I visit the url from the email to (.*)$/ do |to|
   email = ::ActionMailer::Base.deliveries.detect { |email| email.to.include?(to) }
   assert email, "email to #{to} could not be found"
@@ -187,6 +193,13 @@ Then /^I should see an? (\w+)$/ do |type|
   assert_select(".#{type}")
 end
 
+Then /^I should see a "([^"]*)" select box with the following options:$/ do |name, options|
+  select = Webrat::Locators::FieldLocator.new(webrat, webrat.dom, 'products_order', Webrat::SelectField).locate!
+  actual = select.options.map(&:inner_text).uniq
+  expected = options.raw.flatten[1..-1] # ignores the first row
+  assert_equal expected, actual
+end
+
 Then /^I should see an? (\w+) (?:titled|named) "([^"]+)"$/ do |type, text|
   assert_select(".#{type} h2", text)
 end
@@ -209,6 +222,16 @@ end
 
 Then /^I should see a list of (\w+)$/ do |type|
   assert_select(".#{type}.list")
+end
+
+Then /^the (.*) list should display (.*)s in the following order:$/ do |list, model, values|
+  expected = values.raw.flatten
+  name     = expected.shift
+  selector = "##{list}.list tr td.#{name}"
+  rows     = parsed_html.css(selector)
+
+  assert !rows.empty?, "could not find any elements matching #{selector.inspect}"
+  assert_equal expected, rows.map(&:content)
 end
 
 Then /^I should see an? ([a-z ]+) form$/ do |type|
