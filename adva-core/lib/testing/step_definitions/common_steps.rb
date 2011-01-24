@@ -185,8 +185,8 @@ Then /^I should see a link "([^"]+)"$/ do |link|
   assert_select('a', link)
 end
 
-Then /^I should not see any (\w+)$/ do |type|
-  assert_select(".#{type.singularize}", :count => 0) # .#{type},
+Then /^I should not see any ([a-z_ ]+)$/ do |type|
+  assert_select(".#{type.gsub(' ', '_').singularize}", :count => 0)
 end
 
 Then /^I should see an? (\w+)$/ do |type|
@@ -208,12 +208,16 @@ Then /^I should see an? (\w+) containing "([^"]+)"$/ do |type, text|
   assert_select(".#{type}", /#{text}/)
 end
 
+# TODO: the sinature of this step should really be:
+# I should see 'foo' within 'bar'
+# However, the generic "within 'bar'" meta step uses 'within' which doesn't currently work with assertions
+# only with navigation ('click', 'press')
 Then /^the ([^"]+) should contain "([^"]+)"$/ do |container_name, text|
   container_id = container_name.gsub(' ', '_')
   # 'within' doesn't currently work with assertions, so we need to resort to xpath
   # within('#' + container_id) { assert_contain text }
   assert(parsed_html.xpath("//*[@id=\"#{container_id}\"]"), "Could not find the #{container_name}")
-  assert(parsed_html.xpath("//*[@id=\"#{container_id}\"]/descendant::*[normalize-space(text()) = \"#{text}\"]").any?, "Could not see '#{text}' in the #{container_name}")
+  assert(parsed_html.xpath("//*[@id=\"#{container_id}\"]/descendant::*[contains(normalize-space(text()), \"#{text}\")]").any?, "Could not see '#{text}' in the #{container_name}")
 end
 
 Then /^I should see an? (\w+) list$/ do |type|
@@ -332,7 +336,7 @@ Then /^I should see "([^"]*)" formatted as a "([^"]*)" tag$/ do |value, tag|
 end
 
 Then(/^I should see (\d+|no|one|two|three) ([a-z ]+?)(?: in the ([a-z ]+))?$/) do |amount, item_class, container_id|
-  container_selector = container_id ? '#' + container_id.gsub!(' ', '_') : nil
+  container_selector = container_id ? '#' + container_id.gsub(' ', '_') : nil
   amount = case amount
     when 'no' then 0
     when 'one' then 1
@@ -341,8 +345,13 @@ Then(/^I should see (\d+|no|one|two|three) ([a-z ]+?)(?: in the ([a-z ]+))?$/) d
     else amount.to_i
   end
   item_selector = '.' + item_class.gsub(' ', '_').singularize
-  # assertions do not work with 'within' yet, so we need to resort to assert_select:
+  # assertions do not work with 'within' yet, so we need to resort to cancatenating selectors:
   # container_selector ? within(container_selector) { assert_select(item_selector) } : assert_select(item_selector)
-  assert_select(([container_selector, item_selector].compact.join(' ')), amount)
+  if container_selector
+    assert_select container_selector
+    assert_select [container_selector, item_selector].join(' '), amount
+  else
+    assert_select item_selector, amount
+  end
 end
 
