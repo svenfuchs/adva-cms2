@@ -174,8 +174,8 @@ Then /^I should see a link "([^"]+)"$/ do |link|
   assert_select('a', link)
 end
 
-Then /^I should not see any (\w+)$/ do |type|
-  assert_select(".#{type.singularize}", :count => 0) # .#{type},
+Then /^I should not see any ([a-z ]+)$/ do |type|
+  assert_select(".#{type.gsub(' ', '_').singularize}", :count => 0)
 end
 
 Then /^I should see an? (\w+)$/ do |type|
@@ -190,12 +190,16 @@ Then /^I should see an? (\w+) containing "([^"]+)"$/ do |type, text|
   assert_select(".#{type}", /#{text}/)
 end
 
+# TODO: the sinature of this step should really be:
+# I should see 'foo' within 'bar'
+# However, the generic "within 'bar'" meta step uses 'within' which doesn't currently work with assertions
+# only with navigation ('click', 'press')
 Then /^the ([^"]+) should contain "([^"]+)"$/ do |container_name, text|
   container_id = container_name.gsub(' ', '_')
   # 'within' doesn't currently work with assertions, so we need to resort to xpath
   # within('#' + container_id) { assert_contain text }
   assert(parsed_html.xpath("//*[@id=\"#{container_id}\"]"), "Could not find the #{container_name}")
-  assert(parsed_html.xpath("//*[@id=\"#{container_id}\"]/descendant::*[normalize-space(text()) = \"#{text}\"]").any?, "Could not see '#{text}' in the #{container_name}")
+  assert(parsed_html.xpath("//*[@id=\"#{container_id}\"]/descendant::*[contains(normalize-space(text()), \"#{text}\")]").any?, "Could not see '#{text}' in the #{container_name}")
 end
 
 Then /^I should see an? (\w+) list$/ do |type|
@@ -304,7 +308,7 @@ Then /^I should see "([^"]*)" formatted as a "([^"]*)" tag$/ do |value, tag|
 end
 
 Then(/^I should see (\d+|no|one|two|three) ([a-z ]+?)(?: in the ([a-z ]+))?$/) do |amount, item_class, container_id|
-  container_selector = container_id ? '#' + container_id.gsub!(' ', '_') : nil
+  container_selector = container_id ? '#' + container_id.gsub(' ', '_') : nil
   amount = case amount
     when 'no' then 0
     when 'one' then 1
