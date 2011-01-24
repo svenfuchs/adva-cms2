@@ -78,18 +78,23 @@ When /^(.+) that link$/ do |step|
   When %(#{step} "#{@last_link}")
 end
 
-When /^I (press|click|follow) "(.*)" in the row (of the ([a-z ]+) table )?where "(.*)" is "(.*)"$/ do |action, target, _, table_id, header, cell_content|
+When /^I (press|click|follow) "(.*)" in the row (of the ([a-z ]+) table )?where "(.*)" is "(.*)"$/ do |action, target, _, table_id, header, content|
   body = Nokogiri::HTML(response.body)
   table_xpath = table_id.nil? ? 'table' : "table[@id='#{table_id.gsub(/ /, '_')}']"
   headers = body.xpath("//#{table_xpath}/descendant::th[normalize-space(text())='#{header}']/@id")
-  assert !headers.empty?, "could not find table header cell '#{header}'"
+  assert !headers.empty?, "could not find table header cell #{header.inspect}"
 
   header_id = headers.first.value
-  row_id = body.xpath("//#{table_xpath}/descendant::td[@headers='#{header_id}'][normalize-space(text())='#{cell_content}']/ancestor::tr/@id").first.value
+  cell_path = "//#{table_xpath}/descendant::td[@headers='#{header_id}']"
+  content   = "normalize-space(text())='#{content}'"
+  tag_path  = "#{cell_path}[#{content}]/ancestor::tr/@id"
+  nested_tag_path = "#{cell_path}/descendant::*[#{content}]/ancestor::tr/@id"
 
-  within("##{row_id}") do
-    When %(I #{action} "#{target}")
-  end
+  rows = body.xpath([tag_path, nested_tag_path].join('|'))
+  assert !rows.empty?, "could not find table row where a cell has the header id #{header_id.inspect} and the content #{content.inspect}"
+
+  map = { 'press' => 'click_button', 'click' => 'click_link' }
+  within("##{rows.first.value}") { map[action] ? send(map[action], target) : When(%(I #{action} "#{target}")) }
 end
 
 When /^I visit the url from the email to (.*)$/ do |to|
