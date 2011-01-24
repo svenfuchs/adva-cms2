@@ -16,8 +16,12 @@ class BaseController < InheritedResources::Base
       Adva::Responder
     end
 
-    def sortable?(name)
-      self.sortable.include?(name.to_sym)
+    def sortable?(order)
+      !!sortable_direction(order)
+    end
+
+    def sortable_direction(order)
+      self.sortable.assoc(order.to_sym).last rescue nil
     end
   end
 
@@ -37,7 +41,7 @@ class BaseController < InheritedResources::Base
       elsif collection.respond_to?(order)
         collection.send(order)
       else
-        collection.order(collection.arel_table[order.to_sym])
+        collection.order(collection.arel_table[order].send(self.class.sortable_direction(order)))
       end
     end
 end
