@@ -61,3 +61,16 @@ table.list span.unpublished,
 table.list tr.unpublished td.status {
   background-image: url(/images/adva-core/icons/hourglass.png);
 }
+
+table.list .toggle {
+  padding-left: 18px;
+  background-position: 0 2px;
+  background-repeat: no-repeat;
+  background-image: url(/images/adva-core/admin/closed.png);
+}
+table.list .toggle.open {
+  background-image: url(/images/adva-core/admin/open.png);
+}
+table.list tr.details {
+  display: none;
+}

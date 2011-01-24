@@ -174,7 +174,7 @@ Then /^I should see a link "([^"]+)"$/ do |link|
   assert_select('a', link)
 end
 
-Then /^I should not see any ([a-z ]+)$/ do |type|
+Then /^I should not see any ([a-z_ ]+)$/ do |type|
   assert_select(".#{type.gsub(' ', '_').singularize}", :count => 0)
 end
 

@@ -19,4 +19,10 @@ $(document).ready(function() {
     $(selected).addClass('active');
   });
 
+  $('table.list .toggle').click(function(event) {
+    $(this).hasClass('open') ? $(this).removeClass('open').addClass('closed') : $(this).removeClass('closed').addClass('open');
+    $(this).closest('tr').next().toggle();
+    event.stopPropagation();
+    return false;
+  });
 });
