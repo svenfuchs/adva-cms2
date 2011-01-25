@@ -1,0 +1,12 @@
+module Adva::<%= name.classify %>::Paths
+  def path_to(page)
+    case page
+    when 'path/to/<%= name %>'
+    else
+      super
+    end
+  end
+end
+World(Adva::<%= name.classify %>::Paths)
+
+
