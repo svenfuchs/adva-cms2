@@ -1,5 +1,6 @@
 Given /^I am signed in with "([^"]*)" and "([^"]*)"$/ do |email, password|
   post user_session_path, :user => { :email => email, :password => password }
+  @user = User.find_by_email(email)
 end
 
 # This step should only be used for testing the login itself (login.feature)
@@ -10,6 +11,7 @@ Given /^I sign in with "([^"]*)" and "([^"]*)"$/ do |email, password|
   fill_in 'Email', :with => email
   fill_in 'Password', :with => password
   click_button 'Sign in'
+  @user = User.find_by_email(email)
 end
 
 Given /a confirmed user with email "([^"]+)" and password "([^"]+)"/ do |email, password|
