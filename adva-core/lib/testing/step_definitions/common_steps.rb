@@ -212,12 +212,12 @@ end
 # I should see 'foo' within 'bar'
 # However, the generic "within 'bar'" meta step uses 'within' which doesn't currently work with assertions
 # only with navigation ('click', 'press')
-Then /^the ([^"]+) should contain "([^"]+)"$/ do |container_name, text|
+Then /^the ([^"]+) should(?: (not))? contain "([^"]+)"$/ do |container_name, optional_negation, text|
   container_id = container_name.gsub(' ', '_')
   # 'within' doesn't currently work with assertions, so we need to resort to xpath
   # within('#' + container_id) { assert_contain text }
-  assert(parsed_html.xpath("//*[@id=\"#{container_id}\"]"), "Could not find the #{container_name}")
-  assert(parsed_html.xpath("//*[@id=\"#{container_id}\"]/descendant::*[contains(normalize-space(text()), \"#{text}\")]").any?, "Could not see '#{text}' in the #{container_name}")
+  assert(parsed_html.xpath("//*[@id=\"#{container_id}\"]").any?, "Could not find the #{container_name}")
+  assert(parsed_html.xpath("//*[@id=\"#{container_id}\"]/descendant::*[contains(normalize-space(text()), \"#{text}\")]").send(optional_negation ? :'none?' : :'any?'), "Could not see '#{text}' in the #{container_name}")
 end
 
 Then /^I should see an? (\w+) list$/ do |type|
