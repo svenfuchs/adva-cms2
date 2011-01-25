@@ -18,7 +18,6 @@ Gem::Specification.new do |s|
   s.rubyforge_project = '[none]'
 
   s.add_dependency 'rails', '3.0.3'
-  s.add_dependency 'arel', '2.0.6'
   s.add_dependency 'i18n', '0.5.0'
   s.add_dependency 'activesupport-slices', '0.0.2'
   s.add_dependency 'gem-patching', '0.0.3'
@@ -29,7 +28,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'simple_form', '1.2.2'
   s.add_dependency 'simple_slugs', '0.0.8'
   s.add_dependency 'simple_table', '0.0.16'
-  s.add_dependency 'simple_nested_set', '0.0.28'
+  s.add_dependency 'simple_nested_set', '0.0.29'
   s.add_dependency 'kronn-has_many_polymorphs', '3.0.2'
   s.add_dependency 'i18n-missing_translations', '0.0.1'
   s.add_dependency 'silence_log_tailer', '0.0.1'
