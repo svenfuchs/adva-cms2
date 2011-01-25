@@ -259,6 +259,7 @@ Then /^I should see an? ([a-z ]+) form with the following values:$/ do |type, ta
   end
 end
 
+# TODO this should be an assertion which does not take the order into account. The problem here is, that currently this step is used with the assumption that the order matters. Therefore, it needs to be changed whereever it occurs.
 Then /^I should see a "(.+)" table with the following entries:$/ do |table_id, expected_table|
   actual_table = table(tableish("table##{table_id} tr", 'td,th'))
   begin
@@ -270,6 +271,18 @@ Then /^I should see a "(.+)" table with the following entries:$/ do |table_id, e
     puts "Difference:#{diff_table.to_s}\n"
     raise
   end
+end
+
+# TODO should be obsolete but is not (see the previous step def.)
+Then /^I should see a "(.+)" table with the following entries in no particular order:$/ do |table_id, expected_table|
+  actual_table = table(tableish("table##{table_id} tr", 'td,th'))
+  
+  expected_headers = expected_table.headers.map{|h| h.gsub(' ', '_') }
+  
+  assert_equal expected_table.hashes, 
+    actual_table.hashes.map{|r| r.slice(*expected_headers) }
+  # assert_equal expected_table.rows.to_set, 
+  #   actual_table.hashes.map{|r| r.slice(*expected_headers).values }.to_set
 end
 
 Then /^I should see the "([^"]+)" page$/ do |name|
