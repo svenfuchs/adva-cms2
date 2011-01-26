@@ -191,10 +191,8 @@ Then /^I should not see any ([a-z_ ]+)$/ do |type|
   assert_select(".#{type.gsub(' ', '_').singularize}", :count => 0)
 end
 
-Then /^I should (?:(not) )?see (an?|the) ([a-z_ ]+)$/ do |optional_negation, a_or_the, name|
-  class_or_id_selector = { 'a' => '.', 'an' => '.', 'the' => '#' }[a_or_the]
-  selector = class_or_id_selector + name.gsub(' ', '_')
-  optional_negation ? assert_select(selector, :count => 0) : assert_select(selector)
+Then /^I should see an? (\w+)$/ do |type|
+  assert_select(".#{type}")
 end
 
 Then /^I should see a "([^"]*)" select box with the following options:$/ do |name, options|
