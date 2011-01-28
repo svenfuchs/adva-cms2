@@ -267,7 +267,7 @@ Then /^I should see a "(.+)" table with the following entries:$/ do |table_id, e
     diff_table = expected_table.dup
     diff_table.diff!(actual_table.dup)
   rescue
-    puts "\nActual table:#{actual_table.to_s}\nExpected table:#{expected_table.to_s}\nDifference:#{diff_table.to_s}\n"
+    puts tables_differ_message(actual_table, expected_table, diff_table)
     raise
   end
 end
@@ -276,12 +276,12 @@ Then /^I should see a "(.+)" table with the following entries in no particular o
   actual_table  = table(tableish("table##{table_id} tr", 'td,th'))
   expected_rows = expected_table.raw
   actual_rows   = actual_table.raw.transpose.select { |row| expected_rows.first.include?(row.first) }.transpose
-  assert_equal expected_rows.to_set, actual_rows.to_set,
+  assert_equal expected_rows.to_set, actual_rows.to_set, tables_differ_message(actual_table, expected_table)
 end
 
 def tables_differ_message(actual, expected, diff = nil)
-  msg = "\nActual table:#{actual.to_s}\nExpected table:#{expected_table.to_s}\n"
-  msg += "Difference:#{diff_table.to_s}\n" if diff
+  msg = "\nActual table:#{actual.to_s}\nExpected table:#{expected.to_s}\n"
+  msg += "Difference:#{diff.to_s}\n" if diff
   msg
 end
 
