@@ -1,11 +1,6 @@
 module Layouts
   class Admin < Layouts::Base
     include do
-      def head
-        csrf_meta_tag
-        super
-      end
-
       def body
         div do
           header
