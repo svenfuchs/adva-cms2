@@ -40,8 +40,10 @@ class BaseController < InheritedResources::Base
         collection
       elsif collection.respond_to?(order)
         collection.send(order)
-      else
+      elsif collection.arel_table[order]
         collection.order(collection.arel_table[order].send(self.class.sortable_direction(order)))
+      else
+        collection
       end
     end
 end
