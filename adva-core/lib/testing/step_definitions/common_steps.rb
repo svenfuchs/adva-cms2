@@ -261,30 +261,28 @@ Then /^I should see an? ([a-z ]+) form with the following values:$/ do |type, ta
   end
 end
 
-# TODO this should be an assertion which does not take the order into account. The problem here is, that currently this step is used with the assumption that the order matters. Therefore, it needs to be changed whereever it occurs.
 Then /^I should see a "(.+)" table with the following entries:$/ do |table_id, expected_table|
   actual_table = table(tableish("table##{table_id} tr", 'td,th'))
   begin
     diff_table = expected_table.dup
     diff_table.diff!(actual_table.dup)
   rescue
-    puts "\nActual table:#{actual_table.to_s}\n"
-    puts "Expected table:#{expected_table.to_s}\n"
-    puts "Difference:#{diff_table.to_s}\n"
+    puts "\nActual table:#{actual_table.to_s}\nExpected table:#{expected_table.to_s}\nDifference:#{diff_table.to_s}\n"
     raise
   end
 end
 
-# TODO should be obsolete but is not (see the previous step def.)
 Then /^I should see a "(.+)" table with the following entries in no particular order:$/ do |table_id, expected_table|
-  actual_table = table(tableish("table##{table_id} tr", 'td,th'))
-  
-  expected_headers = expected_table.headers.map{|h| h.gsub(' ', '_') }
-  
-  assert_equal expected_table.hashes, 
-    actual_table.hashes.map{|r| r.slice(*expected_headers) }
-  # assert_equal expected_table.rows.to_set, 
-  #   actual_table.hashes.map{|r| r.slice(*expected_headers).values }.to_set
+  actual_table  = table(tableish("table##{table_id} tr", 'td,th'))
+  expected_rows = expected_table.raw
+  actual_rows   = actual_table.raw.transpose.select { |row| expected_rows.first.include?(row.first) }.transpose
+  assert_equal expected_rows.to_set, actual_rows.to_set,
+end
+
+def tables_differ_message(actual, expected, diff = nil)
+  msg = "\nActual table:#{actual.to_s}\nExpected table:#{expected_table.to_s}\n"
+  msg += "Difference:#{diff_table.to_s}\n" if diff
+  msg
 end
 
 Then /^I should see the "([^"]+)" page$/ do |name|
