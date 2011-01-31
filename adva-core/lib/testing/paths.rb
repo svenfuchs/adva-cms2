@@ -18,6 +18,11 @@ module Adva::Core::Paths
       section = Section.where(:name => $1).first || raise("could not find section named #{$1}")
       polymorphic_path(section)
 
+    # the "Catalog" section page, ordered by "most viewed"
+    when /,? ordered by "([^\"]*)"$/
+      order = $1
+      path_to(page.gsub(/,? ordered by "[^\"]*"$/, '')) + "?order=#{order.gsub(' ', '_')}"
+
     when /^the admin sites page$/
       polymorphic_path([:admin, :sites])
 

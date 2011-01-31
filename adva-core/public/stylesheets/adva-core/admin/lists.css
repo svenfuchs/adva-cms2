@@ -11,7 +11,7 @@ table.list thead tr:last-child th {
   border-bottom: 3px solid #ddd;
 }
 table.list tbody tr {
-  border-bottom: 1px solid #ddd;  
+  border-bottom: 1px solid #ddd;
 }
 table.list tbody td {
   position: relative;
@@ -36,19 +36,41 @@ table.list span.status {
   padding-left: 10px;
   display: inline-block;
   width: 16px;
-  height: 16px; 
+  height: 16px;
   margin-left: 4px;
   text-indent: 16px;
   overflow: hidden;
   vertical-align: middle;
+  background-repeat: no-repeat;
+}
+table.list td.status {
+  width: 24px;
+  background-position: 4px 8px;
+  background-repeat: no-repeat;
 }
 
+table.list tr.published td.status,
 table.list span.published {
-  background: url(/images/adva-core/icons/tick.png) no-repeat;
+  background-image: url(/images/adva-core/icons/tick.png);
 }
 table.list span.draft,
 table.list span.hold,
 table.list span.queued,
-table.list span.pending {
-  background: url(/images/adva-core/icons/hourglass.png) no-repeat;
+table.list span.pending,
+table.list span.unpublished,
+table.list tr.unpublished td.status {
+  background-image: url(/images/adva-core/icons/hourglass.png);
+}
+
+table.list .toggle {
+  padding-left: 18px;
+  background-position: 0 2px;
+  background-repeat: no-repeat;
+  background-image: url(/images/adva-core/admin/closed.png);
+}
+table.list .toggle.open {
+  background-image: url(/images/adva-core/admin/open.png);
+}
+table.list tr.details {
+  display: none;
 }

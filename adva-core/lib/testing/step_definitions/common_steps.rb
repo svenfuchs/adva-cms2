@@ -78,16 +78,29 @@ When /^(.+) that link$/ do |step|
   When %(#{step} "#{@last_link}")
 end
 
-When /^I (press|click) "(.*)" in the row (of the ([a-z ]+) table )?where "(.*)" is "(.*)"$/ do |press_or_click, link_or_button, _, table_id, header, cell_content|
+When /^I (press|click|follow) "(.*)" in the row (of the ([a-z ]+) table )?where "(.*)" is "(.*)"$/ do |action, target, _, table_id, header, content|
   body = Nokogiri::HTML(response.body)
   table_xpath = table_id.nil? ? 'table' : "table[@id='#{table_id.gsub(/ /, '_')}']"
-  table_header_cells = body.xpath("//#{table_xpath}/descendant::th[normalize-space(text())='#{header}']/@id")
-  assert !table_header_cells.empty?, "could not find table header cell '#{header}'"
-  header_id = body.xpath("//#{table_xpath}/descendant::th[normalize-space(text())='#{header}']/@id").first.value
-  row_id = body.xpath("//#{table_xpath}/descendant::td[@headers='#{header_id}'][normalize-space(text())='#{cell_content}']/ancestor::tr/@id").first.value
-  within("##{row_id}") do
-    send({'press' => 'click_button', 'click' => 'click_link'}[press_or_click], link_or_button)
-  end
+  headers = body.xpath("//#{table_xpath}/descendant::th[normalize-space(text())='#{header}']/@id")
+  assert !headers.empty?, "could not find table header cell #{header.inspect}"
+
+  header_id = headers.first.value
+  cell_path = "//#{table_xpath}/descendant::td[@headers='#{header_id}']"
+  content   = "normalize-space(text())='#{content}'"
+  tag_path  = "#{cell_path}[#{content}]/ancestor::tr/@id"
+  nested_tag_path = "#{cell_path}/descendant::*[#{content}]/ancestor::tr/@id"
+
+  rows = body.xpath([tag_path, nested_tag_path].join('|'))
+  assert !rows.empty?, "could not find table row where a cell has the header id #{header_id.inspect} and the content #{content.inspect}"
+
+  map = { 'press' => 'click_button', 'click' => 'click_link' }
+  within("##{rows.first.value}") { map[action] ? send(map[action], target) : When(%(I #{action} "#{target}")) }
+end
+
+When /^I order the (.*)s list by "([^"]*)"$/ do |model, order|
+  When %(I select "#{order}" from "#{model}s_order")
+  select = Webrat::Locators::FieldLocator.new(webrat, webrat.dom, "#{model}s_order", Webrat::SelectField).locate!
+  select.send(:form).submit
 end
 
 When /^I visit the url from the email to (.*)$/ do |to|
@@ -97,6 +110,10 @@ When /^I visit the url from the email to (.*)$/ do |to|
   visit(url)
 end
 
+# Examples:
+# I should see a product row where "Name" is "Apple Powerbook"
+# I should not see a product row where "Name" is "Apple Powerbook"
+# I should see a row in the products table where "Name" is "Apple Powerbook"
 Then /^I should (not )?see a ([a-z ]+ )?row (?:of the ([a-z ]+) table )?where "(.*)" is "(.*)"$/ do |optional_not, row_classes, table_id, header, cell_content|
   body = Nokogiri::HTML(response.body)
   table_xpath = table_id.nil? ? 'table' : "table[@id='#{table_id.gsub(/ /, '_')}']"
@@ -111,12 +128,12 @@ Then /^I should (not )?see a ([a-z ]+ )?row (?:of the ([a-z ]+) table )?where "(
     "contains(concat(' ', normalize-space(@class), ' '), ' #{row_class} ')"
   end.join(' and ')
   tr_xpath = class_condition.empty? ? 'ancestor::tr' : "ancestor::tr[#{class_condition}]"
-  xpath_result = body.xpath("//#{table_xpath}/descendant::td[@headers='#{header_id}'][normalize-space(text())='#{cell_content}']/#{tr_xpath}/@id")
+  xpath_result = body.xpath("//#{table_xpath}/descendant::td[@headers='#{header_id}'][normalize-space(text())='#{cell_content}']/#{tr_xpath}")
 
   if optional_not.present?
-    assert xpath_result.empty?, 'should not find a row'
+    assert xpath_result.empty?, "Expected not find a row where #{header.inspect} is #{cell_content}."
   else
-    assert xpath_result.any?, 'should find at least one row'
+    assert xpath_result.any?, "Expected to find at least one row where #{header.inspect} is #{cell_content}."
   end
 end
 
@@ -158,6 +175,8 @@ Then /^the title should be "([^"]+)"$/ do |title|
   assert_select('title', title)
 end
 
+# TODO: This is an almost duplicate step
+# Use the one with un-quoted 'thing' expression
 Then /^I should see (an?|the) "([^"]+)"$/ do |kind, thing|
   kind = { 'a' => '.', 'the' => '#' }[kind]
   assert_select("#{kind}#{thing}")
@@ -168,12 +187,19 @@ Then /^I should see a link "([^"]+)"$/ do |link|
   assert_select('a', link)
 end
 
-Then /^I should not see any (\w+)$/ do |type|
-  assert_select(".#{type.singularize}", :count => 0) # .#{type},
+Then /^I should not see any ([a-z_ ]+)$/ do |type|
+  assert_select(".#{type.gsub(' ', '_').singularize}", :count => 0)
 end
 
 Then /^I should see an? (\w+)$/ do |type|
   assert_select(".#{type}")
+end
+
+Then /^I should see a "([^"]*)" select box with the following options:$/ do |name, options|
+  select = Webrat::Locators::FieldLocator.new(webrat, webrat.dom, 'products_order', Webrat::SelectField).locate!
+  actual = select.options.map(&:inner_text).uniq
+  expected = options.raw.flatten[1..-1] # ignores the first row
+  assert_equal expected, actual
 end
 
 Then /^I should see an? (\w+) (?:titled|named) "([^"]+)"$/ do |type, text|
@@ -184,12 +210,34 @@ Then /^I should see an? (\w+) containing "([^"]+)"$/ do |type, text|
   assert_select(".#{type}", /#{text}/)
 end
 
+# TODO: the sinature of this step should really be:
+# I should see 'foo' within 'bar'
+# However, the generic "within 'bar'" meta step uses 'within' which doesn't currently work with assertions
+# only with navigation ('click', 'press')
+Then /^the ([^"]+) should(?: (not))? contain "([^"]+)"$/ do |container_name, optional_negation, text|
+  container_id = container_name.gsub(' ', '_')
+  # 'within' doesn't currently work with assertions, so we need to resort to xpath
+  # within('#' + container_id) { assert_contain text }
+  assert(parsed_html.xpath("//*[@id=\"#{container_id}\"]").any?, "Could not find the #{container_name}")
+  assert(parsed_html.xpath("//*[@id=\"#{container_id}\"]/descendant::*[contains(normalize-space(text()), \"#{text}\")]").send(optional_negation ? :'none?' : :'any?'), "Could not see '#{text}' in the #{container_name}")
+end
+
 Then /^I should see an? (\w+) list$/ do |type|
   assert_select(".#{type}.list")
 end
 
 Then /^I should see a list of (\w+)$/ do |type|
   assert_select(".#{type}.list")
+end
+
+Then /^the (.*) list should display (.*)s in the following order:$/ do |list, model, values|
+  expected = values.raw.flatten
+  name     = expected.shift
+  selector = "##{list}.list tr td.#{name}"
+  rows     = parsed_html.css(selector)
+
+  assert !rows.empty?, "could not find any elements matching #{selector.inspect}"
+  assert_equal expected, rows.map(&:content)
 end
 
 Then /^I should see an? ([a-z ]+) form$/ do |type|
@@ -219,11 +267,22 @@ Then /^I should see a "(.+)" table with the following entries:$/ do |table_id, e
     diff_table = expected_table.dup
     diff_table.diff!(actual_table.dup)
   rescue
-    puts "\nActual table:#{actual_table.to_s}\n"
-    puts "Expected table:#{expected_table.to_s}\n"
-    puts "Difference:#{diff_table.to_s}\n"
+    puts tables_differ_message(actual_table, expected_table, diff_table)
     raise
   end
+end
+
+Then /^I should see a "(.+)" table with the following entries in no particular order:$/ do |table_id, expected_table|
+  actual_table  = table(tableish("table##{table_id} tr", 'td,th'))
+  expected_rows = expected_table.raw
+  actual_rows   = actual_table.raw.transpose.select { |row| expected_rows.first.include?(row.first) }.transpose
+  assert_equal expected_rows.to_set, actual_rows.to_set, tables_differ_message(actual_table, expected_table)
+end
+
+def tables_differ_message(actual, expected, diff = nil)
+  msg = "\nActual table:#{actual.to_s}\nExpected table:#{expected.to_s}\n"
+  msg += "Difference:#{diff.to_s}\n" if diff
+  msg
 end
 
 Then /^I should see the "([^"]+)" page$/ do |name|
@@ -258,6 +317,10 @@ Then /^the following emails should have been sent:$/ do |expected_emails|
   end
 end
 
+Then /^no emails should have been sent$/ do
+  assert_no_email_sent
+end
+
 Then /^"([^"]*)" should be filled in with "([^"]*)"$/ do |field, value|
   field = webrat.field_labeled(field)
   assert_equal value, field.value
@@ -285,7 +348,8 @@ Then /^I should see "([^"]*)" formatted as a "([^"]*)" tag$/ do |value, tag|
   assert_select(tag, value)
 end
 
-Then /^I should see (\d+|no|one|two|three) ([a-z ]+)$/ do |amount, item_class|
+Then(/^I should see (\d+|no|one|two|three) ([a-z ]+?)(?: in the ([a-z ]+))?$/) do |amount, item_class, container_id|
+  container_selector = container_id ? '#' + container_id.gsub(' ', '_') : nil
   amount = case amount
     when 'no' then 0
     when 'one' then 1
@@ -293,6 +357,14 @@ Then /^I should see (\d+|no|one|two|three) ([a-z ]+)$/ do |amount, item_class|
     when 'three' then 3
     else amount.to_i
   end
-  assert_select ".#{item_class.gsub(' ', '_').singularize}", :count => amount
+  item_selector = '.' + item_class.gsub(' ', '_').singularize
+  # assertions do not work with 'within' yet, so we need to resort to cancatenating selectors:
+  # container_selector ? within(container_selector) { assert_select(item_selector) } : assert_select(item_selector)
+  if container_selector
+    assert_select container_selector
+    assert_select [container_selector, item_selector].join(' '), amount
+  else
+    assert_select item_selector, amount
+  end
 end
 

@@ -1,4 +1,4 @@
-require 'gem_patching'
+require 'gem-patching'
 
 Gem.patching('webrat', '0.7.2') do
   Webrat::Link.class_eval do

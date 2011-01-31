@@ -18,6 +18,7 @@ class Layouts::Base < Minimal::Template
       title
       stylesheets
       javascripts
+      csrf_meta_tag
       block.call(:head)
     end
 

@@ -1,4 +1,4 @@
-require 'gem_patching'
+require 'gem-patching'
 
 # remove trailing segments '.1' and  query params '?=1' from url
 Gem.patching('rails', '3.0.3') do

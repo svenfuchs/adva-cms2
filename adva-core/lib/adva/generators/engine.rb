@@ -4,14 +4,14 @@ module Adva
   module Generators
     class Engine < Rails::Generators::Base
       source_root File.expand_path('../templates/engine', __FILE__)
-      
+
       attr_reader :name
-      
+
       def initialize(name, options = {})
         @name = name
         super()
       end
-      
+
       def build
         empty_directory "adva-#{name}"
         template        "gemspec.erb", "adva-#{name}/adva-#{name}.gemspec"
@@ -31,15 +31,23 @@ module Adva
         empty_directory "adva-#{name}/db/migrate"
         template        'migration.rb.erb', "adva-#{name}/db/migrate/#{migration_timestamp}_adva_#{name}_create_tables.rb"
 
+        empty_directory "adva-#{name}/features"
+        template        'env.rb', "adva-#{name}/features/env.rb"
+        template        'feature.erb', "adva-#{name}/features/#{name}.feature"
+
         empty_directory "adva-#{name}/lib/adva"
         create_file     "adva-#{name}/lib/adva-#{name}.rb", "require 'adva/#{name}'"
         template        'engine.rb.erb', "adva-#{name}/lib/adva/#{name}.rb"
+
+        empty_directory "adva-#{name}/lib/testing"
+        create_file     "adva-#{name}/lib/paths.rb", "adva-#{name}/lib/step_definitions.rb"
+        template        'paths.rb.erb', "adva-#{name}/lib/testing/paths.rb"
 
         empty_directory "adva-#{name}/test"
         template        'all.rb', "adva-#{name}/test/all.rb"
         template        'test_helper.rb.erb', "adva-#{name}/test/test_helper.rb"
       end
-      
+
       protected
 
         def migration_timestamp
@@ -49,7 +57,7 @@ module Adva
         def table_name
           name.tableize
         end
-        
+
         def class_name
           name.camelize
         end

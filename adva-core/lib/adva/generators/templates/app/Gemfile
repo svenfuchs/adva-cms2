@@ -1,0 +1,24 @@
+source :rubygems
+
+gem  'adva-core'
+gem  'adva-blog'
+gem  'adva-cache'
+gem  'adva-categories'
+gem  'adva-static'
+gem  'adva-user'
+gem  'adva-markup'
+
+group :test do
+  gem 'sqlite3-ruby', '1.2.5'
+  gem 'cucumber', '0.9.4'
+  gem 'cucumber-rails', '0.3.2'
+  gem 'webrat', '0.7.2'
+  gem 'thor'
+  gem 'ruby-debug'
+  gem 'mocha'
+  gem 'fakefs', :require => 'fakefs/safe'
+  gem 'test_declarative'
+  gem 'database_cleaner', '0.5.2'
+  gem 'launchy'
+  gem 'factory_girl', '1.3.2'
+end
