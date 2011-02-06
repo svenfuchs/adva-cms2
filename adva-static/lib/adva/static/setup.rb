@@ -13,7 +13,7 @@ module Adva
         @remote = options[:remote]
         @host   = options[:host]  || 'example.org'
         @title  = options[:title] || host
-        
+
         Adva.out = StringIO.new('')
       end
 
@@ -35,34 +35,55 @@ module Adva
         Import.new(:source => source).run
         Export.new(app, :target => target).run
       end
-      
+
       def setup_source_repository
         root.join('.gitignore').rmtree rescue Errno::ENOENT
         root.join('.git').rmtree rescue Errno::ENOENT
-        
+
         File.open(root.join('.gitignore'), 'w+') { |f| f.write('export') }
-        
+
         Dir.chdir(root) do
-          `git init`
-          `git add .`
-          `git commit -am '#{host} source'`
-          `git branch source`
-          `git checkout --quiet source`
-          `git branch -D master`
-          `git remote add origin #{remote} -t source` if remote
+          init_repository
+          commit("#{host} source")
+          checkout_branch('source')
+          delete_branch('master')
+          add_remote('source') if remote
         end
       end
-      
+
       def setup_export_repository
         root.join('export/.git').rmtree rescue Errno::ENOENT
 
         Dir.chdir(target) do
-          `git init`
-          `git add .`
-          `git commit -am '#{host} export'`
-          `git remote add origin #{remote} -t master` if remote
+          init_repository
+          commit("#{host} export")
+          add_remote('master') if remote
         end
       end
+
+      protected
+
+        def init_repository
+          `git init`
+        end
+
+        def commit(message)
+          `git add .`
+          `git commit -am '#{message}'`
+        end
+
+        def checkout_branch(name)
+          `git branch #{name}`
+          `git checkout --quiet #{name}`
+        end
+
+        def delete_branch(name)
+          `git branch -D #{name}`
+        end
+
+        def add_remote(branch)
+          `git remote add origin #{remote} -t #{branch}`
+        end
     end
   end
 end
