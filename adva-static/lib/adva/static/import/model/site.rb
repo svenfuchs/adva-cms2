@@ -1,5 +1,3 @@
-require 'site'
-
 module Adva
   class Static
     class Import

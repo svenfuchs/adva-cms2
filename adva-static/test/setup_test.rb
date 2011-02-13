@@ -12,16 +12,16 @@ module AdvaStatic
     end
 
     attr_reader :root, :task
-    
+
     def setup
       @root = Pathname.new('/tmp/adva-static-test')
       root.mkdir rescue Errno::EEXIST
-      
+
       Devise.setup do |config|
         require 'devise/orm/active_record'
         config.encryptor = :bcrypt
       end
-      
+
       options = {
         :app    => Application.new,
         :root   => root,
@@ -30,13 +30,20 @@ module AdvaStatic
         :remote => 'git@github.com:svenfuchs/ruby-i18n.org.git'
       }
       @task = Adva::Static::Setup.new(options)
-      @task.setup_directories
+      class << task
+        def init_repository
+          super
+          `git config user.email "adva-static-test@example.com"` # in case git is not configured on the build server
+          `git config user.name  "adva-static-test"`
+        end
+      end
+      task.setup_directories
     end
-    
+
     def teardown
       root.rmtree rescue Errno::ENOENT
     end
-    
+
     test "creates an import directory" do
       assert File.directory?(root.join('import'))
     end
@@ -44,13 +51,13 @@ module AdvaStatic
     test "creates an export directory" do
       assert File.directory?(root.join('export'))
     end
-    
+
     test "creates an import/site.yml" do
       data = YAML.load_file(root.join('import/site.yml'))
       assert_equal 'ruby-i18n.org', data[:host]
       assert_equal 'Ruby I18n', data[:title]
     end
-    
+
     test "does an initial import and export" do
       task.initial_import_and_export
 
@@ -61,7 +68,7 @@ module AdvaStatic
       assert File.file?(root.join('export/config.ru'))
       assert File.file?(root.join('export/index.html'))
     end
-    
+
     test "initializes and commits to a git repository in the root directory and adds the remote" do
       task.setup_source_repository
       assert File.file?(root.join('.git/config'))
@@ -69,7 +76,7 @@ module AdvaStatic
       assert File.read(root.join('.git/config')).include?('fetch = +refs/heads/source:refs/remotes/origin/source')
       assert_equal '[source] ruby-i18n.org source', Dir.chdir(root) { `git show-branch` }.chomp
     end
-    
+
     test "initializes and commits to a git repository in the export directory and adds the remote" do
       task.initial_import_and_export
       task.setup_export_repository
