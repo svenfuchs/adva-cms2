@@ -5,7 +5,7 @@ class BaseController < InheritedResources::Base
   begin_of_association_chain :site
   tracks :resource, :resources, :collection, :site => %w(.title .name .sections)
 
-  layout 'default'
+  layout :layout
   helper_method :site
 
   mattr_accessor :sortable
@@ -34,6 +34,10 @@ class BaseController < InheritedResources::Base
   end
 
   protected
+
+    def layout
+      'default' unless params[:format] == 'atom'
+    end
 
     def sort(collection, order)
       if !self.class.sortable?(order)

@@ -1,4 +1,6 @@
 class PostsController < BaseController
+  respond_to :html, :atom
+
   nested_belongs_to :blog
   before_filter :set_id, :only => :show
 
