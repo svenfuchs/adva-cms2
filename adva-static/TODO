@@ -1,3 +1,3 @@
++ read an optional manifest of starting urls
 - copying static files: watch public asset dirs, simply recopy everything on every change (?)
 - watcher GETs deleted files
-- read an optional manifest of starting urls

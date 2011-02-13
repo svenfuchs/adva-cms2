@@ -36,6 +36,7 @@ module Adva
         namespace 'adva:static:export'
         desc 'Export a static version of a site'
         class_option :target, :required => false
+        class_option :config, :required => false
 
         def export
           require 'config/environment'
@@ -48,6 +49,7 @@ module Adva
         desc 'Import and export a static version of a site'
         class_option :source, :required => false
         class_option :target, :required => false
+        class_option :config, :required => false
 
         def export
           require 'config/environment'
