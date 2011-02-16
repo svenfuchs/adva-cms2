@@ -13,6 +13,9 @@ adva_cms.gem  'adva-static'
 adva_cms.gem  'adva-user'
 adva_cms.gem  'adva-markup'
 
+# TODO: remove this requirement when simple_nested_set works with current arel version (2.0.8)
+gem 'arel', '2.0.7'
+
 group :test do
   gem 'sqlite3-ruby', '1.2.5'
   gem 'cucumber', '0.9.4'
