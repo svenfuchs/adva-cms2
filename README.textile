@@ -1,4 +1,4 @@
-h1. adva-cms2 "!http://travis-ci.org/svenfuchs/adva-cms2.png!":http://travis-ci.org/!#/svenfuchs/adva-cms2
+h1. adva-cms2 "!http://travis-ci.org/svenfuchs/adva-cms2.png!":http://travis-ci.org/#!/svenfuchs/adva-cms2
 
 adva-cms2 is the successor of adva-cms which was the first completely
 engine-based CMS plattform for Rails. adva-cms2 is written for and
