@@ -37,7 +37,7 @@ module RoutingFilter
 
       def recognition(host)
         if site = Site.by_host(host) and root = site.sections.root
-          [%r(^(/[\w]{2})?(?:\/?)(#{anchors.join('|')}|\.|\?|/?\Z)), "/#{root.type.tableize}/#{root.id}"]
+          [%r(^(/[\w]{2})?(?:\/?)(?:index)?(#{anchors.join('|')}|\.|\?|/?\Z)), "/#{root.type.tableize}/#{root.id}"]
         end
       end
 

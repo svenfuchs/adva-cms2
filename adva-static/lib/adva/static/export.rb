@@ -18,13 +18,15 @@ module Adva
       }
 
       def initialize(app, options = {})
+        options.reject! { |key, value| value.blank? }
         @options = options.reverse_merge!(DEFAULT_OPTIONS)
 
         @app   = app
         @store = Store.new(target)
         @queue = Queue.new
 
-        queue.push(options[:queue] || Path.new('/'))
+        roots = config[:roots] || %w(/)
+        queue.push(*roots.map { |path| Path.new(path) })
 
         FileUtils.rm_r(Dir[target.join('*')])
       end
@@ -46,9 +48,7 @@ module Adva
         end
 
         def copy_assets
-          %w(images javascripts stylesheets).each do |dir|
-            FileUtils.cp_r(source.join(dir), target.join(dir)) if source.join(dir).exist?
-          end
+          Dir[source.join('*')].each { |file| FileUtils.cp_r(file, target.join(file.gsub("#{source}/", ''))) }
         end
 
         def process(path)
@@ -98,6 +98,12 @@ module Adva
           unless store.exists?(config)
             store.write(config, File.read(File.expand_path('../export/templates/config.ru', __FILE__)))
           end
+        end
+
+        def config
+          YAML.load_file(options[:config] || Rails.root.join('config/static.yml')).symbolize_keys
+        rescue
+          {}
         end
     end
   end

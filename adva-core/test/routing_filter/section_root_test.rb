@@ -29,6 +29,10 @@ module AdvaCoreTests
       assert_equal "/pages/#{root.id}.rss", recognize('/.rss')
     end
 
+    test "recognizes /index.rss" do
+      assert_equal "/pages/#{root.id}.rss", recognize('/index.rss')
+    end
+
     test "recognizes /article/1" do
       assert_equal "/pages/#{root.id}/article/1", recognize('/article/1')
     end
