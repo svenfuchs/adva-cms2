@@ -16,6 +16,9 @@ adva_cms.gem  'adva-markup'
 # TODO: remove this requirement when simple_nested_set works with current arel version (2.0.8)
 gem 'arel', '2.0.7'
 
+# TODO: remove this requirement when rack-mount does not break the routing filter
+gem 'rack-mount', '0.6.13'
+
 group :test do
   gem 'sqlite3-ruby', '1.2.5'
   gem 'cucumber', '0.9.4'
