@@ -261,14 +261,29 @@ Then /^I should see an? ([a-z ]+) form with the following values:$/ do |type, ta
   end
 end
 
-Then /^I should see a "(.+)" table with the following entries:$/ do |table_id, expected_table|
-  actual_table = table(tableish("table##{table_id} tr", 'td,th'))
-  begin
-    diff_table = expected_table.dup
-    diff_table.diff!(actual_table.dup)
-  rescue
-    puts tables_differ_message(actual_table, expected_table, diff_table)
-    raise
+Then /^I should see a "(.+)"(?: table)? with the following entries:$/ do |dom_id, expected_table|
+  container = parsed_html.css("##{dom_id}").first
+  assert container, "no container with id #{dom_id} found"
+
+  case container.name
+  when 'ul'
+    expected_table.hashes.each do |row|
+      assert_select 'li' do
+        row.each do |key, value|
+          key_class = key.downcase.gsub(/[ _]/, '-')
+          assert_select ".#{key_class}", value, "No element with class '#{key_class}' and value '#{value}' found."
+        end
+      end
+    end
+  when 'table'
+    actual_table = table(tableish("table##{dom_id} tr", 'td,th'))
+    begin
+      diff_table = expected_table.dup
+      diff_table.diff!(actual_table.dup)
+    rescue
+      puts tables_differ_message(actual_table, expected_table, diff_table)
+      raise
+    end
   end
 end
 
