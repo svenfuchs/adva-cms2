@@ -363,7 +363,7 @@ Then /^I should see "([^"]*)" formatted as a "([^"]*)" tag$/ do |value, tag|
   assert_select(tag, value)
 end
 
-Then(/^I should see (\d+|no|one|two|three) ([a-z ]+?)(?: in the ([a-z ]+))?$/) do |amount, item_class, container_id|
+Then(/^I should see (\d+|no|one|two|three) ([-a-z ]+?)(?: in the ([a-z ]+))?$/) do |amount, item_class, container_id|
   container_selector = container_id ? '#' + container_id.gsub(' ', '_') : nil
   amount = case amount
     when 'no' then 0
