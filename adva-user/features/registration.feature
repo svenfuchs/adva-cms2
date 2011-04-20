@@ -10,7 +10,7 @@ Feature: Registration
       And I fill in "Password confirmation" with "password"
       And I press "Sign up"
      Then I should be on the sign in page
-      And I should see "You have signed up successfully. A confirmation was sent to your e-mail."
+      And I should see "You have signed up successfully. However, we could not sign you in because your account is unconfirmed. A confirmation was sent to your e-mail."
       And the following emails should have been sent:
         | to              | subject                   | body                 |
         | john@doe.com    | Confirmation instructions | confirm your account |
