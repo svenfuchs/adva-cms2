@@ -2,7 +2,7 @@ require 'gem-patching'
 
 # add "blog edit_blog" as css classes. should propose a patch to simple_form
 
-Gem.patching('simple_form', '1.2.2') do
+Gem.patching('simple_form', '1.3.1') do
   SimpleForm::ActionViewExtensions::FormHelper.module_eval do
     [:form_for, :fields_for, :remote_form_for].each do |helper|
       class_eval <<-METHOD, __FILE__, __LINE__
