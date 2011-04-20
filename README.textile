@@ -62,6 +62,9 @@ $ bundle install
 
 *Generate a new app and run it:*
 
+Be warned: Make sure the target directory does not exist (yet) or is
+disposable, it will be removed and regenerated.
+
 bc. $ thor adva:app my_new_app --target /home/user/path/to/apps
 $ cd /home/user/path/to/apps/my_new_app
 $ bundle install
