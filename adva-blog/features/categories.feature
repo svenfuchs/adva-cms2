@@ -56,6 +56,7 @@ Feature: Managing blog categories
   Scenario: Deleting a category from the admin categories list
     When I follow "Delete" within the "Programming" row
     Then I should see "Category successfully deleted"
+     And I should be on the admin "Blog" section categories page
      And I should see a categories list
      But I should not see "Programming"
 
@@ -63,6 +64,7 @@ Feature: Managing blog categories
     When I follow "Programming"
     When I follow "Delete"
     Then I should see "Category successfully deleted"
+     And I should be on the admin "Blog" section categories page
      And I should see a categories list
      But I should not see "Programming"
 
