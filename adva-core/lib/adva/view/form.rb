@@ -37,7 +37,7 @@ module Adva
       end
 
       def pass_return_to
-        hidden_field_tag :return_to, params[:return_to]
+        hidden_field_tag :return_to, params[:return_to] if params[:return_to].present?
       end
     end
   end
