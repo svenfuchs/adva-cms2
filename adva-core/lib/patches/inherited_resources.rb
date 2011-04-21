@@ -1,7 +1,7 @@
 require 'gem-patching'
 require 'inherited_resources'
 
-Gem.patching('inherited_resources', '1.1.2') do
+Gem.patching('inherited_resources', '1.2.2') do
   InheritedResources::Actions.module_eval do
     module Actions
       def index(options={}, &block)

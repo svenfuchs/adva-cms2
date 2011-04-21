@@ -68,6 +68,7 @@ Feature: Managing pages
     Then the title should be "Sections: Index"
      And I should see "Page successfully deleted"
      And I should not see "Home"
+     And I should be on the admin sections page
     When I follow "Delete" within the "Contact" row
     Then the title should be "Pages: Show"
      And I should see "Page could not be deleted"

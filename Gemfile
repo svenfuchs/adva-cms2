@@ -17,7 +17,7 @@ adva_cms.gem  'adva-markup'
 gem 'arel', '2.0.7'
 
 # TODO: remove this requirement when rack-mount does not break the routing filter
-gem 'rack-mount', '0.6.13'
+gem 'rack-mount', '0.6.14'
 
 group :test do
   gem 'sqlite3-ruby', '1.2.5'

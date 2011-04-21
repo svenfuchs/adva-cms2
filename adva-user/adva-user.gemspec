@@ -18,5 +18,5 @@ Gem::Specification.new do |s|
   s.rubyforge_project = '[none]'
   
   s.add_dependency 'adva-core'
-  s.add_dependency 'devise', '>= 1.3.1'
+  s.add_dependency 'devise', '1.3.1'
 end

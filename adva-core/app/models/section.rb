@@ -41,9 +41,4 @@ class Section < ActiveRecord::Base
     default
   end
 
-  protected
-
-    def _path
-      read_attribute(:path)
-    end
 end

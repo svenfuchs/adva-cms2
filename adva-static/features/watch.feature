@@ -1,4 +1,6 @@
+@wip
 Feature: Updating the database based on changes to the import source files
+# html files are not saved, must talk to sven
   Background:
     Given an empty import directory "www.example.com"
      And an empty export directory

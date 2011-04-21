@@ -19,7 +19,7 @@ class Post < Content
     "#{published_at.year}/#{published_at.month}/#{published_at.day}/#{slug}"
   end
 
-  def to_param(name)
+  def to_param(name=nil)
     name == :permalink ? permalink : super()
   end
 end

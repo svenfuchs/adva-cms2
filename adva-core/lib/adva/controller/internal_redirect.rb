@@ -13,6 +13,7 @@ module Adva
         params = yield(params) if block_given?
 
         rack_endpoint = "#{controller}_controller".classify.constantize.action(action)
+        Rails.logger.debug { "redirecting internally to #{controller}##{action}" }
         env['action_dispatch.request.parameters'] = params
         response = rack_endpoint.call(env)
 
