@@ -20,6 +20,6 @@ ActionDispatch::Routing::RouteSet::Generator.class_eval do
   end
   
   def to_param(name, value)
-    value.method(:to_param).arity == 1 ? value.to_param(name) : value.to_param
+    value.method(:to_param).arity == 0 ? value.to_param : value.to_param(name)
   end
 end
