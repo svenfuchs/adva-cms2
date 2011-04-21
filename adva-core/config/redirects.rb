@@ -4,5 +4,6 @@ Adva::Registry.set :redirect, {
 
   'admin/sites#update'    => lambda { |c| c.edit_url        },
   'admin/pages#update'    => lambda { |c| c.show_url        },
-  'admin/pages#destroy'   => lambda { |c| c.index_url       }
+  'admin/pages#destroy'   => lambda { |c| c.index_url       },
+  'admin/sections#destroy' => lambda { |c| c.index_url      }
 }
