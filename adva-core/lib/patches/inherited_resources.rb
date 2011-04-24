@@ -15,7 +15,6 @@ Gem.patching('inherited_resources', '1.2.2') do
     def collection
       get_collection_ivar || begin
         collection = end_of_association_chain
-        collection = collection.find(:all) unless collection.respond_to?(:each)
         set_collection_ivar(collection)
       end
     end
