@@ -11,8 +11,8 @@ Responders::FlashResponder.class_eval do
       slices.shift
     end
 
-    defaults << :"flash.actions.#{controller.action_name}.#{status}"
     defaults << :"flash.#{controller.action_name}.#{status}"
+    defaults << :"flash.actions.#{controller.action_name}.#{status}"
     defaults.uniq << ""
   end
 end
