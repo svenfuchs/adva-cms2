@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   filter :categories
 
   namespace :admin do
-    namespace :sites do
+    resources :sites do
       resources :sections do
         resources :categories
       end
