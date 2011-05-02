@@ -10,13 +10,14 @@ module Adva
     initializer 'adva-user.devise_setup' do |app|
 
       # FIXME [config]
-      app.config.action_mailer.default_url_options = { :host => 'www.example.com' }
+      app.config.action_mailer.default_url_options ||= {}
+      app.config.action_mailer.default_url_options.reverse_merge!({ :host => 'www.example.com' })
 
       Devise.setup do |config|
         require 'devise/orm/active_record'
-        config.mailer_sender   = 'please-change-me@config-initializers-devise.com'
-        config.encryptor       = :bcrypt
-        config.password_length = 5..20
+        config.mailer_sender   ||= 'please-change-me@config-initializers-devise.com'
+        config.encryptor       ||= :bcrypt
+        config.password_length ||= 5..20
       end
 
       Devise::FailureApp.class_eval do
