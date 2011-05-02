@@ -6,6 +6,7 @@ class User::Passwords::Edit < User::Form
     end
 
     def fields
+      super
       form.hidden_field :reset_password_token
       form.input :password
       form.input :password_confirmation

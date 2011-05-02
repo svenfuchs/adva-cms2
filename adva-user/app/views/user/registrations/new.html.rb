@@ -6,6 +6,7 @@ class User::Registrations::New < User::Form
     end
 
     def fields
+      super
       pass_return_to
       form.input :email
       form.input :password
