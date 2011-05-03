@@ -16,8 +16,8 @@ module Adva
       Devise.setup do |config|
         require 'devise/orm/active_record'
         config.mailer_sender   ||= 'please-change-me@config-initializers-devise.com'
-        config.encryptor       ||= :bcrypt
-        config.password_length ||= 5..20
+        config.encryptor       = :bcrypt
+        config.password_length = 5..20
       end
 
       Devise::FailureApp.class_eval do
