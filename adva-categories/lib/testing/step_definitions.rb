@@ -1,4 +1,4 @@
-When /^I drag the category "([^"]*)" below the category "([^"]*)"$/ do |category, target|
+When /^I drag the category "([^"]*)" behind the category "([^"]*)"$/ do |category, target|
   category = Category.find_by_name(category)
   target = Category.find_by_name(target)
   section = Section.first

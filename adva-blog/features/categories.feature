@@ -69,7 +69,7 @@ Feature: Managing blog categories
      But I should not see "Programming"
 
   Scenario: Sorting a blog's categories
-    When I drag the category "Programming" below the category "Miscellaneous"
+    When I drag the category "Programming" behind the category "Miscellaneous"
     Then I should see a "categories" table with the following entries:
       | Category      |
       | Design        |
