@@ -1,3 +1,11 @@
+Then /^the "([^\"]*)" field should be empty$/ do |field|
+  if defined?(Spec::Rails::Matchers)
+    field_labeled(field).value.should be_blank
+  else
+    assert field_labeled(field).value.blank?
+  end
+end
+
 Given 'a site' do
   @site = Factory(:site)
 end
