@@ -21,22 +21,8 @@ Then /^the following urls should be tagged:$/ do |table|
   end
 end
 
-Webrat::Session.class_eval do
-  cattr_accessor :follow_redirects
-  self.follow_redirects = true
-
-  def internal_redirect_with_skipping?
-    follow_redirects && internal_redirect_without_skipping?
-  end
-  alias_method_chain :internal_redirect?, :skipping
-end
-
-Before do
-  Webrat::Session.follow_redirects = true
-end
-
 When /I don't follow any http redirects/ do
-  Webrat::Session.follow_redirects = false
+  pending 'disable following of redirects'
 end
 
 Then /^it should purge cache entries tagged: (.+)$/ do |tags|
