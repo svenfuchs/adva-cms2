@@ -1,4 +1,4 @@
-require File.expand_path('../lib/bundler/repository', __FILE__)
+require File.expand_path('../adva-core/lib/bundler/repository', __FILE__)
 
 source :rubygems
 
