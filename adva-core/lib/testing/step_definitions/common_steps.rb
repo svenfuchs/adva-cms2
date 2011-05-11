@@ -274,11 +274,13 @@ Then /^I should see a "(.+)"(?: table)? with the following entries:$/ do |dom_id
   assert container, "no container with id #{dom_id} found"
   case container.name
   when 'ul'
-    expected_table.hashes.each do |row|
-      assert_select 'li' do
-        row.each do |key, value|
-          key_class = key.downcase.gsub(/[ _]/, '-')
-          assert_select ".#{key_class}", value, "No element with class '#{key_class}' and value '#{value}' found."
+    within "##{dom_id}" do
+      expected_table.hashes.each do |row|
+        assert_select 'li' do
+          row.each do |key, value|
+            key_class = key.downcase.gsub(/[ _]/, '-')
+            assert_select ".#{key_class}", %r(#{Regexp.escape(value)}), "No element with class '#{key_class}' and value '#{value}' found."
+          end
         end
       end
     end
