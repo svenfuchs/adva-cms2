@@ -22,6 +22,13 @@ Adva::Testing.load_helpers
 Capybara.default_selector = :css
 Capybara.default_wait_time = 5
 
+# Fix undefined method `add_assertion' for nil:NilClass for all assertions
+# https://github.com/aslakhellesoy/cucumber-rails/issues/97
+if RUBY_VERSION =~ /1.8/
+  require 'test/unit/testresult'
+  Test::Unit.run = true
+end
+
 #ActionController::Base.allow_rescue = false
 #Cucumber::Rails::World.use_transactional_fixtures = true
 Rails.backtrace_cleaner.remove_silencers!
