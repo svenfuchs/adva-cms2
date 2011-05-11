@@ -180,27 +180,29 @@ Then /^that (\w+) should have (\w+)s with the following attributes:$/ do |last, 
 end
 
 Then /^the title should be "([^"]+)"$/ do |title|
-  assert_select('title', title)
+  Then %Q{I should see "#{title}" within "title"}
 end
 
 # TODO: This is an almost duplicate step
 # Use the one with un-quoted 'thing' expression
 Then /^I should see (an?|the) "([^"]+)"$/ do |kind, thing|
   kind = { 'a' => '.', 'the' => '#' }[kind]
-  assert_select("#{kind}#{thing}")
+  assert page.has_css?("#{kind}#{thing}")
 end
 
 Then /^I should see a link "([^"]+)"$/ do |link|
   @last_link = link
-  assert_select('a', link)
+  assert page.has_css?('a', :text => link)
 end
 
 Then /^I should not see any ([a-z_ ]+)$/ do |type|
-  assert_select(".#{type.gsub(' ', '_').singularize}", :count => 0)
+  assert page.has_no_css?(".#{type.gsub(' ', '_').singularize}")
 end
 
+# FIXME: this step and the ones above do not deal with use perception
+#  for example: "I should see a fn0rd" looks nice, but users cannot see elements, only text
 Then /^I should see an? (\w+)$/ do |type|
-  assert_select(".#{type}")
+  assert page.has_css?(".#{type}")
 end
 
 Then /^I should see a "([^"]*)" select box with the following options:$/ do |name, options|
@@ -210,12 +212,12 @@ Then /^I should see a "([^"]*)" select box with the following options:$/ do |nam
   assert_equal expected, actual
 end
 
-Then /^I should see an? (\w+) (?:titled|named) "([^"]+)"$/ do |type, text|
-  assert_select(".#{type} h2", text)
+Then /^I should see an? (\w+) (?:titled|named) "([^"]+)"$/ do |thingy, text|
+  Then %Q~I should see "#{text}" within ".#{thingy} h2"~
 end
 
-Then /^I should see an? (\w+) containing "([^"]+)"$/ do |type, text|
-  assert_select(".#{type}", /#{text}/)
+Then /^I should see an? (\w+) containing "([^"]+)"$/ do |thingy, text|
+  Then %Q~I should see "#{text}" within ".#{thingy}"~
 end
 
 # TODO: the sinature of this step should really be:
@@ -231,11 +233,11 @@ Then /^the ([^"]+) should(?: (not))? contain "([^"]+)"$/ do |container_name, opt
 end
 
 Then /^I should see an? (\w+) list$/ do |type|
-  assert_select(".#{type}.list")
+  assert page.has_css?(".#{type}.list")
 end
 
 Then /^I should see a list of (\w+)$/ do |type|
-  assert_select(".#{type}.list")
+  assert page.has_css?(".#{type}.list")
 end
 
 Then /^the (.*) list should display (.*)s in the following order:$/ do |list, model, values|
@@ -252,46 +254,34 @@ Then /^I should see an? ([a-z ]+) form$/ do |type|
   tokens = type.split(' ')
   types = [tokens.join('_'), tokens.reverse.join('_')]
   selectors = types.map { |type| "form.#{type}, form##{type}" }
-  assert_select(selectors.join(', '))
+  assert page.has_css?(selectors.join(', '))
 end
 
 Then /^I should not see an? ([a-z ]+) form$/ do |type|
   type = type.gsub(' ', '_') #.gsub(/edit_/, '')
-  assert_select("form.#{type}, form##{type}", :count => 0)
+  assert page.has_no_css?("form.#{type}, form##{type}")
 end
 
-Then /^I should see an? ([a-z ]+) form with the following values:$/ do |type, table|
-  type = type.gsub(' ', '_') #.gsub(/edit_/, '')
-  assert_select("form.#{type}, form##{type}") do |form|
+Then /^I should see an? ([a-z ]+) form with the following values:$/ do |kind, table|
+  with_scope("#{kind} form") do
     table.rows_hash.each do |name, value|
-      assert_equal value, webrat.current_scope.field_labeled(name).value
+      Then %Q~the "#{name}" field should contain "#{value}"~
     end
   end
 end
 
-Then /^I should see a "(.+)"(?: table)? with the following entries:$/ do |dom_id, expected_table|
-  container = parsed_html.css("##{dom_id}").first
-  assert container, "no container with id #{dom_id} found"
-  case container.name
-  when 'ul'
-    within "##{dom_id}" do
-      expected_table.hashes.each do |row|
-        assert_select 'li' do
-          row.each do |key, value|
-            key_class = key.downcase.gsub(/[ _]/, '-')
-            assert_select ".#{key_class}", %r(#{Regexp.escape(value)}), "No element with class '#{key_class}' and value '#{value}' found."
-          end
-        end
+Then /^I should see a "(.+)" table with the following entries:$/ do |dom_id, expected|
+  actual = table(tableish("table##{dom_id} tr", 'th,td'))
+  expected.diff! actual
+end
+
+Then /^I should see a "(.+)" list with the following entries:$/ do |dom_id, expected|
+  with_scope("ul##{dom_id}") do
+    expected.hashes.each do |row|
+      row.each do |key, value|
+        key_class = key.downcase.gsub(/[ _]/, '-')
+        Then %Q~I should see "value" within "li.#{key_class}"~
       end
-    end
-  when 'table'
-    actual_table = table(tableish("table##{dom_id} tr", 'td,th'))
-    begin
-      diff_table = expected_table.dup
-      diff_table.diff!(actual_table.dup)
-    rescue
-      puts tables_differ_message(actual_table, expected_table, diff_table)
-      raise
     end
   end
 end
@@ -310,7 +300,7 @@ def tables_differ_message(actual, expected, diff = nil)
 end
 
 Then /^I should see the "([^"]+)" page$/ do |name|
-  assert_select('h2', name)
+  Then %Q~I should see "#{name}" within "h2"~
 end
 
 Then(/(?:\$|eval) (.*)$/) do |code|
@@ -326,13 +316,8 @@ Then /^I should not see a flash (error|notice) "(.+)"$/ do |message_type, messag
 end
 
 Then /^I should (see|not see) the error "([^"]+)" for attribute "([^"]+)" of the "([^"]+)"$/ do |should_see, error_msg, attribute, model|
-  if should_see == 'see' # ugh ...
-    assert_select "*[id*=#{model.downcase.gsub(' ', '_')}_#{attribute.downcase.gsub(' ', '_')}] + span.error",
-      :text => error_msg
-  elsif should_see == 'not see'
-    assert_select "*[id*=#{model.downcase.gsub(' ', '_')}_#{attribute.downcase.gsub(' ', '_')}] + span.error",
-      :text => error_msg, :count => 0
-  end
+  selector = "*[id*=#{model.downcase.gsub(' ', '_')}_#{attribute.downcase.gsub(' ', '_')}] + span.error"
+  Then %Q~I should #{should_see} "#{error_msg}" within "#{selector}"~
 end
 
 Then /^the following emails should have been sent:$/ do |expected_emails|
@@ -346,34 +331,26 @@ Then /^no emails should have been sent$/ do
 end
 
 Then /^"([^"]*)" should be filled in with "([^"]*)"$/ do |field, value|
-  field = webrat.field_labeled(field)
-  assert_equal value, field.value
+  field = find_field(field)
+  field_value = (field.tag_name == 'textarea') ? field.text : field.value
+  assert_equal(value, field_value)
 end
 
-Then /^"([^"]*)" should be checked$/ do |label|
-  field = webrat.field_labeled(label)
-  assert field.checked?, "expected the checkbox #{label} to be checked"
-end
-
-Then /^"([^"]*)" should not be checked$/ do |label|
-  field = webrat.field_labeled(label)
-  assert !field.checked?, "expected the checkbox #{label} not to be checked"
+Then /^"([^"]*)" should (be|not be) checked$/ do |label, be_or_not_to_be|
+  Then %Q{the "#{label}" checkbox should #{be_or_not_to_be} checked}
 end
 
 Then /^"([^"]*)" should be selected as "([^"]*)"$/ do |value, label|
-  select = webrat.field_labeled(label)
-  assert select, "count not find a select field labeled #{label}"
-  selected = select.element.xpath(".//option[@selected = 'selected']").first
-  assert selected, "could not find a selected option"
+  select_box = find_field(label)
+  selected = select_box.find(:xpath, ".//option[@selected = 'selected']")
   assert_equal value, selected.text
 end
 
 Then /^I should see "([^"]*)" formatted as a "([^"]*)" tag$/ do |value, tag|
-  assert_select(tag, value)
+  Then %Q~I should see "#{value}" within "#{tag}"~
 end
 
 Then(/^I should see (\d+|no|one|two|three) ([-a-z ]+?)(?: in the ([a-z -]+))?$/) do |amount, item_class, container_id|
-  container_selector = container_id ? '#' + container_id.gsub(' ', '_') : nil
   amount = case amount
     when 'no' then 0
     when 'one' then 1
@@ -381,14 +358,25 @@ Then(/^I should see (\d+|no|one|two|three) ([-a-z ]+?)(?: in the ([a-z -]+))?$/)
     when 'three' then 3
     else amount.to_i
   end
+  container_selector = container_id ? '#' + container_id.gsub(' ', '_') : 'body'
   item_selector = '.' + item_class.gsub(' ', '_').singularize
-  # assertions do not work with 'within' yet, so we need to resort to cancatenating selectors:
-  # container_selector ? within(container_selector) { assert_select(item_selector) } : assert_select(item_selector)
-  if container_selector
-    assert_select container_selector
-    assert_select [container_selector, item_selector].join(' '), amount
-  else
-    assert_select item_selector, amount
+  with_scope container_selector do
+    assert page.has_css?(item_selector,:count => amount)
   end
 end
+
+Then /^the "([^"]*)" radio button should be checked$/ do |label|
+  Then %Q~the "#{label}" checkbox should be checked~
+end
+
+Then /^(?:|I )should not be on (.+)$/ do |page_name|
+  current_path = URI.parse(current_url).path
+  if current_path.respond_to? :should
+    current_path.should_not == path_to(page_name)
+  else
+    assert_not_equal path_to(page_name), current_path
+  end
+end
+
+
 
