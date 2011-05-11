@@ -55,14 +55,14 @@ end
 
 Then /^it should purge cache entries tagged: (.+)$/ do |tags|
   expected = tags.split(',').map(&:strip)
-  actual = response.headers[Rack::Cache::Tags::PURGE_TAGS_HEADER]
+  actual = page.response_headers[Rack::Cache::Tags::PURGE_TAGS_HEADER]
   assert actual, 'no purge tags headers found'
   assert_equal expected.sort, actual.split("\n").sort
 end
 
 Then /^it should purge the cache entries: (.+)$/ do |urls|
   expected = urls.split(',').map(&:strip).sort
-  actual = response.headers[Rack::Cache::Purge::PURGE_HEADER]
+  actual = page.response_headers[Rack::Cache::Purge::PURGE_HEADER]
   assert actual, 'no purge headers found'
   actual = actual.split("\n").map { |url| url.sub('http://www.example.com', '') }.sort
   assert_equal expected, actual, "did not purge the expected urls.\n expected: #{expected.inspect}\n actual: #{actual.inspect}"
