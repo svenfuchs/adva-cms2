@@ -17,8 +17,8 @@ Feature: Content markup filtering
 
   Scenario: Setting the default filter type for a Blog
     When I follow "Settings" within "#actions"
-     And I select "Textile" from "Default Filter"
+     And I select "Textile" from "Default filter"
      And I press "Update"
-    Then "Textile" should be selected as "Default Filter"
-    When I follow "New post"
+    Then "Textile" should be selected as "Default filter"
+    When I follow "New Post"
     Then "Textile" should be selected as "Filter"
