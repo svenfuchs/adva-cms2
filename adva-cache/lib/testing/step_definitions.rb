@@ -21,8 +21,36 @@ Then /^the following urls should be tagged:$/ do |table|
   end
 end
 
+Capybara::Driver::RackTest.class_eval do
+  cattr_accessor :follow_redirects
+  self.follow_redirects = true
+
+  def follow_redirects_with_skipping!
+    follow_redirects && follow_redirects_without_skipping!
+  end
+  alias_method_chain :follow_redirects!, :skipping
+end
+
+Capybara::Session.module_eval do
+  def follow_redirects=(yes_or_no)
+    if driver_supports_redirect_skipping?
+      driver.follow_redirects = yes_or_no
+    else
+      raise "driver #{driver} does not support skipping redirects"
+    end
+  end
+
+  def driver_supports_redirect_skipping?
+    driver.respond_to?(:follow_redirects=)
+  end
+end
+
+Before do
+  page.follow_redirects = true if page.driver_supports_redirect_skipping?
+end
+
 When /I don't follow any http redirects/ do
-  pending 'disable following of redirects'
+  page.follow_redirects = false
 end
 
 Then /^it should purge cache entries tagged: (.+)$/ do |tags|
