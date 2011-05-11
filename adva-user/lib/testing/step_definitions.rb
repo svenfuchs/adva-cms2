@@ -1,16 +1,9 @@
-Given /^I am signed in with "([^"]*)" and "([^"]*)"$/ do |email, password|
-  post user_session_path, :user => { :email => email, :password => password }
-  @user = User.find_by_email(email)
-end
-
-# This step should only be used for testing the login itself (login.feature)
-# Please, use the step 'Given I am signed in with "admin@admin.org" and "admin!"' in all
-# other features for performance reasons.
-Given /^I sign in with "([^"]*)" and "([^"]*)"$/ do |email, password|
-  get new_user_session_path
-  fill_in 'Email', :with => email
-  fill_in 'Password', :with => password
-  click_button 'Sign in'
+Given /^I (?:am signed|sign) in with "([^"]*)" and "([^"]*)"$/ do |email, password|
+  Given %Q~I am on the sign in page~
+  # use ids to be flexible about label changes
+   When %Q~I fill in "user_email" with "#{email}"~
+    And %Q~I fill in "user_password" with "#{password}"~
+    And %Q~I press "Sign in"~
   @user = User.find_by_email(email)
 end
 

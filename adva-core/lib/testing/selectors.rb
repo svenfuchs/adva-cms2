@@ -11,6 +11,23 @@ module HtmlSelectorsHelpers
     when /the page/
       "html > body"
 
+    when /([a-z ]+) form/
+      name = $1.gsub(' ', '_') #.gsub(/edit_/, '')
+      "form.#{name}, form##{name}"
+
+      #  I follow "View" within the "Blog" row
+      #                         ^^^^^^^^^^^^^^
+      #  selects the rows in which the given text shows up
+    when /the "([^"]*)" row/
+      having_text = %Q~contains( text(), "#{$1}")~
+      row = "//table//tr[ descendant::*[#{having_text}] ]"
+      [:xpath, row]
+
+      #  I should see "Categories" within tabs
+      #                                   ^^^^
+    when /^((?:a?n )?[a-z]+)$/
+      ".#{$1}"
+
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:
     #

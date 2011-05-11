@@ -29,7 +29,7 @@ group :test do
   gem 'mocha'
   gem 'fakefs', :require => 'fakefs/safe'
   gem 'test_declarative'
-  gem 'database_cleaner', '0.5.2'
+  gem 'database_cleaner', ' ~> 0.6.7'
   gem 'launchy'
   gem 'factory_girl', '1.3.2'
 end

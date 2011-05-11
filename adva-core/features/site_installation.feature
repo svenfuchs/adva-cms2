@@ -5,7 +5,7 @@ Feature: Installation
      Then I should see a new site form
      When I fill in "Name" with "Site 1"
       And I choose "Page"
-      And I fill in "Section name" with "Home"
+      And I fill in "Section Name" with "Home"
       And I press "Create"
      Then I should be on the site installation confirmation page
       And I should see "Success!"

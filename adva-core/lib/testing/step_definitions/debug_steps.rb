@@ -12,10 +12,6 @@ Then 'debug' do
   true
 end
 
-Then /^show me the page$/ do
-  save_and_open_page
-end
-
 Then /^(?:|I )output the page$/ do
   puts response.body
 end

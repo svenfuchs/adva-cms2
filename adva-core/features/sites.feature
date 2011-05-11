@@ -12,14 +12,14 @@ Feature: Managing sites
   Scenario: Creating a new site
     Given I am on the admin dashboard page
 
-    When I follow "New site"
+    When I follow "New Site"
     Then I should see a new site form
     When I fill in the following:
-      | name  | a site name    |
-      | title | brand new site |
-      | host  | localhost:3000 |
+      | Name  | a site name    |
+      | Title | brand new site |
+      | Host  | localhost:3000 |
      And I choose "Page"
-     And I fill in "Section name" with "Welcome to this Site"
+     And I fill in "Section Name" with "Welcome to this Site"
      And I press "Create"
     Then I should be on the admin dashboard page for the site on "localhost:3000"
 

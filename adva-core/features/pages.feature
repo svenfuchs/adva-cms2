@@ -32,9 +32,9 @@ Feature: Managing pages
      And the "Page" radio button should be checked
      And I should see a new page form
     When I fill in the following:
-      | name | <name> |
-      | body | <body> |
-     And I press "Create page"
+      | Name | <name> |
+      | Body | <body> |
+     And I press "Create Page"
     Then I should see "<message>"
      And I should see a page form
      And I should see "<name>"
@@ -50,9 +50,9 @@ Feature: Managing pages
     Then the title should be "Pages: Show"
     Then I should see an edit page form
     When I fill in the following:
-      | name | <name> |
-      | body | <body> |
-     And I press "Update page"
+      | Name | <name> |
+      | Body | <body> |
+     And I press "Update Page"
     Then I should see "<message>"
      And I should see an edit page form
      And I should see "<name>"

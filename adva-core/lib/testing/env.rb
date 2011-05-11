@@ -19,8 +19,16 @@ Adva::Testing.load_cucumber_support
 Adva::Testing.load_assertions
 Adva::Testing.load_helpers
 
+require 'capybara/rails'
 Capybara.default_selector = :css
 Capybara.default_wait_time = 5
+World(Capybara)
+
+
+require 'database_cleaner'
+require 'database_cleaner/cucumber'
+DatabaseCleaner.strategy = :transaction
+DatabaseCleaner.clean_with :truncation
 
 # Fix undefined method `add_assertion' for nil:NilClass for all assertions
 # https://github.com/aslakhellesoy/cucumber-rails/issues/97
