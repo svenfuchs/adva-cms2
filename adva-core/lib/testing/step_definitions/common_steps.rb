@@ -365,8 +365,8 @@ Then(/^I should see (\d+|no|one|two|three) ([-a-z ]+?)(?: in the ([a-z -]+))?$/)
   end
 end
 
-Then /^the "([^"]*)" radio button should be checked$/ do |label|
-  Then %Q~the "#{label}" checkbox should be checked~
+Then /^the "([^"]*)" radio button should (be|not be) checked$/ do |label, be_or_not_to_be|
+  Then %Q~the "#{label}" checkbox should #{be_or_not_to_be} checked~
 end
 
 Then /^(?:|I )should not be on (.+)$/ do |page_name|
