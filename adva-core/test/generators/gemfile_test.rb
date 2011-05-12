@@ -8,7 +8,7 @@ module AdvaCoreTests
 
     def setup
       @source = File.expand_path('../../../../Gemfile', __FILE__)
-      @path = '(adva-cms2|builds/\d+|adva-cms2/workspace)'
+      @path = '(adva-cms2|builds/\d+|adva-cms2/workspace|adva/cms2)'
     end
 
     test 'with_engines' do
