@@ -87,22 +87,21 @@ When /^(.+) that link$/ do |step|
 end
 
 When /^I (press|click|follow) "(.*)" in the row (of the ([a-z ]+) table )?where "(.*)" is "(.*)"$/ do |action, target, _, table_id, header, content|
-  body = Nokogiri::HTML(response.body)
   table_xpath = table_id.nil? ? 'table' : "table[@id='#{table_id.gsub(/ /, '_')}']"
-  headers = body.xpath("//#{table_xpath}/descendant::th[normalize-space(text())='#{header}']/@id")
+  headers = page.all(:xpath, "//#{table_xpath}/descendant::th[normalize-space(text())='#{header}']")
   assert !headers.empty?, "could not find table header cell #{header.inspect}"
 
-  header_id = headers.first.value
+  header_id = headers.first['id']
   cell_path = "//#{table_xpath}/descendant::td[@headers='#{header_id}']"
   content   = "normalize-space(text())='#{content}'"
-  tag_path  = "#{cell_path}[#{content}]/ancestor::tr/@id"
-  nested_tag_path = "#{cell_path}/descendant::*[#{content}]/ancestor::tr/@id"
+  tag_path  = "#{cell_path}[#{content}]/ancestor::tr"
+  nested_tag_path = "#{cell_path}/descendant::*[#{content}]/ancestor::tr"
 
-  rows = body.xpath([tag_path, nested_tag_path].join('|'))
+  rows = page.all(:xpath, [tag_path, nested_tag_path].join('|'))
   assert !rows.empty?, "could not find table row where a cell has the header id #{header_id.inspect} and the content #{content.inspect}"
 
   map = { 'press' => 'click_button', 'click' => 'click_link' }
-  within("##{rows.first.value}") { map[action] ? send(map[action], target) : When(%(I #{action} "#{target}")) }
+  within("##{rows.first['id']}") { map[action] ? send(map[action], target) : When(%(I #{action} "#{target}")) }
 end
 
 When /^I order the (.*)s list by "([^"]*)"$/ do |model, order|
