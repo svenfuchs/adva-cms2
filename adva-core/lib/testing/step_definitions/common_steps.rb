@@ -275,14 +275,10 @@ Then /^I should see a "(.+)" table with the following entries:$/ do |dom_id, exp
 end
 
 Then /^I should see a "(.+)" list with the following entries:$/ do |dom_id, expected|
-  with_scope("ul##{dom_id}") do
-    expected.hashes.each do |row|
-      row.each do |key, value|
-        key_class = key.downcase.gsub(/[ _]/, '-')
-        Then %Q~I should see "value" within "li.#{key_class}"~
-      end
-    end
-  end
+  value_selector = expected.column_names.map {|n| '.' + n.downcase.gsub(/[ _]/, '-') }.join(',')
+  list = tableish("ul##{dom_id} li", value_selector)
+  actual = table( [expected.column_names] + list )
+  expected.diff! actual
 end
 
 Then /^I should see a "(.+)" table with the following entries in no particular order:$/ do |table_id, expected_table|
