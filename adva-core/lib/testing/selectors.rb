@@ -5,6 +5,7 @@ module HtmlSelectorsHelpers
   #
   # step definitions in web_steps.rb
   #
+  Word = /[a-z_\-]+/
   def selector_for(locator)
     case locator
 
@@ -25,8 +26,20 @@ module HtmlSelectorsHelpers
 
       #  I should see "Categories" within tabs
       #                                   ^^^^
-    when /^((?:a?n )?[a-z]+)$/
+    when /^(?:a?n )?(#{Word})$/
       ".#{$1}"
+
+    when 'the title'
+      "h1,h2,h3"
+
+    when 'the top menu'
+      "#top"
+
+    when /^the actions? menu$/
+      "#actions"
+
+    when /^the (#{Word})$/
+      "##{$1}"
 
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:
