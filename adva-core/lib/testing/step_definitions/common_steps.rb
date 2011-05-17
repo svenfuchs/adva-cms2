@@ -278,6 +278,9 @@ Then /^I should see a "(.+)" list with the following entries:$/ do |dom_id, expe
   value_selector = expected.column_names.map {|n| '.' + n.downcase.gsub(/[ _]/, '-') }.join(',')
   list = tableish("ul##{dom_id} li", value_selector)
   actual = table( [expected.column_names] + list )
+  actual.column_names.each do |col|
+    actual.map_column!(col) { |text| text.sub(/\n/,' ') }
+  end
   expected.diff! actual
 end
 
