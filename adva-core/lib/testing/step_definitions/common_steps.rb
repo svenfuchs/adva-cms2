@@ -122,25 +122,24 @@ end
 # I should not see a product row where "Name" is "Apple Powerbook"
 # I should see a row in the products table where "Name" is "Apple Powerbook"
 Then /^I should (not )?see a ([a-z ]+ )?row (?:of the ([a-z ]+) table )?where "(.*)" is "(.*)"$/ do |optional_not, row_classes, table_id, header, cell_content|
-  body = Nokogiri::HTML(response.body)
   table_xpath = table_id.nil? ? 'table' : "table[@id='#{table_id.gsub(/ /, '_')}']"
-  table_header_cells = body.xpath("//#{table_xpath}/descendant::th[normalize-space(text())='#{header}']/@id")
+  table_header_cells = page.all(:xpath, "//#{table_xpath}/descendant::th[normalize-space(text())='#{header}']")
 
   unless optional_not.present?
     assert !table_header_cells.empty?, "could not find table header cell '#{header}'"
   end
-  header_id = body.xpath("//#{table_xpath}/descendant::th[normalize-space(text())='#{header}']/@id").first.try(:value)
+  header_id = table_header_cells.first['id']
 
   class_condition = row_classes.to_s.split(' ').map do |row_class|
     "contains(concat(' ', normalize-space(@class), ' '), ' #{row_class} ')"
   end.join(' and ')
   tr_xpath = class_condition.empty? ? 'ancestor::tr' : "ancestor::tr[#{class_condition}]"
-  xpath_result = body.xpath("//#{table_xpath}/descendant::td[@headers='#{header_id}'][normalize-space(text())='#{cell_content}']/#{tr_xpath}")
+  final_path = "//#{table_xpath}/descendant::td[@headers='#{header_id}'][normalize-space(text())='#{cell_content}']/#{tr_xpath}"
 
   if optional_not.present?
-    assert xpath_result.empty?, "Expected not find a row where #{header.inspect} is #{cell_content}."
+    assert page.has_no_xpath?(final_path), "Expected not find a row where #{header.inspect} is #{cell_content}."
   else
-    assert xpath_result.any?, "Expected to find at least one row where #{header.inspect} is #{cell_content}."
+    assert page.has_xpath?(final_path), "Expected to find at least one row where #{header.inspect} is #{cell_content}."
   end
 end
 
