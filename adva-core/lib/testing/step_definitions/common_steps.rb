@@ -106,8 +106,8 @@ end
 
 When /^I order the (.*)s list by "([^"]*)"$/ do |model, order|
   When %(I select "#{order}" from "#{model}s_order")
-  select = Webrat::Locators::FieldLocator.new(webrat, webrat.dom, "#{model}s_order", Webrat::SelectField).locate!
-  select.send(:form).submit
+  pending "die zwei formulare bitte zusammenführen or button hinzufügen"
+   And %(I press "submit")
 end
 
 When /^I visit the url from the email to (.*)$/ do |to|
@@ -204,8 +204,8 @@ Then /^I should see an? (\w+)$/ do |type|
 end
 
 Then /^I should see a "([^"]*)" select box with the following options:$/ do |name, options|
-  select = Webrat::Locators::FieldLocator.new(webrat, webrat.dom, 'products_order', Webrat::SelectField).locate!
-  actual = select.options.map(&:inner_text).uniq
+  field = find_field(name)
+  actual = field.all(:css, 'option').map {|o| o.text }
   expected = options.raw.flatten[1..-1] # ignores the first row
   assert_equal expected, actual
 end
@@ -216,18 +216,6 @@ end
 
 Then /^I should see an? (\w+) containing "([^"]+)"$/ do |thingy, text|
   Then %Q~I should see "#{text}" within ".#{thingy}"~
-end
-
-# TODO: the sinature of this step should really be:
-# I should see 'foo' within 'bar'
-# However, the generic "within 'bar'" meta step uses 'within' which doesn't currently work with assertions
-# only with navigation ('click', 'press')
-Then /^the ([^"]+) should(?: (not))? contain "([^"]+)"$/ do |container_name, optional_negation, text|
-  container_id = container_name.gsub(' ', '_')
-  # 'within' doesn't currently work with assertions, so we need to resort to xpath
-  # within('#' + container_id) { assert_contain text }
-  assert(parsed_html.xpath("//*[@id=\"#{container_id}\"]").any?, "Could not find the #{container_name}")
-  assert(parsed_html.xpath("//*[@id=\"#{container_id}\"]/descendant::*[contains(normalize-space(text()), \"#{text}\")]").send(optional_negation ? :'none?' : :'any?'), "Could not see '#{text}' in the #{container_name}")
 end
 
 Then /^I should see an? (\w+) list$/ do |type|
@@ -347,7 +335,8 @@ Then /^I should see "([^"]*)" formatted as a "([^"]*)" tag$/ do |value, tag|
   Then %Q~I should see "#{value}" within "#{tag}"~
 end
 
-Then(/^I should see (\d+|no|one|two|three) ([-a-z ]+?)(?: in the ([a-z -]+))?$/) do |amount, item_class, container_id|
+# TODO remove the manual (?: in..) to leverage cucumber selectors
+Then(/^I should see (\d+|no|one|two|three) ([-a-z ]+?)(?: in (the [a-z -]+))?$/) do |amount, item_class, container|
   amount = case amount
     when 'no' then 0
     when 'one' then 1
@@ -355,9 +344,8 @@ Then(/^I should see (\d+|no|one|two|three) ([-a-z ]+?)(?: in the ([a-z -]+))?$/)
     when 'three' then 3
     else amount.to_i
   end
-  container_selector = container_id ? '#' + container_id.gsub(' ', '_') : 'body'
   item_selector = '.' + item_class.gsub(' ', '_').singularize
-  with_scope container_selector do
+  with_scope container do
     assert page.has_css?(item_selector,:count => amount)
   end
 end
