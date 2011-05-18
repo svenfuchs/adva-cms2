@@ -16,3 +16,7 @@ Then /^(?:|I )output the page$/ do
   puts response.body
 end
 
+When /^I pause$/ do
+  STDERR.puts "pausing - press enter to continue"
+  STDIN.gets
+end
