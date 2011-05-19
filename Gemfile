@@ -13,9 +13,6 @@ adva_cms.gem  'adva-static'
 adva_cms.gem  'adva-user'
 adva_cms.gem  'adva-markup'
 
-# TODO: remove this requirement when simple_nested_set works with current arel version (2.0.8)
-gem 'arel', '2.0.7'
-
 # TODO: remove this requirement when rack-mount does not break the routing filter
 gem 'rack-mount', '0.6.14'
 
