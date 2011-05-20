@@ -29,4 +29,5 @@ group :test do
   gem 'database_cleaner', ' ~> 0.6.7'
   gem 'launchy'
   gem 'factory_girl', '1.3.2'
+  gem 'email_spec'
 end

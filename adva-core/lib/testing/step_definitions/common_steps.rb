@@ -113,8 +113,12 @@ end
 When /^I visit the url from the email to (.*)$/ do |to|
   email = ::ActionMailer::Base.deliveries.detect { |email| email.to.include?(to) }
   assert email, "email to #{to} could not be found"
-  url = email.body.to_s =~ %r((http://[^\s"]+)) && $1
-  visit(url)
+  if email.body.to_s =~ %r((http://[^\s"]+))
+    url = $1
+    visit(url)
+  else
+    raise "no url found in email"
+  end
 end
 
 # Examples:

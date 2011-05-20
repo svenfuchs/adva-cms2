@@ -7,7 +7,7 @@ module Adva
 
     # TODO [config] should probably happen in the client app
     # for more devise options see http://bit.ly/bwxrGg
-    initializer 'adva-user.devise_setup' do |app|
+    initializer 'adva-user.devise_setup', :before => 'action_mailer.set_configs' do |app|
 
       # FIXME [config]
       app.config.action_mailer.default_url_options ||= {}
