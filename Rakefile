@@ -5,6 +5,7 @@ require 'cucumber'
 require 'cucumber/rake/task'
 
 Cucumber::Rake::Task.new(:features) do |t|
+  ENV['REGENERATE_APP'] = "uffjedn"
   t.cucumber_opts = "adva-*/features --format pretty --tags ~@wip"
 end
 
