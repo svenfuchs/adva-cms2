@@ -18,6 +18,7 @@ Gem::Specification.new do |s|
   s.rubyforge_project = '[none]'
 
   s.add_dependency 'rails', '3.0.7'
+  s.add_dependency 'rake', '0.8.7'
   s.add_dependency 'i18n', '0.5.0'
   s.add_dependency 'activesupport-slices', '0.0.2'
   s.add_dependency 'gem-patching', '0.0.3'
