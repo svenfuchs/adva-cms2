@@ -34,6 +34,25 @@ module Adva
       engine_names.include?(name)
     end
     alias :installed? :engine?
+
+    # Helps you slice and dice your addons to adva-cms
+    #
+    # load and slice (patch) the class +Existing::Stuff+
+    # in 'ur/engine/existing/stuff_slice.rb' 
+    # Adva.slice 'existing/stuff' do
+    #   include do
+    #     def fn0rd
+    #       23 + 42
+    #     end
+    #   end
+    #   attr_accessor :things
+    # end
+    def slice(path, &block)
+      raise ArgumentError, 'must give block to slice and dice' unless block_given?
+      require_dependency(path)
+      class_name = path.classify
+      class_name.constantize.class_eval(&block)
+    end
   end
 end
 
