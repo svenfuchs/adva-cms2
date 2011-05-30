@@ -3,7 +3,16 @@
 # works for both normal tables and row_hash tables):
 timezonify = lambda do |table|
   dates = table.headers.select { |header| header =~ /(_at|_on)$/ }
-  dates.each { |date| table.map_column!(date) { |date| DateTime.parse(date).in_time_zone if date.present? && date != '-' } }
+  dates.each do |col| 
+    table.map_column!(col) do |val| 
+      if val =~ /^(\d+)\s+(second|minute|hour|day|month|year)s?\s+ago$/
+        quantity, unit = $1, $2
+        quantity.to_i.send(unit.to_sym).ago
+      else
+        DateTime.parse(val).in_time_zone if val.present? && val != '-'
+      end
+    end
+  end
   table.transpose
 end
 
