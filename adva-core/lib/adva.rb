@@ -47,11 +47,23 @@ module Adva
     #   end
     #   attr_accessor :things
     # end
-    def slice(path, &block)
+    def slice(path_with_namespace, &block)
       raise ArgumentError, 'must give block to slice and dice' unless block_given?
-      require_dependency(path)
-      class_name = path.classify
-      class_name.constantize.class_eval(&block)
+      if path_with_namespace =~ /^([^#]+)#([^#]+)$/
+        path, namespace = $1, $2
+      else
+        raise ArgumentError, "first argument must be class_to_slice#your_slice_identifier"
+      end
+      unless loaded_slices.include?(path_with_namespace)
+        require_dependency(path)
+        class_name = path.classify
+        class_name.constantize.class_eval(&block)
+        loaded_slices << path_with_namespace
+      end
+    end
+
+    def loaded_slices
+      @loaded_slices ||= Set.new
     end
   end
 end
