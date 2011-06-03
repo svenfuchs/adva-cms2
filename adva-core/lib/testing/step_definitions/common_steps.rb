@@ -104,12 +104,6 @@ When /^I (press|click|follow) "(.*)" in the row (of the ([a-z ]+) table )?where 
   within("##{rows.first['id']}") { map[action] ? send(map[action], target) : When(%(I #{action} "#{target}")) }
 end
 
-When /^I order the (.*)s list by "([^"]*)"$/ do |model, order|
-  When %(I select "#{order}" from "#{model}s_order")
-  pending "die zwei formulare bitte zusammenführen or button hinzufügen"
-   And %(I press "submit")
-end
-
 # Examples:
 # I should see a product row where "Name" is "Apple Powerbook"
 # I should not see a product row where "Name" is "Apple Powerbook"
