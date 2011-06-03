@@ -58,7 +58,7 @@ module Adva
         class_name = path.classify
         begin
           class_name.constantize
-        rescue LoadError # should not be neccessary thx to ActiveSupport::Dependencies
+        rescue NameError # should not be neccessary thx to ActiveSupport::Dependencies
           require_dependency(path)
         end
         class_name.constantize.class_eval(&block)
