@@ -55,8 +55,12 @@ module Adva
         raise ArgumentError, "first argument must be class_to_slice#your_slice_identifier"
       end
       unless loaded_slices.include?(path_with_namespace)
-        require_dependency(path)
         class_name = path.classify
+        begin
+          class_name.constantize
+        rescue LoadError # should not be neccessary thx to ActiveSupport::Dependencies
+          require_dependency(path)
+        end
         class_name.constantize.class_eval(&block)
         loaded_slices << path_with_namespace
       end
