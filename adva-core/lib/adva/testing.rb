@@ -6,6 +6,10 @@ module Adva
 
     class << self
       def setup(options = {})
+        options = {
+          :migrate => true
+        }.merge(options)
+
         Adva.out = StringIO.new('')
         setup_logging(options)
         setup_active_record
@@ -14,7 +18,10 @@ module Adva
         ActiveSupport::Slices.register
 
         each_engine { |e| e.new.require_patches }
-        each_engine { |e| e.migrate }
+
+        if options[:migrate]
+          each_engine { |e| e.migrate }
+        end
 
         load_assertions
         load_factories
