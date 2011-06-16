@@ -91,8 +91,10 @@ module Adva
       )
     end
 
-    ActionController::Dispatcher.to_prepare do
-      Adva.loaded_slices.clear
+    initializer 'adva-core.schedule_slice_clearing' do |config|
+      config.to_prepare do
+        Adva.loaded_slices.clear
+      end
     end
   end
 end
