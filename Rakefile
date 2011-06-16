@@ -17,5 +17,5 @@ task :test_all do
   exit(state.exitstatus) if state.exited? and state.exitstatus != 0
 end
 
-task :default => [:features, :test_all]
+task :default => [:test_all, :features]
 
