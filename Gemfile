@@ -22,7 +22,6 @@ group :test do
   gem 'cucumber', '~> 0.10.2'
   gem 'cucumber-rails', '~> 0.4.1'
   gem 'thor'
-  gem 'ruby-debug'
   gem 'mocha'
   gem 'fakefs', :require => 'fakefs/safe'
   gem 'test_declarative'
