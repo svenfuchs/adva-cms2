@@ -90,5 +90,9 @@ module Adva
                         adva-core/admin/lists )
       )
     end
+
+    ActionController::Dispatcher.to_prepare do
+      Adva.loaded_slices.clear
+    end
   end
 end
