@@ -18,7 +18,7 @@ gem 'rack-mount', '0.6.14'
 
 group :test do
   gem 'sqlite3-ruby', '1.2.5'
-  gem "capybara", ">= 0.4.1.1"
+  gem "capybara", "~> 0.4.1.1"
   gem 'cucumber', '~> 0.10.2'
   gem 'cucumber-rails', '~> 0.4.1'
   gem 'thor'
