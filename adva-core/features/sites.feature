@@ -23,7 +23,7 @@ Feature: Managing sites
      And I press "Create"
     Then I should be on the admin dashboard page for the site on "localhost:3000"
 
-    When I follow "Settings" in the top menu
+    When I follow "Settings" within the top menu
     Then I should see an edit site form
     When I fill in "Name" with "An updated site"
      And I press "Update"
