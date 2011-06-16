@@ -91,7 +91,7 @@ module Adva
       )
     end
 
-    initializer 'adva-core.schedule_slice_clearing' do |config|
+    initializer 'adva-core.schedule_slice_clearing' do
       config.to_prepare do
         Adva.loaded_slices.clear
       end
