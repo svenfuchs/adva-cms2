@@ -64,7 +64,7 @@ module Adva
         class_name.constantize.class_eval(&block)
         loaded_slices << path_with_namespace
       else
-        Rails.logger.debug { "Adva.slice: already loaded #{path_with_namespace}, skipping" }
+        Rails.logger.debug { "Adva.slice: already loaded #{path_with_namespace}, skipping" } if Rails.logger
       end
     end
 
