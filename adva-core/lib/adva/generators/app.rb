@@ -21,13 +21,13 @@ module Adva
         :force     => false
       }
 
-      def initialize(name, options = {}, &block)
+      def initialize(name, options = {})
         @options = options.reverse_merge!(DEFAULT_OPTIONS)
         @name    = name || File.basename( File.expand_path('../', core_dir) )
         raise ArgumentError, "#{core_dir.inspect} is not a directory" unless File.directory?(core_dir)
       end
 
-      def invoke
+      def invoke(&block)
         if force? || build?
           build
           generate_resources  if generate_resources?
