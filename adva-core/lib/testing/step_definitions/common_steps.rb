@@ -87,7 +87,7 @@ When /^(.+) that link$/ do |step|
 end
 
 When /^I (press|click|follow) "(.*)" in the row (of the ([a-z ]+) table )?where "(.*)" is "(.*)"$/ do |action, target, _, table_id, header, content|
-  table_id = table_id.gsub(/ /, '_')
+  table_id =  table_id.gsub(/ /, '_') unless table_id.nil?
   table_xpath = table_id.nil? ? 'table' : "table[@id='#{table_id}']"
   headers = page.all(:xpath, "//#{table_xpath}/descendant::th[normalize-space(text())='#{header}']")
   assert !headers.empty?, "could not find table header cell #{header.inspect}"
