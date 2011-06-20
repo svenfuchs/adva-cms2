@@ -114,7 +114,7 @@ end
 # I should not see a product row where "Name" is "Apple Powerbook"
 # I should see a row in the products table where "Name" is "Apple Powerbook"
 Then /^I should (not )?see a ([a-z ]+ )?row (?:of the ([a-z ]+) table )?where "(.*)" is "(.*)"$/ do |optional_not, row_classes, table_id, header, cell_content|
-  table_xpath = table_id.nil? ? 'table' : "table[@id='#{table_id.gsub(/ /, '_')}']"
+  table_xpath = table_id.nil? ? 'table' : "table[@id='#{table_id.gsub(/ /, '_')}' or @id='#{table_id.gsub(/ /, '-')}']"
   table_header_cells = page.all(:xpath, "//#{table_xpath}/descendant::th[normalize-space(text())='#{header}']")
 
   unless optional_not.present?
