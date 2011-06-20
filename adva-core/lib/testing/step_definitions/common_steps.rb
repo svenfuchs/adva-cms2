@@ -87,7 +87,8 @@ When /^(.+) that link$/ do |step|
 end
 
 When /^I (press|click|follow) "(.*)" in the row (of the ([a-z ]+) table )?where "(.*)" is "(.*)"$/ do |action, target, _, table_id, header, content|
-  table_xpath = table_id.nil? ? 'table' : "table[@id='#{table_id.gsub(/ /, '_')}']"
+  table_id = table_id.gsub(/ /, '_')
+  table_xpath = table_id.nil? ? 'table' : "table[@id='#{table_id}']"
   headers = page.all(:xpath, "//#{table_xpath}/descendant::th[normalize-space(text())='#{header}']")
   assert !headers.empty?, "could not find table header cell #{header.inspect}"
 
@@ -101,7 +102,11 @@ When /^I (press|click|follow) "(.*)" in the row (of the ([a-z ]+) table )?where 
   assert !rows.empty?, "could not find table row where a cell has the header id #{header_id.inspect} and the content #{content.inspect}"
 
   map = { 'press' => 'click_button', 'click' => 'click_link' }
-  within("##{rows.first['id']}") { map[action] ? send(map[action], target) : When(%(I #{action} "#{target}")) }
+  if table_id.nil?
+    within("##{rows.first['id']}") { map[action] ? send(map[action], target) : When(%(I #{action} "#{target}")) }
+  else
+    within("table##{table_id} ##{rows.first['id']}") { map[action] ? send(map[action], target) : When(%(I #{action} "#{target}")) }
+  end
 end
 
 # Examples:
