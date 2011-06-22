@@ -23,7 +23,7 @@ require 'capybara/rails'
 require 'capybara/cucumber'
 Capybara.default_selector = :css
 Capybara.default_wait_time = 5
-World(Capybara::DSL)
+World(Capybara)
 
 
 require 'database_cleaner'
