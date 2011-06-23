@@ -13,7 +13,7 @@ Then 'debug' do
 end
 
 Then /^(?:|I )output the page$/ do
-  puts response.body
+  puts page.body
 end
 
 When /^I pause$/ do
