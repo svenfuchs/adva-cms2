@@ -15,6 +15,8 @@ adva_cms.gem  'adva-markup'
 
 # TODO: remove this requirement when rack-mount does not break the routing filter
 gem 'rack-mount', '0.6.14'
+# TODO: use original gem when pull request is accepted
+gem 'inherited_resources_helpers', :git => 'git://github.com/johanness/inherited_resources_helpers.git', :ref => '26229c1'
 
 group :test do
   gem 'sqlite3-ruby', '1.2.5'
