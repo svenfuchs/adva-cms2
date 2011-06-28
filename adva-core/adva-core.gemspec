@@ -24,7 +24,6 @@ Gem::Specification.new do |s|
   s.add_dependency 'gem-patching', '0.0.3'
   s.add_dependency 'routing-filter', '0.2.0'
   s.add_dependency 'inherited_resources', '1.2.2'
-  s.add_dependency 'inherited_resources_helpers', '0.0.14'
   s.add_dependency 'minimal', '0.0.26'
   s.add_dependency 'simple_form', '~> 1.3.0'
   s.add_dependency 'simple_slugs', '0.0.8'
