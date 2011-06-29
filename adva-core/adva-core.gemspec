@@ -28,7 +28,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'minimal', '0.0.26'
   s.add_dependency 'simple_form', '~> 1.3.0'
   s.add_dependency 'simple_slugs', '0.0.8'
-  s.add_dependency 'simple_table', '0.0.17'
+  s.add_dependency 'simple_table', '0.0.18'
   s.add_dependency 'simple_nested_set', '0.1.7'
   s.add_dependency 'kronn-has_many_polymorphs', '3.0.2'
   s.add_dependency 'i18n-missing_translations', '0.0.1'
