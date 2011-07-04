@@ -87,3 +87,6 @@ en:
         sign_in: Sign in
         sign_up: Sign up
         sign_out: Sign out %{user}
+  flash:
+    admin:
+      access_denied: "Access Denied"
