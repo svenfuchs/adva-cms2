@@ -54,12 +54,13 @@ module AdvaStatic
       end
 
       index = import_file('index.yml', :name => 'the page name')
-      assert !export_dir.join('index.html').file?
+      assert !export_dir.join('index.html').file?, 'index.html already exists'
 
       watch = self.watch
       index.utime(index.atime, future)
       watch.send(:handler).trigger
 
+      assert export_dir.join('index.html').file?, 'cannot find exported index.html'
       assert_equal 'the page name', export_dir.join('index.html').open { |f| f.read }
     end
 
