@@ -61,5 +61,13 @@ module AdvaCoreTests
       end
     end
 
+    test 'foreign NameErrors should be raised' do
+      assert_raise NameError do
+        Adva.slice 'articles_contoller#missing_require' do
+          inlcude Adva::FeatureThatDoesNotExist
+        end
+      end
+      Object.send(:remove_const, :ArticlesController) rescue nil
+    end
   end
 end
