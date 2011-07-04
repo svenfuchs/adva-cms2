@@ -17,12 +17,19 @@ module AdvaCoreTests
       assert_equal 5, object.foo, 'method added incorrectly'
     end
 
+    def unload(constant_name)
+      ActiveSupport::Dependencies.autoloaded_constants.delete(constant_name.to_s)
+      ActiveSupport::Dependencies.autoloaded_constants.delete(constant_name)
+      ActiveSupport::Dependencies.loaded.delete_if {|path| path.ends_with?('/' + constant_name.to_s.underscore) }
+      Object.send(:remove_const, constant_name) rescue nil
+    end
+
     test 'needs an identifier' do
       assert_raise ArgumentError do
         Adva.slice 'articles_controller' do
         end
       end
-      Object.send(:remove_const, :ArticlesController) rescue nil
+      unload :ArticlesController
     end
 
     test 'cannot apply the same slice twice' do
@@ -36,22 +43,22 @@ module AdvaCoreTests
         end
       end
       assert_equal 1, 'PagesController'.constantize.new.to_s.scan(/_stacked_/).count
-      Object.send(:remove_const, :PagesController) rescue nil
+      unload :PagesController
     end
 
     test 'slice a controller' do
       can_slice 'articles_controller', 'ArticlesController'
-      Object.send(:remove_const, :ArticlesController) rescue nil
+      unload :ArticlesController
     end
 
     test 'slice a model' do
       can_slice 'article', 'Article'
-      Object.send(:remove_const, :Article) rescue nil
+      unload :Articles
     end
 
     test 'slice a minimal view' do
       can_slice 'layouts/admin', 'Layouts::Admin'
-      Layouts.send(:remove_const, :Admin) rescue nil
+      unload :'Layouts::Admin'
     end
 
     test 'cannot slice nonexisting file' do
@@ -63,11 +70,11 @@ module AdvaCoreTests
 
     test 'foreign NameErrors should be raised' do
       assert_raise NameError do
-        Adva.slice 'articles_contoller#missing_require' do
-          inlcude Adva::FeatureThatDoesNotExist
+        Adva.slice 'articles_controller#missing_require' do
+          include Adva::FeatureThatDoesNotExist
         end
       end
-      Object.send(:remove_const, :ArticlesController) rescue nil
+      unload :ArticlesController
     end
   end
 end
