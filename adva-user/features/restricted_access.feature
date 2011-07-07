@@ -15,7 +15,6 @@ Feature: restricted access
     Given I am signed in as user
      When I go to the admin sections page
      Then I should not be on the admin sections page
-      And show me the page
       And I should see flash message "Access Denied"
 
   Scenario: admin may visit backend

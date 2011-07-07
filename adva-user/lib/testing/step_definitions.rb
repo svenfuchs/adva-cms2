@@ -4,7 +4,6 @@ Given /^I (?:am signed|sign) in with "([^"]*)" and "([^"]*)"$/ do |email, passwo
    When %Q~I fill in "user_email" with "#{email}"~
     And %Q~I fill in "user_password" with "#{password}"~
     And %Q~I press "Sign in"~
-   Then %Q~I should see flash message "Signed in successfully"~
   @user = User.find_by_email(email)
 end
 
