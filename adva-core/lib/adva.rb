@@ -67,8 +67,6 @@ module Adva
         ensure
           loaded_slices << path_with_namespace
         end
-        class_name.constantize.class_eval(&block)
-        loaded_slices << path_with_namespace
       else
         Rails.logger.debug { "Adva.slice: already loaded #{path_with_namespace}, skipping" }
       end
@@ -78,8 +76,12 @@ module Adva
       @loaded_slices ||= Set.new
     end
 
-    ActionController::Dispatcher.to_prepare do
-      Adva.loaded_slices.clear
+    if Rails.env.development?
+      initializer 'adva-core.schedule_slice_clearing' do
+        config.to_prepare do
+          Adva.loaded_slices.clear
+        end
+      end
     end
   end
 end
