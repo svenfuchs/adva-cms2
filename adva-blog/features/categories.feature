@@ -11,7 +11,7 @@ Feature: Managing blog categories
         | Blog    |             | Uncategorized post     |
         | Blog    | Programming | Post about programming |
         | Blog    | Design      | Post about design      |
-    Given I am signed in with "admin@admin.org" and "admin!"
+    Given I am signed in with "admin@admin.org" and "secret"
       And I am on the admin "Blog" section categories page
 
   Scenario: Viewing blog post index page filtered by a catagory

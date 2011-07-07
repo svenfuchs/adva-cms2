@@ -50,7 +50,7 @@ module Adva
       def setup_logging(options)
         if log = options[:log]
           FileUtils.touch(log) unless File.exists?(log)
-          ActiveRecord::Base.logger = Logger.new(log)
+          Rails.logger = Logger.new(log)
           ActiveRecord::LogSubscriber.attach_to(:active_record)
         end
       end

@@ -9,4 +9,8 @@ class User < ActiveRecord::Base
   def roles
     read_attribute(:roles) || []
   end
+
+  def admin?
+    roles.include?('admin')
+  end
 end

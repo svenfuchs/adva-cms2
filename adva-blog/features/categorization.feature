@@ -13,7 +13,7 @@ Feature: Categorizing blog posts
         | Blog    | Programming | Post about programming |
         | Blog    | Ruby        | Post about ruby        |
         | Blog    | Design      | Post about design      |
-    Given I am signed in with "admin@admin.org" and "admin!"
+    Given I am signed in with "admin@admin.org" and "secret"
      And I am on the admin "Blog" section page
 
   Scenario: Categorizing an uncategorized post

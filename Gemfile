@@ -31,4 +31,5 @@ group :test do
   gem 'launchy'
   gem 'factory_girl', '1.3.2'
   gem 'email_spec'
+  gem 'pickle'
 end

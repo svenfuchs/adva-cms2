@@ -58,13 +58,19 @@ module Adva
         class_name = path.sub(/\.\w+$/,'').classify # cut out extension for minimal templates
         begin
           class_name.constantize.class_eval(&block)
-        rescue NameError # should not be neccessary thx to ActiveSupport::Dependencies
-          require_dependency(path)
+        rescue NameError => e
+          if e.message.include?(class_name)
+            require_dependency(path)
+          else
+            raise e
+          end
         ensure
           loaded_slices << path_with_namespace
         end
+        class_name.constantize.class_eval(&block)
+        loaded_slices << path_with_namespace
       else
-        Rails.logger.debug { "Adva.slice: already loaded #{path_with_namespace}, skipping" } if Rails.logger
+        Rails.logger.debug { "Adva.slice: already loaded #{path_with_namespace}, skipping" }
       end
     end
 

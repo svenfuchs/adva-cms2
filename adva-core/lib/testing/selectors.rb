@@ -35,6 +35,9 @@ module HtmlSelectorsHelpers
     when 'the top menu'
       "#top"
 
+    when 'the main menu'
+      "ul.main.menu"
+
     when /^the actions? menu$/
       "#actions"
 
