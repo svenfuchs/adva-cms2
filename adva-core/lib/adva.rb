@@ -55,7 +55,7 @@ module Adva
         raise ArgumentError, "first argument must be class_to_slice#your_slice_identifier"
       end
       unless loaded_slices.include?(path_with_namespace)
-        class_name = path.sub(/\.\w+$/,'').classify # cut out extension for minimal templates
+        class_name = path.sub(/\.\w+$/,'').pluralize.classify # cut out extension for minimal templates
         begin
           class_name.constantize.class_eval(&block)
         rescue NameError => e

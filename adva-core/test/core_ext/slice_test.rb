@@ -53,7 +53,12 @@ module AdvaCoreTests
 
     test 'slice a model' do
       can_slice 'article', 'Article'
-      unload :Articles
+      unload :Article
+    end
+
+    test 'slice a model that ends with "s" (singularization problem)' do
+      class Address; end
+      can_slice 'adva_core_tests/slice_test/address', 'AdvaCoreTests::SliceTest::Address'
     end
 
     test 'slice a minimal view' do
