@@ -1,6 +1,8 @@
 require 'gem-patching'
 require 'inherited_resources'
 
+# FIXME is any of this still neccessary?
+
 Gem.patching('inherited_resources', '1.2.2') do
   InheritedResources::Actions.module_eval do
     module Actions
@@ -21,7 +23,7 @@ Gem.patching('inherited_resources', '1.2.2') do
 
     def build_resource
       get_resource_ivar || begin
-        resource = end_of_association_chain.send(method_for_build, params[resource_instance_name] || {})
+        resource = end_of_association_chain.send(method_for_build, resource_params)
         # check if resource is included to prevent deleting from a relation
         if method_for_build == :build && end_of_association_chain.include?(resource)
           end_of_association_chain.delete(resource)
