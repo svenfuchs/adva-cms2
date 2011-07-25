@@ -10,9 +10,8 @@ module Adva
         autoload :Site,    'adva/static/import/model/site'
 
         class << self
-          def recognize(sources)
-            types = [Site, Post, Section]
-            types.map { |type| type.recognize(sources) }.flatten.compact.sort
+          def build(source, *args)
+            const_get(source.model_name).new(source, *args)
           end
         end
       end

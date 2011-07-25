@@ -16,9 +16,10 @@ Gem::Specification.new do |s|
   s.platform     = Gem::Platform::RUBY
   s.require_path = 'lib'
   s.rubyforge_project = '[none]'
-  
+
   s.add_dependency 'adva-core'
   s.add_dependency 'nokogiri'
   s.add_dependency 'rack-cache'
   s.add_dependency 'watchr'
+  s.add_dependency 'hashr'
 end

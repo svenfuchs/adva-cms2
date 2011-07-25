@@ -70,7 +70,7 @@ module Adva
           end
 
           def handler
-            @handler ||= Adva::Static::Watch::Handler.new(self, dir.join("**/*.{#{Import::Source::TYPES.join(',')}}"))
+            @handler ||= Adva::Static::Watch::Handler.new(self, dir.join("**/*.{#{Import::Source::Path::TYPES.join(',')}}"))
           end
 
           def kill_watch
