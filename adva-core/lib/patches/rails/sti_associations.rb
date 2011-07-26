@@ -9,7 +9,7 @@ Gem.patching('rails', '3.0.9') do
     def build_association(*options, &block)
       if options.first.is_a?(Hash) && options.first[:type].present?
         requested_class = options.first[:type].to_s.constantize
-        if requested_class < klass
+        if requested_class <= klass
           requested_class.new(*options, &block)
         else
           # do not allow to create random record, for example User with role admin
