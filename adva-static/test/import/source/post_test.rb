@@ -9,7 +9,7 @@ module AdvaStatic
     end
 
     test "given a root blog post file import/2010/10/10/post.yml it reads the post's data" do
-      setup_root_blog
+      setup_file '2010/10/10/post.yml', YAML.dump(:body => 'body')
       assert_equal('body', post.data.body)
     end
 
@@ -19,13 +19,13 @@ module AdvaStatic
     end
 
     test "categories splits a given string by commas" do
-      setup_root_blog
+      setup_file '2010/10/10/post.yml', YAML.dump(:categories => 'foo, bar')
       assert_equal ['foo', 'bar'], post.categories
     end
 
     test "data includes attributes and association data" do
-      setup_root_blog
-      assert_equal [:body, :categories, :filter, :published_at, :slug, :title], post.data.keys.map(&:to_s).sort.map(&:to_sym)
+      setup_file '2010/10/10/post.yml', YAML.dump(:filter => 'markdown', :body => 'body', :categories => 'foo, bar')
+      assert_equal({ :title => 'Post', :slug => 'post',  :body => 'body', :filter => 'markdown', :published_at => DateTime.new(2010, 10, 10), :categories => ['foo', 'bar']}, post.data)
     end
 
     test "recognizes a Post importer from a slugged post path (/2010-10-10-post.html)" do
@@ -65,72 +65,72 @@ module AdvaStatic
     end
 
     test "title: prefers a given :title attribute if present" do
-      setup_files(['2010-10-10-post.yml', YAML.dump(:title => 'Post title')])
+      setup_file '2010-10-10-post.yml', YAML.dump(:title => 'Post title')
       post = Post.new(import_dir.join('2010-10-10-post.yml'))
       assert_equal 'Post title', post.title
     end
 
     test "title: uses the filename as a source for the slug as a fallback" do
-      setup_files(['2010-10-10-post-title-from-filename.yml', ''])
+      setup_file '2010-10-10-post-title-from-filename.yml'
       post = Post.new(import_dir.join('2010-10-10-post-title-from-filename.yml'))
       assert_equal 'Post Title From Filename', post.title
     end
 
     test "slug: prefers a given :slug attribute if present" do
-      setup_files(['2010-10-10-post.yml', YAML.dump(:slug => 'post-slug')])
+      setup_file '2010-10-10-post.yml', YAML.dump(:slug => 'post-slug')
       post = Post.new(import_dir.join('2010-10-10-post.yml'))
       assert_equal 'post-slug', post.slug
     end
 
     test "slug: uses the title as a source for the slug as a fallback" do
-      setup_files(['2010-10-10-post.yml', YAML.dump(:title => 'Post title')])
+      setup_file '2010-10-10-post.yml', YAML.dump(:title => 'Post title')
       post = Post.new(import_dir.join('2010-10-10-post.yml'))
       assert_equal 'post-title', post.slug
     end
 
     test "slug: uses the filename as a source for the slug as a fallback" do
-      setup_files(['2010-10-10-post-title-from-filename.yml', ''])
+      setup_file '2010-10-10-post-title-from-filename.yml'
       post = Post.new(import_dir.join('2010-10-10-post-title-from-filename.yml'))
       assert_equal 'post-title-from-filename', post.slug
     end
 
     test "permalink can be read from filenames matching blog/:year/:month/:day/:slug.* " do
-      setup_files(['blog/2010/10/10/post.yml', ''])
+      setup_file 'blog/2010/10/10/post.yml'
       assert_equal %w(2010 10 10 post), Post.new(import_dir.join('blog/2010/10/10/post.yml')).permalink
     end
 
     test "permalink can be read from filenames matching blog/:year/:month/:day-:slug.* " do
-      setup_files(['blog/2010/10/10-post.yml', ''])
+      setup_file 'blog/2010/10/10-post.yml'
       assert_equal %w(2010 10 10 post), Post.new(import_dir.join('blog/2010/10/10-post.yml')).permalink
     end
 
     test "permalink can be read from filenames matching blog/:year/:month-:day-:slug.* " do
-      setup_files(['blog/2010/10-10-post.yml', ''])
+      setup_file 'blog/2010/10-10-post.yml'
       assert_equal %w(2010 10 10 post), Post.new(import_dir.join('blog/2010/10-10-post.yml')).permalink
     end
 
     test "permalink can be read from filenames matching blog/:year-:month-:day-:slug.* " do
-      setup_files(['blog/2010-10-10-post.yml', ''])
+      setup_file 'blog/2010-10-10-post.yml'
       assert_equal %w(2010 10 10 post), Post.new(import_dir.join('blog/2010-10-10-post.yml')).permalink
     end
 
     test "permalink can be read from filenames matching :year/:month/:day/:slug.* " do
-      setup_files(['2010/10/10/post.yml', ''])
+      setup_file '2010/10/10/post.yml'
       assert_equal %w(2010 10 10 post), Post.new(import_dir.join('2010/10/10/post.yml')).permalink
     end
 
     test "permalink can be read from filenames matching :year/:month/:day-:slug.* " do
-      setup_files(['2010/10/10-post.yml', ''])
+      setup_file '2010/10/10-post.yml'
       assert_equal %w(2010 10 10 post), Post.new(import_dir.join('2010/10/10-post.yml')).permalink
     end
 
     test "permalink can be read from filenames matching :year/:month-:day-:slug.* " do
-      setup_files(['2010/10-10-post.yml', ''])
+      setup_file '2010/10-10-post.yml'
       assert_equal %w(2010 10 10 post), Post.new(import_dir.join('2010/10-10-post.yml')).permalink
     end
 
     test "permalink can be read from filenames matching :year-:month-:day-:slug.* " do
-      setup_files(['2010-10-10-post.yml', ''])
+      setup_file '2010-10-10-post.yml'
       assert_equal %w(2010 10 10 post), Post.new(import_dir.join('2010-10-10-post.yml')).permalink
     end
 

@@ -25,7 +25,7 @@ module Adva
           end
 
           def categories
-            @categories ||= read.categories.to_s.split(',').map(&:strip)
+            @categories ||= Array(read.categories).map { |category| category.split(',') }.flatten.map(&:strip)
           end
 
           def title

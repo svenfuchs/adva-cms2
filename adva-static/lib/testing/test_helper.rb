@@ -1,7 +1,7 @@
 module TestHelper
   module Static
     def setup
-      # setup_import_directory
+      import_dir.mkpath
       super
     end
 

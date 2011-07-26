@@ -51,6 +51,7 @@ module AdvaStatic
     end
 
     test "returns the request parameters necessary to delete a Page (w/ an index page)" do
+      import_dir.rmdir
       setup_root_page_record
       expected = { '_method' => 'delete', :page => { :id => ::Page.find_by_slug('home').id.to_s } }
       assert_equal expected, request('index.yml').params
