@@ -8,9 +8,15 @@ Gem.patching('rails', '3.0.9') do
   class ActiveRecord::Reflection::AssociationReflection
     def build_association(*options, &block)
       if options.first.is_a?(Hash) && options.first[:type].present?
-        options.first[:type].to_s.constantize.new(*options, &block)
+        requested_class = options.first[:type].to_s.constantize
+        if requested_class < klass
+          requested_class.new(*options, &block)
+        else
+          # do not allow to create random record, for example User with role admin
+          raise "cannot build associated record: #{requested_class} does not inherit from #{klass}"
+        end
       else
-        super
+        klass.new(*options,&block)
       end
     end
   end
