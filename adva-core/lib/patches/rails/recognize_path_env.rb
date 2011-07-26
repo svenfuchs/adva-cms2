@@ -1,6 +1,8 @@
 # make recognize_path pass the given environment through
+#
+# FIXME: patch this better, do not override the whole method
 
-Gem.patching('rails', '3.0.8') do
+Gem.patching('rails', '3.0.9') do
   require 'action_dispatch/routing/mapper'
   require 'action_dispatch/routing/route_set'
 

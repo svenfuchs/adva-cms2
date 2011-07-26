@@ -1,7 +1,9 @@
 # Walks up the inheritance chain for given records if the generated named route
 # helper does not exist. Caches resulting method names.
 # see https://rails.lighthouseapp.com/projects/8994-ruby-on-rails/tickets/2986-polymorphic_url-should-handle-sti-better
-Gem.patching('rails', '3.0.8') do
+#
+# FIXME: this should not blindly overwrite ActionDispatch::Routing::PolymorphicRoutes.build_named_route_call
+Gem.patching('rails', '3.0.9') do
   require 'action_dispatch/routing/polymorphic_routes'
 
   ActionDispatch::Routing::PolymorphicRoutes.module_eval do
