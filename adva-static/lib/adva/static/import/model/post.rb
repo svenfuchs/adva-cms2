@@ -29,7 +29,7 @@ module Adva
           end
 
           def categories
-            @categories ||= source.data.categories.map { |name| Category.find_or_initialize_by_name(name, :section => section.record) }
+            @categories ||= source.data.categories.map { |name| Category.find_or_initialize_by_name(name, :section_id => section.record.id) }
           end
         end
       end
