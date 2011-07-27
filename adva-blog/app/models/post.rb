@@ -15,6 +15,14 @@ class Post < Content
     end
   end
 
+  def previous
+    section.posts.order(:published_at).where(Post.arel_table[:published_at].lt(published_at)).first
+  end
+
+  def next
+    section.posts.order(:published_at).where(Post.arel_table[:published_at].gt(published_at)).last
+  end
+
   def permalink
     "#{published_at.year}/#{published_at.month}/#{published_at.day}/#{slug}"
   end
