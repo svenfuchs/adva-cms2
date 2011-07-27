@@ -15,6 +15,7 @@ module Adva
       def run
         Adva.out.puts "importing from #{root}"
         Account.all.each(&:destroy)
+        Category.delete_all
         Model::Site.new(root).update!
       end
 
