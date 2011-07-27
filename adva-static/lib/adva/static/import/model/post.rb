@@ -16,23 +16,21 @@ module Adva
             @record ||= ::Post.by_permalink(*permalink).first || ::Post.new
           end
 
-          def attributes
-            super
+          def attribute_names
+            @attribute_names ||= [:section_id, :title, :body, :slug, :published_at, :filter, :categories] # , :categorizations_attributes
           end
 
-          def attribute_names
-            @attribute_names ||= [:section_id, :title, :body, :slug, :published_at, :filter] # , :categorizations_attributes
+          def section
+            @section ||= Section.new(source.strip_permalink)
           end
 
           def section_id
             section ? section.record.id.to_s : nil
           end
 
-          # def categorizations_attributes
-          #   categories.map do |name|
-          #     { :category => section.categories.find_or_initialize_by_name(name, :section => section) } # OMG yes!
-          #   end if categories
-          # end
+          def categories
+            @categories ||= source.data.categories.map { |name| Category.find_or_initialize_by_name(name, :section => section.record) }
+          end
         end
       end
     end

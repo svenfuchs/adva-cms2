@@ -6,7 +6,7 @@ module Adva
           class << self
             def recognize(paths)
               posts = Post.recognize(paths)
-              blogs = posts.map { |post| Post.strip_permalink(post.path) }.flatten.uniq
+              blogs = posts.map { |post| post.strip_permalink }.flatten.uniq
               blogs = blogs.map { |blog| paths.detect { |path| blog.to_s == path.to_s } || blog }
 
               paths.replace(paths - blogs)

@@ -5,16 +5,12 @@ module Adva
         class Blog < Section
           def update!
             super
-            categories.each { |category| category.update! }
+            categories.each { |category| category.save! }
             posts.each { |post| post.update! }
           end
 
-          def attribute_names
-            super + [:categories]
-          end
-
           def categories
-            @categories ||= source.categories.map { |category| Category.new(:name => category) }
+            @categories ||= source.categories.map { |category| Category.new(:name => category, :section => record) }
           end
 
           def posts

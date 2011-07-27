@@ -18,10 +18,6 @@ module Adva
             def permalink?(path)
               path.to_s =~ PERMALINK
             end
-
-            def strip_permalink(path)
-              path.gsub(Post::PERMALINK, '')
-            end
           end
 
           def categories
@@ -46,6 +42,10 @@ module Adva
 
           def permalink_paths
             path.self_and_parents - path.root.self_and_parents
+          end
+
+          def strip_permalink
+            path.gsub(Post::PERMALINK, '')
           end
 
           def data

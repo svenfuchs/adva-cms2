@@ -7,7 +7,7 @@ module AdvaStatic
     test "has Blog attributes" do
       setup_file 'blog.yml', YAML.dump(:name => 'Blog name')
       blog = Blog.new(import_dir.join('blog.yml'))
-      expected = { :type => 'Blog', :name => 'Blog name', :slug => 'blog-name', :categories => [] }
+      expected = { :type => 'Blog', :name => 'Blog name', :slug => 'blog-name' }
       assert_equal expected, blog.attributes
     end
 
