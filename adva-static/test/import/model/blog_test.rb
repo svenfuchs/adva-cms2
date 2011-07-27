@@ -28,7 +28,7 @@ module AdvaStatic
     test "adds categories" do
       setup_file '2010/10/10/post.yml', YAML.dump(:categories => 'foo, bar')
       blog = Blog.new(Adva::Static::Import::Source.recognize([import_dir]).first)
-      assert_equal %w(foo bar), blog.categories.map(&:name)
+      assert_equal %w(bar foo), blog.categories.map(&:name)
     end
   end
 end

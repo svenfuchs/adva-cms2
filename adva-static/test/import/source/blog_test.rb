@@ -55,20 +55,20 @@ module AdvaStatic
     test "categories returns the uniq categories list from all posts (categories given as an array)" do
       setup_file '2010-10-10-post.yml', YAML.dump(:categories => 'foo, bar')
 
-      assert_equal ['foo', 'bar'], blog.categories
+      assert_equal ['bar', 'foo'], blog.categories
     end
 
     test "categories returns the uniq categories list from all posts (categories given as a string)" do
       setup_file '2010-10-10-post.yml', YAML.dump(:categories => 'foo, bar')
 
-      assert_equal ['foo', 'bar'], blog.categories
+      assert_equal ['bar', 'foo'], blog.categories
     end
 
     test "data includes attributes and association data" do
       setup_file '2010-10-10-post.yml', YAML.dump(:categories => 'foo, bar')
       setup_file 'index.yml', YAML.dump(:name => 'name')
 
-      assert_equal({ :name => 'name', :slug => 'name', :categories => ['foo', 'bar']}, blog.data.except(:posts))
+      assert_equal({ :name => 'name', :slug => 'name', :categories => ['bar', 'foo']}, blog.data.except(:posts))
     end
 
     test "name: prefers a given :title attribute if present" do
