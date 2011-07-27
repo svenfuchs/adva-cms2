@@ -22,7 +22,7 @@ module Adva
           end
 
           def categories
-            @categories ||= posts.map { |post| post.categories }.flatten.uniq
+            @categories ||= posts.map { |post| post.categories }.flatten.uniq.sort
           end
 
           def data
