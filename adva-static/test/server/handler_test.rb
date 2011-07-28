@@ -4,7 +4,8 @@ require 'rack'
 
 module AdvaStatic
   class WatchHandlerTest < Test::Unit::TestCase
-    include Adva::Static::Watch
+    include Adva::Static::Server
+    Handler = Watch::Handler
 
     Handler.instance_methods.each { |method| Handler.send(:public, method) }
 

@@ -7,7 +7,7 @@ module AdvaStatic
     test "has Post attributes" do
       setup_file '2010-10-10-post.yml', YAML.dump(:title => 'title', :body => 'body')
       post = Post.new(import_dir.join('2010-10-10-post.yml'))
-      expected = { :section_id => '', :title => 'title', :body => 'body', :slug => 'title', :published_at => DateTime.new(2010, 10, 10), :categories => [] }
+      expected = { :site_id => '', :section_id => '', :title => 'title', :body => 'body', :slug => 'title', :published_at => DateTime.new(2010, 10, 10), :categories => [] }
       assert_equal expected, post.attributes
     end
 

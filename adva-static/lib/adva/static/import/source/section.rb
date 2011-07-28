@@ -15,10 +15,6 @@ module Adva
             path.root?
           end
 
-          def categories
-            read.categories || []
-          end
-
           def name
             @name ||= read.name || (root? ? 'Home' : path.filename.to_s.titleize)
           end
@@ -28,7 +24,7 @@ module Adva
           end
 
           def data
-            super.merge(:categories => categories, :name => name, :slug => slug)
+            super.merge(:name => name, :slug => slug)
           end
 
           protected

@@ -2,9 +2,9 @@ require 'watchr'
 
 module Adva
   class Static
-    module Rack
+    module Server
       class Watch
-        autoload :Handler, 'adva/static/watch/handler'
+        autoload :Handler, 'adva/static/server/watch/handler'
 
         include Request
 
@@ -21,7 +21,7 @@ module Adva
 
         def update(path, event_type = nil)
           Adva.out.puts "\n#{event_type}: #{path}"
-          import  = Adva::Static::Import.new(:source => dir)
+          import  = Import.new(:source => dir)
           request = import.request_for(path)
           status, headers, response = self.request('POST', request.path, request.params)
           response = get(path) if !request.destroy? && status == 302
@@ -70,7 +70,7 @@ module Adva
           end
 
           def handler
-            @handler ||= Adva::Static::Watch::Handler.new(self, dir.join("**/*.{#{Import::Source::Path::TYPES.join(',')}}"))
+            @handler ||= Handler.new(self, dir.join("**/*.{#{Import::Source::Path::TYPES.join(',')}}"))
           end
 
           def kill_watch

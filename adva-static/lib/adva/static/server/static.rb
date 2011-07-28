@@ -2,7 +2,7 @@ require 'rack/utils'
 
 module Adva
   class Static
-    module Rack
+    module Server
       class Static < ::Rack::File
         attr_reader :app, :root
 

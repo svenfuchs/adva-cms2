@@ -2,7 +2,7 @@ require 'fileutils'
 
 module Adva
   class Static
-    module Rack
+    module Server
       class Export
         include Request
 

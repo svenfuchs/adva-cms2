@@ -10,13 +10,13 @@ module AdvaStatic
 
     test "returns the request parameters necessary to create a new Page (w/ an index page)" do
       setup_root_page
-      expected = { :page => { :type => 'Page', :name => 'Home', :slug => 'home', :body => 'home' } } # , :path => 'home'
+      expected = { :page => { :type => 'Page', :name => 'Home', :slug => 'home', :body => 'home' } }
       assert_equal expected, request('index.yml').params
     end
 
     test "returns the request parameters necessary to create a new Page (w/ a non-index page)" do
       setup_non_root_page
-      expected = { :page => { :type => 'Page', :name => 'Contact', :slug => 'contact', :body => 'contact' } } # , :path => 'contact'
+      expected = { :page => { :type => 'Page', :name => 'Contact', :slug => 'contact', :body => 'contact' } }
       assert_equal expected, request('contact.yml').params
     end
 

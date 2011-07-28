@@ -22,4 +22,5 @@ Gem::Specification.new do |s|
   s.add_dependency 'rack-cache'
   s.add_dependency 'watchr'
   s.add_dependency 'hashr'
+  s.add_dependency 'sqlite3'
 end

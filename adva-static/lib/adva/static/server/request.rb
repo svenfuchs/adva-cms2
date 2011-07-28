@@ -2,7 +2,7 @@ require 'rack/utils'
 
 module Adva
   class Static
-    module Rack
+    module Server
       module Request
         protected
           def request(method, path, params = {})

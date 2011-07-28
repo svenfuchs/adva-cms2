@@ -5,8 +5,8 @@ require 'adva/routing_filters/section_root'
 require 'adva/routing_filters/section_path'
 
 module AdvaStatic
-  class RackWatchTest < Test::Unit::TestCase
-    include TestHelper::Application, TestHelper::Static, Adva::Static::Rack
+  class ServerWatchTest < Test::Unit::TestCase
+    include TestHelper::Application, TestHelper::Static, Adva::Static::Server
 
     attr_reader :app, :export_dir, :import_dir
 

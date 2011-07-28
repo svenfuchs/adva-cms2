@@ -3,8 +3,8 @@ require File.expand_path('../../test_helper', __FILE__)
 require 'rack'
 
 module AdvaStatic
-  class RackExportTest < Test::Unit::TestCase
-    include Adva::Static::Rack
+  class ServerExportTest < Test::Unit::TestCase
+    include Adva::Static::Server
 
     attr_reader :app
 

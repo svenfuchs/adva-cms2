@@ -17,7 +17,15 @@ module Adva
           end
 
           def attribute_names
-            @attribute_names ||= super | [:section_id, :title, :body, :slug, :published_at, :filter, :categories]
+            @attribute_names ||= super | [:site_id, :section_id, :title, :body, :slug, :published_at, :filter, :categories]
+          end
+
+          def site
+            section.try(:site)
+          end
+
+          def site_id
+            site ? site.record.id.to_s : nil
           end
 
           def section
