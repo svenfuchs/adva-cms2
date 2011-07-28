@@ -90,5 +90,13 @@ module Adva
                         adva-core/admin/lists )
       )
     end
+
+    if Rails.env.development?
+      initializer 'adva-core.schedule_slice_clearing' do
+        config.to_prepare do
+          Adva.loaded_slices.clear
+        end
+      end
+    end
   end
 end

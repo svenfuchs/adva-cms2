@@ -1,41 +1,45 @@
-require 'action_dispatch/routing/mapper'
-require 'action_dispatch/routing/route_set'
-
 # make recognize_path pass the given environment through
+#
+# FIXME: patch this better, do not override the whole method
 
-module ActionDispatch
-  module Routing
-    class RouteSet
-      def recognize_path(path, environment = {})
-        method = (environment[:method] || "GET").to_s.upcase
-        path = Rack::Mount::Utils.normalize_path(path)
+Gem.patching('rails', '3.0.9') do
+  require 'action_dispatch/routing/mapper'
+  require 'action_dispatch/routing/route_set'
 
-        begin
-          # env = Rack::MockRequest.env_for(path, {:method => method})
-          env = Rack::MockRequest.env_for(path, {:method => method}).merge(environment)
-        rescue URI::InvalidURIError => e
-          raise ActionController::RoutingError, e.message
-        end
+  module ActionDispatch
+    module Routing
+      class RouteSet
+        def recognize_path(path, environment = {})
+          method = (environment[:method] || "GET").to_s.upcase
+          path = Rack::Mount::Utils.normalize_path(path)
 
-        req = Rack::Request.new(env)
-        @set.recognize(req) do |route, matches, params|
-          params.each do |key, value|
-            if value.is_a?(String)
-              value = value.dup.force_encoding(Encoding::BINARY) if value.encoding_aware?
-              params[key] = URI.unescape(value)
+          begin
+            # env = Rack::MockRequest.env_for(path, {:method => method})
+            env = Rack::MockRequest.env_for(path, {:method => method}).merge(environment)
+          rescue URI::InvalidURIError => e
+            raise ActionController::RoutingError, e.message
+          end
+
+          req = Rack::Request.new(env)
+          @set.recognize(req) do |route, matches, params|
+            params.each do |key, value|
+              if value.is_a?(String)
+                value = value.dup.force_encoding(Encoding::BINARY) if value.encoding_aware?
+                params[key] = URI.unescape(value)
+              end
+            end
+
+            dispatcher = route.app
+            dispatcher = dispatcher.app while dispatcher.is_a?(Mapper::Constraints)
+
+            if dispatcher.is_a?(Dispatcher) && dispatcher.controller(params, false)
+              dispatcher.prepare_params!(params)
+              return params
             end
           end
 
-          dispatcher = route.app
-          dispatcher = dispatcher.app while dispatcher.is_a?(Mapper::Constraints)
-
-          if dispatcher.is_a?(Dispatcher) && dispatcher.controller(params, false)
-            dispatcher.prepare_params!(params)
-            return params
-          end
+          raise ActionController::RoutingError, "No route matches #{path.inspect}"
         end
-
-        raise ActionController::RoutingError, "No route matches #{path.inspect}"
       end
     end
   end

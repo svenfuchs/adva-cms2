@@ -36,13 +36,14 @@ module AdvaStatic
       blog = site.sections.first
       post = blog.posts.first
 
-      assert_equal 'ruby-i18n.org', site.host
+      assert_equal 'import', site.host
       assert_equal 'Home', blog.name
-      assert_equal 'Ruby I18n Gem Hits 0 2 0', post.title
+      assert_equal 'Post', post.title
     end
 
     test "run with an existing site and root blog" do
       setup_site_record
+      setup_site
       Page.first.destroy
       setup_root_blog
       Adva::Static::Import.new(:source => import_dir).run
@@ -52,18 +53,20 @@ module AdvaStatic
 
       assert_equal 'ruby-i18n.org', site.host
       assert_equal 'Home', blog.name
-      assert_equal 'Ruby I18n Gem Hits 0 2 0', post.title
+      assert_equal 'Post', post.title
     end
 
     test "run with a root page, a blog and another page" do
+      setup_site
       setup_root_page
       setup_non_root_blog
       setup_non_root_page
       setup_non_root_nested_page
+
       Adva::Static::Import.new(:source => import_dir).run
 
       site = Site.first
-      assert 4, site.sections.count
+      assert_equal ['home', 'blog', 'contact', 'nested'], site.sections.map(&:slug)
       assert_equal ['', 'blog', 'contact', 'contact/nested'], site.sections.map(&:path)
 
       page = site.sections.first
@@ -73,11 +76,12 @@ module AdvaStatic
       assert_equal 'ruby-i18n.org', site.host
       assert_equal 'Home', page.name
       assert_equal 'Blog', blog.name
-      assert_equal 'Ruby I18n Gem Hits 0 2 0', post.title
+      assert_equal 'Post', post.title
     end
 
     test "run with a root page and a nested page (implicit creation)" do
       setup_root_page
+      setup_site
       setup_nested_page
       Adva::Static::Import.new(:source => import_dir).run
 
@@ -94,6 +98,7 @@ module AdvaStatic
 
     test "import(path) syncs changes to /index.yml (existing root page)" do
       setup_site_record
+      setup_site
       setup_root_page
 
       section = Page.find_by_slug('home')
@@ -111,6 +116,7 @@ module AdvaStatic
 
     test "import(path) syncs changes to /contact.yml (existing non-root page)" do
       setup_non_root_page_record
+      setup_site
       setup_non_root_page
 
       section = Page.find_by_slug('contact')
@@ -128,6 +134,7 @@ module AdvaStatic
 
     test "import(path) syncs changes to /contact.yml (not yet existing non-root page)" do
       setup_site_record
+      setup_site
       setup_non_root_page
 
       path = 'contact.yml'
@@ -138,21 +145,7 @@ module AdvaStatic
       assert_equal 'contact', section.article.reload.body
     end
 
-    test "import(path) syncs changes to blog/2009/07/12/ruby-i18n-gem-hits-0-2-0.yml (existing root blog post)" do
-      setup_non_root_blog_record
-      setup_non_root_blog
-
-      section = Blog.find_by_slug('blog')
-      section.posts.first.update_attributes!(:body => 'will be overwritten')
-      assert_equal 'will be overwritten', section.posts.first.reload.body
-
-      path = 'blog/2009/07/12/ruby-i18n-gem-hits-0-2-0.yml'
-      Adva::Static::Import.new(:source => import_dir).import(path)
-
-      assert_not_equal 'will be overwritten', section.posts.first.reload.body
-    end
-
-    test "import(path) syncs changes to 2009/07/12/ruby-i18n-gem-hits-0-2-0.yml (existing non-root blog post)" do
+    test "import(path) syncs changes to 2010/10/10/post.yml (existing root blog post)" do
       setup_root_blog_record
       setup_root_blog
 
@@ -160,7 +153,21 @@ module AdvaStatic
       section.posts.first.update_attributes!(:body => 'will be overwritten')
       assert_equal 'will be overwritten', section.posts.first.reload.body
 
-      path = '2009/07/12/ruby-i18n-gem-hits-0-2-0.yml'
+      path = '2010/10/10/post.yml'
+      Adva::Static::Import.new(:source => import_dir).import(path)
+
+      assert_not_equal 'will be overwritten', section.posts.first.reload.body
+    end
+
+    test "import(path) syncs changes to  blog/2010/10/10/post.yml (existing non-root blog post)" do
+      setup_non_root_blog_record
+      setup_non_root_blog
+
+      section = Blog.find_by_slug('blog')
+      section.posts.first.update_attributes!(:body => 'will be overwritten')
+      assert_equal 'will be overwritten', section.posts.first.reload.body
+
+      path = 'blog/2010/10/10/post.yml'
       Adva::Static::Import.new(:source => import_dir).import(path)
 
       assert_not_equal 'will be overwritten', section.posts.first.reload.body
@@ -168,6 +175,7 @@ module AdvaStatic
 
     test "request returns what's needed to be PUTed to import the model" do
       setup_site_record
+      setup_site
       setup_root_page
 
       site_id = Site.first.id.to_s
@@ -178,18 +186,7 @@ module AdvaStatic
       input   = ::Rack::Utils.build_nested_query(request.params)
       request = Rack::Request.new(Rack::MockRequest.env_for(request.path, :method => 'POST', :input => input))
 
-      params  = {
-        '_method' => 'put',
-        'page' => {
-          'id' => page_id,
-          'site_id' => site_id,
-          'type' => 'Page',
-          'name' => 'Home',
-          'slug' => 'home',
-          'path' => 'home',
-          'body' => 'home'
-        }
-      }
+      params = { '_method' => 'put', 'page' => { 'id' => page_id, 'site_id' => site_id, 'type' => 'Page', 'name' => 'Home', 'slug' => 'home', 'body' => 'home' } } # 'path' => 'home',
       assert_equal params, request.params
       assert_equal "/admin/sites/#{site_id}/pages/#{page_id}", request.path
     end

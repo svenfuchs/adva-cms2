@@ -3,73 +3,46 @@ module Adva
     class Import
       module Model
         class Post < Base
-          PERMALINK = %r((?:^|/)(\d{4})(?:\-|\/)(\d{1,2})(?:\-|\/)(\d{1,2})(?:\-|\/)(.*)$)
+          delegate :permalink, :published_at, :to => :source
 
-          class << self
-            def recognize(sources)
-              posts = sources.select { |source| source.path =~ PERMALINK }
-              sources.replace(sources - posts.map(&:self_and_parents).flatten)
-              posts.map { |post| new(post) }
-            end
+          attr_reader :section
 
-            def permalink?(path)
-              path.to_s =~ PERMALINK
-            end
-
-            def strip_permalink(source)
-              Source.new(source.to_s.gsub(Post::PERMALINK, ''), source.root)
-            end
+          def initialize(source, section = nil)
+            super(source)
+            @section = section
           end
 
-          def attribute_names
-            @attribute_names ||= [:site_id, :section_id, :title, :body, :published_at]
+          def update!
+            super
+            record.update_attributes!(:categories => categories)
           end
 
           def record
-            @record ||= section.posts.by_permalink(*permalink).all.first || section.posts.build
+            @record ||= ::Post.by_permalink(*permalink).first || ::Post.new
+          end
+
+          def attribute_names
+            @attribute_names ||= (super | [:site_id, :section_id, :title, :body, :slug, :published_at, :filter]) - [:categories]
+          end
+
+          def site
+            section.try(:site)
           end
 
           def site_id
-            section.site_id.to_s
+            site ? site.record.id.to_s : nil
           end
 
           def section
-            @section ||= Blog.new(section_source).record
+            @section ||= Section.new(source.strip_permalink)
           end
 
           def section_id
-            section.id.to_s
+            section ? section.record.id.to_s : nil
           end
 
-          def section_source
-            @section_source ||= begin
-              source = self.class.strip_permalink(self.source)
-              if source.path.present?
-                source.find_or_self
-              else
-                Source.new(source.join('index'), source.root).find_or_self
-              end
-            end
-          end
-
-          def slug
-            @slug ||= SimpleSlugs::Slug.new(title).to_s
-          end
-
-          def title
-            @title ||= path_tokens.last.titleize
-          end
-
-          def permalink
-            @permalink ||= path_tokens.to_a[0..-2] << slug
-          end
-
-          def path_tokens
-            @path_tokens ||= source.to_s.gsub(/\.\w+$/, '').match(PERMALINK).to_a[1..-1]
-          end
-
-          def published_at
-            @published_at ||= DateTime.civil(*permalink[0..-2].map(&:to_i))
+          def categories
+            @categories ||= source.data.categories.map { |name| Category.find_or_create_by_name(name, :section_id => section.record.id) }
           end
         end
       end

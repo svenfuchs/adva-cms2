@@ -9,22 +9,23 @@ module Adva
       attr_reader :root
 
       def initialize(options = {})
-        @root = Pathname.new(File.expand_path(options[:source] || 'import'))
+        @root = Source::Path.new(File.expand_path(options[:source] || 'import'))
       end
 
       def run
         Adva.out.puts "importing from #{root}"
         Account.all.each(&:destroy)
-        Model::Site.new(root).updated_record.save!
+        Category.delete_all
+        Model::Site.new(root).update!
       end
 
       def import(path)
-        model = recognize(path).first
-        model.updated_record.save! if model
+        model = recognize(path)
+        model.update! if model
       end
 
       def request_for(path)
-        model = recognize(path).first
+        model = recognize(path)
         Request.new(model.source, model.record, model.attributes)
       end
 
@@ -35,7 +36,13 @@ module Adva
         end
 
         def recognize(path)
-          Model.recognize([source(path)])
+          Model.build(Source.recognize([normalize_path(path)]).first)
+        end
+
+        def normalize_path(path)
+          path.gsub!(root.to_s, '')
+          path.gsub!(/^\//, '')
+          root.join(path)
         end
     end
   end

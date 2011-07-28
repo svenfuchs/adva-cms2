@@ -5,7 +5,7 @@ Feature: Managing pages
       | type | name    | body         |
       | Page | Home    | Home body    |
       | Page | Contact | Contact body |
-    And I am signed in with "admin@admin.org" and "admin!"
+    And I am signed in with "admin@admin.org" and "secret"
     And I am on the admin sections page
 
   Scenario: Listing pages as sections
@@ -32,9 +32,9 @@ Feature: Managing pages
      And the "Page" radio button should be checked
      And I should see a new page form
     When I fill in the following:
-      | name | <name> |
-      | body | <body> |
-     And I press "Create page"
+      | Name | <name> |
+      | Body | <body> |
+     And I press "Create Page"
     Then I should see "<message>"
      And I should see a page form
      And I should see "<name>"
@@ -50,9 +50,9 @@ Feature: Managing pages
     Then the title should be "Pages: Show"
     Then I should see an edit page form
     When I fill in the following:
-      | name | <name> |
-      | body | <body> |
-     And I press "Update page"
+      | Name | <name> |
+      | Body | <body> |
+     And I press "Update Page"
     Then I should see "<message>"
      And I should see an edit page form
      And I should see "<name>"
@@ -68,6 +68,7 @@ Feature: Managing pages
     Then the title should be "Sections: Index"
      And I should see "Page successfully deleted"
      And I should not see "Home"
+     And I should be on the admin sections page
     When I follow "Delete" within the "Contact" row
     Then the title should be "Pages: Show"
      And I should see "Page could not be deleted"

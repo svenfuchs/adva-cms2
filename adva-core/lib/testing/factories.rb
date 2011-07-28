@@ -1,5 +1,9 @@
+def Factory.the_account
+  Account.first || Account.create!
+end
+
 Factory.define :site do |f|
-  f.account Account.first || Account.create!
+  f.account { Factory.the_account }
   f.name    'adva-cms'
   f.host    'www.example.com'
   f.title   'adva-cms'

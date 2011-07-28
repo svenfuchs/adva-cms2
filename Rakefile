@@ -5,6 +5,7 @@ require 'cucumber'
 require 'cucumber/rake/task'
 
 Cucumber::Rake::Task.new(:features) do |t|
+  ENV['REGENERATE_APP'] = "uffjedn"
   t.cucumber_opts = "adva-*/features --format pretty --tags ~@wip"
 end
 
@@ -16,5 +17,5 @@ task :test_all do
   exit(state.exitstatus) if state.exited? and state.exitstatus != 0
 end
 
-task :default => [:features, :test_all]
+task :default => [:test_all, :features]
 

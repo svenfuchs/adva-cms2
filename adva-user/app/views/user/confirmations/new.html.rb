@@ -6,6 +6,7 @@ class User::Confirmations::New < User::Form
     end
 
     def fields
+      super
       form.input :email
     end
 

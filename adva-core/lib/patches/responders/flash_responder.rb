@@ -12,6 +12,7 @@ Responders::FlashResponder.class_eval do
     end
 
     defaults << :"flash.#{controller.action_name}.#{status}"
+    defaults << :"flash.actions.#{controller.action_name}.#{status}"
     defaults.uniq << ""
   end
 end

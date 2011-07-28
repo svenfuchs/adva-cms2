@@ -34,6 +34,47 @@ module Adva
       engine_names.include?(name)
     end
     alias :installed? :engine?
+
+    # Helps you slice and dice your addons to adva-cms
+    #
+    # load and slice (patch) the class +Existing::Stuff+
+    # in 'ur/engine/existing/stuff_slice.rb' 
+    # Adva.slice 'existing/stuff' do
+    #   include do
+    #     def fn0rd
+    #       23 + 42
+    #     end
+    #   end
+    #   attr_accessor :things
+    # end
+    def slice(path_with_namespace, &block)
+      raise ArgumentError, 'must give block to slice and dice' unless block_given?
+      if path_with_namespace =~ /^([^#]+)#([^#]+)$/
+        path, namespace = $1, $2
+      else
+        raise ArgumentError, "first argument must be class_to_slice#your_slice_identifier"
+      end
+      unless loaded_slices.include?(path_with_namespace)
+        class_name = path.sub(/\.\w+$/,'').pluralize.classify # cut out extension for minimal templates
+        begin
+          class_name.constantize.class_eval(&block)
+        rescue NameError => e
+          if e.message.include?(class_name)
+            require_dependency(path)
+          else
+            raise e
+          end
+        ensure
+          loaded_slices << path_with_namespace
+        end
+      else
+        Rails.logger.debug { "Adva.slice: already loaded #{path_with_namespace}, skipping" }
+      end
+    end
+
+    def loaded_slices
+      @loaded_slices ||= Set.new
+    end
   end
 end
 

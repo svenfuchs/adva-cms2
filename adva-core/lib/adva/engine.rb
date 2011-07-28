@@ -1,5 +1,6 @@
 # Common behaviour that we want included in all adva engines
 
+require 'active_support/concern'
 module Adva
   module Engine
     extend ActiveSupport::Concern

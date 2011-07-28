@@ -1,3 +1,11 @@
+Then /^the "([^\"]*)" field should be empty$/ do |field|
+  if defined?(Spec::Rails::Matchers)
+    field_labeled(field).value.should be_blank
+  else
+    assert field_labeled(field).value.blank?
+  end
+end
+
 Given 'a site' do
   @site = Factory(:site)
 end
@@ -79,35 +87,26 @@ When /^(.+) that link$/ do |step|
 end
 
 When /^I (press|click|follow) "(.*)" in the row (of the ([a-z ]+) table )?where "(.*)" is "(.*)"$/ do |action, target, _, table_id, header, content|
-  body = Nokogiri::HTML(response.body)
-  table_xpath = table_id.nil? ? 'table' : "table[@id='#{table_id.gsub(/ /, '_')}']"
-  headers = body.xpath("//#{table_xpath}/descendant::th[normalize-space(text())='#{header}']/@id")
+  table_id =  table_id.gsub(/ /, '_') unless table_id.nil?
+  table_xpath = table_id.nil? ? 'table' : "table[@id='#{table_id}']"
+  headers = page.all(:xpath, "//#{table_xpath}/descendant::th[normalize-space(text())='#{header}']")
   assert !headers.empty?, "could not find table header cell #{header.inspect}"
 
-  header_id = headers.first.value
+  header_id = headers.first['id']
   cell_path = "//#{table_xpath}/descendant::td[@headers='#{header_id}']"
   content   = "normalize-space(text())='#{content}'"
-  tag_path  = "#{cell_path}[#{content}]/ancestor::tr/@id"
-  nested_tag_path = "#{cell_path}/descendant::*[#{content}]/ancestor::tr/@id"
+  tag_path  = "#{cell_path}[#{content}]/ancestor::tr"
+  nested_tag_path = "#{cell_path}/descendant::*[#{content}]/ancestor::tr"
 
-  rows = body.xpath([tag_path, nested_tag_path].join('|'))
+  rows = page.all(:xpath, [tag_path, nested_tag_path].join('|'))
   assert !rows.empty?, "could not find table row where a cell has the header id #{header_id.inspect} and the content #{content.inspect}"
 
   map = { 'press' => 'click_button', 'click' => 'click_link' }
-  within("##{rows.first.value}") { map[action] ? send(map[action], target) : When(%(I #{action} "#{target}")) }
-end
-
-When /^I order the (.*)s list by "([^"]*)"$/ do |model, order|
-  When %(I select "#{order}" from "#{model}s_order")
-  select = Webrat::Locators::FieldLocator.new(webrat, webrat.dom, "#{model}s_order", Webrat::SelectField).locate!
-  select.send(:form).submit
-end
-
-When /^I visit the url from the email to (.*)$/ do |to|
-  email = ::ActionMailer::Base.deliveries.detect { |email| email.to.include?(to) }
-  assert email, "email to #{to} could not be found"
-  url = email.body.to_s =~ %r((http://[^\s"]+)) && $1
-  visit(url)
+  if table_id.nil?
+    within("##{rows.first['id']}") { map[action] ? send(map[action], target) : When(%(I #{action} "#{target}")) }
+  else
+    within("table##{table_id} ##{rows.first['id']}") { map[action] ? send(map[action], target) : When(%(I #{action} "#{target}")) }
+  end
 end
 
 # Examples:
@@ -115,25 +114,24 @@ end
 # I should not see a product row where "Name" is "Apple Powerbook"
 # I should see a row in the products table where "Name" is "Apple Powerbook"
 Then /^I should (not )?see a ([a-z ]+ )?row (?:of the ([a-z ]+) table )?where "(.*)" is "(.*)"$/ do |optional_not, row_classes, table_id, header, cell_content|
-  body = Nokogiri::HTML(response.body)
-  table_xpath = table_id.nil? ? 'table' : "table[@id='#{table_id.gsub(/ /, '_')}']"
-  table_header_cells = body.xpath("//#{table_xpath}/descendant::th[normalize-space(text())='#{header}']/@id")
+  table_xpath = table_id.nil? ? 'table' : "table[@id='#{table_id.gsub(/ /, '_')}' or @id='#{table_id.gsub(/ /, '-')}']"
+  table_header_cells = page.all(:xpath, "//#{table_xpath}/descendant::th[normalize-space(text())='#{header}']")
 
   unless optional_not.present?
     assert !table_header_cells.empty?, "could not find table header cell '#{header}'"
   end
-  header_id = body.xpath("//#{table_xpath}/descendant::th[normalize-space(text())='#{header}']/@id").first.try(:value)
+  header_id = table_header_cells.first['id']
 
   class_condition = row_classes.to_s.split(' ').map do |row_class|
     "contains(concat(' ', normalize-space(@class), ' '), ' #{row_class} ')"
   end.join(' and ')
   tr_xpath = class_condition.empty? ? 'ancestor::tr' : "ancestor::tr[#{class_condition}]"
-  xpath_result = body.xpath("//#{table_xpath}/descendant::td[@headers='#{header_id}'][normalize-space(text())='#{cell_content}']/#{tr_xpath}")
+  final_path = "//#{table_xpath}/descendant::td[@headers='#{header_id}'][normalize-space(text())='#{cell_content}']/#{tr_xpath}"
 
   if optional_not.present?
-    assert xpath_result.empty?, "Expected not find a row where #{header.inspect} is #{cell_content}."
+    assert page.has_no_xpath?(final_path), "Expected not find a row where #{header.inspect} is #{cell_content}."
   else
-    assert xpath_result.any?, "Expected to find at least one row where #{header.inspect} is #{cell_content}."
+    assert page.has_xpath?(final_path), "Expected to find at least one row where #{header.inspect} is #{cell_content}."
   end
 end
 
@@ -172,62 +170,52 @@ Then /^that (\w+) should have (\w+)s with the following attributes:$/ do |last, 
 end
 
 Then /^the title should be "([^"]+)"$/ do |title|
-  assert_select('title', title)
+  Then %Q{I should see "#{title}" within "title"}
 end
 
 # TODO: This is an almost duplicate step
 # Use the one with un-quoted 'thing' expression
 Then /^I should see (an?|the) "([^"]+)"$/ do |kind, thing|
   kind = { 'a' => '.', 'the' => '#' }[kind]
-  assert_select("#{kind}#{thing}")
+  assert page.has_css?("#{kind}#{thing}")
 end
 
 Then /^I should see a link "([^"]+)"$/ do |link|
   @last_link = link
-  assert_select('a', link)
+  assert page.has_css?('a', :text => link)
 end
 
 Then /^I should not see any ([a-z_ ]+)$/ do |type|
-  assert_select(".#{type.gsub(' ', '_').singularize}", :count => 0)
+  assert page.has_no_css?(".#{type.gsub(' ', '_').singularize}")
 end
 
+# FIXME: this step and the ones above do not deal with use perception
+#  for example: "I should see a fn0rd" looks nice, but users cannot see elements, only text
 Then /^I should see an? (\w+)$/ do |type|
-  assert_select(".#{type}")
+  assert page.has_css?(".#{type}")
 end
 
 Then /^I should see a "([^"]*)" select box with the following options:$/ do |name, options|
-  select = Webrat::Locators::FieldLocator.new(webrat, webrat.dom, 'products_order', Webrat::SelectField).locate!
-  actual = select.options.map(&:inner_text).uniq
+  field = find_field(name)
+  actual = field.all(:css, 'option').map {|o| o.text }
   expected = options.raw.flatten[1..-1] # ignores the first row
   assert_equal expected, actual
 end
 
-Then /^I should see an? (\w+) (?:titled|named) "([^"]+)"$/ do |type, text|
-  assert_select(".#{type} h2", text)
+Then /^I should see an? (\w+) (?:titled|named) "([^"]+)"$/ do |thingy, text|
+  Then %Q~I should see "#{text}" within ".#{thingy} h2"~
 end
 
-Then /^I should see an? (\w+) containing "([^"]+)"$/ do |type, text|
-  assert_select(".#{type}", /#{text}/)
-end
-
-# TODO: the sinature of this step should really be:
-# I should see 'foo' within 'bar'
-# However, the generic "within 'bar'" meta step uses 'within' which doesn't currently work with assertions
-# only with navigation ('click', 'press')
-Then /^the ([^"]+) should(?: (not))? contain "([^"]+)"$/ do |container_name, optional_negation, text|
-  container_id = container_name.gsub(' ', '_')
-  # 'within' doesn't currently work with assertions, so we need to resort to xpath
-  # within('#' + container_id) { assert_contain text }
-  assert(parsed_html.xpath("//*[@id=\"#{container_id}\"]").any?, "Could not find the #{container_name}")
-  assert(parsed_html.xpath("//*[@id=\"#{container_id}\"]/descendant::*[contains(normalize-space(text()), \"#{text}\")]").send(optional_negation ? :'none?' : :'any?'), "Could not see '#{text}' in the #{container_name}")
+Then /^I should see an? (\w+) containing "([^"]+)"$/ do |thingy, text|
+  Then %Q~I should see "#{text}" within ".#{thingy}"~
 end
 
 Then /^I should see an? (\w+) list$/ do |type|
-  assert_select(".#{type}.list")
+  assert page.has_css?(".#{type}.list")
 end
 
 Then /^I should see a list of (\w+)$/ do |type|
-  assert_select(".#{type}.list")
+  assert page.has_css?(".#{type}.list")
 end
 
 Then /^the (.*) list should display (.*)s in the following order:$/ do |list, model, values|
@@ -244,32 +232,35 @@ Then /^I should see an? ([a-z ]+) form$/ do |type|
   tokens = type.split(' ')
   types = [tokens.join('_'), tokens.reverse.join('_')]
   selectors = types.map { |type| "form.#{type}, form##{type}" }
-  assert_select(selectors.join(', '))
+  assert page.has_css?(selectors.join(', '))
 end
 
 Then /^I should not see an? ([a-z ]+) form$/ do |type|
   type = type.gsub(' ', '_') #.gsub(/edit_/, '')
-  assert_select("form.#{type}, form##{type}", :count => 0)
+  assert page.has_no_css?("form.#{type}, form##{type}")
 end
 
-Then /^I should see an? ([a-z ]+) form with the following values:$/ do |type, table|
-  type = type.gsub(' ', '_') #.gsub(/edit_/, '')
-  assert_select("form.#{type}, form##{type}") do |form|
+Then /^I should see an? ([a-z ]+) form with the following values:$/ do |kind, table|
+  with_scope("#{kind} form") do
     table.rows_hash.each do |name, value|
-      assert_equal value, webrat.current_scope.field_labeled(name).value
+      Then %Q~the "#{name}" field should contain "#{value}"~
     end
   end
 end
 
-Then /^I should see a "(.+)" table with the following entries:$/ do |table_id, expected_table|
-  actual_table = table(tableish("table##{table_id} tr", 'td,th'))
-  begin
-    diff_table = expected_table.dup
-    diff_table.diff!(actual_table.dup)
-  rescue
-    puts tables_differ_message(actual_table, expected_table, diff_table)
-    raise
+Then /^I should see a "(.+)" table with the following entries:$/ do |dom_id, expected|
+  actual = table(tableish("table##{dom_id} tr", 'th,td'))
+  expected.diff! actual
+end
+
+Then /^I should see a "(.+)" list with the following entries:$/ do |dom_id, expected|
+  value_selector = expected.column_names.map {|n| '.' + n.downcase.gsub(/[ _]/, '-') }.join(',')
+  list = tableish("ul##{dom_id} li", value_selector)
+  actual = table( [expected.column_names] + list )
+  actual.column_names.each do |col|
+    actual.map_column!(col) { |text| text.sub(/\n/,' ') }
   end
+  expected.diff! actual
 end
 
 Then /^I should see a "(.+)" table with the following entries in no particular order:$/ do |table_id, expected_table|
@@ -286,7 +277,7 @@ def tables_differ_message(actual, expected, diff = nil)
 end
 
 Then /^I should see the "([^"]+)" page$/ do |name|
-  assert_select('h2', name)
+  Then %Q~I should see "#{name}" within "h2"~
 end
 
 Then(/(?:\$|eval) (.*)$/) do |code|
@@ -302,13 +293,8 @@ Then /^I should not see a flash (error|notice) "(.+)"$/ do |message_type, messag
 end
 
 Then /^I should (see|not see) the error "([^"]+)" for attribute "([^"]+)" of the "([^"]+)"$/ do |should_see, error_msg, attribute, model|
-  if should_see == 'see' # ugh ...
-    assert_select "*[id*=#{model.downcase.gsub(' ', '_')}_#{attribute.downcase.gsub(' ', '_')}] + span.error",
-      :text => error_msg
-  elsif should_see == 'not see'
-    assert_select "*[id*=#{model.downcase.gsub(' ', '_')}_#{attribute.downcase.gsub(' ', '_')}] + span.error",
-      :text => error_msg, :count => 0
-  end
+  selector = "*[id*=#{model.downcase.gsub(' ', '_')}_#{attribute.downcase.gsub(' ', '_')}] + span.error"
+  Then %Q~I should #{should_see} "#{error_msg}" within "#{selector}"~
 end
 
 Then /^the following emails should have been sent:$/ do |expected_emails|
@@ -322,34 +308,27 @@ Then /^no emails should have been sent$/ do
 end
 
 Then /^"([^"]*)" should be filled in with "([^"]*)"$/ do |field, value|
-  field = webrat.field_labeled(field)
-  assert_equal value, field.value
+  field = find_field(field)
+  field_value = (field.tag_name == 'textarea') ? field.text : field.value
+  assert_equal(value, field_value)
 end
 
-Then /^"([^"]*)" should be checked$/ do |label|
-  field = webrat.field_labeled(label)
-  assert field.checked?, "expected the checkbox #{label} to be checked"
-end
-
-Then /^"([^"]*)" should not be checked$/ do |label|
-  field = webrat.field_labeled(label)
-  assert !field.checked?, "expected the checkbox #{label} not to be checked"
+Then /^"([^"]*)" should (be|not be) checked$/ do |label, be_or_not_to_be|
+  Then %Q{the "#{label}" checkbox should #{be_or_not_to_be} checked}
 end
 
 Then /^"([^"]*)" should be selected as "([^"]*)"$/ do |value, label|
-  select = webrat.field_labeled(label)
-  assert select, "count not find a select field labeled #{label}"
-  selected = select.element.xpath(".//option[@selected = 'selected']").first
-  assert selected, "could not find a selected option"
+  select_box = find_field(label)
+  selected = select_box.find(:xpath, ".//option[@selected = 'selected']")
   assert_equal value, selected.text
 end
 
 Then /^I should see "([^"]*)" formatted as a "([^"]*)" tag$/ do |value, tag|
-  assert_select(tag, value)
+  Then %Q~I should see "#{value}" within "#{tag}"~
 end
 
-Then(/^I should see (\d+|no|one|two|three) ([a-z ]+?)(?: in the ([a-z ]+))?$/) do |amount, item_class, container_id|
-  container_selector = container_id ? '#' + container_id.gsub(' ', '_') : nil
+# TODO remove the manual (?: in..) to leverage cucumber selectors
+Then(/^I should see (\d+|no|one|two|three) ([-a-z ]+?)(?: in (the [a-z -]+))?$/) do |amount, item_class, container|
   amount = case amount
     when 'no' then 0
     when 'one' then 1
@@ -358,13 +337,23 @@ Then(/^I should see (\d+|no|one|two|three) ([a-z ]+?)(?: in the ([a-z ]+))?$/) d
     else amount.to_i
   end
   item_selector = '.' + item_class.gsub(' ', '_').singularize
-  # assertions do not work with 'within' yet, so we need to resort to cancatenating selectors:
-  # container_selector ? within(container_selector) { assert_select(item_selector) } : assert_select(item_selector)
-  if container_selector
-    assert_select container_selector
-    assert_select [container_selector, item_selector].join(' '), amount
-  else
-    assert_select item_selector, amount
+  with_scope container do
+    assert page.has_css?(item_selector,:count => amount)
   end
 end
+
+Then /^the "([^"]*)" radio button should (be|not be) checked$/ do |label, be_or_not_to_be|
+  Then %Q~the "#{label}" checkbox should #{be_or_not_to_be} checked~
+end
+
+Then /^(?:|I )should not be on (.+)$/ do |page_name|
+  current_path = URI.parse(current_url).path
+  if current_path.respond_to? :should
+    current_path.should_not == path_to(page_name)
+  else
+    assert_not_equal path_to(page_name), current_path
+  end
+end
+
+
 

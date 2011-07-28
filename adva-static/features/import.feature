@@ -4,7 +4,7 @@ Feature: Running the import task
     Given an empty import directory "import"
     When I run the import task
     Then there should be an account
-     And there should be a site named "import"
+     And there should be a site named "Import"
      And there should be a page named "Home"
 
   Scenario: An import directory with a site source file

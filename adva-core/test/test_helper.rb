@@ -4,10 +4,10 @@ require 'test/unit'
 require 'test_declarative'
 require 'database_cleaner'
 require 'factory_girl'
-require 'ruby-debug'
 require 'mocha'
 require 'fakefs/safe'
 require 'stringio'
+require 'ruby-debug'
 
 ENV['RAILS_ENV'] = 'test'
 

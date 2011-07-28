@@ -62,12 +62,11 @@ module Adva
         namespace 'adva:static:server'
         desc 'Start the adva:static server and watcher'
         class_option :root, :required => false, :default => 'export'
+        class_option :env,  :required => false, :default => 'development'
+        class_option :port, :required => false, :default => '9292'
 
         def server
-          ARGV.shift
-          Dir.chdir(symbolized_options[:root])
-          require "rack"
-          ::Rack::Server.start
+          Adva::Static::Server.start(symbolized_options)
         end
       end
     end

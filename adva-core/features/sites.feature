@@ -2,7 +2,7 @@ Feature: Managing sites
 
   Background:
     Given a site
-    And I am signed in with "admin@admin.org" and "admin!"
+    And I am signed in with "admin@admin.org" and "secret"
 
   Scenario: Listing sites
     Given I am on the admin sites page
@@ -12,18 +12,18 @@ Feature: Managing sites
   Scenario: Creating a new site
     Given I am on the admin dashboard page
 
-    When I follow "New site"
+    When I follow "New Site"
     Then I should see a new site form
     When I fill in the following:
-      | name  | a site name    |
-      | title | brand new site |
-      | host  | localhost:3000 |
+      | Name  | a site name    |
+      | Title | brand new site |
+      | Host  | localhost:3000 |
      And I choose "Page"
-     And I fill in "Section name" with "Welcome to this Site"
+     And I fill in "Section Name" with "Welcome to this Site"
      And I press "Create"
     Then I should be on the admin dashboard page for the site on "localhost:3000"
 
-    When I follow "Settings" in the top menu
+    When I follow "Settings" within the top menu
     Then I should see an edit site form
     When I fill in "Name" with "An updated site"
      And I press "Update"

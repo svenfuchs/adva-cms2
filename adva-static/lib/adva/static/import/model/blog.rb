@@ -3,28 +3,22 @@ module Adva
     class Import
       module Model
         class Blog < Section
-          class << self
-            def recognize(sources)
-              return [] if sources.blank?
-
-              sources = Array(sources)
-              posts = sources.select { |source| Post.permalink?(source) }
-              posts = sources.map(&:directory).map(&:files).flatten.select { |s| Post.permalink?(s) } if posts.blank?
-
-              blogs = posts.map { |post| Post.new(post).section_source }.flatten.uniq
-              blogs = blogs.map { |blog| sources.detect { |source| blog.path == source.path } || blog }
-
-              sources.replace(sources - blogs - posts.map(&:self_and_parents).flatten)
-              blogs.map { |source| new(source) }
-            end
+          def update!
+            super
+            categories.each { |category| category.save! }
+            posts.each { |post| post.update! }
           end
 
           def attribute_names
-            @attribute_names ||= super + [:posts_attributes]
+            @attribute_names ||= super - [:categories, :posts]
           end
 
-          def posts_attributes
-            Post.recognize(source.files).map(&:attributes)
+          def categories
+            @categories ||= source.categories.map { |category| Category.new(:name => category, :section => record) }
+          end
+
+          def posts
+            @posts ||= source.posts.map { |post| Post.new(post, self) }
           end
         end
       end

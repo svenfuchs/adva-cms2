@@ -27,7 +27,7 @@ module Adva::Core::Paths
       polymorphic_path([:admin, :sites])
 
     when /^the admin dashboard page$/
-      site = Site.first
+      site = Site.first || raise("no site found")
       polymorphic_path([:admin, site])
 
     when /^the admin dashboard page for the site on "([^"]*)"$/
@@ -35,16 +35,16 @@ module Adva::Core::Paths
       polymorphic_path([:admin, site])
 
     when /^the admin sections page$/
-      site = Site.first
+      site = Site.first || raise("no site found")
       polymorphic_path([:admin, site, :sections])
 
     when /^the admin "([^"]*)" section page$/
-      site = Site.first
+      site = Site.first || raise("no site found")
       section = Section.where(:name => $1).first || raise("could not find section named #{$1}")
       polymorphic_path([:admin, site, section])
 
     when /^the admin "([^"]*)" section settings page$/
-      site = Site.first
+      site = Site.first || raise("no site found")
       section = Section.where(:name => $1).first || raise("could not find section named #{$1}")
       polymorphic_path([:edit, :admin, site, section])
 

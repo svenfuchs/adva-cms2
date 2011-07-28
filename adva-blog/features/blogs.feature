@@ -8,7 +8,7 @@ Feature: Managing blogs
     And the following posts:
       | section | title      | body      |
       | Blog    | Post title | Post body |
-    And I am signed in with "admin@admin.org" and "admin!"
+    And I am signed in with "admin@admin.org" and "secret"
     And I am on the admin sections page
 
   Scenario: Listing blogs as sections
@@ -38,8 +38,8 @@ Feature: Managing blogs
     Then the title should be "Blogs: New"
      And the "Blog" radio button should be checked
      And I should see a new blog form
-    When I fill in "name" with "<name>"
-     And I press "Create blog"
+    When I fill in "Name" with "<name>"
+     And I press "Create Blog"
     Then I should see "<message>"
      And I should see "<name>"
      And I should see <result>
@@ -54,10 +54,10 @@ Feature: Managing blogs
     Then the title should be "Blogs: Edit"
     Then I should see an edit blog form
     When I fill in "Name" with "<name>"
-     And I press "Update blog"
+     And I press "Update Blog"
     Then I should see "<message>"
      And I should see an edit blog form
-     And "name" should be filled in with "<name>"
+     And "Name" should be filled in with "<name>"
     Examples:
       | name         | message                   |
       | Updated name | Blog successfully updated |

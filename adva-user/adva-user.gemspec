@@ -6,7 +6,7 @@ require 'adva_user/version'
 Gem::Specification.new do |s|
   s.name         = "adva-user"
   s.version      = AdvaUser::VERSION
-  s.authors      = ["Ingo Weiss", "Sven Fuchs"]
+  s.authors      = ["Sven Fuchs", "Ingo Weiss", "Raphaela Wrede", "Matthias Viehweger", "Niklas Hofer", "Chris Floess", "Johannes Strampe"]
   s.email        = "nobody@adva-cms.org"
   s.homepage     = "http://github.com/svenfuchs/adva-cms2"
   s.summary      = "User engine for adva-cms2"
@@ -18,5 +18,5 @@ Gem::Specification.new do |s|
   s.rubyforge_project = '[none]'
   
   s.add_dependency 'adva-core'
-  s.add_dependency 'devise', '1.1.2'
+  s.add_dependency 'devise', '1.3.4'
 end

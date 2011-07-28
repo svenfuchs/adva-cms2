@@ -7,7 +7,7 @@ Feature: Managing posts
     And the following posts:
       | section | title      | body      |
       | Blog    | Post title | Post body |
-    And I am signed in with "admin@admin.org" and "admin!"
+    And I am signed in with "admin@admin.org" and "secret"
     And I am on the admin "Blog" section page
 
   Scenario: Listing posts
@@ -33,13 +33,13 @@ Feature: Managing posts
     Then the title should be "Posts: New"
      And I should see a new post form
     When I fill in the following:
-      | title | <title> |
-      | body  | <body>  |
-     And I press "Create post"
+      | Title | <title> |
+      | Body  | <body>  |
+     And I press "Create Post"
     Then I should see "<message>"
      And I should see an <action> post form with the following values:
-      | title | <title> |
-      | body  | <body>  |
+      | Title | <title> |
+      | Body  | <body>  |
     Examples:
       | title          | body          | message                   | action |
       | New post title | New post body | Post successfully created | edit   |
@@ -51,13 +51,13 @@ Feature: Managing posts
     Then the title should be "Posts: Edit"
     Then I should see an edit post form
     When I fill in the following:
-      | title | <title> |
-      | body  | <body>  |
-     And I press "Update post"
+      | Title | <title> |
+      | Body  | <body>  |
+     And I press "Update Post"
     Then I should see "<message>"
      And I should see a edit post form with the following values:
-      | title | <title> |
-      | body  | <body>  |
+      | Title | <title> |
+      | Body  | <body>  |
     Examples:
       | title              | body              | message                   |
       | Updated post title | Updated post body | Post successfully updated |

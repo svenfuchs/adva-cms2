@@ -3,52 +3,28 @@ module Adva
     class Import
       module Model
         class Site < Base
-          class << self
-            def recognize(sources)
-              sources.map { |source| new(sources.delete(source).root) if source.path == 'site' }.compact
-            end
-          end
+          delegate :host, :to => :'source.data'
 
-          def initialize(root)
-            super(Source.new('', root))
-          end
-
-          def attribute_names
-            @attribute_names ||= [:account, :host, :name, :title, :sections_attributes]
+          def update!
+            record.account = Account.first || Account.create
+            super
+            sections.each { |section| section.update! }
           end
 
           def record
             @record ||= model.find_or_initialize_by_host(host)
           end
 
-          def host
-            @host ||= File.basename(source.root)
-          end
-
-          def name
-            @name ||= host
-          end
-
-          def title
-            @title ||= name
-          end
-
-          def account
-            @account ||= ::Account.first || ::Account.new
-          end
-
-          def sections_attributes
-            sections.map(&:attributes)
+          def attribute_names
+            @attribute_names ||= (super | [:host, :name, :title]) - [:sections]
           end
 
           def sections
-            @sections ||= Section.recognize(source.files).tap do |sections|
-              sections << Page.new(Source.new('index', source.root).find_or_self) if sections.empty?
+            @sections ||= begin
+              sections = source.sections.map { |section| Model.build(section, self) }
+              sections << Page.new(source.path) if sections.empty?
+              sections
             end
-          end
-
-          def loadable
-            @loadable ||= Source.new('site', source.root).find_or_self.full_path
           end
         end
       end

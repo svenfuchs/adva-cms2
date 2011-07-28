@@ -19,6 +19,7 @@ module Adva
       end
 
       def load_cucumber_support
+        load_all('lib/testing/support')
         load_all('lib/testing/step_definitions')
         load_all('lib/testing/paths')
       end

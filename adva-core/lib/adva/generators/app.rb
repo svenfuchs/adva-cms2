@@ -11,7 +11,7 @@ module Adva
   module Generators
     class App
       DEFAULT_OPTIONS = {
-        :source    => File.expand_path('../../../../..', __FILE__),
+        :core_dir  => File.expand_path('../../../..', __FILE__),
         :target    => File.expand_path('.'),
         :template  => File.expand_path('../templates/app/app_template.rb', __FILE__),
         :engines   => [:all],
@@ -21,13 +21,13 @@ module Adva
         :force     => false
       }
 
-      def initialize(name, options = {}, &block)
+      def initialize(name, options = {})
         @options = options.reverse_merge!(DEFAULT_OPTIONS)
-        @name    = name || File.basename(source)
-        raise ArgumentError, "#{source.inspect} is not a directory" unless File.directory?(source)
+        @name    = name || File.basename( File.expand_path('../', core_dir) )
+        raise ArgumentError, "#{core_dir.inspect} is not a directory" unless File.directory?(core_dir)
       end
 
-      def invoke
+      def invoke(&block)
         if force? || build?
           build
           generate_resources  if generate_resources?
@@ -44,7 +44,7 @@ module Adva
       protected
 
         attr_reader :name
-        option_reader :source, :target, :template, :engines, :resources, :migrate, :bundle, :force
+        option_reader :core_dir, :target, :template, :engines, :resources, :migrate, :bundle, :force
 
         def root
           "#{target}/#{name}"
@@ -57,8 +57,7 @@ module Adva
             options = force? || ENV.key?('REGENERATE_APP') ? ['-f'] : []
             generator = Rails::Generators::AppGenerator.new([root], options, :shell => shell)
             generator.invoke_all
-            generator.apply(template, :source => Pathname.new(source))
-            FileUtils.cp("#{source}/Thorfile", "#{root}/Thorfile")
+            generator.apply(template, :adva_core => Pathname.new(core_dir))
           end
         end
 

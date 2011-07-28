@@ -154,11 +154,15 @@ TableTree.Table.prototype = jQuery.extend(new TableTree.Base(), {
 		_this = this;
 
 		this.show_spinner(row);
+
+    var dataArray = jQuery.extend(this.serialize(row), { '_method': 'put' });
+    var csrfParam = $('meta[name=csrf-param]').attr('content');
+    dataArray[csrfParam] = $('meta[name=csrf-token]').attr('content');
 		$.ajax({
 		  type: "POST",
 			url: this.remote_url,
       dataType: 'json',
-			data: jQuery.extend(this.serialize(row), { authenticity_token: window._auth_token, '_method': 'put' }),
+			data: dataArray,
 			success: function(msg) { _this.hide_spinner(row); },
 			error:   function(msg) { _this.hide_spinner(row); }
 		});

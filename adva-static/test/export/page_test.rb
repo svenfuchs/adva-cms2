@@ -14,7 +14,7 @@ module AdvaStatic
           </body>
         </html>
       html
-      assert_equal %w(/foo.html /styles.css /script.js), page.urls
+      assert_equal %w(/foo.html /script.js /styles.css), page.urls.sort
     end
   end
 end

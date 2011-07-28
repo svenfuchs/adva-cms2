@@ -48,8 +48,8 @@ class User::Form < Adva::View::Form
       capture { link_to(:'user.links.sign_in', new_session_path(resource_name), :class => :sign_in) }
     end
 
-    def sign_up_link
-      capture { link_to(:'user.links.sign_up', new_registration_path(resource_name), :class => :sign_up) }
+    def sign_up_link(options={}, html_options={})
+      capture { link_to(:'user.links.sign_up', new_registration_path(resource_name, options), { :class => :sign_up }.merge(html_options)) }
     end
 
     def forgot_password_link

@@ -3,46 +3,40 @@ module Adva
     class Import
       module Model
         class Section < Base
-          class << self
-            def types
-              [Blog, Page]
-            end
+          attr_reader :parent
 
-            def recognize(sources)
-              types.map { |type| type.recognize(sources) }.flatten.compact.sort
-            end
-          end
-
-          def attribute_names
-            @attribute_names ||= [:site_id, :type, :name, :slug, :path]
+          def initialize(source, site = nil, parent = nil)
+            super(source)
+            @site = site
+            @parent = parent
           end
 
           def record
-            @record ||= site.send(model.name.underscore.pluralize).find_or_initialize_by_path(path)
+            @record ||= model.find_or_initialize_by_slug(source.data.slug)
           end
 
-          def site
-            @site ||= Site.new(source.root).record
+          def attribute_names
+            @attribute_names ||= super | [:site_id, :parent_id, :type, :name, :slug]
           end
 
           def type
-            model.name
+            model_name
           end
 
-          def name
-            @name ||= source.root? ? 'Home' : source.basename.titleize
+          def site
+            @site ||= Site.new(source.path.root)
           end
 
-          def slug
-            @slug ||= source.root? ? SimpleSlugs::Slug.new(name) : super
+          def site_id
+            site && site.record.persisted? ? site.record.id.to_s : nil
           end
 
-          def path
-            @path ||= source.root? ? slug : super
+          def parent
+            @parent ||= source.path.root? || source.path.parent.root? ? nil : Section.new(source.path.parent)
           end
 
-          def loadable
-            @loadable ||= source.root? ? Source.new('index', source.root).find_or_self.full_path : source.full_path
+          def parent_id
+            parent && parent.record.persisted? ? parent.record.id.to_s : nil
           end
         end
       end

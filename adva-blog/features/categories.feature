@@ -11,7 +11,7 @@ Feature: Managing blog categories
         | Blog    |             | Uncategorized post     |
         | Blog    | Programming | Post about programming |
         | Blog    | Design      | Post about design      |
-    Given I am signed in with "admin@admin.org" and "admin!"
+    Given I am signed in with "admin@admin.org" and "secret"
       And I am on the admin "Blog" section categories page
 
   Scenario: Viewing blog post index page filtered by a catagory
@@ -25,10 +25,10 @@ Feature: Managing blog categories
     When I follow "New"
     Then I should see a new category form
     When I fill in "Name" with "<name>"
-     And I press "Create category"
+     And I press "Create Category"
     Then I should see "<message>"
      And I should see an <action> category form with the following values:
-      | name | <name> |
+      | Name | <name> |
     When I follow "Categories"
     Then I should see a categories list
      And I should see "<name>"
@@ -41,10 +41,10 @@ Feature: Managing blog categories
     When I follow "Programming"
     Then I should see an edit category form
     When I fill in "Name" with "<name>"
-     And I press "Update category"
+     And I press "Update Category"
     Then I should see "<message>"
      And I should see a edit category form with the following values:
-      | name | <name> |
+      | Name | <name> |
     When I follow "Categories"
     Then I should see a categories list
      And I should see "<name>"
@@ -56,6 +56,7 @@ Feature: Managing blog categories
   Scenario: Deleting a category from the admin categories list
     When I follow "Delete" within the "Programming" row
     Then I should see "Category successfully deleted"
+     And I should be on the admin "Blog" section categories page
      And I should see a categories list
      But I should not see "Programming"
 
@@ -63,11 +64,12 @@ Feature: Managing blog categories
     When I follow "Programming"
     When I follow "Delete"
     Then I should see "Category successfully deleted"
+     And I should be on the admin "Blog" section categories page
      And I should see a categories list
      But I should not see "Programming"
 
   Scenario: Sorting a blog's categories
-    When I drag the category "Programming" below the category "Miscellaneous"
+    When I drag the category "Programming" behind the category "Miscellaneous"
     Then I should see a "categories" table with the following entries:
       | Category      |
       | Design        |

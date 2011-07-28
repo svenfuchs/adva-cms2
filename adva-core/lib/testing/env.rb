@@ -7,16 +7,8 @@ name = "#{File.basename(Dir.pwd)}-test"
 app = Adva::Generators::App.new(name, :target => '/tmp', :migrate => true)
 app.invoke
 
-Gem.patching('webrat', '0.7.2') do
-  ActionController.send(:remove_const, :AbstractRequest)
-end
-
 require 'cucumber/rails/world'
-require 'cucumber/rails/active_record'
 require 'cucumber/web/tableish'
-require 'webrat'
-require 'webrat/core/matchers'
-require 'patches/webrat/logger'
 require 'test/unit/assertions'
 require 'action_dispatch/testing/assertions'
 require 'factory_girl'
@@ -27,13 +19,27 @@ Adva::Testing.load_cucumber_support
 Adva::Testing.load_assertions
 Adva::Testing.load_helpers
 
-Webrat.configure do |config|
-  config.mode = :rails
-  config.open_error_files = false
+require 'capybara/rails'
+require 'capybara/cucumber'
+Capybara.default_selector = :css
+Capybara.default_wait_time = 5
+World(Capybara)
+
+
+require 'database_cleaner'
+require 'database_cleaner/cucumber'
+DatabaseCleaner.strategy = :transaction
+DatabaseCleaner.clean_with :truncation
+
+# Fix undefined method `add_assertion' for nil:NilClass for all assertions
+# https://github.com/aslakhellesoy/cucumber-rails/issues/97
+if RUBY_VERSION =~ /1.8/
+  require 'test/unit/testresult'
+  Test::Unit.run = true
 end
 
-ActionController::Base.allow_rescue = false
-Cucumber::Rails::World.use_transactional_fixtures = true
+#ActionController::Base.allow_rescue = false
+#Cucumber::Rails::World.use_transactional_fixtures = true
 Rails.backtrace_cleaner.remove_silencers!
 
 World(GlobalHelpers)

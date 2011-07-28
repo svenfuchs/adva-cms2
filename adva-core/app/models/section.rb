@@ -40,10 +40,4 @@ class Section < ActiveRecord::Base
     default << 'id' unless self.class.primary_key.eql? 'id'
     default
   end
-
-  protected
-
-    def _path
-      read_attribute(:path)
-    end
 end
