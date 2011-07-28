@@ -6,7 +6,7 @@ require 'adva_user/version'
 Gem::Specification.new do |s|
   s.name         = "adva-user"
   s.version      = AdvaUser::VERSION
-  s.authors      = ["Ingo Weiss", "Sven Fuchs"]
+  s.authors      = ["Sven Fuchs", "Ingo Weiss", "Raphaela Wrede", "Matthias Viehweger", "Niklas Hofer", "Chris Floess", "Johannes Strampe"]
   s.email        = "nobody@adva-cms.org"
   s.homepage     = "http://github.com/svenfuchs/adva-cms2"
   s.summary      = "User engine for adva-cms2"

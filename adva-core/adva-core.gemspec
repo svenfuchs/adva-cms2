@@ -6,7 +6,7 @@ require 'adva_core/version'
 Gem::Specification.new do |s|
   s.name         = "adva-core"
   s.version      = AdvaCore::VERSION
-  s.authors      = ["Ingo Weiss", "Sven Fuchs"]
+  s.authors      = ["Sven Fuchs", "Ingo Weiss", "Raphaela Wrede", "Matthias Viehweger", "Niklas Hofer", "Chris Floess", "Johannes Strampe"]
   s.email        = "nobody@adva-cms.org"
   s.homepage     = "http://github.com/svenfuchs/adva-cms2"
   s.summary      = "Core engine for adva-cms2"
@@ -33,4 +33,6 @@ Gem::Specification.new do |s|
   s.add_dependency 'kronn-has_many_polymorphs', '3.0.2'
   s.add_dependency 'i18n-missing_translations', '0.0.1'
   s.add_dependency 'silence_log_tailer', '0.0.1'
+
+  s.add_development_dependency 'sqlite3', '1.3.4'
 end
