@@ -21,7 +21,7 @@ module Adva
           def trigger
             events.each do |path, event|
               changed(true)
-              notify_observers(path, event)
+              notify_observers(path.dup, event)
             end
           end
 
