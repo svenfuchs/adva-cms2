@@ -28,7 +28,7 @@ module Adva
         roots = config[:roots] || %w(/)
         queue.push(*roots.map { |path| Path.new(path) })
 
-        FileUtils.rm_r(Dir[target.join('*')])
+        FileUtils.rm_r(Dir[target.join('*')] - [target.join('config.ru').to_s])
       end
 
       def run
