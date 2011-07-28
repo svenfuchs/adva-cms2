@@ -16,7 +16,7 @@ module Adva
           end
 
           def attribute_names
-            @attribute_names ||= [:host, :name, :title] # :account,
+            @attribute_names ||= (super | [:host, :name, :title]) - [:sections]
           end
 
           def sections

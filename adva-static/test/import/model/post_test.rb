@@ -26,8 +26,10 @@ module AdvaStatic
       assert post.record.persisted?
     end
 
-    test "adds categories" do
-
+    test "adds arbitrary attributes from metadata" do
+      setup_file '2010-10-10-post.yml', YAML.dump(:guid => '12345')
+      post = Post.new(import_dir.join('2010-10-10-post.yml'))
+      assert_equal '12345', post.attributes[:guid]
     end
   end
 end

@@ -17,7 +17,7 @@ module Adva
           end
 
           def attribute_names
-            @attribute_names ||= [:section_id, :title, :body, :slug, :published_at, :filter, :categories] # , :categorizations_attributes
+            @attribute_names ||= super | [:section_id, :title, :body, :slug, :published_at, :filter, :categories]
           end
 
           def section

@@ -137,6 +137,11 @@ module AdvaStatic
     test "permalink_paths returns the path and all ancestors from the permalink" do
       assert_equal %w(2010 2010/10 2010/10/10 2010/10/10/post.yml), Post.new(import_dir.join('2010/10/10/post.yml')).permalink_paths.map(&:local).map(&:to_s)
     end
+
+    test "adds arbitrary attributes from metadata" do
+      setup_file '2010-10-10-post.yml', YAML.dump(:guid => '12345')
+      assert_equal '12345', Post.new(import_dir.join('2010-10-10-post.yml')).data.guid
+    end
   end
 end
 

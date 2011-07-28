@@ -4,7 +4,7 @@ module Adva
       module Model
         class Page < Section
           def attribute_names
-            @attribute_names ||= super + [:body]
+            @attribute_names ||= super | [:body]
           end
         end
       end

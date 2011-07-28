@@ -9,6 +9,10 @@ module Adva
             posts.each { |post| post.update! }
           end
 
+          def attribute_names
+            @attribute_names ||= super - [:categories, :posts]
+          end
+
           def categories
             @categories ||= source.categories.map { |category| Category.new(:name => category, :section => record) }
           end

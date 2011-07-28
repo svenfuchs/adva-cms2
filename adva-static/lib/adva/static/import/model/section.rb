@@ -16,7 +16,7 @@ module Adva
           end
 
           def attribute_names
-            @attribute_names ||= [:site_id, :parent_id, :type, :name, :slug]
+            @attribute_names ||= super | [:site_id, :parent_id, :type, :name, :slug]
           end
 
           def type

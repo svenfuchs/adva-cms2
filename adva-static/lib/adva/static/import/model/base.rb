@@ -25,6 +25,10 @@ module Adva
             record && record.id ? attributes.merge(:id => record.id.to_s) : attributes
           end
 
+          def attribute_names
+            source.data.keys
+          end
+
           def attribute_value(name)
             respond_to?(name) ? self.send(name) : source.data.send(name)
           end
