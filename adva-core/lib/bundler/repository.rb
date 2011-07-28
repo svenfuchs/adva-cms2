@@ -22,9 +22,9 @@ require 'pathname'
 #   # The gem definition will now be proxied to Bundler with arguments according
 #   # to the setup defined earlier. E.g. as:
 #
-#   gem 'adva-core', :path => 'Development/projects/adva-cms2/adva-core'                 # for developer 'sven'
+#   gem 'adva-core', :path => 'Development/projects/adva-cms2'                           # for developer 'sven'
 #   gem 'adva-core', :git => 'git@github.com:svenfuchs/adva-cms2.git', :ref => 'c2af0de' # for other developers
-#   gem 'adva-catalog', :path => 'Development/projects/adva-shop/adva-catalog'           # for all developers
+#   gem 'adva-catalog', :path => 'Development/projects/adva-shop'                        # for all developers
 #
 #  One can also set an environment variable FORCE_REMOTE which will force remote
 #  repositories to be used *except* when a repository was defined with :source => :local
@@ -59,8 +59,7 @@ class Repository
   class Gem < Array
     def initialize(name, repository)
       if repository.local?
-        sub_path = repository.path.join(name)
-        super([name, { :path => sub_path.exist? ? sub_path.to_s : repository.path.to_s }])
+        super([name, { :path => repository.path.to_s }])
       else
         super([name, repository.options.dup])
       end
