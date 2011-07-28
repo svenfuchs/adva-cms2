@@ -10,7 +10,7 @@ Gem::Specification.new do |s|
   s.email        = "nobody@adva-cms.org"
   s.homepage     = "http://github.com/svenfuchs/adva-cms2"
   s.summary      = "Markup engine for adva-cms2"
-  s.description  = "Markup engine for adva-cms2"
+  s.description  = "Markup engine for adva-cms2."
 
   s.files        = Dir['{app,config,lib,public}/**/*']
   s.platform     = Gem::Platform::RUBY
