@@ -12,12 +12,17 @@ module Adva
             @section = section
           end
 
+          def update!
+            super
+            record.update_attributes!(:categories => categories)
+          end
+
           def record
             @record ||= ::Post.by_permalink(*permalink).first || ::Post.new
           end
 
           def attribute_names
-            @attribute_names ||= super | [:site_id, :section_id, :title, :body, :slug, :published_at, :filter, :categories]
+            @attribute_names ||= (super | [:site_id, :section_id, :title, :body, :slug, :published_at, :filter]) - [:categories]
           end
 
           def site
@@ -37,7 +42,7 @@ module Adva
           end
 
           def categories
-            @categories ||= source.data.categories.map { |name| Category.find_or_initialize_by_name(name, :section_id => section.record.id) }
+            @categories ||= source.data.categories.map { |name| Category.find_or_create_by_name(name, :section_id => section.record.id) }
           end
         end
       end
