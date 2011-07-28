@@ -1,0 +1,7 @@
+require 'adva-core'
+require 'adva-blog'
+require 'adva-cache'
+require 'adva-categories'
+require 'adva-markup'
+require 'adva-static'
+require 'adva-user'
