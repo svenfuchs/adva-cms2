@@ -1,4 +1,8 @@
 require 'adva/core'
+require 'adva/blog'
+require 'adva/cache'
+require 'adva/categories'
+require 'adva/markup'
 
 module Adva
   class Static < ::Rails::Engine
