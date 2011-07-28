@@ -1,10 +1,12 @@
 Given /^an empty import directory "([^"]+)"$/ do |name|
   @import_dir = Pathname.new("/tmp/adva-static-test/import/#{name}")
+  import_dir.rmtree if import_dir.exist?
   import_dir.mkpath
 end
 
 Given /^an empty export directory$/ do
   @export_dir = Pathname.new("/tmp/adva-static-test/export")
+  export_dir.rmtree if export_dir.exist?
   export_dir.mkpath
 end
 
