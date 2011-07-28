@@ -20,6 +20,7 @@ end
 
 Given /^the following source files:$/ do |table|
   table.hashes.each do |hash|
+    hash = Hash[*hash.map { |key, value| [key, value] unless value.blank? }.compact.flatten]
     setup_files([hash.delete('file'), YAML.dump(hash)])
   end
 end
