@@ -6,7 +6,7 @@ Feature: Signing in
      | Page | Home |
 
   Scenario: Signing with valid email and password
-    Given I sign in with "admin@admin.org" and "secret"
+    Given I sign in as admin
     Then I should be signed in
 
   Scenario: Signing with invalid email and password

@@ -1,4 +1,5 @@
 Feature: Managing blog categories
+
   Background:
     Given a site with a blog named "Blog"
       And the following categories:
@@ -11,7 +12,7 @@ Feature: Managing blog categories
         | Blog    |             | Uncategorized post     |
         | Blog    | Programming | Post about programming |
         | Blog    | Design      | Post about design      |
-    Given I am signed in with "admin@admin.org" and "secret"
+    Given I am signed in as admin
       And I am on the admin "Blog" section categories page
 
   Scenario: Viewing blog post index page filtered by a catagory

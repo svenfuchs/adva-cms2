@@ -1,4 +1,5 @@
 Feature: Purging tagged entries from the cache
+
   Background:
     Given a site with the following sections:
        | id | type | name |
@@ -10,7 +11,7 @@ Feature: Purging tagged entries from the cache
      And I have visited /
      And I have visited /blog
      And I have visited /blog/2010/01/01/post-title
-     And I am signed in with "admin@admin.org" and "secret"
+     And I am signed in as admin
      And I don't follow any http redirects
 
   Scenario: Updating a site purges cache entries

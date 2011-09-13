@@ -12,7 +12,6 @@ Factory.define :site do |f|
     :name => 'Home',
     :body => 'body'
   }]
-  f.after_create { |site| Factory(:admin) }
 end
 
 Factory.define :section do |f|

@@ -33,10 +33,7 @@ module TestHelper
         # because the password for the admin is hardcoded in adva-static//request
         # and the admin is created automatically with a different password we
         # have to override this here
-        admin = User.find_by_email( 'admin@admin.org' )
-        admin.password = 'admin!'
-        admin.password_confirmation = 'admin!'
-        admin.save!
+        Factory(:admin, :password => 'admin!')
       end
     end
 
