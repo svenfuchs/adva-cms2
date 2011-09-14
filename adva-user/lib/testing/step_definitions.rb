@@ -8,8 +8,7 @@ Given /^I (?:am signed|sign) in with "([^"]*)" and "([^"]*)"$/ do |email, passwo
 end
 
 Given /a confirmed user with email "([^"]+)" and password "([^"]+)"/ do |email, password|
-  user = User.without_callbacks.create!(:email => email, :password => password)
-  user.confirm!
+  Factory :user, :email => email, :password => password
 end
 
 Then 'I should be signed in' do
