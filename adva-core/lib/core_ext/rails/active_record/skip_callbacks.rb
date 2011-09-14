@@ -31,6 +31,11 @@ ActiveRecord::Base.class_eval do
     end
 
     def deactivate_callbacks(*types)
+      # Apart from causing errors, this does not make any sense at all. Ever.
+      # E.g. if the block fails (see skip_callbacks), the callbacks are never reactivated
+      # And: If you have any domain knowledge in your callbacks, this will change behaviour.
+      # So: This is wrong on (oh) so many levels. plz don't use it. KTHXBAI
+      raise StronglyDeprecatedCodeError, 'this causes "NoMethodError: super called outside of method"'
       types = [:save, :create, :update, :destroy, :touch] if types.empty?
       types.each do |type|
         name = :"_run_#{type}_callbacks"

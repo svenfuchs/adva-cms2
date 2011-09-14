@@ -100,3 +100,14 @@ module Adva
     end
   end
 end
+
+# Wether some code needs to be implemented or should not be implemented, is
+# like to be the subject of an argmument.
+class NotToBeImplementedError < ArgumentError
+end
+
+# Resulting from the decision that something should not be implemented we get
+# a deprecation if some code exists. Furthermore, if the code has potentially
+# dangerous side effects.
+class StronglyDeprecatedCodeError < NotToBeImplementedError
+end

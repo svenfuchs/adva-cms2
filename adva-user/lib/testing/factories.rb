@@ -3,8 +3,7 @@ Factory::DefaultPassword = 'secret'
 Factory.define :user, :class => User do |f|
   f.sequence(:email) { |n| "user-#{n}@example.com" }
   f.password Factory::DefaultPassword
-  f.after_build  { |user| User.deactivate_callbacks }
-  f.after_create { |user| user.confirm!; User.activate_callbacks }
+  f.after_create { |user| user.confirm! }
 end
 
 Factory.define :admin, :parent => :user do |f|
