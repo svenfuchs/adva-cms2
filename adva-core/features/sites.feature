@@ -2,7 +2,7 @@ Feature: Managing sites
 
   Background:
     Given a site
-    And I am signed in with "admin@admin.org" and "secret"
+    And I am signed in as admin
 
   Scenario: Listing sites
     Given I am on the admin sites page

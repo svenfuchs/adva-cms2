@@ -23,17 +23,13 @@ class Installations::New < Adva::View::Form
           s.label :"type_#{value.underscore}", name, :class => :inline
         end
       end
-    end
 
-    # f.field_set :admin_account do
-    #   fields_for @user do |user|
-    #     column do
-    #       user.text_field :email, :label => true, :tabindex => 3
-    #     end
-    #     column do
-    #       user.password_field :password, :label => true, :tabindex => 4
-    #     end
-    #   end
-    # end
+      form.simple_fields_for :account do |account|
+        account.simple_fields_for :users do |user|
+          user.text_field :email, :label => true
+          user.password_field :password, :label => true
+        end
+      end
+    end
   end
 end

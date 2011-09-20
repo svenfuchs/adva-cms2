@@ -1,0 +1,1 @@
+make adva-core independent of adva-user, but make adva-user depend on adva-core

@@ -10,11 +10,7 @@ class Site < ActiveRecord::Base
 
   class << self
     def install(params)
-      User.skip_callbacks do # TODO [user dependency] move to adva-user
-        site = Site.create!(params[:site])
-        site.account.users.first.confirm!
-        site
-      end
+      Site.create!(params[:site])
     end
 
     def by_host(host)

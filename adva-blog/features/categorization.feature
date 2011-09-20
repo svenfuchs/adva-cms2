@@ -1,4 +1,5 @@
 Feature: Categorizing blog posts
+
   Background:
     Given a site with a blog named "Blog"
       And the following categories:
@@ -13,7 +14,7 @@ Feature: Categorizing blog posts
         | Blog    | Programming | Post about programming |
         | Blog    | Ruby        | Post about ruby        |
         | Blog    | Design      | Post about design      |
-    Given I am signed in with "admin@admin.org" and "secret"
+    Given I am signed in as admin
      And I am on the admin "Blog" section page
 
   Scenario: Categorizing an uncategorized post

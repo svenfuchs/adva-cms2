@@ -11,6 +11,7 @@ Feature: Reset Password
        | email              |
        | jarjar@example.com |
       And I am on the sign in page
+      And a clear email queue
 
   Scenario: Resetting a password
      When I follow "Forgot password"
