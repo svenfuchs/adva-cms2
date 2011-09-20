@@ -5,7 +5,7 @@ Feature: Menus
       | type | name |
       | Page | Home |
       | Blog | Home |
-    And I am signed in with "admin@admin.org" and "secret"
+    And I am signed in as admin
 
   Scenario: Admin Sites
     When I go to the admin sites page

@@ -9,7 +9,7 @@ Feature: Menus
       | section | name        |
       | Blog    | Programming |
       | Blog    | Design      |
-    And I am signed in with "admin@admin.org" and "secret"
+    And I am signed in as admin
 
   Scenario: Admin Blogs
     When I go to the admin "Blog" section settings page
