@@ -27,14 +27,7 @@ module TestHelper
     end
 
     def setup_site_record
-      Factory(:site, :host => 'ruby-i18n.org').tap do |site|
-        # FIXME this stinks. make static export authentication possible without saving the password anywhere.
-        #
-        # because the password for the admin is hardcoded in adva-static//request
-        # and the admin is created automatically with a different password we
-        # have to override this here
-        Factory(:admin, :password => 'admin!')
-      end
+      Factory(:site, :host => 'ruby-i18n.org')
     end
 
     def setup_root_page_record
