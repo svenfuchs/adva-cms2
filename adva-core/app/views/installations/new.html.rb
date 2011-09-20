@@ -25,7 +25,7 @@ class Installations::New < Adva::View::Form
       end
 
       form.simple_fields_for :account do |account|
-        account.simple_fields_for :user do |user|
+        account.simple_fields_for :users do |user|
           user.text_field :email, :label => true
           user.password_field :password, :label => true
         end
