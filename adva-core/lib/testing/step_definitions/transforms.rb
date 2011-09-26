@@ -19,7 +19,7 @@ end
 objectify = lambda do |table|
   types = Section.types.map(&:underscore) << 'section' << 'site'
   sections = table.headers.select { |header| types.include?(header) }
-  sections.each { |key| table.map_column!(key) { |value| key.gsub('_id', '').classify.constantize.find_by_name(value) } }
+  sections.each { |key| table.map_column!(key) { |value| key.gsub('_id', '').classify.constantize.find_by_name(value) || value } }
   table.transpose
 end
 
@@ -32,7 +32,7 @@ foreign_keyify = lambda do |table|
   keys.each do |key|
     table.map_column!(key) do |value|
       klass = TRANSFORM_FOREIGN_KEY_MAP[key] || key.gsub('_id', '').classify.constantize
-      Array(klass.find_by_name(value)).first.try(:id).to_s
+      ( Array(klass.find_by_name(value)).first.try(:id) || value).to_s
     end
   end
   table.transpose
