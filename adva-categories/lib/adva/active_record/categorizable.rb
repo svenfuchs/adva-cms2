@@ -15,9 +15,14 @@ module Adva
 
     module ClassMethods
       def categorized(category_id)
+        return uncategorized if category_id == 0
         category     = Category.find(category_id)
         category_ids = category.self_and_descendants.map(&:id)
         includes(:categorizations).where(:categorizations => { :category_id => category_ids })
+      end
+
+      def uncategorized
+        where( "0 = (#{Categorization.subselectively_count_categories_for(self).to_sql})" )
       end
     end
 

@@ -58,6 +58,17 @@ module AdvaCategoryTests
       assert_equal [foo, bar], Content.categorized(parent.id)
     end
 
+    test 'uncategorized content scope: includes contents not categorized at all' do
+      uncat = Factory(:content, :title => 'uncategorized')
+      iscat = Factory(:content, :title => 'categorized')
+
+      category = Factory(:category)
+      category.categorizables << iscat
+
+      assert Content.uncategorized.all.include?(uncat), 'uncategorized scope did not find the expected record'
+      assert !Content.uncategorized.all.include?(iscat), 'uncategorized scope did find the unexpected record'
+    end
+
     test 'adding a categorization through nested attributes' do
       foo     = Factory(:category, :name => 'foo')
       bar     = Factory(:category, :name => 'bar')
