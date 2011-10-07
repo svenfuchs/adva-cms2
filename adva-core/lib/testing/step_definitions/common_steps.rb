@@ -249,22 +249,23 @@ Then /^I should see an? ([a-z ]+) form with the following values:$/ do |kind, ta
 end
 
 Then /^I should see a "(.+)" table with the following entries:$/ do |dom_id, expected|
-  actual = table(tableish("table##{dom_id} tr", 'th,td'))
+  actual = build_table("table##{dom_id} tr", 'th,td')
   expected.diff! actual
 end
 
 Then /^I should see a "(.+)" list with the following entries:$/ do |dom_id, expected|
   value_selector = expected.column_names.map {|n| '.' + n.downcase.gsub(/[ _]/, '-') }.join(',')
-  list = tableish("ul##{dom_id} li", value_selector)
-  actual = table( [expected.column_names] + list )
-  actual.column_names.each do |col|
-    actual.map_column!(col) { |text| text.sub(/\n/,' ') }
+  the_list = page.find("ul##{dom_id}")
+  actual_list_items_count = the_list.all("li #{value_selector}").count
+  expected_list_items_count = expected.hashes.count
+  assert_equal expected_list_items_count , actual_list_items_count, "Expected #{expected_list_items_count} list items to be found, but found #{actual_list_items_count}."
+  expected.hashes.each do |attributes|
+    assert the_list.find("li #{value_selector}", :text => attributes[value_selector])
   end
-  expected.diff! actual
 end
 
 Then /^I should see a "(.+)" table with the following entries in no particular order:$/ do |table_id, expected_table|
-  actual_table  = table(tableish("table##{table_id} tr", 'td,th'))
+  actual_table = build_table("table##{table_id} tr", 'th,td')
   expected_rows = expected_table.raw
   actual_rows   = actual_table.raw.transpose.select { |row| expected_rows.first.include?(row.first) }.transpose
   assert_equal expected_rows.to_set, actual_rows.to_set, tables_differ_message(actual_table, expected_table)
@@ -355,5 +356,8 @@ Then /^(?:|I )should not be on (.+)$/ do |page_name|
   end
 end
 
-
-
+def build_table(row_selector, column_selectors)
+  actual_table = page.all(row_selector).map { |row| row.all(column_selectors).map(&:text).map(&:strip) }
+  actual_table = actual_table.reject(&:empty?).compact
+  table(actual_table)
+end
