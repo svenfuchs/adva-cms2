@@ -254,13 +254,18 @@ Then /^I should see a "(.+)" table with the following entries:$/ do |dom_id, exp
 end
 
 Then /^I should see a "(.+)" list with the following entries:$/ do |dom_id, expected|
-  value_selector = expected.column_names.map {|n| '.' + n.downcase.gsub(/[ _]/, '-') }.join(',')
-  the_list = page.find("ul##{dom_id}")
-  actual_list_items_count = the_list.all("li #{value_selector}").count
-  expected_list_items_count = expected.hashes.count
-  assert_equal expected_list_items_count , actual_list_items_count, "Expected #{expected_list_items_count} list items to be found, but found #{actual_list_items_count}."
+  the_list = page.find(:xpath, "//ul[@id='#{dom_id}']")
+  assert the_list.present?, "Expected a list with id '#{dom_id}' to be found, but was not."
+
+  # check that the list has the expected number of list items
+  assert_equal expected.hashes.size , the_list.all(:xpath, "li").size, "Expected #{expected.hashes.size} list items to be found, but found #{the_list.all(:xpath, "li").size}."
+
   expected.hashes.each do |attributes|
-    assert the_list.find("li #{value_selector}", :text => attributes[value_selector])
+    class_content_xpath = attributes.map do |key, value|
+      "[@class='#{key.downcase.gsub(/[ _]/, '-')}'][normalize-space(text())='#{value}']"
+    end.join('/ancestor::li/descendant::*')
+    # check that the descendant nodes, given by their class name, of the list have the expected content
+    assert !the_list.all(:xpath, "li/descendant::*#{class_content_xpath}").empty?
   end
 end
 
