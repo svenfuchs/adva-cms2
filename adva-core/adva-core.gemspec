@@ -26,7 +26,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'inherited_resources', '1.2.2'
   s.add_dependency 'inherited_resources_helpers', '0.0.15'
   s.add_dependency 'minimal', '0.0.26'
-  s.add_dependency 'simple_form', '~> 1.3.0'
+  s.add_dependency 'simple_form', '~> 1.5.2'
   s.add_dependency 'simple_slugs', '0.0.8'
   s.add_dependency 'simple_table', '0.0.18'
   s.add_dependency 'simple_nested_set', '~> 0.1.8'
