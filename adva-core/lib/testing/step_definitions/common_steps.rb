@@ -185,16 +185,6 @@ Then /^I should see a link "([^"]+)"$/ do |link|
   assert page.has_css?('a', :text => link)
 end
 
-Then /^I should not see any ([a-z_ ]+)$/ do |type|
-  assert page.has_no_css?(".#{type.gsub(' ', '_').singularize}")
-end
-
-# FIXME: this step and the ones above do not deal with use perception
-#  for example: "I should see a fn0rd" looks nice, but users cannot see elements, only text
-Then /^I should see an? (\w+)$/ do |type|
-  assert page.has_css?(".#{type}")
-end
-
 Then /^I should see a "([^"]*)" select box with the following options:$/ do |name, options|
   field = find_field(name)
   actual = field.all(:css, 'option').map {|o| o.text }
