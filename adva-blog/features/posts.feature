@@ -37,25 +37,25 @@ Feature: Managing posts
       | Body  | <body>  |
      And I press "Create Post"
     Then I should see "<message>"
-     And I should see an <action> post form with the following values:
+     And I should see a post form with the following values:
       | Title | <title> |
       | Body  | <body>  |
     Examples:
-      | title          | body          | message                   | action |
-      | New post title | New post body | Post successfully created | edit   |
-      | New post title |               | Post successfully created | edit   |
-      |                | New post body | Post could not be created | new    |
+      | title          | body          | message                   |
+      | New post title | New post body | Post successfully created |
+      | New post title |               | Post successfully created |
+      |                | New post body | Post could not be created |
 
   Scenario Outline: Updating a post's settings
     When I follow "Post title"
     Then the title should be "Posts: Edit"
-    Then I should see an edit post form
+    Then I should see a post form
     When I fill in the following:
       | Title | <title> |
       | Body  | <body>  |
      And I press "Update Post"
     Then I should see "<message>"
-     And I should see a edit post form with the following values:
+     And I should see a post form with the following values:
       | Title | <title> |
       | Body  | <body>  |
     Examples:

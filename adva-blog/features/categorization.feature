@@ -19,11 +19,11 @@ Feature: Categorizing blog posts
 
   Scenario: Categorizing an uncategorized post
     When I follow "Uncategorized post"
-    Then I should see a post edit form
+    Then I should see a post form
      And I should see "Categories" within tabs
     When I check "Programming"
      And I press "Update Post"
-    Then I should see a post edit form
+    Then I should see a post form
      And "Programming" should be checked
      But "Design" should not be checked
      And the post titled "Uncategorized post" should be categorized as "Programming"
@@ -43,12 +43,12 @@ Feature: Categorizing blog posts
 
   Scenario: Uncategorizing a categorized post
     When I follow "Post about programming"
-    Then I should see a post edit form
+    Then I should see a post form
      And I should see "Categories" within tabs
      And "Programming" should be checked
     When I uncheck "Programming"
      And I press "Update Post"
-    Then I should see a post edit form
+    Then I should see a post form
      And "Programming" should not be checked
      And "Design" should not be checked
      And the post titled "Post about programming" should not be categorized as "Programming"

@@ -28,23 +28,23 @@ Feature: Managing blog categories
     When I fill in "Name" with "<name>"
      And I press "Create Category"
     Then I should see "<message>"
-     And I should see an <action> category form with the following values:
+     And I should see a category form with the following values:
       | Name | <name> |
     When I follow "Categories"
     Then I should see a categories list
      And I should see "<name>"
     Examples:
-      | name     | message                       | action |
-      | Business | Category successfully created | edit   |
-      |          | Category could not be created | new    |
+      | name     | message                       |
+      | Business | Category successfully created |
+      |          | Category could not be created |
 
   Scenario Outline: Updating a category
     When I follow "Programming"
-    Then I should see an edit category form
+    Then I should see a category form
     When I fill in "Name" with "<name>"
      And I press "Update Category"
     Then I should see "<message>"
-     And I should see a edit category form with the following values:
+     And I should see a category form with the following values:
       | Name | <name> |
     When I follow "Categories"
     Then I should see a categories list

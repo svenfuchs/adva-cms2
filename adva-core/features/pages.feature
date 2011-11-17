@@ -48,13 +48,13 @@ Feature: Managing pages
   Scenario Outline: Updating a page
     When I follow "Contact"
     Then the title should be "Pages: Show"
-    Then I should see an edit page form
+    Then I should see a page form
     When I fill in the following:
       | Name | <name> |
       | Body | <body> |
      And I press "Update Page"
     Then I should see "<message>"
-     And I should see an edit page form
+     And I should see a page form
      And I should see "<name>"
      And I should see "<body>"
     Examples:

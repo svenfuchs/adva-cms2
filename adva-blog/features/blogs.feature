@@ -52,11 +52,11 @@ Feature: Managing blogs
     When I follow "Blog"
      And I follow "Settings" within "#actions"
     Then the title should be "Blogs: Edit"
-    Then I should see an edit blog form
+    Then I should see a blog form
     When I fill in "Name" with "<name>"
      And I press "Update Blog"
     Then I should see "<message>"
-     And I should see an edit blog form
+     And I should see a blog form
      And "Name" should be filled in with "<name>"
     Examples:
       | name         | message                   |
