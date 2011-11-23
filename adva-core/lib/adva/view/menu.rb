@@ -53,9 +53,9 @@ module Adva
         end
 
         def active?(url, options)
-          activate = options.key?(:activate) ? options.delete(:activate) : true
+          return options.delete(:activate) if options.key?(:activate)
           delete   = options[:method] == :delete
-          activate && !delete && active_paths.include?(url)
+          !delete && active_paths.include?(url)
         end
 
         def active_paths
