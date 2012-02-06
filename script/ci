@@ -4,7 +4,7 @@
 export CI=true
 
 RUBY='ruby-1.8.7'
-GEMSET='adva-cms'
+GEMSET='adva-cms2'
 BRANCH=`git log -1 HEAD --format=format:%h`
 
 APP_DIR=`pwd`
@@ -42,12 +42,4 @@ echo "--- bundling"
 bundle check || bundle install || exit 64
 echo "--- bundling finished"
 
-ret=$((0))
-
-bundle exec rake                  || ret=$(($ret+1))
-bundle exec cucumber **/features  || ret=$(($ret+2))
-ruby test/all.rb                  || ret=$(($ret+4))
-
-echo
-echo "fin. (exit code: $ret)"
-exit $ret
+bundle exec rake

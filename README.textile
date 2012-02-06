@@ -29,8 +29,6 @@ this application:
 
 <pre>
   $ REGENERATE_APP=1 rake
-  $ REGENERATE_APP=1 cucumber **/features
-  $ REGENERATE_APP=1 test/all.rb
 </pre>
 
 As long as you don't add any migrations you can now use this application for
@@ -38,8 +36,6 @@ subsequent test runs and just use:
 
 <pre>
   $ rake
-  $ cucumber **/features
-  $ test/all.rb
 </pre>
 
 h3. Generate a new adva engine
