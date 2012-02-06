@@ -16,7 +16,7 @@ module Adva
           end
 
           def updated_record
-            record.tap { |record| record.attributes = attributes }
+            record.tap { |record| record.attributes = attributes.to_hash }
           end
 
           def attributes
