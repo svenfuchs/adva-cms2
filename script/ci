@@ -1,0 +1,53 @@
+#!/bin/bash
+
+# here we go
+export CI=true
+
+RUBY='ruby-1.8.7'
+GEMSET='adva-cms'
+BRANCH=`git log -1 HEAD --format=format:%h`
+
+APP_DIR=`pwd`
+
+export CI_REPORTS="log/reports/"
+export REGENERATE_APP=1
+
+# Install RVM
+rvmrc="$HOME/.rvmrc"
+
+
+cat >> $rvmrc <<-EORC
+rvm_install_on_use_flag=1
+EORC
+sort -u -o $rvmrc $rvmrc
+
+# remove remotely removed branches
+git remote prune origin
+
+# remove files not under versioncontrol
+git clean -fdx
+
+test -f "$HOME/.rvm/scripts/rvm" ||
+  ( bash < <(curl -s https://raw.github.com/wayneeseguin/rvm/master/binscripts/rvm-installer) )  || exit 1024
+
+source "$HOME/.rvm/scripts/rvm" || exit 512
+
+rvm use $RUBY@$GEMSET --create || ( rvm install $RUBY && rvm use $RUBY@$GEMSET --create) || exit 256
+
+which bundle || gem install bundler -v 1.0.21 --no-ri --no-rdoc || exit 128
+
+echo "--- bundling"
+# run bundle install only if bundle check misses something
+# taking out the --relock as we don't change the Gemfile.lock
+bundle check || bundle install || exit 64
+echo "--- bundling finished"
+
+ret=$((0))
+
+bundle exec rake                  || ret=$(($ret+1))
+bundle exec cucumber **/features  || ret=$(($ret+2))
+ruby test/all.rb                  || ret=$(($ret+4))
+
+echo
+echo "fin. (exit code: $ret)"
+exit $ret
