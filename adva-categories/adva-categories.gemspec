@@ -12,7 +12,7 @@ Gem::Specification.new do |s|
   s.summary      = "Categories engine for adva-cms2"
   s.description  = "Categories engine for adva-cms2."
 
-  s.files        = Dir['{app,config,lib,public}/**/*']
+  s.files        = Dir['{app,config,db,lib,public}/**/*']
   s.platform     = Gem::Platform::RUBY
   s.require_path = 'lib'
   s.rubyforge_project = '[none]'
