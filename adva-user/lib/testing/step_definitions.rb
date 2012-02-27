@@ -1,9 +1,9 @@
 Given /^I (?:am signed|sign) in with "([^"]*)" and "([^"]*)"$/ do |email, password|
-  Given %Q~I am on the sign in page~
+  Given %(I am on the sign in page)
   # use ids to be flexible about label changes
-   When %Q~I fill in "user_email" with "#{email}"~
-    And %Q~I fill in "user_password" with "#{password}"~
-    And %Q~I press "Sign in"~
+   When %(I fill in "user_email" with "#{email}")
+    And %(I fill in "user_password" with "#{password}")
+    And %(I press "Sign in")
   @user = User.find_by_email(email)
 end
 
@@ -26,10 +26,8 @@ end
 #
 # Please set the passwort if the user only for auth tests
 Given /^I (?:am signed|sign) in as #{capture_model}$/ do |user|
-  unless user.include?('the') || user.include?('"')
-    Given %{#{user} exists}
-  end
+  Given %(#{user} exists) unless user.include?('the') || user.include?('"')
   user = model!(user)
-  And %Q~I am signed in with "#{user.email}" and "#{Factory::DefaultPassword}"~
+  And %(I am signed in with "#{user.email}" and "#{Factory::DefaultPassword}")
 end
 
