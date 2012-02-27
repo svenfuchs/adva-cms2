@@ -78,6 +78,7 @@ module Adva
 
         def load_environment
           puts "Loading environment ..."
+          $: << root
           in_root { require "config/environment" }
         end
 

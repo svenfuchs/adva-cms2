@@ -6,6 +6,11 @@ require 'patches/thor/group/symbolized_options'
 module Adva
   module Tasks
     class Static
+      def self.load_environment
+        $: << '.'
+        require 'config/environment'
+      end
+
       class Setup < Thor::Group
         namespace 'adva:static:setup'
         desc 'Setup a static version of your site'
@@ -16,7 +21,7 @@ module Adva
         class_option :remote, :required => false, :banner => 'github repository url (defaults to none)'
 
         def export
-          require 'config/environment'
+          Static.load_environment
           Adva::Static::Setup.new(symbolized_options).run
         end
       end
@@ -27,7 +32,7 @@ module Adva
         class_option :source, :required => false
 
         def import
-          require 'config/environment'
+          Static.load_environment
           Adva::Static::Import.new(symbolized_options).run
         end
       end
@@ -39,7 +44,7 @@ module Adva
         class_option :config, :required => false
 
         def export
-          require 'config/environment'
+          Static.load_environment
           Adva::Static::Export.new(Rails.application, symbolized_options).run
         end
       end
@@ -52,7 +57,7 @@ module Adva
         class_option :config, :required => false
 
         def export
-          require 'config/environment'
+          Static.load_environment
           Adva::Static::Import.new(symbolized_options).run
           Adva::Static::Export.new(Rails.application, symbolized_options).run
         end
