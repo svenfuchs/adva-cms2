@@ -18,9 +18,7 @@ Gem::Specification.new do |s|
   s.rubyforge_project = '[none]'
 
   s.add_dependency 'adva-core'
-  s.add_dependency 'adva-blog'
   s.add_dependency 'adva-cache'
-  s.add_dependency 'adva-categories'
   s.add_dependency 'adva-markup'
 
   s.add_dependency 'nokogiri'
