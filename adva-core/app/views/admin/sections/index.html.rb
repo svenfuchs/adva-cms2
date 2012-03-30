@@ -8,7 +8,7 @@ class Admin::Sections::Index < Minimal::Template
     		t.row(:class => 'section') do |r, section|
     			r.add_class "level_#{section.level}"
     			r.cell link_to_section(section)
-          r.cell links_to_actions([:view, :edit, :destroy], section)
+          r.cell links_to_actions([:view, :destroy], section)
     		end
     	end
     end
