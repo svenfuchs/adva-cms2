@@ -4,7 +4,7 @@ ActionView::Helpers::FormBuilder.send :include do
   def has_many_through_collection_check_boxes(attribute, collection, label_attribute)
     return if collection.empty?
     through_class = object.class.reflect_on_association(attribute).class_name.constantize
-    foreign_key = through_class.reflect_on_all_associations(:belongs_to).detect { |r| r.class_name != object.class.name }.primary_key_name
+    foreign_key = through_class.reflect_on_all_associations(:belongs_to).detect { |r| !object.is_a? r.klass }.primary_key_name
 
     item_class = collection.first.class.name.underscore.gsub('/', '_')
     # TODO: wouldn't it be better to render the checkboxes as a list(iw)
