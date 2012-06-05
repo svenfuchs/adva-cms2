@@ -3,7 +3,7 @@
 # see https://rails.lighthouseapp.com/projects/8994-ruby-on-rails/tickets/2986-polymorphic_url-should-handle-sti-better
 #
 # FIXME: this should not blindly overwrite ActionDispatch::Routing::PolymorphicRoutes.build_named_route_call
-Gem.patching('rails', '3.0.9') do
+Gem.patching('rails', '3.0.13') do
   require 'action_dispatch/routing/polymorphic_routes'
 
   ActionDispatch::Routing::PolymorphicRoutes.module_eval do
