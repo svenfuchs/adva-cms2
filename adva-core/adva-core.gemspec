@@ -17,7 +17,7 @@ Gem::Specification.new do |s|
   s.require_path = 'lib'
   s.rubyforge_project = '[none]'
 
-  s.add_dependency 'rails', '3.0.9'
+  s.add_dependency 'rails', '~> 3.0.9'
   s.add_dependency 'rake', '0.9.2'
   s.add_dependency 'i18n', '0.5.0'
   s.add_dependency 'activesupport-slices', '0.0.2'
