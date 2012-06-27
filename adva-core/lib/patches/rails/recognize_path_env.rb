@@ -2,7 +2,7 @@
 #
 # FIXME: patch this better, do not override the whole method
 
-Gem.patching('rails', '3.0.13') do
+Gem.patching('rails', '3.0.15') do
   require 'action_dispatch/routing/mapper'
   require 'action_dispatch/routing/route_set'
 

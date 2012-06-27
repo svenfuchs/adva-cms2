@@ -2,7 +2,7 @@
 # if arity allows it. so we can use param names in routes and distinguish them
 # in the model.
 
-Gem.patching('rails', '3.0.13') do
+Gem.patching('rails', '3.0.15') do
   require 'action_dispatch/routing/route_set'
 
   ActionDispatch::Routing::RouteSet::Generator.class_eval do

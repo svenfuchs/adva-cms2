@@ -3,7 +3,7 @@
 #
 # See https://rails.lighthouseapp.com/projects/8994-ruby-on-rails/tickets/5969-bump-i18n-and-make-translationhelper-use-new-rescue_format-option#ticket-5969-8
 # can be removed in 3.1
-Gem.patching('rails', '3.0.13') do
+Gem.patching('rails', '3.0.15') do
   ActionView::Helpers::TranslationHelper.module_eval do
     def translate(key, options = {})
       options.merge!(:rescue_format => :html) unless options.key?(:rescue_format)
