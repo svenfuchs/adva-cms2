@@ -7,7 +7,7 @@ require 'factory_girl'
 require 'mocha'
 require 'fakefs/safe'
 require 'stringio'
-require 'ruby-debug'
+# require 'ruby-debug'
 
 ENV['RAILS_ENV'] = 'test'
 
